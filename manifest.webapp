@@ -1,0 +1,22 @@
+{
+  "version": "0.1",
+  "name": "Run-Bike-Hike",
+  "description": "Run-Bike-Hike helps you when you want to keep a record of your running sessions, when you want to visualize where you have been biking all afternoon...",
+  "launch_path": "/index.html",
+  "icons": {
+    "48": "/img/icon48.png",
+    "60": "/img/icon60.png",
+    "128": "/img/icon128.png"
+  },
+  "developer": {
+    "name": "Nicolas Delebecque",
+    "url": "http://www.github.com/nicodel"
+  },
+  "permissions": {
+    "geolocation": {
+      "description": "Required to locate the user's device"
+    }
+  },
+  "installs_allowed_from": ["*"],
+  "default_locale": "en"
+}
