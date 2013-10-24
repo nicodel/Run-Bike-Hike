@@ -74,19 +74,19 @@
       <button data-l10n-id="btn-stop" id="btn-stop" class="button button-negative hidden">STOP</button>
       <ul>
         <li>
-          <div data-l10n-id="infos-time" >Elapsed time</div>
+          <div data-l10n-id="elapsed-time" >Elapsed time</div>
           <div></div>
         </li>
         <li>
-          <div data-l10n-id="infos-distance" >Distance</div>
+          <div data-l10n-id="distance" >Distance</div>
           <div></div>
         </li>
         <li>
-          <div data-l10n-id="infos-speed" >Speed</div>
+          <div data-l10n-id="speed" >Speed</div>
           <div></div>
         </li>
         <li>
-          <div data-l10n-id="infos-alt" >Altitude</div>
+          <div data-l10n-id="altitude" >Altitude</div>
           <div></div>
         </li>
       </ul>
@@ -116,16 +116,27 @@
       <article>
       <ul>
         <li>
-          <div data-l10n-id="trk-date">Date</div>
+          <div data-l10n-id="date">Date</div>
           <span id="trk-date"></span>
         </li>
         <li>
-          <div data-l10n-id="trk-date">Distance</div>
+          <div data-l10n-id="distance">Distance</div>
           <span id="trk-dist"></span>
         </li>
         <li>
-          <div data-l10n-id="trk-date">Duration</div>
+          <div data-l10n-id="duration">Duration</div>
           <span id="trk-dur"></span>
+        </li>
+        <li>
+          <div data-l10n-id="map" id="trk-dt-map">Map</div>
+        </li>
+        <li>
+          <div data-l10n-id="altitude" id="trk-dt-alt">Altitude</div>
+          <canvas id="alt-canvas"></canvas>
+        </li>
+        <li>
+          <div data-l10n-id="speed" id="trk-dt-speed">Speed</div>
+          <canvas id="speed-canvas"></canvas>
         </li>
       </ul>
       </article>
