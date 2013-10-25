@@ -101,6 +101,20 @@
       <footer class="toolbar">
       </footer>
     </section>
+    
+    <!-- Stop the track confirmation dialog -->
+    <form role="dialog" data-type="confirm" id="stop-track" onsubmit="return false;">
+      <section>
+        <h1 data-l10n-id="confirmation">Confirmation</h1>
+        <p>
+          <span data-l10n-id="stop-track-desc" data-l10n-args='{"n":"0"}'>Are you sure you want to stop recording this track?</span>
+        </p>
+      </section>
+      <menu>
+        <button class="cancel" data-l10n-id="cancel">Cancel</button>
+        <button role="button" class="danger" data-l10n-id="delete">Delete</button>
+      </menu>
+    </form>
 
     <!-- Tracks View -->
     <section>
