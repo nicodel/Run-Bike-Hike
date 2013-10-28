@@ -1,0 +1,15 @@
+button.small {
+	max-width: 25%;
+}
+
+.align-left {
+  float: left;
+  margin-left: 8px;
+}
+.align-right {
+  float: right;
+  margin-right: 8px;
+}
+.align-center {
+  text-align: center;
+}

@@ -3,11 +3,38 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-    <title>Bike Run Hike</title>
+    <title data-l10n-id="title">Bike Run Hike</title>
+    <link rel="shortcut icon" sizes="128x128" href="img/icons/128.png" type="image/png" /
 
+    <meta name="mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <link rel="apple-touch-icon" href="img/icons/128.png"/>
+
+    <!-- Reset -->
+    <link rel="stylesheet" type="text/css" href="css/reset.css"/>
+
+    <!-- Firefox OS Building Blocks -->
+    <link rel="stylesheet" type="text/css" href="css/building_blocks/util.css">
+    <link rel="stylesheet" type="text/css" href="css/building_blocks/transitions.css">
+    <link rel="stylesheet" type="text/css" href="css/building_blocks/style/action_menu.css">
+    <link rel="stylesheet" type="text/css" href="css/building_blocks/style/buttons.css">
+    <link rel="stylesheet" type="text/css" href="css/building_blocks/style/confirm.css">
+    <link rel="stylesheet" type="text/css" href="css/building_blocks/style/edit_mode.css">
+    <link rel="stylesheet" type="text/css" href="css/building_blocks/style/status.css">
+    <link rel="stylesheet" type="text/css" href="css/building_blocks/style/headers.css">
+    <link rel="stylesheet" type="text/css" href="css/building_blocks/style_unstable/lists.css">
+
+    <!-- Fonts -->
+    <link rel="stylesheet" href="css/fonts.css"/>
+
+    <!-- My own Style ! -->
+    <link rel="stylesheet" href="css/app.css"/>
+    <link rel="stylesheet" href="css/styles.css"/>
+    
     <!-- Localization -->
-    <script type="text/javascript" src="lib/webL10n/l10n.js"></script>
-    <link rel="prefetch" type="application/l10n" href="data.ini" />
+    <!-- <link rel="prefetch" type="application/l10n" href="locales/data.ini" />
+    <script type="text/javascript" src="lib/webL10n/l10n.js"></script> -->
+
 
   </head>
   <body id="app">
@@ -15,112 +42,186 @@
     <img id="gps-status" src="img/gps_white.png" alt="Geolocation status" />
 
     <!-- Home View -->
-    <section>
-      <header class="toolbar">
-        <a id="btn-settings" src="img/settings.png" alt="Settings"></a>
-        <h1 data-l10n-id="brh-title">Run, Bike, Hike</h1>
+    <section role="region" id="homeView" data-position="current">
+      <header>
+        <menu type="toolbar">
+          <button data-l10n-id="install" id="install" style="display:none;">Install</button>
+        </menu>
+        <h1 data-l10n-id="title">Run, Bike, Hike ...</h1>
       </header>
-      <article>
-        <button data-l10n-id="btn-start" id="btn-start" class="button button-affirmative hidden">START</button>
+      <div class="compass-container">
+        <img class="compass" src="img/compass_inactive.png" alt="Compass" />
+        <button data-l10n-id="btn-start" id="btn-start" class="recommend small align-right">Start</button>
+      </div>
+      <ul>
+        <li>
+          <div data-l10n-id="latitude">
+            Latitude
+            <span id="home-lat"></span>
+          </div>
+        </li>
+        <li>
+          <div data-l10n-id="longitude">
+            Longitude
+            <span id="home-lon"></span>
+          </div>
+        </li>
+        <li>
+          <div data-l10n-id="altitude">
+            Altitude
+            <span id="home-alt"></span>
+          </div>
+        </li>
+        <li>
+          <div data-l10n-id="accuracy">
+            Accuracy
+            <span id="home-acc"></span>
+          </div>
+        </li>
+      </ul>
+      <div id="message-area">
+        <progress class="align-center" id="spinner"></progress>
+        <p id="msg">Retreiving GPS signal. It may take some time...</p>
+      </div>
+      <footer role="toolbar">
         <ul>
-          <li>
-            <div data-l10n-id="latitude">Latitude</div>
-            <div data-l10n-id="" id="home-lat"></div>
-          </li>
-          <li>
-            <div data-l10n-id="longitude">Longitude</div>
-            <div data-l10n-id="" id="home-lon"></div>
-          </li>
-          <li>
-            <div data-l10n-id="altitude">Altitude</div>
-            <div data-l10n-id="" id="home-alt"></div>
-          </li>
-          <li>
-            <div data-l10n-id="accuracy">Accuracy</div>
-            <div data-l10n-id="" id="home-acc"></div>
-          </li>
-          <li>
-            <div data-l10n-id="vaccuracy">Vertical accuracy</div>
-            <div data-l10n-id="" id="home-vacc"></div>
-          </li>
+          <li><button id="btn-settings" class="icon-settings">Settings</button></li>
+          <li><button id="btn-tracks" class="icon-tracks"> Tracks</button></li>
         </ul>
-      </article>
-      <footer class="toolbar">
-        <a id="btn-tracks" src="img/tracks.png" alt="Show recorded tracks"></a>
       </footer>
     </section>
 
     <!-- Settings View -->
-    <section>
-      <header class="toolbar">
-        <h1 data-l10n-id="brh-settings">BRH: Settings</h1>
+    <section role="region" class="skin-organic settings" id="settingsView" data-position="right">
+      <header>
+        <a><span class="icon icon-back">Back</span></a>
+        <h1 data-l10n-id="settings">Settings</h1>
       </header>
-      <article>
-        <ul>
-          <li>
-            <div data-l10n-id="distance-unit">Distance unit</div>
-          </li>
-          <li>
-            <div data-l10n-id="speed-unit">Speed unit</div>
-          </li>
-        </ul>
-      </article>
-      <footer class="toolbar">
-        <a id="btn-settings-save" data-l10n-id="save">Save</a>
-        <a id="btn-settings-cancel" data-l10n-id="cancel">Cancel</a>
-      </footer>
+      <ul>
+        <li>
+          <p class="select">
+            <button id="language" class="icon icon-dialog">Language</button>
+            <select id="language-select" name="language">
+              <option value="en-US">English</option>
+              <option value="es-ES">Español</option>
+              <option value="fr">Français</option>
+            </select>
+          </p>
+        </li>
+        <li>
+          <p class="select">
+            <button id="distance-unit" class="icon icon-dialog">Distance unit</button>
+            <select id="distance-unit" name="distance-unit">
+              <!-- <option value="en-US">English</option>
+              <option value="es-ES">Español</option>
+              <option value="fr">Français</option> -->
+            </select>
+          </p>
+        </li>
+        <li>
+          <p class="select">
+            <button id="speed-unit" class="icon icon-dialog">Distance unit</button>
+            <select id="speed-unit-select" name="speed-unit">
+              <!-- <option value="en-US">English</option>
+              <option value="es-ES">Español</option>
+              <option value="fr">Français</option> -->
+            </select>
+          </p>
+        </li>
+        <li>
+          <p class="select">
+            <button id="position-format" class="icon icon-dialog">Position format</button>
+            <select id="position-format-select" name="position-format">
+              <!-- <option value="en-US">English</option>
+              <option value="es-ES">Español</option>
+              <option value="fr">Français</option> -->
+            </select>
+          </p>
+        </li>
+        <li>
+          <p class="select">
+            <button id="date-format" class="icon icon-dialog">Date format</button>
+            <select id="date-format-select" name="date-format">
+              <!-- <option value="en-US">English</option>
+              <option value="es-ES">Español</option>
+              <option value="fr">Français</option> -->
+            </select>
+          </p>
+        </li>
+      </ul>
     </section>
 
     <!-- Infos View -->
-    <section>
-      <header class="toolbar">
-        <h1 data-l10n-id="brh-tracking">BRH: Tracking</h1>
+    <section role="region" id="infosView"  data-position="right">
+      <header>
+        <h1 data-l10n-id="rbh-tracking">Tracking...</h1>
       </header>
-      <article>
-      <button data-l10n-id="btn-stop" id="btn-stop" class="button button-negative hidden">STOP</button>
+      <div class="compass-container">
+        <img class="compass" src="img/compass.png" alt="Compass" />
+        <button data-l10n-id="btn-stop" id="btn-stop" class="button button-negative hidden">Stop</button>
+      </div>
       <ul>
         <li>
-          <div data-l10n-id="elapsed-time" >Elapsed time</div>
-          <div></div>
+          <div data-l10n-id="elapsed-time">
+            Elapsed time
+            <span id="infos-elapsed"></span>
+          </div>
         </li>
         <li>
-          <div data-l10n-id="distance" >Distance</div>
-          <div></div>
+          <div data-l10n-id="distance">
+            Distance
+            <span id="infos-dist"></span>
+          </div>
         </li>
         <li>
-          <div data-l10n-id="speed" >Speed</div>
-          <div></div>
+          <div data-l10n-id="speed">
+            Speed
+            <span id="infos-speed"></span>
+          </div>
         </li>
         <li>
-          <div data-l10n-id="altitude" >Altitude</div>
-          <div></div>
+          <div data-l10n-id="altitude">
+            Altitude
+            <span id="infos-alt"></span>
+          </div>
         </li>
       </ul>
-      <img src="img/compass.png" id="compass" />
-      </article>
       <footer class="toolbar">
       </footer>
     </section>
     
     <!-- Stop the track confirmation dialog -->
-    <form role="dialog" data-type="confirm" id="stop-track" onsubmit="return false;">
-      <section>
-        <h1 data-l10n-id="confirmation">Confirmation</h1>
-        <p>
-          <span data-l10n-id="stop-track-desc" data-l10n-args='{"n":"0"}'>Are you sure you want to stop recording this track?</span>
-        </p>
-      </section>
-      <menu>
-        <button class="cancel" data-l10n-id="cancel">Cancel</button>
-        <button role="button" class="danger" data-l10n-id="delete">Delete</button>
-      </menu>
-    </form>
+    <section id="stop-track" data-position="back" class="fullscreen">
+      <form role="dialog" data-type="confirm" onsubmit="return false;">
+        <section>
+          <h1 data-l10n-id="confirmation">Confirmation</h1>
+          <p>
+            <span data-l10n-id="stop-track-desc" data-l10n-args='{"n":"0"}'>Are you sure you want to stop recording this track?</span>
+          </p>
+        </section>
+        <menu>
+          <button class="cancel" data-l10n-id="cancel">Cancel</button>
+          <button role="button" class="danger" data-l10n-id="delete">Delete</button>
+        </menu>
+      </form>
+    </section>
+
+    <!-- Track successfully stored dialog -->
+    <section role="status" id="storeSuccessView">
+      <p data-l10n-id="track-success-stored">The track <span id="track-name"><strong></strong></span> has been successfully stored.</p>
+    </section>
+
+    <!-- Failed to store track dialog -->
+    <section role="status" id="storeFailedView">
+      <p>Error saving track <span id="track-name"><strong></strong></span> to database.</p>
+    </section>
+
 
     <!-- Tracks View -->
-    <section>
-      <header class="toolbar">
-        <a id="btn-tracks-back" dsrc="/img/back.png" alt="Back"></a>
-        <h1 data-l10n-id="brh-tracks">BRH: Tracks</h1>
+    <section role="region" data-position="right">
+      <header>
+        <a><span class="icon icon-back">Back</span></a>
+        <h1 data-l10n-id="recorded-tracks">Recorded tracks</h1>
       </header>
       <article>
       <ul id="tracks-list"></ul>
@@ -130,24 +231,30 @@
     </section>
 
     <!-- Track View -->
-    <section>
-      <header class="toolbar">
-        <a id="btn-track-back" dsrc="/img/back.png" alt="Back"></a>
-        <h1 data-l10n-id="brh-track">BRH: Track</h1>
+    <section role="region" data-position="right">
+      <header>
+        <a><span class="icon icon-back">Back</span></a>
+        <h1 data-l10n-id="track">Track:</h1>
       </header>
       <article>
       <ul>
         <li>
-          <div data-l10n-id="date">Date</div>
-          <span id="trk-date"></span>
+          <div data-l10n-id="date">
+            Date
+            <span id="trk-date"></span>
+          </div>
         </li>
         <li>
-          <div data-l10n-id="distance">Distance</div>
-          <span id="trk-dist"></span>
+          <div data-l10n-id="distance">
+            Distance
+            <span id="trk-dist"></span>
+          </div>
         </li>
         <li>
-          <div data-l10n-id="duration">Duration</div>
-          <span id="trk-dur"></span>
+          <div data-l10n-id="duration">
+            Duration
+            <span id="trk-dur"></span>
+          </div>
         </li>
         <li>
           <div data-l10n-id="map" id="trk-dt-map">Map</div>
@@ -163,10 +270,27 @@
       </ul>
       </article>
       <footer class="toolbar">
-        <a id="btn-tracks-share" dsrc="/img/share.png" alt="Share"></a>
-        <a id="btn-tracks-delete" dsrc="/img/delete.png" alt="Delete"></a>
-        <a id="btn-tracks-edit" dsrc="/img/edit.png" alt="Edit"></a>
+        <ul>
+          <li><button class="icon icon-delete">Delete</button></li>
+          <li><button class="icon icon-share">Share</button></li>
+          <li><button class="icon icon-edit">Edit</button></li>
+        </ul>
       </footer>
     </section>
+
+    <script type="text/javascript" src="lib/lazyload/lazyload-min.js"></script>
+    <script type="text/javascript">
+      /*LazyLoad.js([
+        'js/app/controller.js',
+        'js/app/config.js',
+        'js/models/geolocation.js',
+        'js/models/track.js',
+        'js/views/home.js',
+        'js/views/tracking-infos.js',
+        'js/app/app.js'
+        ]);
+      */
+    </script>
+
   </body>
 </html>
