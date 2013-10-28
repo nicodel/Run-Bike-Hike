@@ -23,6 +23,9 @@
     <link rel="stylesheet" type="text/css" href="css/building_blocks/style/status.css">
     <link rel="stylesheet" type="text/css" href="css/building_blocks/style/headers.css">
     <link rel="stylesheet" type="text/css" href="css/building_blocks/style_unstable/lists.css">
+    <link rel="stylesheet" type="text/css" href="css/building_blocks/style_unstable/toolbars.css">
+
+    <link rel="stylesheet" type="text/css" href="css/building_blocks/icons/styles/action_icons.css">
 
     <!-- Fonts -->
     <link rel="stylesheet" href="css/fonts.css"/>
@@ -38,8 +41,6 @@
 
   </head>
   <body id="app">
-    <!-- Geolocatiuon Status Icon -->
-    <img id="gps-status" src="img/gps_white.png" alt="Geolocation status" />
 
     <!-- Home View -->
     <section role="region" id="homeView" data-position="current">
@@ -47,7 +48,8 @@
         <menu type="toolbar">
           <button data-l10n-id="install" id="install" style="display:none;">Install</button>
         </menu>
-        <h1 data-l10n-id="title">Run, Bike, Hike ...</h1>
+        <h1 data-l10n-id="title" class="align-left">Run, Bike, Hike ...</h1>
+        <img class="gps-status align-right" src="img/gps_white.png" alt="Geolocation status" />
       </header>
       <div class="compass-container">
         <img class="compass" src="img/compass_inactive.png" alt="Compass" />
@@ -85,18 +87,23 @@
       </div>
       <footer role="toolbar">
         <ul>
-          <li><button id="btn-settings" class="icon-settings">Settings</button></li>
-          <li><button id="btn-tracks" class="icon-tracks"> Tracks</button></li>
+          <li><button id="btn-settings" class="action-icon settings">Settings</button></li>
+        </ul>
+        <ul>
+          <li><button id="btn-tracks" class="action-icon menu">Tracks</button></li>
         </ul>
       </footer>
     </section>
 
     <!-- Settings View -->
-    <section role="region" class="skin-organic settings" id="settingsView" data-position="right">
+    <section role="region" class="skin-organic settings" id="settingsview" data-position="right">
       <header>
-        <a><span class="icon icon-back">Back</span></a>
+        <a id="btn-settings-back" href="#">
+          <span class="icon icon-back">Back</span>
+        </a>
         <h1 data-l10n-id="settings">Settings</h1>
       </header>
+       
       <ul>
         <li>
           <p class="select">
@@ -108,13 +115,10 @@
             </select>
           </p>
         </li>
-        <li>
+        <!--<li>
           <p class="select">
             <button id="distance-unit" class="icon icon-dialog">Distance unit</button>
             <select id="distance-unit" name="distance-unit">
-              <!-- <option value="en-US">English</option>
-              <option value="es-ES">Español</option>
-              <option value="fr">Français</option> -->
             </select>
           </p>
         </li>
@@ -122,9 +126,6 @@
           <p class="select">
             <button id="speed-unit" class="icon icon-dialog">Distance unit</button>
             <select id="speed-unit-select" name="speed-unit">
-              <!-- <option value="en-US">English</option>
-              <option value="es-ES">Español</option>
-              <option value="fr">Français</option> -->
             </select>
           </p>
         </li>
@@ -132,9 +133,6 @@
           <p class="select">
             <button id="position-format" class="icon icon-dialog">Position format</button>
             <select id="position-format-select" name="position-format">
-              <!-- <option value="en-US">English</option>
-              <option value="es-ES">Español</option>
-              <option value="fr">Français</option> -->
             </select>
           </p>
         </li>
@@ -142,12 +140,9 @@
           <p class="select">
             <button id="date-format" class="icon icon-dialog">Date format</button>
             <select id="date-format-select" name="date-format">
-              <!-- <option value="en-US">English</option>
-              <option value="es-ES">Español</option>
-              <option value="fr">Français</option> -->
             </select>
           </p>
-        </li>
+        </li> -->
       </ul>
     </section>
 
@@ -218,9 +213,11 @@
 
 
     <!-- Tracks View -->
-    <section role="region" data-position="right">
+    <section role="region" id="tracksView" data-position="right">
       <header>
-        <a><span class="icon icon-back">Back</span></a>
+        <a id="btn-tracks-back" href="#">
+          <span class="icon icon-back">Back</span>
+        </a>
         <h1 data-l10n-id="recorded-tracks">Recorded tracks</h1>
       </header>
       <article>
@@ -280,16 +277,12 @@
 
     <script type="text/javascript" src="lib/lazyload/lazyload-min.js"></script>
     <script type="text/javascript">
-      /*LazyLoad.js([
-        'js/app/controller.js',
-        'js/app/config.js',
-        'js/models/geolocation.js',
-        'js/models/track.js',
-        'js/views/home.js',
-        'js/views/tracking-infos.js',
-        'js/app/app.js'
+      LazyLoad.js([
+        'js/views/home-view.js',
+        'js/views/settings-view.js',
+        'js/views/tracks-view.js',
+        'js/app.js'
         ]);
-      */
     </script>
 
   </body>
