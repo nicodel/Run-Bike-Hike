@@ -5,8 +5,8 @@ var TracksView = function() {
   * Back button
   */
   document.querySelector("#btn-tracks-back").addEventListener ("click", function () {
-    document.querySelector("#homeView").className = "current";
-    document.querySelector("[data-position='current']").className = "right";
+    document.querySelector("#tracksView").className = "right";
+    document.querySelector("[data-position='current']").className = "current";
   });
 
 

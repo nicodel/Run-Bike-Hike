@@ -96,7 +96,7 @@
     </section>
 
     <!-- Settings View -->
-    <section role="region" class="skin-organic settings" id="settingsview" data-position="right">
+    <section role="region" class="skin-dark" id="settingsView" data-position="right">
       <header>
         <a id="btn-settings-back" href="#">
           <span class="icon icon-back">Back</span>
@@ -115,7 +115,7 @@
             </select>
           </p>
         </li>
-        <!--<li>
+        <li>
           <p class="select">
             <button id="distance-unit" class="icon icon-dialog">Distance unit</button>
             <select id="distance-unit" name="distance-unit">
@@ -142,7 +142,7 @@
             <select id="date-format-select" name="date-format">
             </select>
           </p>
-        </li> -->
+        </li>
       </ul>
     </section>
 
@@ -153,7 +153,7 @@
       </header>
       <div class="compass-container">
         <img class="compass" src="img/compass.png" alt="Compass" />
-        <button data-l10n-id="btn-stop" id="btn-stop" class="button button-negative hidden">Stop</button>
+        <button data-l10n-id="btn-stop" id="btn-stop" class="danger small align-right">Stop</button>
       </div>
       <ul>
         <li>
@@ -186,7 +186,7 @@
     </section>
     
     <!-- Stop the track confirmation dialog -->
-    <section id="stop-track" data-position="back" class="fullscreen">
+    <section id="stopTrackingConfirmation" data-position="back" class="fullscreen">
       <form role="dialog" data-type="confirm" onsubmit="return false;">
         <section>
           <h1 data-l10n-id="confirmation">Confirmation</h1>
@@ -195,8 +195,8 @@
           </p>
         </section>
         <menu>
-          <button class="cancel" data-l10n-id="cancel">Cancel</button>
-          <button role="button" class="danger" data-l10n-id="delete">Delete</button>
+          <button id="btn-cancel-stop" class="cancel" data-l10n-id="cancel">Cancel</button>
+          <button id="btn-confirm-stop" role="button" class="danger" data-l10n-id="confirm">Confirm</button>
         </menu>
       </form>
     </section>
@@ -221,16 +221,31 @@
         <h1 data-l10n-id="recorded-tracks">Recorded tracks</h1>
       </header>
       <article>
-      <ul id="tracks-list"></ul>
+      <section data-type="list">
+        <ul>
+          <li>
+            <a id="test-track">
+              <p>
+                <span class="align-left">Track name</span>
+                <span class="align-right">20 January 2013</span>
+              </p>
+              <p class="new-line">
+                <span class="align-left">21 km</span>
+                <span class="align-right">23 min</span>
+            </p>
+            </a>
+          </li>
+        </ul>
+      </section>
       </article>
       <footer class="toolbar">
       </footer>
     </section>
 
     <!-- Track View -->
-    <section role="region" data-position="right">
+    <section role="region" id="trackView" data-position="right">
       <header>
-        <a><span class="icon icon-back">Back</span></a>
+        <a><span id="btn-track-back" class="icon icon-back">Back</span></a>
         <h1 data-l10n-id="track">Track:</h1>
       </header>
       <article>
@@ -281,6 +296,9 @@
         'js/views/home-view.js',
         'js/views/settings-view.js',
         'js/views/tracks-view.js',
+        'js/views/track-view.js',
+        'js/views/infos-view.js',
+        'js/views/stop-tracking-view.js',
         'js/app.js'
         ]);
     </script>

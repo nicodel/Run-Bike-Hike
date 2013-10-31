@@ -13,3 +13,7 @@ button.small {
 .align-center {
   text-align: center;
 }
+
+.new-line {
+  clear: both;
+}
