@@ -6,7 +6,7 @@ var SettingsView = function() {
   */
   document.querySelector("#btn-settings-back").addEventListener ("click", function () {
     document.querySelector("#settingsView").className = "right";
-    document.querySelector("[data-position='current']").className = "current";
+    document.querySelector("#homeView").className = "current";
   });
 
 
