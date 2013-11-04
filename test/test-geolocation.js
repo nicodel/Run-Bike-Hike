@@ -12,7 +12,7 @@ test.geolocation = function() {
   }
 
   function getCurrentPosition(successCallback, errorCallback) {
-    pausecomp(2000);
+    // pausecomp(2000);
     console.log("test - get current position");
     if (successCallback && typeof(successCallback) === "function") {
       successCallback(test.gpspoint);
@@ -42,7 +42,7 @@ test.geolocation = function() {
       date = date + 1000;
       //~ console.log("test - watch point", point);
       successCallback(point);
-      if (i++ == testgeo.track.length) {
+      if (i++ == test.gpstrack.length) {
         window.clearTimeout(wait);
         return;
       }

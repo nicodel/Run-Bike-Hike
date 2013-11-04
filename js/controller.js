@@ -7,14 +7,28 @@ define([
        "views/track-view",
        "views/tracks-view",
        "models/config",
-       "models/geolocation"
+       "models/geolocation",
+       "models/tracks",
+       "models/db"
        ],
-       function(HomeView, Geolocation){
+       function(HomeView,
+                InfosView,
+                SettingsView,
+                StopTrackingView,
+                TrackView,
+                TracksView,
+                Config,
+                Geolocation,
+                Tracks,
+                DB){
 
-
+  function init() {
+    Geolocation.init();
+    DB.init();
+  }
   function locationChanged(inPosition){
     console.log("Position found");
-    HomeView.hideSpinner();
+    // HomeView.hideSpinner();
     HomeView.updateInfos(inPosition);
   }
   function locationError(inError){
@@ -25,8 +39,18 @@ define([
   function startWatch(){
     // TrackModel.create();
     Geolocation.startWatch();
+    Tracks.open();
+    nb_point = 0;
   }
-  function stopWatch(){}
+  function stopWatch(){
+    // Clear the watch
+    Geolocation.stopWatch();
+    // Close track
+    var track = Tracks.close();
+    // Save to DB
+    DB.addTrack(track);
+  }
+
   function positionChanged(inPosition){
 
     var event = inPosition.coords;
@@ -57,25 +81,31 @@ define([
     console.log("current_track.duration", current_track.duration);
 
     // display compas
-    ui.display_compass(event);
+    // ui.display_compass(event);
 
     // updating UI
-    nb_point = nb_point + 1;
+    nb_point =+ 1;
     //~ console.log("nb_point:", nb_point);
-    ui.update_trk_infos(inPosition, current_track.distance, nb_point);
+    // ui.update_trk_infos(inPosition, current_track.distance, nb_point);
 
     // appending gps point
-    // current_track.data.push({latitude:lat, longitude:lon, altitude:alt, date:date, speed:speed, accuracy:horizAccuracy, vertAccuracy:vertAccuracy});
-    //~ current_track.data.push([lat, lon, alt, date, speed, horizAccuracy, vertAccuracy]);
-    // DB.append_track(lat, lon, alt, date, speed, horizAccuracy, vertAccuracy);
-    //~ console.log("current_track:", current_track);
-    // TrackModel.addNode({latitude:lat, longitude:lon, altitude:alt, date:date, speed:speed, accuracy:horizAccuracy, vertAccuracy:vertAccuracy});
+    var gps_point = {
+      latitude:lat,
+      longitude:lon,
+      altitude:alt,
+      date:date,
+      speed:speed,
+      accuracy:horizAccuracy,
+      vertAccuracy:vertAccuracy
+    };
+    Tracks.addNode(gps_point);
+    
     olat = lat;
     olon = lon;
   }
 
   return {
-    // init: init,
+    init: init,
     locationChanged: locationChanged,
     locationError: locationError,
     startWatch: startWatch,

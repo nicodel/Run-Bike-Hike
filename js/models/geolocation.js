@@ -2,12 +2,13 @@
 navigator.geolocation = test.geolocation;
 
 define(["controller"], function(Controller){
+  var getID
   var watchID;
 
   function init() {
     if (navigator.geolocation) {
-      // navigator.geolocation.getCurrentPosition(
-      test.geolocation.getCurrentPosition(
+      // getID = navigator.geolocation.getCurrentPosition(
+      getID = test.geolocation.watchPosition(
         function(inPosition){
           Controller.locationChanged(inPosition);
           },
@@ -19,15 +20,19 @@ define(["controller"], function(Controller){
   }
 
   function startWatch() {
-    watchId = navigator.geolocation.watchPosition(_successWatch, _errorWatch);
+    navigator.geolocation.clearWatch(getID);
+    watchID = navigator.geolocation.watchPosition(_successWatch, _errorWatch);
   }
 
-  function stopWatch() {};
+  function stopWatch() {
+    navigator.geolocation.clearWatch(watchID);
+  };
 
   function _successWatch(inPosition) {
     if (!inPosition.coords || !inPosition.coords.latitude || !inPosition.coords.longitude) {
       return;
-    };
+    }
+    Controller.positionChanged(inPosition);
   }
 
   function _errorWatch(inError) {}

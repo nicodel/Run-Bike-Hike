@@ -2,6 +2,6 @@
 //   Geolocation.init();
 // }();
 
-require(["models/geolocation"], function(Geolocation){
-	Geolocation.init();
+require(["controller"], function(Controller){
+	Controller.init();
 });

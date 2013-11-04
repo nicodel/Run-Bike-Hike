@@ -1,11 +1,14 @@
 // var HomeView = function() {
 define(["controller", "models/config"], function(Controller, Config) {
 
-  function hideSpinner(){
+  function _hideSpinner(){
     document.getElementById("message-area").removeChild(document.getElementById("spinner"));
   }
 
   function updateInfos(inPosition){
+    if (document.getElementById("spinner")) {
+      _hideSpinner();
+    };
     document.getElementById("home-acc").innerHTML = Config.userSmallDistance(inPosition.coords.accuracy);
     if (inPosition.coords.accuracy > 30) {
       document.getElementById("home-acc").className = "align-right bold bad-signal";
@@ -60,7 +63,7 @@ define(["controller", "models/config"], function(Controller, Config) {
   })
 
   return {
-    hideSpinner: hideSpinner,
+    // hideSpinner: hideSpinner,
     updateInfos: updateInfos,
     displayError: displayError
   };
