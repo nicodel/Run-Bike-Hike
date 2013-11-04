@@ -1,9 +1,13 @@
-var Geolocation = function() {
+// var Geolocation = function() {
+navigator.geolocation = test.geolocation;
+
+define(["controller"], function(Controller){
   var watchID;
 
   function init() {
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
+      // navigator.geolocation.getCurrentPosition(
+      test.geolocation.getCurrentPosition(
         function(inPosition){
           Controller.locationChanged(inPosition);
           },
@@ -26,12 +30,12 @@ var Geolocation = function() {
     };
   }
 
-  function _errorWatch(inPosition) {}
-
+  function _errorWatch(inError) {}
 
   return {
     init: init,
     startWatch: startWatch,
     stopWatch: stopWatch
   };
-}();
+});
+// }();

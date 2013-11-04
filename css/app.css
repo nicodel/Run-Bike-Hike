@@ -143,3 +143,48 @@ div[role="slider"] > label.icon {
 .landscape section[role="region"]#drawer > header:first-child {
   /* Whatever needs to be changed on landscape */
 }
+
+
+/* Below is my own styling entries, please don't be afraid */
+#app {
+  font-family: 'MozTTLight', 'Helvetica Neue','Nimbus Sans L',Arial,sans-serif;
+  cursor: default;
+}
+
+/* Hearder */
+section[role="region"] > header:first-child img {
+  padding-top: 0.8rem;
+}
+
+/* Containers */
+.compass-container {
+  padding: 1rem;
+  padding-left: 3rem;
+  padding-right: 3rem;
+  height: 27%;
+}
+.compass-container button {
+  margin-top: 4rem;
+}
+.infos-container {
+  padding: 1rem;
+  height: 54%;
+  line-height: 2rem;
+}
+.infos-container > div:last-child {
+  padding-top: 2rem;
+}
+
+
+.settings {
+  background-color: #F4F4F4;
+}
+.fake-select {
+  /*padding-left: 0;
+  padding-right: 0;*/
+  position: relative;
+  display: block;
+  padding: 1.1rem 3rem;
+  margin: 0;
+  height: 3.8rem;
+}

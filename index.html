@@ -24,6 +24,7 @@
     <link rel="stylesheet" type="text/css" href="css/building_blocks/style/headers.css">
     <link rel="stylesheet" type="text/css" href="css/building_blocks/style_unstable/lists.css">
     <link rel="stylesheet" type="text/css" href="css/building_blocks/style_unstable/toolbars.css">
+    <link rel="stylesheet" type="text/css" href="css/building_blocks/style_unstable/progress_activity.css">
 
     <link rel="stylesheet" type="text/css" href="css/building_blocks/icons/styles/action_icons.css">
 
@@ -38,6 +39,8 @@
     <!-- <link rel="prefetch" type="application/l10n" href="locales/data.ini" />
     <script type="text/javascript" src="lib/webL10n/l10n.js"></script> -->
 
+    <script type="text/javascript" src="test/test-geolocation.js"></script>
+
 
   </head>
   <body id="app">
@@ -49,41 +52,43 @@
           <button data-l10n-id="install" id="install" style="display:none;">Install</button>
         </menu>
         <h1 data-l10n-id="title" class="align-left">Run, Bike, Hike ...</h1>
-        <img class="gps-status align-right" src="img/gps_white.png" alt="Geolocation status" />
+        <img id="gps-status" class="gps-status align-right" src="img/gps_white.png" alt="Geolocation status" />
       </header>
       <div class="compass-container">
         <img class="compass" src="img/compass_inactive.png" alt="Compass" />
         <button data-l10n-id="btn-start" id="btn-start" class="recommend small align-right">Start</button>
       </div>
+      <div class="infos-container">
       <ul>
         <li>
           <div data-l10n-id="latitude">
             Latitude
-            <span id="home-lat"></span>
+            <span class="bold align-right" id="home-lat"></span>
           </div>
         </li>
         <li>
           <div data-l10n-id="longitude">
             Longitude
-            <span id="home-lon"></span>
+            <span class="bold align-right" id="home-lon"></span>
           </div>
         </li>
         <li>
           <div data-l10n-id="altitude">
             Altitude
-            <span id="home-alt"></span>
+            <span class="bold align-right" id="home-alt"></span>
           </div>
         </li>
         <li>
           <div data-l10n-id="accuracy">
             Accuracy
-            <span id="home-acc"></span>
+            <span class="bold align-right" id="home-acc"></span>
           </div>
         </li>
       </ul>
-      <div id="message-area">
-        <progress class="align-center" id="spinner"></progress>
-        <p id="msg">Retreiving GPS signal. It may take some time...</p>
+      <div id="message-area" class="align-center">
+        <progress id="spinner"></progress>
+        <p id="msg" class="bold align-center">Retreiving GPS signal. It may take some time...</p>
+      </div>
       </div>
       <footer role="toolbar">
         <ul>
@@ -96,7 +101,7 @@
     </section>
 
     <!-- Settings View -->
-    <section role="region" class="skin-dark" id="settingsView" data-position="right">
+    <section role="region" class="skin-organic settings" id="settingsView" data-position="right">
       <header>
         <a id="btn-settings-back" href="#">
           <span class="icon icon-back">Back</span>
@@ -104,9 +109,12 @@
         <h1 data-l10n-id="settings">Settings</h1>
       </header>
        
+      <header>
+        <h2 data-l10n-id="language">Language</h2>
+      </header>
       <ul>
         <li>
-          <p class="select">
+          <p class="fake-select">
             <button id="language" class="icon icon-dialog">Language</button>
             <select id="language-select" name="language">
               <option value="en-US">English</option>
@@ -116,6 +124,9 @@
           </p>
         </li>
         <li>
+          <header>
+            <h2 data-l10n-id="distance-unit">Distance unit</h2>
+          </header>
           <p class="select">
             <button id="distance-unit" class="icon icon-dialog">Distance unit</button>
             <select id="distance-unit" name="distance-unit">
@@ -123,6 +134,9 @@
           </p>
         </li>
         <li>
+          <header>
+            <h2 data-l10n-id="speed-unit">Speed unit</h2>
+          </header>
           <p class="select">
             <button id="speed-unit" class="icon icon-dialog">Distance unit</button>
             <select id="speed-unit-select" name="speed-unit">
@@ -130,6 +144,9 @@
           </p>
         </li>
         <li>
+          <header>
+            <h2 data-l10n-id="position-format">Position format</h2>
+          </header>
           <p class="select">
             <button id="position-format" class="icon icon-dialog">Position format</button>
             <select id="position-format-select" name="position-format">
@@ -137,6 +154,9 @@
           </p>
         </li>
         <li>
+          <header>
+            <h2 data-l10n-id="date-format">Date format</h2>
+          </header>
           <p class="select">
             <button id="date-format" class="icon icon-dialog">Date format</button>
             <select id="date-format-select" name="date-format">
@@ -289,11 +309,10 @@
         </ul>
       </footer>
     </section>
-
-    <script type="text/javascript" src="lib/lazyload/lazyload-min.js"></script>
+    <script data-main="js/app" src="lib/require.js"></script>
+    <!-- // <script type="text/javascript" src="lib/lazyload/lazyload-min.js"></script>
     <script type="text/javascript">
       LazyLoad.js([
-        'js/models/geolocation.js',
         'js/views/home-view.js',
         'js/views/settings-view.js',
         'js/views/tracks-view.js',
@@ -301,9 +320,10 @@
         'js/views/infos-view.js',
         'js/views/stop-tracking-view.js',
         'js/controller.js',
+        'js/models/geolocation.js',
         'js/app.js'
         ]);
-    </script>
+    </script> -->
 
   </body>
 </html>

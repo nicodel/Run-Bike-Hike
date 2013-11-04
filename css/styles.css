@@ -17,3 +17,11 @@ button.small {
 .new-line {
   clear: both;
 }
+
+.bold {
+  font-weight: bold;
+}
+
+.bad-signal {
+  color: red;
+}
