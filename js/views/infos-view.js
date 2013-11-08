@@ -1,5 +1,7 @@
 // var InfosView = function() {
-define(["controller", "models/config"], function(Controller, Config) {
+define(["controller",
+        "models/config"
+  ], function(Controller, Config) {
 
   function updateInfos(inPosition, inDistance) {
 
@@ -69,44 +71,13 @@ define(["controller", "models/config"], function(Controller, Config) {
     // document.getElementById('dur-sec').innerHTML = sec;
   }
 
-  function backHome() {
-    document.querySelector("#stopTrackingConfirmation").className = "fade-out";
-    document.querySelector("#homeView").className = "fade-in";
-  }
 
-  function __stopWatch() {
-    Controller.stopWatch();
-  }
-  /* EVENTS LISTENER  */
-  /*
-  * Stop button
-  */
-  document.querySelector("#btn-stop").addEventListener ("click", function () {
-      document.querySelector("#infosView").className = "fade-out";
-      document.querySelector("#stopTrackingConfirmation").className = "fade-in";
-  })
-  /*
-  * Cancel button
-  */
-  document.querySelector("#btn-cancel-stop").addEventListener ("click", function () {
-      document.querySelector("#infosView").className = "fade-in";
-      document.querySelector("#stopTrackingConfirmation").className = "fade-out";
-  })
-    /*
-  * Confirm button
-  */
-  document.querySelector("#btn-confirm-stop").addEventListener ("click", function () {
-      // document.querySelector("#homeView").className = "fade-in";
-      // document.querySelector("#stopTrackingConfirmation").className = "fade-out";
-      __stopWatch();
-      
-  });
 
   return {
     startChrono: startChrono,
     stopChrono:stopChrono,
-    updateInfos: updateInfos,
-    backHome: backHome
+    updateInfos: updateInfos
+    // backHome: backHome
   }
 
 });

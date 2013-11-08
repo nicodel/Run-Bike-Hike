@@ -1,27 +1,13 @@
 // var Controller = function() {
-define([
-       "views/home-view",
-       "views/infos-view",
-       "views/settings-view",
-       "views/stop-tracking-view",
-       "views/track-view",
-       "views/tracks-view",
-       "models/config",
-       // "models/geolocation",
-       "models/tracks",
-       "models/db"
-       ],
-       function(HomeView,
-                InfosView,
-                SettingsView,
-                StopTrackingView,
-                TrackView,
-                TracksView,
-                Config,
-                // Geolocation,
-                Tracks,
-                DB)
-       {
+define(["views/home-view",
+        "views/infos-view",
+        "views/settings-view",
+        "views/track-view",
+        "views/tracks-view",
+        "models/config",
+        "models/tracks",
+        "models/db"
+], function(HomeView, InfosView, SettingsView, TrackView, TracksView, Config, Tracks, DB) {
 
   var initID, watchID;
 
@@ -67,9 +53,7 @@ define([
     // Close track
     var track = Tracks.close();
     // Save to DB
-    DB.addTrack(__addTrackSuccess, __addTrackError, track);
-    // Go back to Home page
-    InfosView.backHome();
+    // DB.addTrack(__addTrackSuccess, __addTrackError, track);
 
   }
 
@@ -166,6 +150,8 @@ define([
   function __addTrackError(inEvent) {
     utils.status.show(inEvent); 
   }
+
+
 
   return {
     init: init,
