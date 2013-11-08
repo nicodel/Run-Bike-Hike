@@ -7,7 +7,7 @@ define([
        "views/track-view",
        "views/tracks-view",
        "models/config",
-       "models/geolocation",
+       // "models/geolocation",
        "models/tracks",
        "models/db"
        ],
@@ -18,41 +18,74 @@ define([
                 TrackView,
                 TracksView,
                 Config,
-                Geolocation,
+                // Geolocation,
                 Tracks,
-                DB){
+                DB)
+       {
+
+  var initID, watchID;
 
   function init() {
-    Geolocation.init();
-    DB.init();
+    // startWatch();
+    DB.initiate(__initiateSuccess, __initiateError);
+    if (navigator.geolocation) {
+      initID = navigator.geolocation.getCurrentPosition(
+      // initID = test.geolocation.watchPosition(
+        function(inPosition){
+          __locationChanged(inPosition);
+          },
+        function (inError){
+          __locationError(inError);
+        }
+      );
+    }
   }
-  function locationChanged(inPosition){
+
+  function startWatch() {
+    navigator.geolocation.clearWatch(initID);
+    // getID = navigator.geolocation.getCurrentPosition(
+    watchID = test.geolocation.watchPosition(
+      function(inPosition){
+        __positionChanged(inPosition);
+        },
+      function (inError){
+        __positionError(inError);
+      }
+    );
+    // Start the calculation of elapsed time
+    InfosView.startChrono();
+    // Open new track
+    Tracks.open();
+    nb_point = 0;
+  }
+
+  function stopWatch(){
+    //Stop the calculation of elapsed time
+    InfosView.stopChrono();
+    // Clear the watch
+    navigator.geolocation.clearWatch(watchID);
+    // Close track
+    var track = Tracks.close();
+    // Save to DB
+    DB.addTrack(__addTrackSuccess, __addTrackError, track);
+    // Go back to Home page
+    InfosView.backHome();
+
+  }
+
+  function __locationChanged(inPosition){
     console.log("Position found");
-    // HomeView.hideSpinner();
     HomeView.updateInfos(inPosition);
   }
-  function locationError(inError){
+  function __locationError(inError){
     console.log("error:",inError);
   	HomeView.displayError(inError);
   }
 
-  function startWatch(){
-    // TrackModel.create();
-    Geolocation.startWatch();
-    Tracks.open();
-    nb_point = 0;
-  }
-  function stopWatch(){
-    // Clear the watch
-    Geolocation.stopWatch();
-    // Close track
-    var track = Tracks.close();
-    // Save to DB
-    DB.addTrack(track);
-  }
-
-  function positionChanged(inPosition){
-
+  function __positionChanged(inPosition){
+    if (!inPosition.coords || !inPosition.coords.latitude || !inPosition.coords.longitude) {
+      return;
+    }
     var event = inPosition.coords;
     // Display GPS data, log to Db
     var now = new Date();
@@ -71,22 +104,19 @@ define([
     }
     // calculate distance
     if (olat !== null) {
-      current_track.distance += __distance_from_prev(olat, olon, lat, lon);
+      current_track.distance += __distanceFromPrev(olat, olon, lat, lon);
       console.log("current_track.distance", current_track.distance);
-      console.log("__distance_from_prev(olat, olon, lat, lon)", __distance_from_prev(olat, olon, lat, lon));
+      console.log("__distanceFromPrevrev(olat, olon, lat, lon)", __distanceFromPrevrev(olat, olon, lat, lon));
     }
 
     // calculating duration
     current_track.duration = inPosition.timestamp - start_date;
     console.log("current_track.duration", current_track.duration);
 
-    // display compas
-    // ui.display_compass(event);
-
     // updating UI
     nb_point =+ 1;
+    InfosView.updateInfos(inPosition, current_track.distance)
     //~ console.log("nb_point:", nb_point);
-    // ui.update_trk_infos(inPosition, current_track.distance, nb_point);
 
     // appending gps point
     var gps_point = {
@@ -104,13 +134,46 @@ define([
     olon = lon;
   }
 
+  function __distanceFromPrev(lat1, lon1, lat2, lon2) {
+    var lat1Rad = lat1*( Math.PI / 180);
+    var lon1Rad = lon1*( Math.PI / 180);
+    var lat2Rad = lat2*( Math.PI / 180);
+    var lon2Rad = lon2*( Math.PI / 180);
+
+    var dLat = lat2Rad - lat1Rad;
+    var dLon = lon2Rad - lon1Rad;
+
+    var a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.cos(lat1Rad) * Math.cos(lat2Rad) * Math.sin(dLon/2) * Math.sin(dLon/2);
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    var R = 6371 * 1000;
+    return R * c;
+  }
+
+  function __positionError(inError) {}
+
+  function __initiateSuccess(inEvent) {
+    utils.status.show(inEvent); 
+  }
+
+  function __initiateError(inEvent) {
+    utils.status.show(inEvent); 
+  }
+
+  function __addTrackSuccess(inEvent) {
+    utils.status.show(inEvent); 
+  }
+
+  function __addTrackError(inEvent) {
+    utils.status.show(inEvent); 
+  }
+
   return {
     init: init,
-    locationChanged: locationChanged,
-    locationError: locationError,
+    // locationChanged: locationChanged,
+    // locationError: locationError,
     startWatch: startWatch,
     stopWatch: stopWatch,
-    positionChanged: positionChanged
+    // positionChanged: positionChanged
   };
 });
 // }();

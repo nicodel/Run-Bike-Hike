@@ -12,8 +12,9 @@ var StopTrackingView = function() {
   * Confirm button
   */
   document.querySelector("#btn-confirm-stop").addEventListener ("click", function () {
-      document.querySelector("#homeView").className = "fade-in";
-      document.querySelector("#stopTrackingConfirmation").className = "fade-out";
+      // document.querySelector("#homeView").className = "fade-in";
+      // document.querySelector("#stopTrackingConfirmation").className = "fade-out";
+      
   });
 
 }();

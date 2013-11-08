@@ -39,6 +39,9 @@
     <!-- <link rel="prefetch" type="application/l10n" href="locales/data.ini" />
     <script type="text/javascript" src="lib/webL10n/l10n.js"></script> -->
 
+    <!-- Firefox OS Status / Notifications -->
+    <script type="text/javascript" defer src="css/building_blocks/js/status.js"></script>
+
     <script type="text/javascript" src="test/test-geolocation.js"></script>
 
 
@@ -55,7 +58,7 @@
         <img id="gps-status" class="gps-status align-right" src="img/gps_white.png" alt="Geolocation status" />
       </header>
       <div class="compass-container">
-        <img class="compass" src="img/compass_inactive.png" alt="Compass" />
+        <img id="home-compass" class="compass" src="img/compass_inactive.png" alt="Compass" />
         <button data-l10n-id="btn-start" id="btn-start" class="recommend small align-right">Start</button>
       </div>
       <div class="infos-container">
@@ -172,7 +175,7 @@
         <h1 data-l10n-id="rbh-tracking">Tracking...</h1>
       </header>
       <div class="compass-container">
-        <img class="compass" src="img/compass.png" alt="Compass" />
+        <img id="infos-compass" class="compass" src="img/compass.png" alt="Compass" />
         <button data-l10n-id="btn-stop" id="btn-stop" class="danger small align-right">Stop</button>
       </div>
       <ul>
