@@ -11,6 +11,8 @@ define(function(){
 
   var DEFAULT_DISCARD_VALUE = 500 * 1000;
 
+  var SCREEN_KEEP_ALIVE = true;
+
   // Default config values
   var userUnits = 0;
   var userPosFormat = 0;

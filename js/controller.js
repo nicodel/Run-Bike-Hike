@@ -9,13 +9,16 @@ define(["views/home-view",
         "models/db"
 ], function(HomeView, InfosView, SettingsView, TrackView, TracksView, Config, Tracks, DB) {
 
-  var initID, watchID;
+  var initID, watchID, lock;
 
   function init() {
     // startWatch();
+    if (Config.SCREEN_KEEP_ALIVE) {
+      lock = window.navigator.requestWakeLock('screen');
+    };
     DB.initiate(__initiateSuccess, __initiateError);
     if (navigator.geolocation) {
-      initID = navigator.geolocation.getCurrentPosition(
+      initID = navigator.geolocation.watchPosition(
       // initID = test.geolocation.watchPosition(
         function(inPosition){
           __locationChanged(inPosition);
@@ -58,7 +61,7 @@ define(["views/home-view",
   }
 
   function __locationChanged(inPosition){
-    console.log("Position found");
+    // console.log("Position found");
     HomeView.updateInfos(inPosition);
   }
   function __locationError(inError){
@@ -151,7 +154,10 @@ define(["views/home-view",
     utils.status.show(inEvent); 
   }
 
-
+  /* Unlock the screen */
+  window.addEventListener('unload', function () {
+    lock.unlock();
+  })
 
   return {
     init: init,
