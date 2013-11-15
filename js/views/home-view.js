@@ -11,7 +11,7 @@ define(["models/config"], function(Config) {
       __hideSpinner();
     };
     // display accuracy using settings unit
-    document.getElementById("home-acc").innerHTML = Config.userSmallDistance(inPosition.coords.accuracy);
+    document.getElementById("home-acc").innerHTML = "&#177;" + Config.userSmallDistance(inPosition.coords.accuracy);
     // checking accuracy and display appropriate GPS status
     if (inPosition.coords.accuracy > 30) {
       document.getElementById("home-acc").className = "align-right bold bad-signal";
@@ -25,7 +25,7 @@ define(["models/config"], function(Config) {
     // display longitude using Settings format
     document.getElementById("home-lon").innerHTML = Config.userLongitude(inPosition.coords.longitude);
     // display altitude using Settings format
-    document.getElementById("home-alt").innerHTML = Config.userSmallDistance(inPosition.coords.altitude);
+    document.getElementById("home-alt").innerHTML = Config.userSmallDistance(inPosition.coords.altitude) + "(&#177;" + Config.userSmallDistance(inPosition.coords.altitudeAccuracy) + ")";
     // empty message area
     document.getElementById('msg').innerHTML = "";
     //display compass
@@ -34,7 +34,7 @@ define(["models/config"], function(Config) {
 
   function displayError(inError){
     console.log("error:", inError)
-    document.getElementById('msg').innerHTML = inError;
+    document.getElementById('msg').innerHTML = error.code + ': ' + error.message;
   }
 
   function __displayCompass(event) {

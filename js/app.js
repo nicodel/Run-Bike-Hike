@@ -23,7 +23,7 @@ require(["controller"], function(Controller){
   })
   /* Home View Start tracking button */
   document.querySelector("#btn-start").addEventListener ("click", function () {
-    //  Controller.startWatch();
+    Controller.startWatch();
     document.querySelector("#infosView").className = "current";
     document.querySelector("#homeView").className = "left";
   })

@@ -9,12 +9,13 @@ define(["views/home-view",
         "models/db"
 ], function(HomeView, InfosView, SettingsView, TrackView, TracksView, Config, Tracks, DB) {
 
-  var initID, watchID, lock;
+  var initID, watchID;
+  var olat, olon;
 
   function init() {
     // startWatch();
     if (Config.SCREEN_KEEP_ALIVE) {
-      lock = window.navigator.requestWakeLock('screen');
+      this.lock = window.navigator.requestWakeLock('screen');
     };
     DB.initiate(__initiateSuccess, __initiateError);
     if (navigator.geolocation) {
@@ -32,8 +33,8 @@ define(["views/home-view",
 
   function startWatch() {
     navigator.geolocation.clearWatch(initID);
-    // getID = navigator.geolocation.getCurrentPosition(
-    watchID = test.geolocation.watchPosition(
+    watchID = navigator.geolocation.getCurrentPosition(
+    // watchID = test.geolocation.watchPosition(
       function(inPosition){
         __positionChanged(inPosition);
         },
@@ -44,7 +45,7 @@ define(["views/home-view",
     // Start the calculation of elapsed time
     InfosView.startChrono();
     // Open new track
-    Tracks.open();
+    current_track = Tracks.open();
     nb_point = 0;
   }
 
@@ -90,19 +91,19 @@ define(["views/home-view",
       alt = null;
     }
     // calculate distance
-    if (olat !== null) {
-      current_track.distance += __distanceFromPrev(olat, olon, lat, lon);
-      console.log("current_track.distance", current_track.distance);
-      console.log("__distanceFromPrevrev(olat, olon, lat, lon)", __distanceFromPrevrev(olat, olon, lat, lon));
-    }
+    var distance = Tracks.getDistance(lat, lon);
+    // if (olat !== null) {
+    //   current_track.distance += __distanceFromPrev(olat, olon, lat, lon);
+    //   console.log("current_track.distance", current_track.distance);
+    //   console.log("__distanceFromPrevrev(olat, olon, lat, lon)", __distanceFromPrevrev(olat, olon, lat, lon));
+    // }
 
     // calculating duration
-    current_track.duration = inPosition.timestamp - start_date;
-    console.log("current_track.duration", current_track.duration);
+    Tracks.getDuration(inPosition.timestamp);
 
     // updating UI
     nb_point =+ 1;
-    InfosView.updateInfos(inPosition, current_track.distance)
+    InfosView.updateInfos(inPosition, distance)
     //~ console.log("nb_point:", nb_point);
 
     // appending gps point
@@ -116,24 +117,6 @@ define(["views/home-view",
       vertAccuracy:vertAccuracy
     };
     Tracks.addNode(gps_point);
-    
-    olat = lat;
-    olon = lon;
-  }
-
-  function __distanceFromPrev(lat1, lon1, lat2, lon2) {
-    var lat1Rad = lat1*( Math.PI / 180);
-    var lon1Rad = lon1*( Math.PI / 180);
-    var lat2Rad = lat2*( Math.PI / 180);
-    var lon2Rad = lon2*( Math.PI / 180);
-
-    var dLat = lat2Rad - lat1Rad;
-    var dLon = lon2Rad - lon1Rad;
-
-    var a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.cos(lat1Rad) * Math.cos(lat2Rad) * Math.sin(dLon/2) * Math.sin(dLon/2);
-    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-    var R = 6371 * 1000;
-    return R * c;
   }
 
   function __positionError(inError) {}
@@ -156,7 +139,7 @@ define(["views/home-view",
 
   /* Unlock the screen */
   window.addEventListener('unload', function () {
-    lock.unlock();
+    this.lock.unlock();
   })
 
   return {

@@ -12,11 +12,11 @@ define(["controller",
       document.getElementById("gps-status").setAttribute("src", "img/gps_green.png");
     }
     // updating distance using Settings choosen unit
-    document.getElementById("upd-dist").innerHTML = user_distance(inDistance);
+    document.getElementById("infos-dist").innerHTML = Config.userDistance(inDistance);
     // updating speed using Settings choosen unit
-    document.getElementById("upd-speed").innerHTML = userVelocity(inPosition.coords.speed);
+    document.getElementById("infos-speed").innerHTML = Config.userSpeed(inPosition.coords.speed);
     // updating altitude using Settings choosen unit
-    document.getElementById("home-alt").innerHTML = Config.userSmallDistance(inPosition.coords.altitude);
+    document.getElementById("infos-alt").innerHTML = Config.userSmallDistance(inPosition.coords.altitude);
     // update compass direction
     __displayCompass(inPosition.coords);
   }

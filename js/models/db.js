@@ -1,7 +1,7 @@
 define(["controller"], function(Controller){
   window.indexedDB = window.shimIndexedDB  && window.shimIndexedDB.__useShim();
 
-  var DB_NAME = "RBH";
+  var DB_NAME = "RunBikeHike";
   var DB_VERSION = 1; // Use a long long for this value (don't use a float)
   var DB_STORE_TRACKS = "tracks";
   var DB_STORE_SETTINGS = "settings";
@@ -35,7 +35,7 @@ define(["controller"], function(Controller){
   function initiate(successCallback, errorCallback) {
     if (typeof(successCallback) === "function") {
       // DB.reset_app(DB_NAME);
-      var req = window.indexedDB.open("RunBikeHike", 1);
+      var req = window.indexedDB.open(DB_NAME, DB_VERSION);
       req.onsuccess = function(e) {
         successCallback(req.result);
         console.log("DB created successfully: ", req.result);
@@ -52,7 +52,7 @@ define(["controller"], function(Controller){
         g_error = true;
       };
       req.onupgradeneeded = function(event) {
-        var store = req.result.createObjectStore("tracks", {keyPath:"id", autoIncrement: true});
+        var store = req.result.createObjectStore(DB_STORE_TRACKS, {keyPath:"id", autoIncrement: true});
         store.createIndex("trackid", "trackid", {unique: true});
       };
     } else  {
@@ -63,7 +63,7 @@ define(["controller"], function(Controller){
   function addTrack(successCallback, errorCallback, inTrack) {
     if (typeof successCallback === "function") {
 
-      var tx = db.transaction("tracks", "readwrite");
+      var tx = db.transaction(DB_STORE_TRACKS, "readwrite");
       tx.oncomplete = function(e) {
         console.log("add_track transaction completed !");
       };
@@ -71,7 +71,7 @@ define(["controller"], function(Controller){
         console.error("add_track transaction error: ", tx.error.name);
         errorCallback(x.error.name);
       };
-      var store = tx.objectStore("tracks");
+      var store = tx.objectStore(DB_STORE_TRACKS);
       var req = store.add(inTrack);
       req.onsuccess = function(e) {
         console.log("track_add store store.add successful");
@@ -94,3 +94,13 @@ define(["controller"], function(Controller){
     addTrack: addTrack
   };
 });
+
+
+/*
+
+RunBikeHike
+  tracks
+    track_name
+  
+  settings = table
+*/
