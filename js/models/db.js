@@ -1,4 +1,5 @@
-define(["controller"], function(Controller){
+// define(["controller"], function(Controller){
+var DB = function() {
   window.indexedDB = window.shimIndexedDB  && window.shimIndexedDB.__useShim();
 
   var DB_NAME = "RunBikeHike";
@@ -93,7 +94,8 @@ define(["controller"], function(Controller){
     initiate: initiate,
     addTrack: addTrack
   };
-});
+}();
+// });
 
 
 /*

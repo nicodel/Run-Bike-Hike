@@ -1,5 +1,5 @@
-// var HomeView = function() {
-define(["models/config"], function(Config) {
+// define(["models/config"], function(Config) {
+var HomeView = function() {
 
   function __hideSpinner(){
     document.getElementById("message-area").removeChild(document.getElementById("spinner"));
@@ -65,8 +65,5 @@ define(["models/config"], function(Config) {
     displayError: displayError
   };
 
-});
-// }();
-
-
-
+}();
+// });

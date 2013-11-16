@@ -1,5 +1,4 @@
-// var Controller = function() {
-define(["views/home-view",
+/*define(["views/home-view",
         "views/infos-view",
         "views/settings-view",
         "views/track-view",
@@ -7,15 +6,17 @@ define(["views/home-view",
         "models/config",
         "models/tracks",
         "models/db"
-], function(HomeView, InfosView, SettingsView, TrackView, TracksView, Config, Tracks, DB) {
+], function(HomeView, InfosView, SettingsView, TrackView, TracksView, Config, Tracks, DB) {*/
+var Controller = function() {
 
-  var initID, watchID;
+  var initID, watchID, lock;
   var olat, olon;
+  var tracking = false;
 
   function init() {
     // startWatch();
     if (Config.SCREEN_KEEP_ALIVE) {
-      this.lock = window.navigator.requestWakeLock('screen');
+      lock = window.navigator.requestWakeLock('screen');
     };
     DB.initiate(__initiateSuccess, __initiateError);
     if (navigator.geolocation) {
@@ -32,7 +33,7 @@ define(["views/home-view",
   }
 
   function startWatch() {
-    navigator.geolocation.clearWatch(initID);
+    /*navigator.geolocation.clearWatch(initID);
     watchID = navigator.geolocation.getCurrentPosition(
     // watchID = test.geolocation.watchPosition(
       function(inPosition){
@@ -41,7 +42,8 @@ define(["views/home-view",
       function (inError){
         __positionError(inError);
       }
-    );
+    );*/
+    tracking = true;
     // Start the calculation of elapsed time
     InfosView.startChrono();
     // Open new track
@@ -63,11 +65,19 @@ define(["views/home-view",
 
   function __locationChanged(inPosition){
     // console.log("Position found");
-    HomeView.updateInfos(inPosition);
+    if (tracking) {
+      __positionChanged(inPosition);
+    } else {
+      HomeView.updateInfos(inPosition);
+    };
   }
   function __locationError(inError){
-    console.log("error:",inError);
-  	HomeView.displayError(inError);
+    // console.log("error:",inError);
+    if (tracking) {
+      __positionError(inError);
+    } else{
+      HomeView.displayError(inError);
+    };
   }
 
   function __positionChanged(inPosition){
@@ -138,9 +148,11 @@ define(["views/home-view",
   }
 
   /* Unlock the screen */
-  window.addEventListener('unload', function () {
-    this.lock.unlock();
-  })
+  if (lock) {  
+    window.addEventListener('unload', function () {
+      lock.unlock();
+    })
+  };
 
   return {
     init: init,
@@ -150,5 +162,5 @@ define(["views/home-view",
     stopWatch: stopWatch,
     // positionChanged: positionChanged
   };
-});
-// }();
+}();
+// })

@@ -1,4 +1,5 @@
-define(function(){
+// define(function(){
+var Config = function() {
 
   var METRIC_UNITS = 0;
   var IMPERIAL_UNITS = 1;
@@ -179,6 +180,5 @@ define(function(){
     userDistance: userDistance
   };
 
-
-
-})
+}();
+// });

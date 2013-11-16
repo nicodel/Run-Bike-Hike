@@ -1,11 +1,8 @@
-// var RunBikeHike = function() {
 //   Geolocation.init();
-// }();
+// require(["controller"], function(Controller){
 
-require(["controller"], function(Controller){
+var RunBikeHike = function() {
 	Controller.init();
-
-
 
   /******************
    * EVENT LISTENER *
@@ -69,5 +66,5 @@ require(["controller"], function(Controller){
     document.querySelector("#tracksView").className = "left";
   })
 
-
-});
+}();
+// });

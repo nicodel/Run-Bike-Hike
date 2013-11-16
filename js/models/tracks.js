@@ -1,4 +1,5 @@
-define(function(){
+// define(function(){
+var Tracks = function() {
 
   var current_track = {};
   var start_date, distance;
@@ -75,4 +76,5 @@ define(function(){
     getDistance: getDistance,
     close: close
   };
-});
+}();
+// });
