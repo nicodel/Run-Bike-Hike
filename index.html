@@ -178,7 +178,7 @@
         <img id="infos-compass" class="compass" src="img/compass.png" alt="Compass" />
         <button data-l10n-id="btn-stop" id="btn-stop" class="danger small align-right">Stop</button>
       </div>
-      <ul>
+      <ul class="infos-container">
         <li>
           <div data-l10n-id="elapsed-time">
             Elapsed time
@@ -193,19 +193,19 @@
         <li>
           <div data-l10n-id="distance">
             Distance
-            <span id="infos-dist"></span>
+            <span id="infos-dist" class="strong align-right"></span>
           </div>
         </li>
         <li>
           <div data-l10n-id="speed">
             Speed
-            <span id="infos-speed"></span>
+            <span id="infos-speed" class="strong align-right"></span>
           </div>
         </li>
         <li>
           <div data-l10n-id="altitude">
             Altitude
-            <span id="infos-alt"></span>
+            <span id="infos-alt" class="strong align-right"></span>
           </div>
         </li>
       </ul>
@@ -250,8 +250,8 @@
       </header>
       <article>
       <section data-type="list">
-        <ul>
-          <li>
+        <ul id="tracks-list">
+<!--           <li>
             <a id="test-track">
               <p>
                 <span class="align-left">Track name</span>
@@ -262,7 +262,7 @@
                 <span class="align-right">23 min</span>
             </p>
             </a>
-          </li>
+          </li> -->
         </ul>
       </section>
       </article>
@@ -274,7 +274,7 @@
     <section role="region" id="trackView" data-position="right">
       <header>
         <a><span id="btn-track-back" class="icon icon-back">Back</span></a>
-        <h1 data-l10n-id="track">Track:</h1>
+        <h1 data-l10n-id="track" id="tr-name">Track:</h1>
       </header>
       <article>
       <ul>

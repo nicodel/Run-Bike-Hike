@@ -9,18 +9,15 @@
 ], function(HomeView, InfosView, SettingsView, TrackView, TracksView, Config, Tracks, DB) {*/
 var Controller = function() {
 
-  var initID, watchID, lock;
+  var watchID, lock;
   var olat, olon;
   var tracking = false;
 
   function init() {
     // startWatch();
-    if (Config.SCREEN_KEEP_ALIVE) {
-      lock = window.navigator.requestWakeLock('screen');
-    };
     DB.initiate(__initiateSuccess, __initiateError);
     if (navigator.geolocation) {
-      initID = navigator.geolocation.watchPosition(
+      watchID = navigator.geolocation.watchPosition(
       // initID = test.geolocation.watchPosition(
         function(inPosition){
           __locationChanged(inPosition);
@@ -55,12 +52,11 @@ var Controller = function() {
     //Stop the calculation of elapsed time
     InfosView.stopChrono();
     // Clear the watch
-    navigator.geolocation.clearWatch(watchID);
+    // navigator.geolocation.clearWatch(watchID);
     // Close track
     var track = Tracks.close();
     // Save to DB
-    // DB.addTrack(__addTrackSuccess, __addTrackError, track);
-
+    DB.addTrack(__addTrackSuccess, __addTrackError, track);
   }
 
   function __locationChanged(inPosition){
@@ -140,27 +136,35 @@ var Controller = function() {
   }
 
   function __addTrackSuccess(inEvent) {
-    utils.status.show(inEvent); 
+    utils.status.show("Track " + inEvent + " sucessfully saved.");
   }
 
   function __addTrackError(inEvent) {
     utils.status.show(inEvent); 
   }
 
-  /* Unlock the screen */
-  if (lock) {  
-    window.addEventListener('unload', function () {
-      lock.unlock();
-    })
-  };
+  function displayTracks() {
+    // get the whole tracks list
+    DB.getTracks(__getTracksSuccess, __getTracksError);
+  }
+
+  function __getTracksSuccess(inTracks) {
+    TracksView.display(inTracks);
+  }
+
+  function __getTracksError(inTracks) {
+  }
+
+  function displayTrack(inTrack) {
+    TrackView.display(inTrack);
+  }
 
   return {
     init: init,
-    // locationChanged: locationChanged,
-    // locationError: locationError,
     startWatch: startWatch,
     stopWatch: stopWatch,
-    // positionChanged: positionChanged
+    displayTracks: displayTracks,
+    displayTrack: displayTrack
   };
 }();
 // })

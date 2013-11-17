@@ -3,6 +3,13 @@
 
 var RunBikeHike = function() {
 	Controller.init();
+    if (Config.SCREEN_KEEP_ALIVE) {
+      lock = window.navigator.requestWakeLock('screen');
+      /* Unlock the screen */
+      window.addEventListener('unload', function () {
+        lock.unlock();
+      })
+    };
 
   /******************
    * EVENT LISTENER *
@@ -10,6 +17,7 @@ var RunBikeHike = function() {
 
   /* Home View Tracks button */
   document.querySelector("#btn-tracks").addEventListener ("click", function () {
+    Controller.displayTracks();
     document.querySelector("#tracksView").className = "current";
     document.querySelector("#homeView").className = "left";
   })
@@ -28,11 +36,6 @@ var RunBikeHike = function() {
   document.querySelector("#btn-stop").addEventListener ("click", function () {
       document.querySelector("#infosView").className = "fade-out";
       document.querySelector("#stopTrackingConfirmation").className = "fade-in";
-  })
-  /* Infos View Cancel button */
-  document.querySelector("#btn-cancel-stop").addEventListener ("click", function () {
-      document.querySelector("#infosView").className = "fade-in";
-      document.querySelector("#stopTrackingConfirmation").className = "fade-out";
   })
   /* Stop tracking Confirm button */
   document.querySelector("#btn-confirm-stop").addEventListener ("click", function () {
@@ -61,10 +64,10 @@ var RunBikeHike = function() {
     document.querySelector("#homeView").className = "current";
   })
   /* TEST TRACK LINK */
-  document.querySelector("#test-track").addEventListener("click", function(e){
-    document.querySelector("#trackView").className = "current";
-    document.querySelector("#tracksView").className = "left";
-  })
+  // document.querySelector("#test-track").addEventListener("click", function(e){
+  //   document.querySelector("#trackView").className = "current";
+  //   document.querySelector("#tracksView").className = "left";
+  // })
 
 }();
 // });

@@ -7,7 +7,7 @@ var DB = function() {
   var DB_STORE_TRACKS = "tracks";
   var DB_STORE_SETTINGS = "settings";
 
-  var DB = {};
+  // var DB = {};
 
   // function init() {
   //   // DB.reset_app(DB_NAME);
@@ -76,7 +76,7 @@ var DB = function() {
       var req = store.add(inTrack);
       req.onsuccess = function(e) {
         console.log("track_add store store.add successful");
-        successCallback();
+        successCallback(inTrack.name);
         // ??? going back to home ???
         // ui.back_home();
       };
@@ -89,10 +89,37 @@ var DB = function() {
     }
   }
 
+  function getTracks(successCallback, errorCallback) {
+    if (typeof successCallback === "function") {
+      var all_tracks = [];
+      var tx = db.transaction("tracks");
+      var store = tx.objectStore("tracks");
+      var req = store.openCursor();
+      req.onsuccess = function(e) {
+        var cursor = e.target.result;
+        //~ console.log("get_tracks store.openCursor successful !", cursor);
+        if (cursor) {
+          all_tracks.push(cursor.value);
+          // ui.build_track(cursor.value);
+          cursor.continue();
+        } else{
+          console.log("got all tracks: ", all_tracks);
+          successCallback(all_tracks);
+        }
+      };
+      req.onerror = function(e) {console.error("get_tracks store.openCursor error: ", e.error.name);};
+    } else {
+      errorCallback("getTracks successCallback should be a function");
+    }
+
+
+  }
+
 
   return {
     initiate: initiate,
-    addTrack: addTrack
+    addTrack: addTrack,
+    getTracks: getTracks
   };
 }();
 // });

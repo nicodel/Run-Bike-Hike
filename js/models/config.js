@@ -89,7 +89,7 @@ var Config = function() {
     return distanceM+" m";
   }
 
-  function date_to_settings(inDate) {
+  function userDate(inDate) {
     var d = new Date(inDate);
 
     var year = d.getFullYear();
@@ -177,7 +177,8 @@ var Config = function() {
     userLatitude: userLatitude,
     userLongitude: userLongitude,
     userSmallDistance: userSmallDistance,
-    userDistance: userDistance
+    userDistance: userDistance,
+    userDate: userDate
   };
 
 }();
