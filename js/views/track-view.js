@@ -1,9 +1,16 @@
 var TrackView = function() {
 
+  var gWidth = parseInt(window.innerWidth * 0.9,10);
+  var gHeight = parseInt(gWidth * 2 / 3,10);
+  // console.log("width", gWidth);
+  // console.log("height", gHeight);
+  var xPadding = 30;
+  var yPadding = 30;
+
   function display(inTrack) {
     var tr = document.getElementById("tr-name");
     tr.innerHTML = inTrack.name;
-    console.log("show track: ", new Date(inTrack.date));
+    console.log("show track: ", inTrack);
 
     document.getElementById("trk-date").innerHTML = Config.userDate(inTrack.date);
     document.getElementById("trk-dist").innerHTML = Config.userDistance(inTrack.distance);
@@ -34,8 +41,8 @@ var TrackView = function() {
 
   function __buildAltitudeGraph(data) {
     data = data.data;
-    //~ console.log("data.length",data.length);
-    //~ console.log("data",data);
+    // console.log("data.length", data.length);
+    // console.log("data", data);
     var max_acc = 0;
     var max_y = 0;
     var min_y = 0;
@@ -72,11 +79,11 @@ var TrackView = function() {
     var j = 0;
     var i = 0;
     for (t=0;t<4;t++) {
-      c.fillText(parseInt(i,10), xPadding - 10, getYPixel(j, range));
+      c.fillText(parseInt(i,10), xPadding - 10, __getYPixel(j, range));
       c.beginPath();
       //~ c.lineWidth = 1;
-      c.moveTo(xPadding,getYPixel(j, range));
-      c.lineTo(gWidth,getYPixel(j, range));
+      c.moveTo(xPadding, __getYPixel(j, range));
+      c.lineTo(gWidth, __getYPixel(j, range));
       c.stroke();
       j += yspace;
       i += yspace;
@@ -97,16 +104,16 @@ var TrackView = function() {
     if(y1<0) {y1=0;} // we don't want the lines to go under 0
     //~ console.log("alt: "+data[0].coords.altitude+" - acc: "+data[0].coords.altitudeAccuracy);
     //~ console.log("y1: "+y1+" - y2: "+y2);
-    c.moveTo(getXPixel(0,data),getYPixel(y1, range));
-    c.lineTo(getXPixel(0,data), getYPixel(y2, range));
+    c.moveTo(__getXPixel(0,data), __getYPixel(y1, range));
+    c.lineTo(__getXPixel(0,data), __getYPixel(y2, range));
     for(i=1;i<data.length;i+=espace) {
       var alti = data[i].coords.altitude;
       var acci = data[i].coords.altitudeAccuracy;
       y1 = alti - acci;
       y2 = alti + acci;
       if(y1<0) {y1=0;} // we don't want the lines to go under 0
-      c.moveTo(getXPixel(i,data),getYPixel(y1, range));
-      c.lineTo(getXPixel(i,data), getYPixel(y2, range));
+      c.moveTo(__getXPixel(i,data), __getYPixel(y1, range));
+      c.lineTo(__getXPixel(i,data), __getYPixel(y2, range));
       c.stroke();
     }
     
@@ -114,9 +121,9 @@ var TrackView = function() {
     c.strokeStyle = "#0560A6";
     c.lineWidth = 1;
     c.beginPath();
-    c.moveTo(getXPixel(0,data), getYPixel(data[0].coords.altitude, range));
+    c.moveTo(__getXPixel(0,data), __getYPixel(data[0].coords.altitude, range));
     for(i=1;i<data.length;i+=espace) {
-      c.lineTo(getXPixel(i,data), getYPixel(data[i].coords.altitude, range));
+      c.lineTo(__getXPixel(i,data), __getYPixel(data[i].coords.altitude, range));
       //~ c.arc(getXPixel(i,data), getYPixel(data[i].coords.altitude, range),1,0,1);
       c.stroke();
       //~ console.log("i: " + i + " - x: " + getXPixel(i, data) + " / y: " + getYPixel(data[i].coords.altitude, range));
@@ -141,12 +148,12 @@ var TrackView = function() {
       i = parseInt(i,10);
       //~ console.log("i",i);
       var date = new Date(data[i].timestamp).getHours() + ":" + new Date(data[i].timestamp).getMinutes();
-      c.fillText(date, getXPixel(i,data), gHeight - yPadding + 20);
+      c.fillText(date, __getXPixel(i,data), gHeight - yPadding + 20);
       c.beginPath();
       c.strokeStyle  = "rgba(150,150,150, 0.5)";
       c.lineWidth = 1;
-      c.moveTo(getXPixel(i,data),0);
-      c.lineTo(getXPixel(i,data),gHeight - xPadding);
+      c.moveTo(__getXPixel(i,data),0);
+      c.lineTo(__getXPixel(i,data),gHeight - xPadding);
       c.stroke();
     }
 
@@ -194,11 +201,11 @@ var TrackView = function() {
     var j = 0;
     var i = 0;
     for (t=0;t<4;t++) {
-      c.fillText(parseInt(i,10), xPadding - 10, getYPixel(j, range));
+      c.fillText(parseInt(i,10), xPadding - 10, __getYPixel(j, range));
       c.beginPath();
       //~ c.lineWidth = 1;
-      c.moveTo(xPadding,getYPixel(j, range));
-      c.lineTo(gWidth,getYPixel(j, range));
+      c.moveTo(xPadding, __getYPixel(j, range));
+      c.lineTo(gWidth, __getYPixel(j, range));
       c.stroke();
       j += yspace;
       i += yspace;
@@ -210,9 +217,9 @@ var TrackView = function() {
     c.strokeStyle = "#0560A6";
     c.lineWidth = 1;
     c.beginPath();
-    c.moveTo(getXPixel(0,data), getYPixel(data[0].coords.speed, range));
+    c.moveTo(__getXPixel(0,data), __getYPixel(data[0].coords.speed, range));
     for(i=1;i<data.length;i+=espace) {
-      c.lineTo(getXPixel(i,data), getYPixel(data[i].coords.speed, range));
+      c.lineTo(__getXPixel(i,data), __getYPixel(data[i].coords.speed, range));
       //~ c.arc(getXPixel(i,data), getYPixel(data[i].coords.speed, range),1,0,1);
       c.stroke();
       //~ console.log("i: " + i + " - x: " + getXPixel(i, data) + " / y: " + getYPixel(data[i].coords.altitude, range));
@@ -237,16 +244,23 @@ var TrackView = function() {
       i = parseInt(i,10);
       //~ console.log("i",i);
       var date = new Date(data[i].timestamp).getHours() + ":" + new Date(data[i].timestamp).getMinutes();
-      c.fillText(date, getXPixel(i,data), gHeight - yPadding + 20);
+      c.fillText(date, __getXPixel(i,data), gHeight - yPadding + 20);
       c.beginPath();
       c.strokeStyle  = "rgba(150,150,150, 0.5)";
       c.lineWidth = 1;
-      c.moveTo(getXPixel(i,data),0);
-      c.lineTo(getXPixel(i,data),gHeight - xPadding);
+      c.moveTo(__getXPixel(i,data),0);
+      c.lineTo(__getXPixel(i,data),gHeight - xPadding);
       c.stroke();
     }
     c.stroke();
     c.closePath();
+  }
+
+  function __getXPixel(val,data) {
+    return ((gWidth - xPadding) / data.length) * val + xPadding;
+  }
+  function __getYPixel(val,range) {
+    return gHeight - (((gHeight - yPadding) / range) * val) - yPadding;
   }
 
   return {

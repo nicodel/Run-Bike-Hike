@@ -11,11 +11,10 @@ var TracksView = function() {
   }
 
   function __buildList(inTrack) {
-
+    console.log("__buildList - inTrack: ", inTrack);
     var li = document.createElement("li");
     var lia = document.createElement("a");
     lia.className = "it-track";
-    //~ lia.href = "#";
 
     var div = '<p><span class="align-left">' + inTrack.name + '</span>';
     div = div + '<span class="align-right">' + Config.userDate(inTrack.date) + '</span></p>';
@@ -28,14 +27,13 @@ var TracksView = function() {
     lia.addEventListener("click", function(e){
       document.querySelector("#trackView").className = "current";
       document.querySelector("#tracksView").className = "left";
-      // ui.display_track(inTrack);
       Controller.displayTrack(inTrack);
     });
   }
 
   function __remove_childs(parent) {
     var d = document.getElementById(parent).childNodes;
-    console.log("d",d);
+    // console.log("d",d);
     for (i = 0; i < d.length; i++) {
       document.getElementById(parent).removeChild(d[i]);
     }

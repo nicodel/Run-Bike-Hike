@@ -156,6 +156,7 @@ var Controller = function() {
   }
 
   function displayTrack(inTrack) {
+    console.log("inTrack display: ", inTrack);
     TrackView.display(inTrack);
   }
 

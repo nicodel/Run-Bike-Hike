@@ -98,7 +98,8 @@ var Config = function() {
     var hour = d.getHours();
     var min = d.getMinutes();
     var sec = d.getSeconds();
-    var outDate = day+"/"+month+"/"+year+ " "+hour+":"+min+":"+sec;
+    var outDate = day+"/"+month+"/"+year;
+    // var outDate = day+"/"+month+"/"+year+ " "+hour+":"+min+":"+sec;
     return  outDate;
   }
 

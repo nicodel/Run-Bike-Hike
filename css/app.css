@@ -90,6 +90,9 @@ section[role="region"][data-position="right"] {
 [data-type=list] li>a:active { 
   background-color: transparent;
 }
+[data-type="list"] li p:first-of-type {
+  font-size: 1.5rem;
+}
 
 /* Drawer */
 section[role="region"]:not(#drawer) {
@@ -151,7 +154,7 @@ div[role="slider"] > label.icon {
   cursor: default;
 }
 
-/* Hearder */
+/* Header */
 section[role="region"] > header:first-child img {
   padding-top: 0.8rem;
 }
