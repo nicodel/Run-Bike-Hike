@@ -92,6 +92,7 @@
         <progress id="spinner"></progress>
         <p id="msg" class="bold align-center">Retreiving GPS signal. It may take some time...</p>
       </div>
+      <button id="btn-reset">Reset DB</button>
       </div>
       <footer role="toolbar">
         <ul>
@@ -182,10 +183,11 @@
         <li>
           <div data-l10n-id="elapsed-time">
             Elapsed time
-            <span id="infos-elapsed">
+            <span id="infos-chrono" class="bold align-right">00:00:00</span>
+<!--             <span id="infos-elapsed">
               <span id="trk-sec" class="bold align-right"></span>
               <span class="strong align-bold">:</span>
-              <span id="trk-min" class="bold align-right"></span>
+              <span id="trk-min" class="bold align-right"></span> -->
           </div>
             </span>
           </div>
@@ -207,6 +209,9 @@
             Altitude
             <span id="infos-alt" class="bold align-right"></span>
           </div>
+        </li>
+        <li>
+          <div id="infos-test"></div>
         </li>
       </ul>
       <footer class="toolbar">
@@ -337,6 +342,7 @@
         "js/views/settings-view.js",
         "js/views/tracks-view.js",
         "js/views/track-view.js",
+        "js/models/chrono.js",
         "js/models/config.js",
         "js/models/db.js",
         "js/models/tracks.js",

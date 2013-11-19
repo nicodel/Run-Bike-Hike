@@ -3,13 +3,13 @@
 
 var RunBikeHike = function() {
 	Controller.init();
-    if (Config.SCREEN_KEEP_ALIVE) {
-      lock = window.navigator.requestWakeLock('screen');
+    // if (Config.SCREEN_KEEP_ALIVE) {
+      var lock = window.navigator.requestWakeLock('screen');
       /* Unlock the screen */
       window.addEventListener('unload', function () {
         lock.unlock();
       })
-    };
+    // };
 
   /******************
    * EVENT LISTENER *
@@ -68,6 +68,11 @@ var RunBikeHike = function() {
   //   document.querySelector("#trackView").className = "current";
   //   document.querySelector("#tracksView").className = "left";
   // })
+
+  document.querySelector("#btn-reset").addEventListener("click", function(e){
+    console.log("DB reset");
+    DB.reset_app();
+  })
 
 }();
 // });

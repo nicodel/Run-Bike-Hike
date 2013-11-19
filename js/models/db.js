@@ -7,32 +7,6 @@ var DB = function() {
   var DB_STORE_TRACKS = "tracks";
   var DB_STORE_SETTINGS = "settings";
 
-  // var DB = {};
-
-  // function init() {
-  //   // DB.reset_app(DB_NAME);
-  //   var req = window.indexedDB.open("RunBikeHike", 1);
-  //   req.onsuccess = function(e) {
-  //       console.log("DB created successfully: ", req.result);
-  //       db = req.result;
-  //       db.onabort = function(e) {
-  //         db.close();
-  //         db = null;
-  //       };
-  //     };
-  //   req.onerror = function(e) {
-  //     //~ DB.reset_app(DB_NAME);
-  //     console.error("error on openDb: ", e.target.error.name);
-  //     g_error = true;
-  //     // ui.show_home_error("DB: " + e.target.error.name);
-  //     console.log("DB: " + e.target.error.name);
-  //   };
-  //   req.onupgradeneeded = function(event) {
-  //     var store = req.result.createObjectStore("tracks", {keyPath:"id", autoIncrement: true});
-  //     store.createIndex("trackid", "trackid", {unique: true});
-  //   };
-  // }
-
   function initiate(successCallback, errorCallback) {
     if (typeof(successCallback) === "function") {
       // DB.reset_app(DB_NAME);
@@ -111,15 +85,23 @@ var DB = function() {
     } else {
       errorCallback("getTracks successCallback should be a function");
     }
-
-
   }
 
+  function reset_app() {
+    var req = window.indexedDB.deleteDatabase(DB_NAME);
+    req.onerror = function(e) {
+      console("reset error: ", e.error.name);
+    };
+    req.onsuccess = function(e) {
+      console.log(DB_NAME + " deleted successful !");
+    };
+  }
 
   return {
     initiate: initiate,
     addTrack: addTrack,
-    getTracks: getTracks
+    getTracks: getTracks,
+    reset_app: reset_app
   };
 }();
 // });

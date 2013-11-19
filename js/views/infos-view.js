@@ -5,6 +5,8 @@ var InfosView = function() {
 
   var updateInfos = function(inPosition, inDistance) {
 
+    console.log("showing: ", inDistance);
+
     // checking accuracy and display appropriate GPS status
     if (inPosition.coords.accuracy > 30) {
       document.getElementById("gps-status").setAttribute("src", "img/gps_red.png");
@@ -19,6 +21,9 @@ var InfosView = function() {
     document.getElementById("infos-alt").innerHTML = Config.userSmallDistance(inPosition.coords.altitude);
     // update compass direction
     __displayCompass(inPosition.coords);
+
+    // update infos test
+    document.getElementById("infos-test").innerHTML = inPosition.toString();
   }
 
   var __displayCompass = function(event) {
@@ -42,7 +47,7 @@ var InfosView = function() {
     }
     compass.style.opacity = opacity;
   }
-
+  /*
   var cent=0;
   var sec=0;
   var min = 0;
@@ -70,13 +75,13 @@ var InfosView = function() {
     min = 0;
     // document.getElementById('dur-min').innerHTML = min;
     // document.getElementById('dur-sec').innerHTML = sec;
-  }
+  }*/
 
 
 
   return {
-    startChrono: startChrono,
-    stopChrono:stopChrono,
+    /*startChrono: startChrono,
+    stopChrono:stopChrono,*/
     updateInfos: updateInfos
     // backHome: backHome
   }

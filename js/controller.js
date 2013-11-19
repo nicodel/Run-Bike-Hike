@@ -42,7 +42,9 @@ var Controller = function() {
     );*/
     tracking = true;
     // Start the calculation of elapsed time
-    InfosView.startChrono();
+    // InfosView.startChrono();
+    Chrono.load(document.getElementById("infos-chrono"));
+    Chrono.start();
     // Open new track
     current_track = Tracks.open();
     nb_point = 0;
@@ -50,7 +52,8 @@ var Controller = function() {
 
   function stopWatch(){
     //Stop the calculation of elapsed time
-    InfosView.stopChrono();
+    // InfosView.stopChrono();
+    Chrono.stop();
     // Clear the watch
     // navigator.geolocation.clearWatch(watchID);
     // Close track
@@ -62,8 +65,10 @@ var Controller = function() {
   function __locationChanged(inPosition){
     // console.log("Position found");
     if (tracking) {
+      console.log("tracking");
       __positionChanged(inPosition);
     } else {
+      console.log("not tracking");
       HomeView.updateInfos(inPosition);
     };
   }
@@ -78,8 +83,10 @@ var Controller = function() {
 
   function __positionChanged(inPosition){
     if (!inPosition.coords || !inPosition.coords.latitude || !inPosition.coords.longitude) {
+      console.log("__locationChanged not - inPosition: ", inPosition);
       return;
     }
+    console.log("__locationChanged - inPosition: ", inPosition);
     var event = inPosition.coords;
     // Display GPS data, log to Db
     var now = new Date();
@@ -108,7 +115,7 @@ var Controller = function() {
     Tracks.getDuration(inPosition.timestamp);
 
     // updating UI
-    nb_point =+ 1;
+    // nb_point =+ 1;
     InfosView.updateInfos(inPosition, distance)
     //~ console.log("nb_point:", nb_point);
 

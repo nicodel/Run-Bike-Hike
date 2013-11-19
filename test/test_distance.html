@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title >Test Distance</title>
+</head>
+<body>
+  <h1>Test Distance</h1>
+  <p>Distance:
+  <span id="infos-dist" style="padding-left:10px;"></span>
+  </p>
+  <button id="btn">Avance !</button>
+</body>
+<script>
+document.querySelector("#btn").addEventListener ("click", function () {
+  btnCliked();
+});
+var item = 0;
+var distance = 0;
+var olat = null;
+var olon = null;
+
+function btnCliked() {
+  document.querySelector("#infos-dist").innerHTML = getDistance(data[item].latitude, data[item].longitude);
+  item = item + 1;
+};
+
+function getDistance(lat, lon) {
+  if (olat != null) {      
+    distance += __distanceFromPrev(olat, olon, lat, lon);
+  };
+  olat = lat;
+  olon = lon;
+  return distance;
+};
+
+var __distanceFromPrev = function(lat1, lon1, lat2, lon2) {
+  var lat1Rad = lat1*( Math.PI / 180);
+  var lon1Rad = lon1*( Math.PI / 180);
+  var lat2Rad = lat2*( Math.PI / 180);
+  var lon2Rad = lon2*( Math.PI / 180);
+
+  var dLat = lat2Rad - lat1Rad;
+  var dLon = lon2Rad - lon1Rad;
+
+  var a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.cos(lat1Rad) * Math.cos(lat2Rad) * Math.sin(dLon/2) * Math.sin(dLon/2);
+  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+  var R = 6371 * 1000;
+  return R * c;
+};
+
+
+
+
+var data = [{latitude:"7.748022", longitude:"-80.250159", timestamp:"2012-02-26T12:47:55Z",coords:{altitude:"55",speed:"16",accuracy:"6",altitudeAccuracy:"3"}},
+  {latitude:"7.748166", longitude:"-80.250132", timestamp:"2012-02-26T12:47:56Z",coords:{altitude:"55",speed:"16",accuracy:"6",altitudeAccuracy:"3"}},
+  {latitude:"7.748311", longitude:"-80.250105", timestamp:"2012-02-26T12:47:57Z",coords:{altitude:"55",speed:"16",accuracy:"6",altitudeAccuracy:"3"}},
+  {latitude:"7.748456", longitude:"-80.250084", timestamp:"2012-02-26T12:47:58Z",coords:{altitude:"55",speed:"16",accuracy:"6",altitudeAccuracy:"3"}},
+  {latitude:"7.748601", longitude:"-80.250057", timestamp:"2012-02-26T12:47:59Z",coords:{altitude:"55",speed:"16",accuracy:"6",altitudeAccuracy:"3"}},
+  {latitude:"7.748746", longitude:"-80.250036", timestamp:"2012-02-26T12:48:00Z",coords:{altitude:"55",speed:"16",accuracy:"6",altitudeAccuracy:"3"}},
+  {latitude:"7.748896", longitude:"-80.250003", timestamp:"2012-02-26T12:48:01Z",coords:{altitude:"54",speed:"16",accuracy:"6",altitudeAccuracy:"3"}},
+  {latitude:"7.749041", longitude:"-80.249977", timestamp:"2012-02-26T12:48:02Z",coords:{altitude:"54",speed:"16",accuracy:"6",altitudeAccuracy:"3"}}
+];
+
+</script>
+</html>
