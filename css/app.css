@@ -118,6 +118,9 @@ nav[data-type="scrollbar"] {
 nav[data-type="scrollbar"] p {
   opacity: 1;
 }
+.scrollable {
+  max-height: 85%;
+}
 
 /* Seek bars */
 div[role="slider"] > label.icon {

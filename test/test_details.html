@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title >Test Distance</title>
+
+    <!-- Reset -->
+    <link rel="stylesheet" type="text/css" href="../css/reset.css"/>
+
+    <!-- Firefox OS Building Blocks -->
+    <link rel="stylesheet" type="text/css" href="../css/building_blocks/util.css">
+    <link rel="stylesheet" type="text/css" href="../css/building_blocks/transitions.css">
+    <link rel="stylesheet" type="text/css" href="../css/building_blocks/style/action_menu.css">
+    <link rel="stylesheet" type="text/css" href="../css/building_blocks/style/buttons.css">
+    <link rel="stylesheet" type="text/css" href="../css/building_blocks/style/confirm.css">
+    <link rel="stylesheet" type="text/css" href="../css/building_blocks/style/edit_mode.css">
+    <link rel="stylesheet" type="text/css" href="../css/building_blocks/style/status.css">
+    <link rel="stylesheet" type="text/css" href="../css/building_blocks/style/headers.css">
+    <link rel="stylesheet" type="text/css" href="../css/building_blocks/style_unstable/lists.css">
+    <link rel="stylesheet" type="text/css" href="../css/building_blocks/style_unstable/toolbars.css">
+    <link rel="stylesheet" type="text/css" href="../css/building_blocks/style_unstable/progress_activity.css">
+
+    <link rel="stylesheet" type="text/css" href="../css/building_blocks/icons/styles/action_icons.css">
+
+    <!-- Fonts -->
+    <link rel="stylesheet" href="../css/fonts.css"/>
+
+    <!-- My own Style ! -->
+    <link rel="stylesheet" href="../css/app.css"/>
+    <link rel="stylesheet" href="../css/styles.css"/>
+
+  <script type="text/javascript" src="data.js"></script>
+  <script type="text/javascript" src="../js/views/track-view.js"></script>
+  <script type="text/javascript" src="../js/models/config.js"></script>
+</head>
+<body>
+  <header>
+    <a><span id="btn-track-back" class="icon icon-back">Back</span></a>
+    <h1 data-l10n-id="track" id="tr-name">Track:</h1>
+  </header>
+  <article class="scrollable">
+  <ul class="infos-container">
+    <li>
+      <div data-l10n-id="date">
+        Date
+        <span id="trk-date" class="bold align-right"></span>
+      </div>
+    </li>
+    <li>
+      <div data-l10n-id="distance">
+        Distance
+        <span id="trk-dist" class="bold align-right"></span>
+      </div>
+    </li>
+    <li>
+      <div data-l10n-id="duration">
+        Duration
+        <span id="trk-dur" class="bold align-right"></span>
+      </div>
+    </li>
+    <li>
+      <div data-l10n-id="map" id="trk-dt-map">Map</div>
+    </li>
+    <li>
+      <div data-l10n-id="altitude" id="trk-dt-alt">Altitude</div>
+      <canvas id="alt-canvas"></canvas>
+    </li>
+    <li>
+      <div data-l10n-id="speed" id="trk-dt-speed">Speed</div>
+      <canvas id="speed-canvas"></canvas>
+    </li>
+  </ul>
+  </article>
+  <footer role="toolbar">
+    <ul>
+      <li><button class="action-icon delete">Delete</button></li>
+      <li><button class="action-icon email-share">Share</button></li>
+      <li><button class="action-icon compose">Edit</button></li>
+    </ul>
+  </footer>
+</body>
+<script>
+  TrackView.display(testdata);
+</script>
+</html>

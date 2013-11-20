@@ -11,7 +11,7 @@ var TracksView = function() {
   }
 
   function __buildList(inTrack) {
-    console.log("__buildList - inTrack: ", inTrack);
+    // console.log("__buildList - inTrack: ", inTrack);
     var li = document.createElement("li");
     var lia = document.createElement("a");
     lia.className = "it-track";
@@ -20,7 +20,7 @@ var TracksView = function() {
     div = div + '<span class="align-right">' + Config.userDate(inTrack.date) + '</span></p>';
     div = div + '<p class="new-line"><span class="align-left">' + Config.userDistance(inTrack.distance) + '</span>';
     var d = inTrack.duration / 60000;
-    div = div + '<span class="align-right">' + d.toFixed(0) + 'min</span></p>';
+    div = div + '<span class="align-right">' + d.toFixed() + 'min</span></p>';
     lia.innerHTML = div;
     li.appendChild(lia);
     document.getElementById("tracks-list").appendChild(li);

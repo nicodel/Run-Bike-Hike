@@ -23,7 +23,7 @@ var InfosView = function() {
     __displayCompass(inPosition.coords);
 
     // update infos test
-    document.getElementById("infos-test").innerHTML = inPosition.toString();
+    document.getElementById("infos-test").innerHTML = inPosition.coords.latitude;
   }
 
   var __displayCompass = function(event) {

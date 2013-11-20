@@ -21,7 +21,8 @@ var olat = null;
 var olon = null;
 
 function btnCliked() {
-  document.querySelector("#infos-dist").innerHTML = getDistance(data[item].latitude, data[item].longitude);
+  distance = getDistance(data[item].latitude, data[item].longitude);
+  document.querySelector("#infos-dist").innerHTML = distance;
   item = item + 1;
 };
 

@@ -12,6 +12,7 @@ var Controller = function() {
   var watchID, lock;
   var olat, olon;
   var tracking = false;
+  var duration;
 
   function init() {
     // startWatch();
@@ -56,6 +57,9 @@ var Controller = function() {
     Chrono.stop();
     // Clear the watch
     // navigator.geolocation.clearWatch(watchID);
+    // reset counters
+    Tracks.reset();
+    Chrono.reset();
     // Close track
     var track = Tracks.close();
     // Save to DB
@@ -65,10 +69,10 @@ var Controller = function() {
   function __locationChanged(inPosition){
     // console.log("Position found");
     if (tracking) {
-      console.log("tracking");
+      // console.log("tracking");
       __positionChanged(inPosition);
     } else {
-      console.log("not tracking");
+      // console.log("not tracking");
       HomeView.updateInfos(inPosition);
     };
   }
@@ -83,10 +87,10 @@ var Controller = function() {
 
   function __positionChanged(inPosition){
     if (!inPosition.coords || !inPosition.coords.latitude || !inPosition.coords.longitude) {
-      console.log("__locationChanged not - inPosition: ", inPosition);
+      // console.log("__locationChanged not - inPosition: ", inPosition);
       return;
     }
-    console.log("__locationChanged - inPosition: ", inPosition);
+    // console.log("__locationChanged - inPosition: ", inPosition);
     var event = inPosition.coords;
     // Display GPS data, log to Db
     var now = new Date();
@@ -112,7 +116,7 @@ var Controller = function() {
     // }
 
     // calculating duration
-    Tracks.getDuration(inPosition.timestamp);
+    duration = Tracks.getDuration(inPosition.timestamp);
 
     // updating UI
     // nb_point =+ 1;
@@ -129,7 +133,7 @@ var Controller = function() {
       accuracy:horizAccuracy,
       vertAccuracy:vertAccuracy
     };
-    Tracks.addNode(gps_point);
+    Tracks.addNode(gps_point, distance, duration);
   }
 
   function __positionError(inError) {}
@@ -163,7 +167,7 @@ var Controller = function() {
   }
 
   function displayTrack(inTrack) {
-    console.log("inTrack display: ", inTrack);
+    // console.log("inTrack display: ", inTrack);
     TrackView.display(inTrack);
   }
 

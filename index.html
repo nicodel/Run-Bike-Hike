@@ -105,7 +105,7 @@
     </section>
 
     <!-- Settings View -->
-    <section role="region" class="skin-organic settings" id="settingsView" data-position="right">
+    <section role="region" class="skin-organic settings scrollable" id="settingsView" data-position="right">
       <header>
         <a id="btn-settings-back" href="#">
           <span class="icon icon-back">Back</span>
@@ -210,9 +210,6 @@
             <span id="infos-alt" class="bold align-right"></span>
           </div>
         </li>
-        <li>
-          <div id="infos-test"></div>
-        </li>
       </ul>
       <footer class="toolbar">
       </footer>
@@ -253,7 +250,7 @@
         </a>
         <h1 data-l10n-id="recorded-tracks">Recorded tracks</h1>
       </header>
-      <article>
+      <article  class="scrollable">
       <section data-type="list">
         <ul id="tracks-list">
 <!--           <li>
@@ -281,24 +278,24 @@
         <a><span id="btn-track-back" class="icon icon-back">Back</span></a>
         <h1 data-l10n-id="track" id="tr-name">Track:</h1>
       </header>
-      <article>
-      <ul>
+      <article  class="scrollable">
+      <ul class="infos-container">
         <li>
           <div data-l10n-id="date">
             Date
-            <span id="trk-date"></span>
+            <span id="trk-date" class="bold align-right"></span>
           </div>
         </li>
         <li>
           <div data-l10n-id="distance">
             Distance
-            <span id="trk-dist"></span>
+            <span id="trk-dist" class="bold align-right"></span>
           </div>
         </li>
         <li>
           <div data-l10n-id="duration">
             Duration
-            <span id="trk-dur"></span>
+            <span id="trk-dur" class="bold align-right"></span>
           </div>
         </li>
         <li>
@@ -314,26 +311,14 @@
         </li>
       </ul>
       </article>
-      <footer class="toolbar">
+      <footer role="toolbar">
         <ul>
-          <li><button class="icon icon-delete">Delete</button></li>
-          <li><button class="icon icon-share">Share</button></li>
-          <li><button class="icon icon-edit">Edit</button></li>
+          <li><button class="action-icon delete">Delete</button></li>
+          <li><button class="action-icon email-share">Share</button></li>
+          <li><button class="action-icon compose">Edit</button></li>
         </ul>
       </footer>
     </section>
-    <!-- <script type="text/javascript" src="js/views/home-view.js"></script>
-    <script type="text/javascript" src="js/views/infos-view.js"></script>
-    <script type="text/javascript" src="js/views/settings-view.js"></script>
-    <script type="text/javascript" src="js/views/track-view.js"></script>
-    <script type="text/javascript" src="js/views/tracks-view.js"></script>
-    <script type="text/javascript" src="js/models/config.js"></script>
-    <script type="text/javascript" src="js/models/db.js"></script>
-    <script type="text/javascript" src="js/models/tracks.js"></script>
-    <script type="text/javascript" src="js/controller.js"></script>
-    <script type="text/javascript" src="js/app.js"></script>
-    <script>RunBikeHike();</script> -->
-    <!--  <script data-main="js/app" src="lib/require.js"></script> -->
     <script type="text/javascript" src="lib/lazyload/lazyload-min.js"></script>
     <script type="text/javascript">
       LazyLoad.js([
