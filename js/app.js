@@ -15,6 +15,7 @@ var RunBikeHike = function() {
    * EVENT LISTENER *
   *******************/
 
+  /*----------------- Home View -----------------*/
   /* Home View Tracks button */
   document.querySelector("#btn-tracks").addEventListener ("click", function () {
     Controller.displayTracks();
@@ -32,11 +33,15 @@ var RunBikeHike = function() {
     document.querySelector("#infosView").className = "current";
     document.querySelector("#homeView").className = "left";
   })
+
+  /*----------------- Infos View -----------------*/
   /* Infos View Stop button */
   document.querySelector("#btn-stop").addEventListener ("click", function () {
       document.querySelector("#infosView").className = "fade-out";
       document.querySelector("#stopTrackingConfirmation").className = "fade-in";
   })
+  
+  /*-------- Stop tracking confirmation ------------*/
   /* Stop tracking Confirm button */
   document.querySelector("#btn-confirm-stop").addEventListener ("click", function () {
       document.querySelector("#homeView").className = "fade-in";
@@ -48,21 +53,55 @@ var RunBikeHike = function() {
       document.querySelector("#infosView").className = "fade-in";
       document.querySelector("#stopTrackingConfirmation").className = "fade-out";
   })
+
+  /*----------------- Settings View -----------------*/
   /* Settings View Back button */
   document.querySelector("#btn-settings-back").addEventListener ("click", function () {
     document.querySelector("#settingsView").className = "right";
     document.querySelector("#homeView").className = "current";
   })
-  /* Track View Back button */
-  document.querySelector("#btn-track-back").addEventListener ("click", function () {
-    document.querySelector("#trackView").className = "right";
-    document.querySelector("#tracksView").className = "current";
-  })
+
+  /*----------------- Tracks View -----------------*/
   /* Tracks View Back button */
   document.querySelector("#btn-tracks-back").addEventListener ("click", function () {
     document.querySelector("#tracksView").className = "right";
     document.querySelector("#homeView").className = "current";
   })
+
+  /*----------------- Track Detail View -----------------*/
+  /* Track View Back button */
+  document.querySelector("#btn-track-back").addEventListener ("click", function () {
+    document.querySelector("#trackView").className = "right";
+    document.querySelector("#tracksView").className = "current";
+  })
+  /* Track View Delete button */
+  document.querySelector("#btn-delete").addEventListener ("click", function() {
+      document.querySelector("#trackView").className = "fade-out";
+      document.querySelector("#deleteTrackConfirmation").className = "fade-in";
+  })
+  /* Track View Share button */
+  document.querySelector("#btn-share").addEventListener ("click", function() {
+
+  })
+  
+  /* Track View Edit button */
+  document.querySelector("#btn-edit").addEventListener ("click", function() {
+
+  })
+
+  /*----------------- Track Delete Confirmation -----------------*/
+  /* Delete Track Cancel button */
+  document.querySelector("#btn-cancel-delete").addEventListener ("click", function() {
+      document.querySelector("#trackView").className = "fade-in";
+      document.querySelector("#deleteTrackConfirmation").className = "fade-out";
+  })
+
+  /* Delete Track Confirm button */
+  document.querySelector("#btn-confirm-delete").addEventListener ("click", function() {
+      document.querySelector("#trackView").className = "fade-in";
+      document.querySelector("#deleteTrackConfirmation").className = "fade-out";
+  })
+
   /* TEST TRACK LINK */
   // document.querySelector("#test-track").addEventListener("click", function(e){
   //   document.querySelector("#trackView").className = "current";
