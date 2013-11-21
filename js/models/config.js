@@ -173,6 +173,7 @@ var Config = function() {
   };
 
   return {
+    SCREEN_KEEP_ALIVE: SCREEN_KEEP_ALIVE,
     userSpeed: userSpeed,
     userDegree: userDegree,
     userLatitude: userLatitude,

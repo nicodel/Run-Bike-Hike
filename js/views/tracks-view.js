@@ -1,7 +1,21 @@
 var TracksView = function() {
 
   function display(inTracks) {
-    __remove_childs("tracks-list");
+    // __remove_childs("tracks-list");
+    var list = document.getElementById("tracks-list");
+    console.log("list.childNodes",list.childNodes);
+    for (i = 0; i = list.childNodes.length - 1; i++) {
+      if (list.childNodes[i]) {
+        if (list.childNodes[i].className === "it-track") {
+          console.log("cleaning element " + i + " " + list.childNodes[i]);
+          list.removeChild(list.childNodes[i]);
+        } else {
+          console.log("element " + i + " " + list.childNodes[i]);
+        };
+      };
+      // console.log("remove element " + i + " " + list.childNodes[i].textContent);
+      // document.getElementById("tracks-list").removeChild(d.childNodes[i]);
+    }
   
     var tracks = [];
     tracks = inTracks;
@@ -10,11 +24,16 @@ var TracksView = function() {
     }
   }
 
+  function reset() {
+    __remove_childs("tracks-list");
+  }
+
   function __buildList(inTrack) {
     // console.log("__buildList - inTrack: ", inTrack);
     var li = document.createElement("li");
+    li.className = "it-track";
     var lia = document.createElement("a");
-    lia.className = "it-track";
+    // lia.className = "it-track";
 
     var div = '<p><span class="align-left">' + inTrack.name + '</span>';
     div = div + '<span class="align-right">' + Config.userDate(inTrack.date) + '</span></p>';
@@ -33,14 +52,16 @@ var TracksView = function() {
 
   function __remove_childs(parent) {
     var d = document.getElementById(parent).childNodes;
-    // console.log("d",d);
-    for (i = 0; i < d.length; i++) {
+    console.log("d",d);
+    for (i = 0; i <= d.length; i++) {
       document.getElementById(parent).removeChild(d[i]);
+      console.log("remove element " + i + " " + d[i]);
     }
   }
 
   return {
-    display: display
+    display: display,
+    reset: reset
   };
 
 }();

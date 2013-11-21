@@ -7,6 +7,11 @@ var TrackView = function() {
   var xPadding = 30;
   var yPadding = 30;
 
+  var SPACE_BTW_POINTS = 5;
+  var LINE_WIDTH = 1;
+  var VALUE_COLOR = "#0560A6";
+  var ACCURACY_COLOR = "#FF9200";
+
   function display(inTrack) {
     var tr = document.getElementById("tr-name");
     tr.innerHTML = inTrack.name;
@@ -51,6 +56,7 @@ var TrackView = function() {
     // console.log("t.end", t.end);
     __buildAltitudeGraph(t);
     __buildSpeedGraph(t);
+    __buildMap(inTrack);
   }
 
   function __buildAltitudeGraph(inData) {
@@ -78,9 +84,9 @@ var TrackView = function() {
       // console.log("data[i].vertAccuracy", data[i].vertAccuracy);
       max_acc = max_acc / 2;
     }
-    console.log("max_y", max_y);
-    console.log("min_y",min_y);
-    console.log("max_acc",max_acc);
+    // console.log("max_y", max_y);
+    // console.log("min_y",min_y);
+    // console.log("max_acc",max_acc);
     
     // create a rectangular canvas with width and height depending on screen size
     // var graph = document.getElementById("alt-canvas");
@@ -114,11 +120,11 @@ var TrackView = function() {
     var c = __createRectCanvas("alt-canvas", range, yspace);
     
     var espace = parseInt(data.length / (gWidth - xPadding), 10);
-    espace = espace * 5; // increase spacing between points so that the chart looks smoother.
+    espace = espace * SPACE_BTW_POINTS; // increase spacing between points so that the chart looks smoother.
     console.log("espace", espace);
     // Draw vertAccuracy lines
-    c.strokeStyle = "#FF9200";
-    c.lineWidth = 3;
+    c.strokeStyle = ACCURACY_COLOR;
+    c.lineWidth = LINE_WIDTH;
     c.beginPath();
     //~ var z = parseInt(getXPixel(data[0].altitude) - parseInt(data[0].vertAccuracy));
     var alt0 = parseInt(data[0].altitude, 10);
@@ -142,7 +148,7 @@ var TrackView = function() {
     }
     
     // Draw Altitude points
-    c.strokeStyle = "#0560A6";
+    c.strokeStyle = VALUE_COLOR;
     c.lineWidth = 1;
     c.beginPath();
     c.moveTo(__getXPixel(0,data), __getYPixel(data[0].altitude, range));
@@ -279,6 +285,23 @@ var TrackView = function() {
     }
     c.stroke();
     c.closePath();
+  }
+
+  function __buildMap(inTrack) {
+    var lat = inTrack.data[0].latitude;
+    var lon = inTrack.data[0].longitude;
+    var i = 0;
+    var dw = "";
+    for (i = 0; i< inTrack.data[0].length; i++) {
+      lt = "&d0p"+ i + "lat=" + inTrack.data[0].latitude;
+      ln = "&d0p"+ i + "lon=" + inTrack.data[0].longitude;
+      dw = dw + ln + lt;
+    }
+    loc = "http://ojw.dev.openstreetmap.org/StaticMap/?lat="+ lat +"&lon="+ lon +"&mlat0="+ lat +"&mlon0="+ lon + dw + "&z=15&mode=Export&show=1";
+    // {name: "mapImage", kind: "Image", style: "width: 100%;"},
+    // this.$.mapImage.setSrc(loc);
+    document.getElementById("map-img").src = loc;
+
   }
 
   function __createRectCanvas(inElementId, inRange, inSpace) {

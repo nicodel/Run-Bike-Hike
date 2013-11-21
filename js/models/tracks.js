@@ -86,6 +86,7 @@ var Tracks = function() {
     addNode: addNode,
     getDuration: getDuration,
     getDistance: getDistance,
+    reset: reset,
     close: close
   };
 }();

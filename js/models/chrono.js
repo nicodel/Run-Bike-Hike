@@ -90,11 +90,12 @@ var Chrono = function() {
 		var ch=parseInt(cnow.getHours()) - 1;
 		var cm=cnow.getMinutes();
 		var cs=cnow.getSeconds();
-		var cc=parseInt(cnow.getMilliseconds()/10);
-		if (cc<10) cc="0"+cc;
+		// var cc=parseInt(cnow.getMilliseconds()/10);
+		// if (cc<10) cc="0"+cc;
 		if (cs<10) cs="0"+cs;
 		if (cm<10) cm="0"+cm;
-		return (ch+":"+cm+":"+cs+":"+cc);
+		// return (ch+":"+cm+":"+cs+":"+cc);
+		return (ch+":"+cm+":"+cs);
 	} // fin tempsChrono()
 
 	return {

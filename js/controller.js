@@ -155,6 +155,8 @@ var Controller = function() {
   }
 
   function displayTracks() {
+    // reset the tracks list display
+    // TracksView.reset();
     // get the whole tracks list
     DB.getTracks(__getTracksSuccess, __getTracksError);
   }
