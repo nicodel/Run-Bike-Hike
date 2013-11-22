@@ -102,6 +102,19 @@ var RunBikeHike = function() {
       document.querySelector("#deleteTrackConfirmation").className = "fade-out";
   })
 
+  /*----------------- Track Edit View -----------------*/
+  /* Delete Track Cancel button */
+  document.querySelector("#btn-cancel-edit").addEventListener ("click", function() {
+      document.querySelector("#trackView").className = "fade-in";
+      document.querySelector("#EditView").className = "fade-out";
+  })
+
+  /* Delete Track Confirm button */
+  document.querySelector("#btn-confirm-edit").addEventListener ("click", function() {
+      document.querySelector("#trackView").className = "fade-in";
+      document.querySelector("#EditView").className = "fade-out";
+  })
+
   /* TEST TRACK LINK */
   // document.querySelector("#test-track").addEventListener("click", function(e){
   //   document.querySelector("#trackView").className = "current";

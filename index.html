@@ -10,10 +10,10 @@
     <meta name="apple-mobile-web-app-capable" content="yes"/>
     <link rel="apple-touch-icon" href="img/icons/128.png"/>
 
-    <!-- Reset -->
+    <!--······························ Reset ································-->
     <link rel="stylesheet" type="text/css" href="css/reset.css"/>
 
-    <!-- Firefox OS Building Blocks -->
+    <!--···················· Firefox OS Building Blocks ·····················-->
     <link rel="stylesheet" type="text/css" href="css/building_blocks/util.css">
     <link rel="stylesheet" type="text/css" href="css/building_blocks/transitions.css">
     <link rel="stylesheet" type="text/css" href="css/building_blocks/style/action_menu.css">
@@ -28,10 +28,10 @@
 
     <link rel="stylesheet" type="text/css" href="css/building_blocks/icons/styles/action_icons.css">
 
-    <!-- Fonts -->
+    <!--······························ Fonts ································-->
     <link rel="stylesheet" href="css/fonts.css"/>
 
-    <!-- My own Style ! -->
+    <!--··························· My own Style ! ···························-->
     <link rel="stylesheet" href="css/app.css"/>
     <link rel="stylesheet" href="css/styles.css"/>
     
@@ -48,7 +48,7 @@
   </head>
   <body id="app">
 
-    <!-- Home View -->
+    <!--··························· Home View ·······························-->
     <section role="region" id="homeView" data-position="current">
       <header>
         <menu type="toolbar">
@@ -104,7 +104,7 @@
       </footer>
     </section>
 
-    <!-- Settings View -->
+    <!--···························· Settings View ··························-->
     <section role="region" class="skin-organic settings scrollable" id="settingsView" data-position="right">
       <header>
         <a id="btn-settings-back" href="#">
@@ -170,7 +170,7 @@
       </ul>
     </section>
 
-    <!-- Infos View -->
+    <!--··························· Infos View ······························-->
     <section role="region" id="infosView"  data-position="right">
       <header>
         <h1 data-l10n-id="rbh-tracking">Tracking...</h1>
@@ -215,7 +215,7 @@
       </footer>
     </section>
     
-    <!-- Stop the track confirmation dialog -->
+    <!--·············· Stop the track confirmation dialog ···················-->
     <section id="stopTrackingConfirmation" data-position="back" class="fullscreen">
       <form role="dialog" data-type="confirm" onsubmit="return false;">
         <section>
@@ -231,18 +231,18 @@
       </form>
     </section>
 
-    <!-- Track successfully stored dialog -->
+    <!--·················· Track successfully stored dialog ·················-->
     <section role="status" id="storeSuccessView">
       <p data-l10n-id="track-success-stored">The track <span id="track-name"><strong></strong></span> has been successfully stored.</p>
     </section>
 
-    <!-- Failed to store track dialog -->
+    <!--······················ Failed to store track dialog ·················-->
     <section role="status" id="storeFailedView">
       <p>Error saving track <span id="track-name"><strong></strong></span> to database.</p>
     </section>
 
 
-    <!-- Tracks View -->
+    <!--·························· Tracks View ······························-->
     <section role="region" id="tracksView" data-position="right">
       <header>
         <a id="btn-tracks-back" href="#">
@@ -260,7 +260,7 @@
       </footer>
     </section>
 
-    <!-- Track View -->
+    <!--·························· Track View ·······························-->
     <section role="region" id="trackView" data-position="right">
       <header>
         <a><span id="btn-track-back" class="icon icon-back">Back</span></a>
@@ -309,7 +309,7 @@
       </footer>
     </section>
 
-    <!-- Delete the track confirmation dialog -->
+    <!--················ Delete the track confirmation dialog ···············-->
     <section id="deleteTrackConfirmation" data-position="back" class="fullscreen">
       <form role="dialog" data-type="confirm" onsubmit="return false;">
         <section>
@@ -325,7 +325,7 @@
       </form>
     </section>
 
-    <!-- Share track Action Menu -->
+    <!--···················· Share track Action Menu ························-->
     <section id="ShareMenu" data-position="back" class="fullscreen">
       <form role="dialog" data-type="action">
         <header>Export track to</header> <!-- this header is optional -->
@@ -338,8 +338,17 @@
       </form>
     </section>
 
-
-
+    <!--···················· Edit track View ························-->
+    <section id="EditView" data-position="back" class="fullscreen">
+      <form role="dialog" data-type="action">
+        <header>Track name</header> <!-- this header is optional -->
+        <input type="text" required="" value="" placeholder="Track name"></input>
+        <menu>
+          <button id="btn-cancel-edit" class="cancel" data-l10n-id="cancel">Cancel</button>
+          <button id="btn-confirm-edit" role="button" class="danger" data-l10n-id="confirm">Confirm</button>
+        </menu>
+      </form>
+    </section>
 
     <script type="text/javascript" src="lib/lazyload/lazyload-min.js"></script>
     <script type="text/javascript">
