@@ -81,12 +81,14 @@ var RunBikeHike = function() {
   })
   /* Track View Share button */
   document.querySelector("#btn-share").addEventListener ("click", function() {
-
+      document.querySelector("#trackView").className = "fade-out";
+      document.querySelector("#ShareMenu").className = "fade-in";
   })
   
   /* Track View Edit button */
   document.querySelector("#btn-edit").addEventListener ("click", function() {
-
+      document.querySelector("#trackView").className = "fade-out";
+      document.querySelector("#EditView").className = "fade-in";
   })
 
   /*----------------- Track Delete Confirmation -----------------*/
@@ -113,6 +115,31 @@ var RunBikeHike = function() {
   document.querySelector("#btn-confirm-edit").addEventListener ("click", function() {
       document.querySelector("#trackView").className = "fade-in";
       document.querySelector("#EditView").className = "fade-out";
+  })
+
+  /*----------------- Track Share Menu -----------------*/
+  /* Share Track Cancel button */
+  document.querySelector("#btn-share-cancel").addEventListener ("click", function() {
+      document.querySelector("#trackView").className = "fade-in";
+      document.querySelector("#ShareMenu").className = "fade-out";
+  })
+
+  /* Share Track Local button */
+  document.querySelector("#btn-confirm-delete").addEventListener ("click", function() {
+      document.querySelector("#trackView").className = "fade-in";
+      document.querySelector("#ShareMenu").className = "fade-out";
+  })
+
+  /* Share Track Email HTML button */
+  document.querySelector("#btn-share-email-html").addEventListener ("click", function() {
+      document.querySelector("#trackView").className = "fade-in";
+      document.querySelector("#ShareMenu").className = "fade-out";
+  })
+
+  /* Share Track Email GPX button */
+  document.querySelector("#btn-share-email-gpx").addEventListener ("click", function() {
+      document.querySelector("#trackView").className = "fade-in";
+      document.querySelector("#ShareMenu").className = "fade-out";
   })
 
   /* TEST TRACK LINK */
