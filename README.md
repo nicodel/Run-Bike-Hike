@@ -25,15 +25,20 @@ Un outil d'enregistrement GPS pour les sportifs qui aiment suivre leurs évoluti
 * Movements can be recorded. Informations recorded are longitude, latitude, altitude, direction, speed and accuracy.
 * Tracks are recorded on device using IndexedDB.
 * Stored tracks can be deleted.
+* Position and date format can be choosen in Settings, as well as distance unit.
+* Screen keep alive can be choosen in Settings.
+* Available language : English.
 
 
 ### v0.2
 * Stored tracks can be renamed.
 * Stored tracks can be exported to GPX or HTML format, and saved locally or sent through email.
 * Tracks list can be sorted by name, date or distance.
+* Available language : French.
 
 ### v0.3
 * During tracking, position can be displayed on a reszisable and dynamic map.
+* Available language : Spanish.
 
 
 

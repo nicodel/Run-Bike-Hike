@@ -92,7 +92,7 @@
         <progress id="spinner"></progress>
         <p id="msg" class="bold align-center">Retreiving GPS signal. It may take some time...</p>
       </div>
-      <button id="btn-reset">Reset DB</button>
+      <!-- <bustton id="btn-reset">Reset DB</button> -->
       </div>
       <footer role="toolbar">
         <ul>
@@ -303,8 +303,8 @@
       <footer role="toolbar">
         <ul>
           <li><button data-l10n-id="delete" class="action-icon delete" id="btn-delete">Delete</button></li>
-          <li><button data-l10n-id="share" class="action-icon email-share" id="btn-share">Share</button></li>
-          <li><button data-l10n-id="edit" class="action-icon compose" id="btn-edit">Edit</button></li>
+          <li><button data-l10n-id="share" class="action-icon email-share" disabled="" id="btn-share">Share</button></li>
+          <li><button data-l10n-id="edit" class="action-icon compose" disabled="" id="btn-edit">Edit</button></li>
         </ul>
       </footer>
     </section>
@@ -326,9 +326,9 @@
     </section>
 
     <!--···················· Share track Action Menu ························-->
-    <section id="ShareMenu" data-position="back" class="fullscreen">
+<!--     <section id="ShareMenu" data-position="back" class="fullscreen">
       <form role="dialog" data-type="action">
-        <header>Export track to</header> <!-- this header is optional -->
+        <header>Export track to</header>
         <menu>
           <button data-l10n-id="share-local" id="btn-share-local">Local (GPX)</button>
           <button data-l10n-id="share-email-html" id="btn-share-email-html">Email (HTML)</button>
@@ -336,19 +336,19 @@
           <button data-l10n-id="cancel" id="btn-share-cancel"> Cancel </button>
         </menu>
       </form>
-    </section>
+    </section> -->
 
     <!--···················· Edit track View ························-->
-    <section id="EditView" data-position="back" class="fullscreen">
+<!--     <section id="EditView" data-position="back" class="fullscreen">
       <form role="dialog" data-type="action">
-        <header>Track name</header> <!-- this header is optional -->
+        <header>Track name</header>
         <input type="text" required="" value="" placeholder="Track name"></input>
         <menu>
           <button id="btn-cancel-edit" class="cancel" data-l10n-id="cancel">Cancel</button>
           <button id="btn-confirm-edit" role="button" class="danger" data-l10n-id="confirm">Confirm</button>
         </menu>
       </form>
-    </section>
+    </section> -->
 
     <script type="text/javascript" src="lib/lazyload/lazyload-min.js"></script>
     <script type="text/javascript">

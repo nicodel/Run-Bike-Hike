@@ -106,41 +106,41 @@ var RunBikeHike = function() {
 
   /*----------------- Track Edit View -----------------*/
   /* Delete Track Cancel button */
-  document.querySelector("#btn-cancel-edit").addEventListener ("click", function() {
-      document.querySelector("#trackView").className = "fade-in";
-      document.querySelector("#EditView").className = "fade-out";
-  })
+  // document.querySelector("#btn-cancel-edit").addEventListener ("click", function() {
+  //     document.querySelector("#trackView").className = "fade-in";
+  //     document.querySelector("#EditView").className = "fade-out";
+  // })
 
   /* Delete Track Confirm button */
-  document.querySelector("#btn-confirm-edit").addEventListener ("click", function() {
-      document.querySelector("#trackView").className = "fade-in";
-      document.querySelector("#EditView").className = "fade-out";
-  })
+  // document.querySelector("#btn-confirm-edit").addEventListener ("click", function() {
+  //     document.querySelector("#trackView").className = "fade-in";
+  //     document.querySelector("#EditView").className = "fade-out";
+  // })
 
   /*----------------- Track Share Menu -----------------*/
   /* Share Track Cancel button */
-  document.querySelector("#btn-share-cancel").addEventListener ("click", function() {
-      document.querySelector("#trackView").className = "fade-in";
-      document.querySelector("#ShareMenu").className = "fade-out";
-  })
+  // document.querySelector("#btn-share-cancel").addEventListener ("click", function() {
+  //     document.querySelector("#trackView").className = "fade-in";
+  //     document.querySelector("#ShareMenu").className = "fade-out";
+  // })
 
   /* Share Track Local button */
-  document.querySelector("#btn-confirm-delete").addEventListener ("click", function() {
-      document.querySelector("#trackView").className = "fade-in";
-      document.querySelector("#ShareMenu").className = "fade-out";
-  })
+  // document.querySelector("#btn-confirm-delete").addEventListener ("click", function() {
+  //     document.querySelector("#trackView").className = "fade-in";
+  //     document.querySelector("#ShareMenu").className = "fade-out";
+  // })
 
   /* Share Track Email HTML button */
-  document.querySelector("#btn-share-email-html").addEventListener ("click", function() {
-      document.querySelector("#trackView").className = "fade-in";
-      document.querySelector("#ShareMenu").className = "fade-out";
-  })
+  // document.querySelector("#btn-share-email-html").addEventListener ("click", function() {
+  //     document.querySelector("#trackView").className = "fade-in";
+  //     document.querySelector("#ShareMenu").className = "fade-out";
+  // })
 
   /* Share Track Email GPX button */
-  document.querySelector("#btn-share-email-gpx").addEventListener ("click", function() {
-      document.querySelector("#trackView").className = "fade-in";
-      document.querySelector("#ShareMenu").className = "fade-out";
-  })
+  // document.querySelector("#btn-share-email-gpx").addEventListener ("click", function() {
+  //     document.querySelector("#trackView").className = "fade-in";
+  //     document.querySelector("#ShareMenu").className = "fade-out";
+  // })
 
   /* TEST TRACK LINK */
   // document.querySelector("#test-track").addEventListener("click", function(e){
@@ -148,10 +148,10 @@ var RunBikeHike = function() {
   //   document.querySelector("#tracksView").className = "left";
   // })
 
-  document.querySelector("#btn-reset").addEventListener("click", function(e){
-    console.log("DB reset");
-    DB.reset_app();
-  })
+  // document.querySelector("#btn-reset").addEventListener("click", function(e){
+  //   console.log("DB reset");
+  //   DB.reset_app();
+  // })
 
 }();
 // });
