@@ -1,4 +1,4 @@
-# Run, Bike, Hike ...
+# Run, Bike, Hike...
 
 ## Description
 
@@ -17,9 +17,9 @@ Un outil d'enregistrement GPS pour les sportifs qui aiment suivre leurs évoluti
 * Visualiser les parcours enregistrés, particulièrement la courbe de vitesse, d'altitude et la visualisation du parcours sur une carte.
 * Visualiser sa position en temps réel sur une carte.*
 
-## Releases
+## Release notes
 
-### v0.1
+### v0.1 — to be defined
 * Device position is shown, along with altitude and direction (if moving).
 * Informations shown during tracking are speed, altitude, accuracy and elapsed time.
 * Movements can be recorded. Informations recorded are longitude, latitude, altitude, direction, speed and accuracy.
@@ -29,33 +29,14 @@ Un outil d'enregistrement GPS pour les sportifs qui aiment suivre leurs évoluti
 
 ### v0.2
 * Stored tracks can be renamed.
-* Stored tracks can be exported to GPX or HTML format, and saved locally or send through email.
+* Stored tracks can be exported to GPX or HTML format, and saved locally or sent through email.
 * Tracks list can be sorted by name, date or distance.
-* During tracking, position can be displayed on a reszisable map
+
+### v0.3
+* During tracking, position can be displayed on a reszisable and dynamic map.
 
 
-## Release Notes
 
-### v1.11.0 — 2013-10-16
-* New locale: Deutsch [de]
+## Licence
 
-Still to be done
--------------------------
-
-Missing features
-
-* 
-
-
-Still to accomplish
-
-* Track details map show in real big instead of adjusting to screen size.
-* Track details map show only a point and not the whole track.
-* Track details :
-  * delete a track
-  * share a track
-  * edit (change name) a track
-
-# Licence
-
-FoxShop is distributed under the [MPL2.0 licence](http://www.mozilla.org/MPL/2.0/)
+Run, Bike, Hike... is distributed under the [MPL2.0 licence](http://www.mozilla.org/MPL/2.0/)
