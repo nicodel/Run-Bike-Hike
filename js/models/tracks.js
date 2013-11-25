@@ -14,7 +14,7 @@ var Tracks = function() {
     current_track.date = d.toISOString();
     start_date = d.getTime();
     // Define track ID (= start date)
-    current_track.trackid = current_track.date;
+    current_track.id = current_track.date;
     // Build track name
     var year = d.getFullYear();
     var month = d.getMonth();

@@ -45,7 +45,9 @@ var TracksView = function() {
     document.getElementById("tracks-list").appendChild(li);
     lia.addEventListener("click", function(e){
       document.querySelector("#trackView").className = "current";
+      // document.querySelector("#tracksView").className = "right";
       document.querySelector("#tracksView").className = "left";
+      // document.querySelector("#tracksView").setAttribute("data-position", "current");
       Controller.displayTrack(inTrack);
     });
   }

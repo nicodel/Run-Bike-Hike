@@ -13,6 +13,7 @@ var Controller = function() {
   var olat, olon;
   var tracking = false;
   var duration;
+  var displayed_track;
 
   function init() {
     // startWatch();
@@ -170,15 +171,27 @@ var Controller = function() {
 
   function displayTrack(inTrack) {
     // console.log("inTrack display: ", inTrack);
+    displayed_track = inTrack;
     TrackView.display(inTrack);
   }
+
+  function deleteTrack() {
+    DB.deleteTrack(__deleteTrackSuccess, __deleteTrackError, displayed_track);
+  }
+
+  function __deleteTrackSuccess() {
+    displayTracks();
+  }
+
+  function __deleteTrackError() {}
 
   return {
     init: init,
     startWatch: startWatch,
     stopWatch: stopWatch,
     displayTracks: displayTracks,
-    displayTrack: displayTrack
+    displayTrack: displayTrack,
+    deleteTrack: deleteTrack
   };
 }();
 // })

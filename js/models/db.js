@@ -97,10 +97,37 @@ var DB = function() {
     };
   }
 
+  function deleteTrack(successCallback, errorCallback, inTrack) {
+    if (typeof successCallback === "function") {
+
+      var tx = db.transaction(DB_STORE_TRACKS, "readwrite");
+      tx.oncomplete = function(e) {
+        console.log("delete_track transaction completed !");
+      };
+      tx.onerror = function(e) {
+        console.error("delete_track transaction error: ", tx.error.name);
+        errorCallback(x.error.name);
+      };
+      var store = tx.objectStore(DB_STORE_TRACKS);
+      var req = store.delete(inTrack.id);
+      req.onsuccess = function(e) {
+        console.log("track_delete store store.delete successful");
+        successCallback(inTrack.name);
+      };
+      req.onerror = function(e) {
+        console.error("track_delete store store.delete error: ", req.error.name);
+        errorCallback(req.error.name);
+      };
+    } else  {
+      errorCallback("deleteTrack successCallback should be a function");
+    }
+  }
+
   return {
     initiate: initiate,
     addTrack: addTrack,
     getTracks: getTracks,
+    deleteTrack: deleteTrack,
     reset_app: reset_app
   };
 }();

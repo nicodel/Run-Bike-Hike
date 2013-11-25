@@ -1,9 +1,9 @@
 var TrackView = function() {
 
-  var gWidth = parseInt(window.innerWidth * 0.9,10);
-  var gHeight = parseInt(gWidth * 2 / 3,10);
-  // console.log("width", gWidth);
-  // console.log("height", gHeight);
+  var SCREEN_WIDTH = parseInt(window.innerWidth * 0.9,10);
+  var SCREEN_HEIGHT = parseInt(SCREEN_WIDTH * 2 / 3,10);
+  // console.log("width", SCREEN_WIDTH);
+  // console.log("height", SCREEN_HEIGHT);
   var xPadding = 30;
   var yPadding = 30;
 
@@ -13,6 +13,12 @@ var TrackView = function() {
   var ACCURACY_COLOR = "#FF9200";
 
   function display(inTrack) {
+    //reset old ressources
+    document.getElementById("trk-date").innerHTML = "";
+    document.getElementById("trk-dist").innerHTML = "";
+    document.getElementById("trk-dur").innerHTML = "";
+    document.getElementById("map-img").src = "";
+
     var tr = document.getElementById("tr-name");
     tr.innerHTML = inTrack.name;
     console.log("show track: ", inTrack);
@@ -91,9 +97,9 @@ var TrackView = function() {
     // create a rectangular canvas with width and height depending on screen size
     // var graph = document.getElementById("alt-canvas");
     // var c = graph.getContext("2d");
-    // c.clearRect(0, 0, gWidth, gHeight);
-    // graph.setAttribute("width",gWidth);
-    // graph.setAttribute("height",gHeight);
+    // c.clearRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+    // graph.setAttribute("width",SCREEN_WIDTH);
+    // graph.setAttribute("height",SCREEN_HEIGHT);
     
     // Write Y Axis text
     // c.textAlign = "right";
@@ -112,14 +118,14 @@ var TrackView = function() {
     //   c.beginPath();
     //   //~ c.lineWidth = 1;
     //   c.moveTo(xPadding, __getYPixel(j, range));
-    //   c.lineTo(gWidth, __getYPixel(j, range));
+    //   c.lineTo(SCREEN_WIDTH, __getYPixel(j, range));
     //   c.stroke();
     //   j += yspace;
     //   i += yspace;
     // }
     var c = __createRectCanvas("alt-canvas", range, yspace);
     
-    var espace = parseInt(data.length / (gWidth - xPadding), 10);
+    var espace = parseInt(data.length / (SCREEN_WIDTH - xPadding), 10);
     espace = espace * SPACE_BTW_POINTS; // increase spacing between points so that the chart looks smoother.
     console.log("espace", espace);
     // Draw vertAccuracy lines
@@ -167,8 +173,8 @@ var TrackView = function() {
     // Draw X and Y Axis
     // c.beginPath();
     // c.moveTo(xPadding, 0);
-    // c.lineTo(xPadding, gHeight - yPadding);
-    // c.lineTo(gWidth, gHeight - yPadding);
+    // c.lineTo(xPadding, SCREEN_HEIGHT - yPadding);
+    // c.lineTo(SCREEN_WIDTH, SCREEN_HEIGHT - yPadding);
     // c.stroke();
     
     // Write X Axis text and lines
@@ -178,12 +184,12 @@ var TrackView = function() {
       i = parseInt(i,10);
       //~ console.log("i",i);
       var date = new Date(data[i].date).getHours() + ":" + new Date(data[i].date).getMinutes();
-      c.fillText(date, __getXPixel(i,data), gHeight - yPadding + 20);
+      c.fillText(date, __getXPixel(i,data), SCREEN_HEIGHT - yPadding + 20);
       c.beginPath();
       c.strokeStyle  = "rgba(150,150,150, 0.5)";
       c.lineWidth = 1;
       c.moveTo(__getXPixel(i,data),0);
-      c.lineTo(__getXPixel(i,data),gHeight - xPadding);
+      c.lineTo(__getXPixel(i,data),SCREEN_HEIGHT - xPadding);
       c.stroke();
     }
 
@@ -216,9 +222,9 @@ var TrackView = function() {
     
     // var graph = document.getElementById("speed-canvas");
     // var c = graph.getContext("2d");
-    // c.clearRect(0, 0, gWidth, gHeight);
-    // graph.setAttribute("width",gWidth);
-    // graph.setAttribute("height",gHeight);
+    // c.clearRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+    // graph.setAttribute("width",SCREEN_WIDTH);
+    // graph.setAttribute("height",SCREEN_HEIGHT);
     
     // Write Y Axis text
     // c.textAlign = "right";
@@ -235,14 +241,14 @@ var TrackView = function() {
     //   c.beginPath();
       //~ c.lineWidth = 1;
       // c.moveTo(xPadding, __getYPixel(j, range));
-      // c.lineTo(gWidth, __getYPixel(j, range));
+      // c.lineTo(SCREEN_WIDTH, __getYPixel(j, range));
       // c.stroke();
       // j += yspace;
       // i += yspace;
     // }
     var c = __createRectCanvas("speed-canvas", range, yspace);
     
-    var espace = parseInt(data.length / (gWidth - xPadding), 10);
+    var espace = parseInt(data.length / (SCREEN_WIDTH - xPadding), 10);
     espace = espace * 5; // increase spacing between points so that the chart looks smoother.
     // Draw line
     c.strokeStyle = "#0560A6";
@@ -264,8 +270,8 @@ var TrackView = function() {
     // Draw X and Y Axis
     // c.beginPath();
     // c.moveTo(xPadding, 0);
-    // c.lineTo(xPadding, gHeight - yPadding);
-    // c.lineTo(gWidth, gHeight - yPadding);
+    // c.lineTo(xPadding, SCREEN_HEIGHT - yPadding);
+    // c.lineTo(SCREEN_WIDTH, SCREEN_HEIGHT - yPadding);
     // c.stroke();
     
     // Write X Axis text and lines
@@ -275,12 +281,12 @@ var TrackView = function() {
       i = parseInt(i,10);
       //~ console.log("i",i);
       var date = new Date(data[i].date).getHours() + ":" + new Date(data[i].date).getMinutes();
-      c.fillText(date, __getXPixel(i,data), gHeight - yPadding + 20);
+      c.fillText(date, __getXPixel(i,data), SCREEN_HEIGHT - yPadding + 20);
       c.beginPath();
       c.strokeStyle  = "rgba(150,150,150, 0.5)";
       c.lineWidth = 1;
       c.moveTo(__getXPixel(i,data),0);
-      c.lineTo(__getXPixel(i,data),gHeight - xPadding);
+      c.lineTo(__getXPixel(i,data),SCREEN_HEIGHT - xPadding);
       c.stroke();
     }
     c.stroke();
@@ -300,6 +306,8 @@ var TrackView = function() {
     loc = "http://ojw.dev.openstreetmap.org/StaticMap/?lat="+ lat +"&lon="+ lon +"&mlat0="+ lat +"&mlon0="+ lon + dw + "&z=15&mode=Export&show=1";
     // {name: "mapImage", kind: "Image", style: "width: 100%;"},
     // this.$.mapImage.setSrc(loc);
+    document.getElementById("map-img").width = SCREEN_WIDTH - xPadding;
+    // document.getElementById("map-img").height = SCREEN_HEIGHT - yPadding;
     document.getElementById("map-img").src = loc;
 
   }
@@ -307,9 +315,9 @@ var TrackView = function() {
   function __createRectCanvas(inElementId, inRange, inSpace) {
     var graph = document.getElementById(inElementId);
     var c = graph.getContext("2d");
-    c.clearRect(0, 0, gWidth, gHeight);
-    graph.setAttribute("width",gWidth);
-    graph.setAttribute("height",gHeight);
+    c.clearRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+    graph.setAttribute("width",SCREEN_WIDTH);
+    graph.setAttribute("height",SCREEN_HEIGHT);
 
     c.textAlign = "right";
     c.textBaseline = "middle";
@@ -320,25 +328,25 @@ var TrackView = function() {
       c.beginPath();
       //~ c.lineWidth = 1;
       c.moveTo(xPadding, __getYPixel(j, inRange));
-      c.lineTo(gWidth, __getYPixel(j, inRange));
+      c.lineTo(SCREEN_WIDTH, __getYPixel(j, inRange));
       c.stroke();
       j += inSpace;
       i += inSpace;
     }
     c.beginPath();
     c.moveTo(xPadding, 0);
-    c.lineTo(xPadding, gHeight - yPadding);
-    c.lineTo(gWidth, gHeight - yPadding);
+    c.lineTo(xPadding, SCREEN_HEIGHT - yPadding);
+    c.lineTo(SCREEN_WIDTH, SCREEN_HEIGHT - yPadding);
     c.stroke();
 
     return c;
   }
 
   function __getXPixel(val,data) {
-    return ((gWidth - xPadding) / data.length) * val + xPadding;
+    return ((SCREEN_WIDTH - xPadding) / data.length) * val + xPadding;
   }
   function __getYPixel(val,range) {
-    return gHeight - (((gHeight - yPadding) / range) * val) - yPadding;
+    return SCREEN_HEIGHT - (((SCREEN_HEIGHT - yPadding) / range) * val) - yPadding;
   }
 
   return {
