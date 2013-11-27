@@ -62,7 +62,7 @@ var TrackView = function() {
     // console.log("t.end", t.end);
     __buildAltitudeGraph(t);
     __buildSpeedGraph(t);
-    __buildMap(inTrack);
+    __buildMap2(inTrack);
   }
 
   function __buildAltitudeGraph(inData) {
@@ -293,23 +293,89 @@ var TrackView = function() {
     c.closePath();
   }
 
-  function __buildMap(inTrack) {
-    var lat = inTrack.data[0].latitude;
-    var lon = inTrack.data[0].longitude;
-    var i = 0;
-    var dw = "";
-    for (i = 0; i< inTrack.data[0].length; i++) {
-      lt = "&d0p"+ i + "lat=" + inTrack.data[0].latitude;
-      ln = "&d0p"+ i + "lon=" + inTrack.data[0].longitude;
-      dw = dw + ln + lt;
-    }
-    loc = "http://ojw.dev.openstreetmap.org/StaticMap/?lat="+ lat +"&lon="+ lon +"&mlat0="+ lat +"&mlon0="+ lon + dw + "&z=15&mode=Export&show=1";
-    // {name: "mapImage", kind: "Image", style: "width: 100%;"},
-    // this.$.mapImage.setSrc(loc);
-    document.getElementById("map-img").width = SCREEN_WIDTH - xPadding;
-    // document.getElementById("map-img").height = SCREEN_HEIGHT - yPadding;
-    document.getElementById("map-img").src = loc;
+  function __buildMap2(inTrack) {
 
+    // get the min and max longitude/ latitude
+    /*minLat = minLon = maxLat = maxLon = undefined;
+    for (i = 0; i< result.rows.length; i++){
+      // fu***q JavaScript and its string > number conversions...
+      point = {lat: result.rows.item(i).lat / 1, lon: result.rows.item(i).lon / 1 };
+      if (minLat == undefined || minLat > point.lat)
+        minLat = point.lat;
+      if (maxLat == undefined || maxLat < point.lat)
+        maxLat = point.lat;
+      if (minLon == undefined || minLon > point.lon)
+        minLon = point.lon;
+      if (maxLon == undefined || maxLon < point.lon)
+        maxLon = point.lon;
+    }*/
+    // Calculate the Bouncing Box
+    /*p1 = { lon: minLon, lat: maxLat };
+    p2 = { lon: maxLon, lat: minLat }
+    realHeight = tracker.approximateDistance( p1.lat, p1.lon, p2.lat, p1.lon );
+    realWidth = tracker.approximateDistance( p1.lat, p1.lon, p1.lat, p2.lon );    
+    larger = realWidth > realHeight? realWidth : realHeight;
+    if (larger < 200) larger = 200;*/
+    // add some borders
+    /*p1 = tracker.movePoint(p1, larger * -0.1, larger * -0.1);
+    p2 = tracker.movePoint(p2, larger * +0.1, larger * +0.1);
+        realHeight = tracker.approximateDistance( p1.lat, p1.lon, p2.lat, p1.lon );
+        realWidth = tracker.approximateDistance( p1.lat, p1.lon, p1.lat, p2.lon );    
+        larger = realWidth > realHeight? realWidth : realHeight;*/
+    // make map width always larger
+    /*if (realWidth < realHeight){
+      //Mojo.Log.error("add 2x "+Math.round((realHeight - realWidth) / -2));
+      
+      p1 = tracker.movePoint(p1, (realHeight - realWidth) / -2, 0);
+      p2 = tracker.movePoint(p2, (realHeight - realWidth) / +2, 0);
+      realHeight = tracker.approximateDistance( p1.lat, p1.lon, p2.lat, p1.lon );
+      realWidth = tracker.approximateDistance( p1.lat, p1.lon, p1.lat, p2.lon );    
+      larger = realWidth > realHeight? realWidth : realHeight;
+    }*/
+
+    var center = __getCenter(inTrack);
+    var j = 0;
+    var MAX = parseInt(inTrack.data.length / 14, 10);
+    console.log("MAX", MAX);
+    var dw = "&paths=";
+    for (i = 0; i< inTrack.data.length; i = i + MAX) {
+      if (i === 0) {
+        lt = inTrack.data[i].latitude + ",";
+      } else{
+        lt = "," + inTrack.data[i].latitude + ",";
+      };
+      ln = inTrack.data[i].longitude;
+      dw = dw + lt + ln;
+      j++;
+    }
+    console.log("dw", dw);
+
+    var loc = "http://dev.openstreetmap.org/~pafciu17/?module=map&lon=" + center.lon + "&lat=" + center.lat + "&zoom=8&width=" + SCREEN_WIDTH + "&height=" + SCREEN_HEIGHT + dw;
+        document.getElementById("map-img").width = SCREEN_WIDTH;
+    document.getElementById("map-img").src = loc;
+    console.log("loc:", loc);
+  }
+
+  function __buildMap(inTrack) {
+    // var lat = inTrack.data[0].latitude;
+    // var lon = inTrack.data[0].longitude;
+
+    var center = __getCenter(inTrack);
+    var j = 0;
+    var MAX = parseInt(inTrack.data.length / 14, 10);
+    console.log("MAX", MAX);
+    var dw = "&d0_colour=00F";
+    for (i = 0; i< inTrack.data.length; i = i + MAX) {
+      lt = "&d0p"+ j + "lat=" + inTrack.data[i].latitude;
+      ln = "&d0p"+ j + "lon=" + inTrack.data[i].longitude;
+      dw = dw + ln + lt;
+      j++;
+    }
+    // loc = "http://ojw.dev.openstreetmap.org/StaticMap/?lat="+ lat +"&lon="+ lon +"&mlat0="+ lat +"&mlon0="+ lon + dw + "&z=15&mode=Export&show=1";
+    loc = "http://ojw.dev.openstreetmap.org/StaticMap/?lat="+ center.lat +"&lon="+ center.lon + dw + "&z=10&mode=Export&show=1";
+    document.getElementById("map-img").width = SCREEN_WIDTH;
+    document.getElementById("map-img").src = loc;
+    console.log("loc:", loc);
   }
 
   function __createRectCanvas(inElementId, inRange, inSpace) {
@@ -347,6 +413,38 @@ var TrackView = function() {
   }
   function __getYPixel(val,range) {
     return SCREEN_HEIGHT - (((SCREEN_HEIGHT - yPadding) / range) * val) - yPadding;
+  }
+
+  function __getCenter(inTrack) {
+    var x = 0;
+    var y = 0;
+    var z = 0;
+    // Convert lat/lon (must be in radians) to Cartesian coordinates for each location
+    for (var i = 0; i < inTrack.data.length; i++) {
+      //convert to from decimal degrees to radians
+      var lat = parseInt(inTrack.data[i].latitude) * Math.PI / 180;
+      var lon = parseInt(inTrack.data[i].longitude) * Math.PI / 180;
+      var X = Math.cos(lat) * Math.cos(lon);
+      var Y = Math.cos(lat) * Math.sin(lon);
+      var Z = Math.sin(lat);
+      x = x + X;
+      y = y + Y;
+      z = z + Z;
+    };
+    // Compute average x, y and z coordinates
+    x = x / inTrack.data.length;
+    y = y / inTrack.data.length;
+    z = z / inTrack.data.length;
+    // Convert average x, y, z coordinate to latitude and longitude
+    var clon = Math.atan2(y, x);
+    var hyp = Math.sqrt(x * x + y * y);
+    var clat = Math.atan2(z, hyp);
+    // convert from radians to decimal degrees
+    console.log("clat, clon", clat + " " + clon);
+    clat = clat * 180 / Math.PI;
+    clon = clon * 180 / Math.PI;
+    console.log("clat, clon", clat + " " + clon);
+    return {lat: clat, lon: clon};
   }
 
   return {
