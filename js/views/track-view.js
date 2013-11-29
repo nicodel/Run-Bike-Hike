@@ -296,62 +296,103 @@ var TrackView = function() {
   function __buildMap2(inTrack) {
 
     // get the min and max longitude/ latitude
-    /*minLat = minLon = maxLat = maxLon = undefined;
-    for (i = 0; i< result.rows.length; i++){
-      // fu***q JavaScript and its string > number conversions...
-      point = {lat: result.rows.item(i).lat / 1, lon: result.rows.item(i).lon / 1 };
-      if (minLat == undefined || minLat > point.lat)
+    // and build the path
+    var minLat, minLon, maxLat, maxLon;
+    for (i = 0; i< inTrack.data.length; i++){
+      var point = {
+        lat: inTrack.data[i].latitude / 1,
+        lon: inTrack.data[i].longitude / 1
+        };
+      if (minLat === undefined || minLat > point.lat) {
         minLat = point.lat;
-      if (maxLat == undefined || maxLat < point.lat)
-        maxLat = point.lat;
-      if (minLon == undefined || minLon > point.lon)
-        minLon = point.lon;
-      if (maxLon == undefined || maxLon < point.lon)
-        maxLon = point.lon;
-    }*/
-    // Calculate the Bouncing Box
-    /*p1 = { lon: minLon, lat: maxLat };
-    p2 = { lon: maxLon, lat: minLat }
-    realHeight = tracker.approximateDistance( p1.lat, p1.lon, p2.lat, p1.lon );
-    realWidth = tracker.approximateDistance( p1.lat, p1.lon, p1.lat, p2.lon );    
-    larger = realWidth > realHeight? realWidth : realHeight;
-    if (larger < 200) larger = 200;*/
-    // add some borders
-    /*p1 = tracker.movePoint(p1, larger * -0.1, larger * -0.1);
-    p2 = tracker.movePoint(p2, larger * +0.1, larger * +0.1);
-        realHeight = tracker.approximateDistance( p1.lat, p1.lon, p2.lat, p1.lon );
-        realWidth = tracker.approximateDistance( p1.lat, p1.lon, p1.lat, p2.lon );    
-        larger = realWidth > realHeight? realWidth : realHeight;*/
-    // make map width always larger
-    /*if (realWidth < realHeight){
-      //Mojo.Log.error("add 2x "+Math.round((realHeight - realWidth) / -2));
-      
-      p1 = tracker.movePoint(p1, (realHeight - realWidth) / -2, 0);
-      p2 = tracker.movePoint(p2, (realHeight - realWidth) / +2, 0);
-      realHeight = tracker.approximateDistance( p1.lat, p1.lon, p2.lat, p1.lon );
-      realWidth = tracker.approximateDistance( p1.lat, p1.lon, p1.lat, p2.lon );    
-      larger = realWidth > realHeight? realWidth : realHeight;
-    }*/
-
-    var center = __getCenter(inTrack);
-    var j = 0;
-    var MAX = parseInt(inTrack.data.length / 14, 10);
-    console.log("MAX", MAX);
-    var dw = "&paths=";
-    for (i = 0; i< inTrack.data.length; i = i + MAX) {
-      if (i === 0) {
-        lt = inTrack.data[i].latitude + ",";
-      } else{
-        lt = "," + inTrack.data[i].latitude + ",";
       };
-      ln = inTrack.data[i].longitude;
-      dw = dw + lt + ln;
-      j++;
-    }
-    console.log("dw", dw);
+      if (maxLat === undefined || maxLat < point.lat) {
+        maxLat = point.lat;
+      };
+      if (minLon === undefined || minLon > point.lon) {
+        minLon = point.lon;
+      };
+      if (maxLon === undefined || maxLon < point.lon) {
+        maxLon = point.lon;
+      };
+    };
+    console.log("minLat, minLon, maxLat, maxLon", minLat + ","+ minLon + ","+ maxLat + ","+ maxLon);
+    // Calculate the Bouncing Box
+    var p1 = {lon: minLon, lat: maxLat};
+    var p2 = {lon: maxLon, lat: minLat};
+    var realHeight = __getDistance(p1.lat, p1.lon, p2.lat, p1.lon);
+    var realWidth = __getDistance(p1.lat, p1.lon, p1.lat, p2.lon);
+    var larger = realWidth > realHeight ? realWidth : realHeight;
+    if (larger < 200) {
+      larger = 200;
+    };
+    console.log("1- realHeight, realWidth, larger", realHeight + ","+ realWidth + ","+ larger);
+    // add some borders
+    p1 = __movePoint(p1, larger * -0.1, larger * -0.1);
+    p2 = __movePoint(p2, larger * 0.1, larger * 0.1);
+    console.log("1- p1.lat, p1.lon, p2.lat, p2.lon", p1.lat + ","+ p1.lon + ","+ p2.lat + ","+ p2.lon);
+    // make map width always larger
+    if (realWidth < realHeight) {
+      p1 = __movePoint(p1, (realHeight - realWidth) / -2, 0);
+      p2 = __movePoint(p2, (realHeight - realWidth) / +2, 0);
+      realHeight = __getDistance(p1.lat, p1.lon, p2.lat, p1.lon);
+      realWidth = __getDistance(p1.lat, p1.lon, p1.lat, p2.lon);
+      larger = realWidth > realHeight ? realWidth : realHeight;
+      console.log("2- realHeight, realWidth, larger", realHeight + ","+ realWidth + ","+ larger);
+      console.log("2- p1.lat, p1.lon, p2.lat, p2.lon", p1.lat + ","+ p1.lon + ","+ p2.lat + ","+ p2.lon);
+    };
+    if (larger === 0) {
+      return;
+    };
 
-    var loc = "http://dev.openstreetmap.org/~pafciu17/?module=map&lon=" + center.lon + "&lat=" + center.lat + "&zoom=8&width=" + SCREEN_WIDTH + "&height=" + SCREEN_HEIGHT + dw;
-        document.getElementById("map-img").width = SCREEN_WIDTH;
+    var paths = "&paths=";
+    var j = 0;
+    if (inTrack.data.length > 400) {
+      var y = parseInt(inTrack.data.length / 400, 10);
+      if (y * inTrack.data.length > 400) {
+        y = y + 1;
+      };
+    } else {
+      var y = 1;
+    };
+    console.log("y ", y);
+    for (var i = 0; i < inTrack.data.length; i = i + y) {
+      if (i === inTrack.data.length - 1) {
+        paths = paths + inTrack.data[i].longitude + "," + inTrack.data[i].latitude;
+      } else {
+        paths = paths + inTrack.data[i].longitude + "," + inTrack.data[i].latitude + ",";
+      }
+      j++
+    };
+    console.log("j ", j);
+    var magic = 0.00017820;
+    var scale = Math.round(larger / (magic * SCREEN_WIDTH));
+    scale = "&scale=" + scale;
+    var base_url = "http://dev.openstreetmap.org/~pafciu17/?module=map"
+    // var base_url = "http://tile.openstreetmap.org/cgi-bin/export?"
+    var bbox = "&bbox=" + p1.lon + ","+ p1.lat + ","+ p2.lon + "," + p2.lat;
+    var width = "&width=" + SCREEN_WIDTH;
+    var loc = base_url + bbox + width + paths;
+    // var loc = base_url + bbox + scale + "&format=jpeg";
+    // var center = __getCenter(inTrack);
+    // var j = 0;
+    // var MAX = parseInt(inTrack.data.length / 14, 10);
+    // console.log("MAX", MAX);
+    // var dw = "&paths=";
+    // for (i = 0; i< inTrack.data.length; i = i + MAX) {
+    //   if (i === 0) {
+    //     lt = inTrack.data[i].latitude + ",";
+    //   } else{
+    //     lt = "," + inTrack.data[i].latitude + ",";
+    //   };
+    //   ln = inTrack.data[i].longitude;
+    //   dw = dw + lt + ln;
+    //   j++;
+    // }
+    // console.log("dw", dw);
+
+    // var loc = "http://dev.openstreetmap.org/~pafciu17/?module=map&lon=" + center.lon + "&lat=" + center.lat + "&zoom=8&width=" + SCREEN_WIDTH + "&height=" + SCREEN_HEIGHT + dw;
+    document.getElementById("map-img").width = SCREEN_WIDTH;
     document.getElementById("map-img").src = loc;
     console.log("loc:", loc);
   }
@@ -373,9 +414,15 @@ var TrackView = function() {
     }
     // loc = "http://ojw.dev.openstreetmap.org/StaticMap/?lat="+ lat +"&lon="+ lon +"&mlat0="+ lat +"&mlon0="+ lon + dw + "&z=15&mode=Export&show=1";
     loc = "http://ojw.dev.openstreetmap.org/StaticMap/?lat="+ center.lat +"&lon="+ center.lon + dw + "&z=10&mode=Export&show=1";
+    document.getElementById("map-img").onload = alert("removing infos spinner");
     document.getElementById("map-img").width = SCREEN_WIDTH;
     document.getElementById("map-img").src = loc;
     console.log("loc:", loc);
+  }
+
+  function __imageLoaded() {
+    console.log("removing infos spinner");
+    document.getElementById("map-area").removeChild(document.getElementById("infos-spinner"));
   }
 
   function __createRectCanvas(inElementId, inRange, inSpace) {
@@ -407,14 +454,12 @@ var TrackView = function() {
 
     return c;
   }
-
   function __getXPixel(val,data) {
     return ((SCREEN_WIDTH - xPadding) / data.length) * val + xPadding;
   }
   function __getYPixel(val,range) {
     return SCREEN_HEIGHT - (((SCREEN_HEIGHT - yPadding) / range) * val) - yPadding;
   }
-
   function __getCenter(inTrack) {
     var x = 0;
     var y = 0;
@@ -445,6 +490,42 @@ var TrackView = function() {
     clon = clon * 180 / Math.PI;
     console.log("clat, clon", clat + " " + clon);
     return {lat: clat, lon: clon};
+  }
+  function __getDistance (lat1, lon1, lat2, lon2) {
+    var radius = 6371 * 1000; // Earth radius (mean) in metres {6371, 6367}
+    
+    var lat1Rad = lat1*( Math.PI / 180);
+    var lon1Rad = lon1*( Math.PI / 180);
+    var lat2Rad = lat2*( Math.PI / 180);
+    var lon2Rad = lon2*( Math.PI / 180);
+    
+    var dLat = lat2Rad - lat1Rad;
+    var dLon = lon2Rad - lon1Rad;
+
+    var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+        Math.cos(lat1Rad) * Math.cos(lat2Rad) * 
+        Math.sin(dLon/2) * Math.sin(dLon/2); 
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+    return radius * c;
+  }
+
+  function __movePoint(p, horizontal, vertical) {
+    var radius = 6371 * 1000; // Earth radius (mean) in metres {6371, 6367}
+    
+    var latRad = p.lat*( Math.PI / 180);
+    var lonRad = p.lon*( Math.PI / 180);
+
+    var latCircleR = Math.sin( Math.PI/2 - latRad) * radius;
+    var horizRad = latCircleR == 0? 0: horizontal / latCircleR;
+    var vertRad = vertical / radius;
+    
+    latRad -= vertRad;
+    lonRad += horizRad;
+    
+    return {
+      lat : (latRad / (Math.PI / 180)),
+      lon : (lonRad / (Math.PI / 180))
+    };
   }
 
   return {
