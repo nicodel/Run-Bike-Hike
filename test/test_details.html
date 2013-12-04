@@ -84,6 +84,8 @@
   </footer>
 </body>
 <script>
+  // document.getElementById("map-img").onload = alert("removing infos spinner");
+  document.getElementById("map-img").addEventListener("load", console.log("removing infos spinner"));
   TrackView.display(testdata);
 </script>
 </html>
