@@ -1,7 +1,8 @@
 var DATABASE = function() {
-  var DB_NAME,
-      DB_VERSION,
-      STORE_NAME,
+  
+  var DB_NAME,        // database name
+      DB_VERSION,     // database intial version
+      STORE_NAME,     // 
       STORE_KEYPATH,
       STORE_ID,
       STORE_INDEX,
@@ -12,7 +13,6 @@ var DATABASE = function() {
       var req = window.indexedDB.open(DB_NAME, DB_VERSION);
       req.onsuccess = function(e) {
         successCallback(req.result);
-        console.log("DB created successfully: ", req.result);
         db = req.result;
         db.onabort = function(e) {
           db.close();
@@ -20,8 +20,6 @@ var DATABASE = function() {
         };
       };
       req.onerror = function(e) {
-        //~ DB.reset_app(DB_NAME);
-        console.error("error on initiate DB: ", e.target.error.name);
         errorCallback(e.target.error.name);
         g_error = true;
       };
@@ -30,18 +28,18 @@ var DATABASE = function() {
         store.createIndex("trackid", "trackid", {unique: true});
       };
     } else  {
-      errorCallback("initiate successCallback should be a function");
+      errorCallback("initiate() successCallback should be a function");
     }
   }
 
-  function add() {}
+  function addStore() {}
   function del() {}
   function getAll() {}
   function reset() {}
 
   return {
     initiate: initiate,
-    add: add,
+    addStore: addStore,
     getAll: getAll,
     del: del,
     reset: reset,
