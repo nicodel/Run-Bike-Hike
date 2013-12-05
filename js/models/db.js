@@ -21,14 +21,19 @@ var DB = function() {
         };
       };
       req.onerror = function(e) {
-        //~ DB.reset_app(DB_NAME);
         console.error("error on initiate DB: ", e.target.error.name);
         errorCallback(e.target.error.name);
         g_error = true;
       };
       req.onupgradeneeded = function(event) {
+        //
+        // Create tracks store as:
+        // 
         var store = req.result.createObjectStore(DB_STORE_TRACKS, {keyPath:"id", autoIncrement: true});
         store.createIndex("trackid", "trackid", {unique: true});
+
+        var store =  req.result.createObjectStore(DB_STORE_SETTINGS, {keyPath:"id", autoIncrement: true});
+        store.createIndex("")
       };
     } else  {
       errorCallback("initiate successCallback should be a function");
@@ -123,12 +128,19 @@ var DB = function() {
     }
   }
 
+  function getConfig(successCallback, errorCallback) {
+  }
+
+  function saveConfig() {}
+
   return {
     initiate: initiate,
     addTrack: addTrack,
     getTracks: getTracks,
     deleteTrack: deleteTrack,
-    reset_app: reset_app
+    reset_app: reset_app,
+    getConfig: getConfig,
+    saveConfig: saveConfig
   };
 }();
 // });
