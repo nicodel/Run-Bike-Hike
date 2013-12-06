@@ -123,6 +123,9 @@ var DB = function() {
     }
   }
 
+  function getConfig() {}
+  
+
   return {
     initiate: initiate,
     addTrack: addTrack,
