@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title >Test Config</title>
+
+    <!-- Reset -->
+    <link rel="stylesheet" type="text/css" href="../css/reset.css"/>
+
+    <!-- Firefox OS Building Blocks -->
+    <link rel="stylesheet" type="text/css" href="../css/building_blocks/util.css">
+    <link rel="stylesheet" type="text/css" href="../css/building_blocks/transitions.css">
+    <link rel="stylesheet" type="text/css" href="../css/building_blocks/style/action_menu.css">
+    <link rel="stylesheet" type="text/css" href="../css/building_blocks/style/buttons.css">
+    <link rel="stylesheet" type="text/css" href="../css/building_blocks/style/confirm.css">
+    <link rel="stylesheet" type="text/css" href="../css/building_blocks/style/edit_mode.css">
+    <link rel="stylesheet" type="text/css" href="../css/building_blocks/style/status.css">
+    <link rel="stylesheet" type="text/css" href="../css/building_blocks/style/headers.css">
+    <link rel="stylesheet" type="text/css" href="../css/building_blocks/style_unstable/lists.css">
+    <link rel="stylesheet" type="text/css" href="../css/building_blocks/style_unstable/toolbars.css">
+    <link rel="stylesheet" type="text/css" href="../css/building_blocks/style_unstable/progress_activity.css">
+    <link rel="stylesheet" href="../css/building_blocks/style_unstable/value_selector.css">
+
+    <link rel="stylesheet" type="text/css" href="../css/building_blocks/icons/styles/action_icons.css">
+
+    <!-- Fonts -->
+    <link rel="stylesheet" href="../css/fonts.css"/>
+
+    <!-- My own Style ! -->
+    <link rel="stylesheet" href="../css/app.css"/>
+    <link rel="stylesheet" href="../css/styles.css"/>
+
+  <script type="text/javascript" src="../js/models/config.js"></script>
+</head>
+
+  <section role="region" <!-- class="skin-organic settings scrollable" --> id="settingsView" data-position="current">
+    <header>
+      <a id="btn-settings-back" href="#">
+        <span class="icon icon-back">Back</span>
+      </a>
+      <h1 data-l10n-id="settings">Settings</h1>
+    </header>
+     
+    <header>
+      <h2 data-l10n-id="language">Language</h2>
+    </header>
+    <ul>
+      <li>
+        <p class="fake-select">
+          <button id="language" class="icon icon-dialog">Language</button>
+          <select id="language-select" name="language">
+            <option value="en-US">English</option>
+            <option value="es-ES">Español</option>
+            <option value="fr">Français</option>
+          </select>
+        </p>
+      </li>
+      <li>
+        <header>
+          <h2 data-l10n-id="distance-unit">Distance unit</h2>
+        </header>
+        <p class="fake-select">
+          <button id="distance-unit" class="icon icon-dialog">Distance unit</button>
+          <select id="distance-unit" name="distance-unit">
+          </select>
+        </p>
+      </li>
+      <li>
+        <header>
+          <h2 data-l10n-id="speed-unit">Speed unit</h2>
+        </header>
+        <p class="fake-select">
+          <button id="speed-unit" class="icon icon-dialog">Distance unit</button>
+          <select id="speed-unit-select" name="speed-unit">
+          </select>
+        </p>
+      </li>
+      <li>
+        <header>
+          <h2 data-l10n-id="position-format">Position format</h2>
+        </header>
+        <p class="fake-select">
+          <button id="position-format" class="icon icon-dialog">Position format</button>
+          <select id="position-format-select" name="position-format">
+          </select>
+        </p>
+      </li>
+      <li>
+        <header>
+          <h2 data-l10n-id="date-format">Date format</h2>
+        </header>
+        <p class="fake-select">
+          <button id="date-format" class="icon icon-dialog">Date format</button>
+          <select id="date-format-select" name="date-format">
+          </select>
+        </p>
+      </li>
+  </section>
+
+  <form role="dialog" data-type="value-selector">
+    <section class="scrollable">
+      <h1>Select</h1>
+      <ol role="listbox">
+        <option value="en-US">English</option>
+        <option value="es-ES">Español</option>
+        <option value="fr">Français</option>
+        <li><label> <span>None</span></label></li>
+        <li><label> <span>At time of event</span></label></li>
+        <li><label> <span>5 minutes before</span></label></li>
+        <li><label> <span>15 minutes before</span></label></li>
+        <li aria-checked="true"><label> <span>30 minutes before</span></label></li>
+        <li><label> <span>1 hour before</span></label></li>
+        <li><label> <span>2 hours before</span></label></li>
+        <li><label> <span>1 day before</span></label></li>
+      </ol>
+    </section>
+    <menu>
+      <button class="affirmative full">OK</button>
+    </menu>
+  </form>
+
+
+
+</body>
+<script>
+
+</script>
+</html>
