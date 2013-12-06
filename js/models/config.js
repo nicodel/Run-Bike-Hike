@@ -20,17 +20,18 @@ var Config = function() {
 
   function userSpeed(velocityMPS){
     // console.log("SPEED METRIC:", velocityMPS);
-     if (velocityMPS === null || velocityMPS<0 || isNaN(velocityMPS))
-       {return "?";}
+    if (velocityMPS === null || velocityMPS<0 || isNaN(velocityMPS)) {
+      return "?";
+    }
 
-     if (userUnits === IMPERIAL_UNITS){
-       /* FIXME: I'am not sure that it is right */
-       return (velocityMPS * 2.237).toFixed(0)+" MPH";
-     }
-     if (userUnits === METRIC_UNITS){
-       return (velocityMPS * 3.6).toFixed(0)+" km/h";
-     }
-     return velocityMPS+ " m/s";
+    if (userUnits === IMPERIAL_UNITS){
+      /* FIXME: I'am not sure that it is right */
+      return (velocityMPS * 2.237).toFixed(0)+" MPH";
+    }
+    if (userUnits === METRIC_UNITS){
+      return (velocityMPS * 3.6).toFixed(0)+" km/h";
+    }
+      return velocityMPS+ " m/s";
   }
 
   function userDegree(degree){
