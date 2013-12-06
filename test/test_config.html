@@ -16,10 +16,11 @@
     <link rel="stylesheet" type="text/css" href="../css/building_blocks/style/edit_mode.css">
     <link rel="stylesheet" type="text/css" href="../css/building_blocks/style/status.css">
     <link rel="stylesheet" type="text/css" href="../css/building_blocks/style/headers.css">
+    <link rel="stylesheet" type="text/css" href="../css/building_blocks/style/switches.css">
     <link rel="stylesheet" type="text/css" href="../css/building_blocks/style_unstable/lists.css">
     <link rel="stylesheet" type="text/css" href="../css/building_blocks/style_unstable/toolbars.css">
     <link rel="stylesheet" type="text/css" href="../css/building_blocks/style_unstable/progress_activity.css">
-    <link rel="stylesheet" href="../css/building_blocks/style_unstable/value_selector.css">
+    <link rel="stylesheet" type="text/css" href="../css/building_blocks/style_unstable/value_selector.css">
 
     <link rel="stylesheet" type="text/css" href="../css/building_blocks/icons/styles/action_icons.css">
 
@@ -40,85 +41,26 @@
       </a>
       <h1 data-l10n-id="settings">Settings</h1>
     </header>
-     
-    <header>
-      <h2 data-l10n-id="language">Language</h2>
-    </header>
+
     <ul>
       <li>
+        <span data-l10n-id="keep-screen-alive">Keep screen alive ?</span>
+        <label class="pack-switch">
+          <input type="checkbox" checked>
+          <span></span>
+        </label>
+      </li>
+
+      <li>
+        <p data-l10n-id="language">Language</p>
         <p class="fake-select">
-          <button id="language" class="icon icon-dialog">Language</button>
-          <select id="language-select" name="language">
+          <button class="icon icon-dialog">empty</button>
+          <select name="language.current"></select>
             <option value="en-US">English</option>
             <option value="es-ES">Español</option>
             <option value="fr">Français</option>
-          </select>
         </p>
       </li>
-      <li>
-        <header>
-          <h2 data-l10n-id="distance-unit">Distance unit</h2>
-        </header>
-        <p class="fake-select">
-          <button id="distance-unit" class="icon icon-dialog">Distance unit</button>
-          <select id="distance-unit" name="distance-unit">
-          </select>
-        </p>
-      </li>
-      <li>
-        <header>
-          <h2 data-l10n-id="speed-unit">Speed unit</h2>
-        </header>
-        <p class="fake-select">
-          <button id="speed-unit" class="icon icon-dialog">Distance unit</button>
-          <select id="speed-unit-select" name="speed-unit">
-          </select>
-        </p>
-      </li>
-      <li>
-        <header>
-          <h2 data-l10n-id="position-format">Position format</h2>
-        </header>
-        <p class="fake-select">
-          <button id="position-format" class="icon icon-dialog">Position format</button>
-          <select id="position-format-select" name="position-format">
-          </select>
-        </p>
-      </li>
-      <li>
-        <header>
-          <h2 data-l10n-id="date-format">Date format</h2>
-        </header>
-        <p class="fake-select">
-          <button id="date-format" class="icon icon-dialog">Date format</button>
-          <select id="date-format-select" name="date-format">
-          </select>
-        </p>
-      </li>
-  </section>
-
-  <form role="dialog" data-type="value-selector">
-    <section class="scrollable">
-      <h1>Select</h1>
-      <ol role="listbox">
-        <option value="en-US">English</option>
-        <option value="es-ES">Español</option>
-        <option value="fr">Français</option>
-        <li><label> <span>None</span></label></li>
-        <li><label> <span>At time of event</span></label></li>
-        <li><label> <span>5 minutes before</span></label></li>
-        <li><label> <span>15 minutes before</span></label></li>
-        <li aria-checked="true"><label> <span>30 minutes before</span></label></li>
-        <li><label> <span>1 hour before</span></label></li>
-        <li><label> <span>2 hours before</span></label></li>
-        <li><label> <span>1 day before</span></label></li>
-      </ol>
-    </section>
-    <menu>
-      <button class="affirmative full">OK</button>
-    </menu>
-  </form>
-
 
 
 </body>
