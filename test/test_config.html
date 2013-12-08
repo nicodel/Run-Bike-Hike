@@ -43,18 +43,17 @@
     </header>
 
     <ul>
-      <li id="screen-keep">
+      <li>
         <span data-l10n-id="keep-screen-alive">Keep screen alive ?</span>
         <label class="pack-switch">
-          <input type="checkbox" checked>
+          <input id="screen-keep" type="checkbox" checked>
           <span></span>
         </label>
       </li>
-
       <li>
         <p data-l10n-id="language">Language</p>
         <span class="button icon icon-dialog">
-          <select name="language.current">
+          <select name="language.current" id="">
             <option value="en-US" data-l10n-id="english">English</option>
             <option value="es-ES" data-l10n-id="spanish">Español</option>
             <option value="fr" data-l10n-id="french">Français</option>
@@ -69,20 +68,13 @@
 </body>
 <script>
 
-/*
-  var gWifiCheckBox = document.querySelector('#wifi-enabled input');
-  // toggle wifi on/off
-  gWifiCheckBox.onchange = function toggleWifi() {
-    // 'wifi.suspended' is always false if users toggle wifi manually.
-    settings.createLock().set({
-      'wifi.enabled': this.checked,
-      'wifi.suspended': false
-    }).onerror = function() {
-      // Fail to write mozSettings, return toggle control to the user.
-      gWifiCheckBox.disabled = false;
-    };
-    this.disabled = true;
+
+  // toggle kepp screen alive on/off
+  var gScreenAlive = document.querySelector('#screen-keep');
+  gScreenAlive.onchange = function toggleScreen(event) {
+    console.log("gScreenAlive: ", event.originalTarget.checked);
   };
-*/
+
+
 </script>
 </html>
