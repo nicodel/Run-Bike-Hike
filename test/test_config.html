@@ -53,26 +53,16 @@
       <li>
         <span data-l10n-id="keep-screen-alive">Keep screen alive ?</span>
         <label class="pack-switch">
-<<<<<<< HEAD
           <input id="screen-keep" type="checkbox">
-=======
-          <input id="screen-keep" type="checkbox" checked>
->>>>>>> e3d25bf76556d49c256ec1f5a4b28b0f77ef8b8a
           <span></span>
         </label>
       </li>
+
       <li>
         <p data-l10n-id="language">Language</p>
-<<<<<<< HEAD
           <select id="language" class="button icon icon-dialog" disabled="true">
             <option value="en" data-l10n-id="english">English</option>
             <option value="es" data-l10n-id="spanish">Español</option>
-=======
-        <span class="button icon icon-dialog">
-          <select name="language.current" id="">
-            <option value="en-US" data-l10n-id="english">English</option>
-            <option value="es-ES" data-l10n-id="spanish">Español</option>
->>>>>>> e3d25bf76556d49c256ec1f5a4b28b0f77ef8b8a
             <option value="fr" data-l10n-id="french">Français</option>
           </select>
       </li>
@@ -175,13 +165,20 @@ document.querySelector("#position").onchange = function() {
 };
 
 
-
-  // toggle kepp screen alive on/off
-  var gScreenAlive = document.querySelector('#screen-keep');
-  gScreenAlive.onchange = function toggleScreen(event) {
-    console.log("gScreenAlive: ", event.originalTarget.checked);
+/*
+  var gWifiCheckBox = document.querySelector('#wifi-enabled input');
+  // toggle wifi on/off
+  gWifiCheckBox.onchange = function toggleWifi() {
+    // 'wifi.suspended' is always false if users toggle wifi manually.
+    settings.createLock().set({
+      'wifi.enabled': this.checked,
+      'wifi.suspended': false
+    }).onerror = function() {
+      // Fail to write mozSettings, return toggle control to the user.
+      gWifiCheckBox.disabled = false;
+    };
+    this.disabled = true;
   };
-
-
+*/
 </script>
 </html>
