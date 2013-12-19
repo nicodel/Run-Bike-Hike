@@ -27,6 +27,7 @@
     <link rel="stylesheet" type="text/css" href="css/building_blocks/style_unstable/toolbars.css">
     <link rel="stylesheet" type="text/css" href="css/building_blocks/style_unstable/progress_activity.css">
     <link rel="stylesheet" href="css/building_blocks/style_unstable/value_selector.css">
+    <link rel="stylesheet" type="text/css" href="css/building_blocks/style_unstable/drawer.css">
 
     <link rel="stylesheet" type="text/css" href="css/building_blocks/icons/styles/action_icons.css">
 
@@ -56,6 +57,8 @@
         <menu type="toolbar">
           <button data-l10n-id="install" id="install" style="display:none;">Install</button>
         </menu>
+        <a href="#"><span class="icon icon-menu">hide sidebar</span></a>
+        <a href="#drawer"><span class="icon icon-menu">show sidebar</span></a>
         <h1 data-l10n-id="title" class="align-left">Run, Bike, Hike ...</h1>
         <img id="gps-status" class="gps-status align-right" src="img/gps_white.png" alt="Geolocation status" />
       </header>
@@ -78,15 +81,15 @@
           </div>
         </li>
         <li>
-          <div data-l10n-id="accuracy">
-            Accuracy
-            <span class="bold align-right" id="home-acc"></span>
-          </div>
-        </li>
-        <li>
           <div data-l10n-id="altitude">
             Altitude
             <span class="bold align-right" id="home-alt"></span>
+          </div>
+        </li>
+        <li>
+          <div data-l10n-id="accuracy">
+            Accuracy
+            <span class="bold align-right" id="home-acc"></span>
           </div>
         </li>
       </ul>
@@ -114,60 +117,48 @@
         </a>
         <h1 data-l10n-id="settings">Settings</h1>
       </header>
-       
-      <header>
-        <h2 data-l10n-id="language">Language</h2>
-      </header>
+
       <ul>
         <li>
-          <p class="fake-select">
-            <button id="language" class="icon icon-dialog">Language</button>
-            <select id="language-select" name="language">
-              <option value="en-US">English</option>
-              <option value="es-ES">Español</option>
-              <option value="fr">Français</option>
-            </select>
-          </p>
+          <span data-l10n-id="keep-screen-alive">Keep screen alive ?</span>
+          <label class="pack-switch">
+            <input id="screen-keep" type="checkbox">
+            <span></span>
+          </label>
         </li>
+
         <li>
-          <header>
-            <h2 data-l10n-id="distance-unit">Distance unit</h2>
-          </header>
-          <p class="select">
-            <button id="distance-unit" class="icon icon-dialog">Distance unit</button>
-            <select id="distance-unit" name="distance-unit">
+          <p data-l10n-id="language">Language</p>
+            <select id="language" class="button icon icon-dialog">
+              <option value="en" data-l10n-id="english">English</option>
+              <option value="es" data-l10n-id="spanish">Español</option>
+              <option value="fr" data-l10n-id="french">Français</option>
             </select>
-          </p>
         </li>
+
         <li>
-          <header>
-            <h2 data-l10n-id="speed-unit">Speed unit</h2>
-          </header>
-          <p class="select">
-            <button id="speed-unit" class="icon icon-dialog">Distance unit</button>
-            <select id="speed-unit-select" name="speed-unit">
+          <p data-l10n-id="distance-unit">Distance unit</p>
+            <select id="distance" class="button icon icon-dialog">
+              <option value="0" data-l10n-id="metric">Metric</option>
+              <option value="1" data-l10n-id="imperial">Imperial</option>
             </select>
-          </p>
         </li>
+
         <li>
-          <header>
-            <h2 data-l10n-id="position-format">Position format</h2>
-          </header>
-          <p class="select">
-            <button id="position-format" class="icon icon-dialog">Position format</button>
-            <select id="position-format-select" name="position-format">
+          <p data-l10n-id="speed-unit">Speed unit</p>
+            <select id="speed" class="button icon icon-dialog">
+              <option value="0">km/h</option>
+              <option value="1">mph</option>
             </select>
-          </p>
         </li>
+
         <li>
-          <header>
-            <h2 data-l10n-id="date-format">Date format</h2>
-          </header>
-          <p class="select">
-            <button id="date-format" class="icon icon-dialog">Date format</button>
-            <select id="date-format-select" name="date-format">
+          <p data-l10n-id="position-format">Position format</p>
+            <select id="position" class="button icon icon-dialog">
+              <option value="0">49°08'06.22</option>
+              <option value="1">49°08.104'</option>
+              <option value="2">49.135060</option>
             </select>
-          </p>
         </li>
       </ul>
     </section>

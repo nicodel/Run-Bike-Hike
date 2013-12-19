@@ -3,14 +3,14 @@
 
 var RunBikeHike = function() {
 	Controller.init();
-    if (Config.SCREEN_KEEP_ALIVE) {
+/*    if (Config.SCREEN_KEEP_ALIVE) {
       var lock = window.navigator.requestWakeLock('screen');
-      /* Unlock the screen */
+       Unlock the screen 
       window.addEventListener('unload', function () {
         lock.unlock();
       })
     };
-
+*/
   /******************
    * EVENT LISTENER *
   *******************/
@@ -61,6 +61,44 @@ var RunBikeHike = function() {
     document.querySelector("#settingsView").className = "right";
     document.querySelector("#homeView").className = "current";
   })
+  /* Settings View Screen keep alive radio button */
+  document.querySelector("#screen-keep").onchange = function () {
+    Controller.updateSettings("screen", this.checked);
+    if (this.checked) {
+      var lock = window.navigator.requestWakeLock('screen');
+      /* Unlock the screen */
+      window.addEventListener('unload', function () {
+        lock.unlock();
+      })
+    } else{
+      window.navigator.requestWakeLock('screen').unlock();
+    };
+  }
+  /* Settings View Language selection */
+  document.querySelector("#language").onchange = function() {
+    var dom = document.querySelector("#language");
+    var id = this.selectedIndex;
+    Controller.updateSettings("language", dom[id].value);
+  };
+  /* Settings View Distance unit selection */
+  document.querySelector("#distance").onchange = function() {
+    var dom = document.querySelector("#distance");
+    var id = this.selectedIndex;
+    Controller.updateSettings("distance", dom[id].value);
+  };
+  /* Settings View Speed unit selection */
+  document.querySelector("#speed").onchange = function() {
+    var dom = document.querySelector("#speed");
+    var id = this.selectedIndex;
+    Controller.updateSettings("speed", dom[id].value);
+  };
+  /* Settings View Position unit selection */
+  document.querySelector("#position").onchange = function() {
+    var dom = document.querySelector("#position");
+    var id = this.selectedIndex;
+    Controller.updateSettings("position", dom[id].value);
+  };
+
 
   /*----------------- Tracks View -----------------*/
   /* Tracks View Back button */

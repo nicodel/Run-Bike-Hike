@@ -323,6 +323,7 @@ var TrackView = function() {
     var realHeight = __getDistance(p1.lat, p1.lon, p2.lat, p1.lon);
     var realWidth = __getDistance(p1.lat, p1.lon, p1.lat, p2.lon);
     var larger = realWidth > realHeight ? realWidth : realHeight;
+    // we limit the number of points on the map to 200
     if (larger < 200) {
       larger = 200;
     };

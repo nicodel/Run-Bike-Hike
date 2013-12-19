@@ -1,14 +1,6 @@
-/*define(["views/home-view",
-        "views/infos-view",
-        "views/settings-view",
-        "views/track-view",
-        "views/tracks-view",
-        "models/config",
-        "models/tracks",
-        "models/db"
-], function(HomeView, InfosView, SettingsView, TrackView, TracksView, Config, Tracks, DB) {*/
 var Controller = function() {
 
+  var settings;
   var watchID, lock;
   var olat, olon;
   var tracking = false;
@@ -51,7 +43,6 @@ var Controller = function() {
     current_track = Tracks.open();
     nb_point = 0;
   }
-
   function stopWatch(){
     //Stop the calculation of elapsed time
     // InfosView.stopChrono();
@@ -66,7 +57,6 @@ var Controller = function() {
     // Save to DB
     DB.addTrack(__addTrackSuccess, __addTrackError, track);
   }
-
   function __locationChanged(inPosition){
     // console.log("Position found");
     if (tracking) {
@@ -85,7 +75,6 @@ var Controller = function() {
       HomeView.displayError(inError);
     };
   }
-
   function __positionChanged(inPosition){
     if (!inPosition.coords || !inPosition.coords.latitude || !inPosition.coords.longitude) {
       // console.log("__locationChanged not - inPosition: ", inPosition);
@@ -136,15 +125,35 @@ var Controller = function() {
     };
     Tracks.addNode(gps_point, distance, duration);
   }
-
   function __positionError(inError) {}
 
   function __initiateSuccess(inEvent) {
-    utils.status.show(inEvent); 
+    // utils.status.show(inEvent);
+    console.log("__initiateSuccess ", inEvent);
+    DB.getConfig(__getConfigSuccess, __getConfigError);
   }
 
   function __initiateError(inEvent) {
     utils.status.show(inEvent); 
+  }
+
+  function __getConfigSuccess(inSettings) {
+    console.log("__getConfigSuccess ", inSettings);
+    settings = inSettings;
+    __setConfigView(inSettings);
+  }
+  function __getConfigError(inEvent) { console.log("__getConfigError ", inEvent); }
+
+  function updateSettings(inKey, inValue) {
+    settings.inKey = inValue;
+  }
+
+  function __setConfigView(inSettings) {
+    document.querySelector("#screen-keep").checked = inSettings.screen;
+    document.querySelector("#language").value = inSettings.language;
+    document.querySelector("#distance").value = inSettings.distance;
+    document.querySelector("#speed").value = inSettings.speed;
+    document.querySelector("#position").value = inSettings.position;
   }
 
   function __addTrackSuccess(inEvent) {
@@ -166,8 +175,7 @@ var Controller = function() {
     TracksView.display(inTracks);
   }
 
-  function __getTracksError(inTracks) {
-  }
+  function __getTracksError(inTracks) {}
 
   function displayTrack(inTrack) {
     // console.log("inTrack display: ", inTrack);
@@ -191,7 +199,8 @@ var Controller = function() {
     stopWatch: stopWatch,
     displayTracks: displayTracks,
     displayTrack: displayTrack,
-    deleteTrack: deleteTrack
+    deleteTrack: deleteTrack,
+    updateSettings: updateSettings
   };
 }();
 // })

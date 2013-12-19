@@ -7,14 +7,22 @@ var DB = function() {
   var DB_STORE_TRACKS = "tracks";
   var DB_STORE_SETTINGS = "settings";
 
+  var CONFIG = {
+    screen:false,
+    language: "en",
+    distance: "0",
+    speed: "0",
+    position: "0"
+  };
+
   function initiate(successCallback, errorCallback) {
     if (typeof(successCallback) === "function") {
       // DB.reset_app(DB_NAME);
       var req = window.indexedDB.open(DB_NAME, DB_VERSION);
       req.onsuccess = function(e) {
-        successCallback(req.result);
         console.log("DB created successfully: ", req.result);
         db = req.result;
+        successCallback(req.result);
         db.onabort = function(e) {
           db.close();
           db = null;
@@ -32,8 +40,11 @@ var DB = function() {
         var store = req.result.createObjectStore(DB_STORE_TRACKS, {keyPath:"id", autoIncrement: true});
         store.createIndex("trackid", "trackid", {unique: true});
 
+        //
+        // Create settings store as:
+        //
         var store =  req.result.createObjectStore(DB_STORE_SETTINGS, {keyPath:"id", autoIncrement: true});
-        store.createIndex("")
+        store.createIndex("settings", "settings", {unique: true});
       };
     } else  {
       errorCallback("initiate successCallback should be a function");
@@ -129,8 +140,50 @@ var DB = function() {
   }
 
   function getConfig(successCallback, errorCallback) {
+    if (typeof successCallback === "function") {
+      var settings = [];
+      var tx = db.transaction("settings");
+      var store = tx.objectStore("settings");
+      var req = store.openCursor();
+      req.onsuccess = function(e) {
+        var cursor = e.target.result;
+        if (cursor) {
+          settings.push(cursor.value);
+          cursor.continue();
+        } else{
+          console.log("got settings: ", settings);
+          if (settings.length === 0) {
+            settings = CONFIG;
+            __saveDefaultConfig(settings);
+          };
+          successCallback(settings);
+        }
+      };
+      req.onerror = function(e) {console.error("getConfig store.openCursor error: ", e.error.name);};
+    } else {
+      errorCallback("getConfig successCallback should be a function");
+    }
   }
 
+  function __saveDefaultConfig(inSettings) {
+    var tx = db.transaction(DB_STORE_SETTINGS, "readwrite");
+    tx.oncomplete = function(e) {
+      console.log("successful creating default config !");
+    };
+    tx.onerror = function(e) {
+      console.error("default config transaction error: ", tx.error.name);
+      errorCallback(x.error.name);
+    };
+    var store = tx.objectStore(DB_STORE_SETTINGS);
+    var req = store.add(inSettings);
+    req.onsuccess = function(e) {
+      console.log("successful");
+    };
+    req.onerror = function(e) {
+      console.error("error: ", req.error.name);
+    };
+  }
+  
   function saveConfig() {}
 
   return {

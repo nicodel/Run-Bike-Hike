@@ -25,7 +25,7 @@ var HomeView = function() {
     // display longitude using Settings format
     document.getElementById("home-lon").innerHTML = Config.userLongitude(inPosition.coords.longitude);
     // display altitude using Settings format
-    document.getElementById("home-alt").innerHTML = Config.userSmallDistance(inPosition.coords.altitude) + "(&#177;" + Config.userSmallDistance(inPosition.coords.altitudeAccuracy) + ")";
+    document.getElementById("home-alt").innerHTML = Config.userSmallDistance(inPosition.coords.altitude)/* + "(&#177;" + Config.userSmallDistance(inPosition.coords.altitudeAccuracy) + ")"*/;
     // empty message area
     document.getElementById('msg').innerHTML = "";
     //display compass

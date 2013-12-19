@@ -1,6 +1,36 @@
 // define(function(){
 var Config = function() {
 
+  /*
+   * Préférences
+   *
+   * screen: boolean
+   *  true
+   *  false
+   * language: string
+   *  english: en
+   *  spanish: es
+   *  french: fr
+   * distance: string
+   *  metric: 0
+   *  imperial: 1
+   * speed: string
+   *  km/h: 0
+   *  mph: 1
+   * position: string
+   *  default: 0
+   *  geocaching: 1
+   *  degrees: 2
+   */
+  // var CONFIG = {
+  //   new: true,
+  //   screen:false,
+  //   language: "en",
+  //   distance: "0",
+  //   speed: "0",
+  //   position: "0"
+  // };
+
   var METRIC_UNITS = 0;
   var IMPERIAL_UNITS = 1;
 
@@ -17,6 +47,12 @@ var Config = function() {
   // Default config values
   var userUnits = 0;
   var userPosFormat = 0;
+
+  function get() {
+
+  }
+
+  function save() {}
 
   function userSpeed(velocityMPS){
     // console.log("SPEED METRIC:", velocityMPS);
@@ -174,6 +210,8 @@ var Config = function() {
   };
 
   return {
+    get: get,
+    save: save,
     SCREEN_KEEP_ALIVE: SCREEN_KEEP_ALIVE,
     userSpeed: userSpeed,
     userDegree: userDegree,
