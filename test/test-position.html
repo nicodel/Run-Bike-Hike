@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title >Test Position</title>
+  <style>
+    body {
+      margin:0;
+      padding: 0;
+    }
+    div {
+      width:200px;
+      height: 200px;
+    }
+    .align-center {
+      text-align: center;
+    }
+    .blue {
+      background-color:blue;
+    }
+    .red {
+      background-color:red;
+    }
+    .green {
+      background-color:green;
+    }
+    .position-current {
+      position:absolute;
+/*
+      top:auto;
+      bottom:auto;
+      left:auto;
+      right:auto;
+*/
+      z-index:15;
+    }
+    .position-left {
+      position:absolute;
+/*
+      top:0;
+      bottom:0;
+*/
+      left:-200px;
+      right:0;
+      z-index:5;
+    }
+    .position-right {
+      position:absolute;
+      top:0;
+      bottom:0;
+      left:-100px;
+      right:0;
+      z-index:5;
+    }
+  </style>
+</head>
+<body>
+  <div class="blue align-center position-current">current</div>
+  <div class="red align-center position-left">left</div>
+  <div class="green align-center position-right">right</div>
+</body>
+
+</html>
