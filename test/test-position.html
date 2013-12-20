@@ -3,14 +3,19 @@
 <head>
   <meta charset="utf-8" />
   <title >Test Position</title>
+  <link rel="stylesheet" type="text/css" href="../css/building_blocks/transitions.css">
+  <link rel="stylesheet" href="../css/building_blocks/style_unstable/drawer.css">
+  <link rel="stylesheet" href="../css/building_blocks/icons/styles/action_icons.css">
+
+  <link rel="stylesheet" type="text/css" href="../css/app.css">
   <style>
     body {
       margin:0;
       padding: 0;
     }
     div {
-      width:200px;
-      height: 200px;
+      width:100px;
+      height: 100px;
     }
     .align-center {
       text-align: center;
@@ -24,40 +29,63 @@
     .green {
       background-color:green;
     }
-    .position-current {
-      position:absolute;
-/*
-      top:auto;
-      bottom:auto;
-      left:auto;
-      right:auto;
-*/
-      z-index:15;
+    .yellow {
+      background-color: yellow;
     }
-    .position-left {
-      position:absolute;
-/*
-      top:0;
-      bottom:0;
-*/
-      left:-200px;
-      right:0;
-      z-index:5;
-    }
-    .position-right {
-      position:absolute;
-      top:0;
-      bottom:0;
-      left:-100px;
-      right:0;
-      z-index:5;
+    button, a {
+      position: relative;
+      top: 120px;
     }
   </style>
 </head>
 <body>
-  <div class="blue align-center position-current">current</div>
-  <div class="red align-center position-left">left</div>
-  <div class="green align-center position-right">right</div>
+  <section data-type="sidebar">
+    <div class="yellow align-center">drawer</div>
+  </section>
+  <section id="drawer" role="region">
+    <div id="Pos-1" data-position="current">
+      <div class="blue align-center">
+        1
+      </div>
+    </div>
+  </section>
+  <div id="Pos-2" data-position="right">
+    <div class="green align-center">
+      2
+    </div>
+  </div>
+  <div id="Pos-3" data-position="right">
+    <div class="red align-center">
+      3
+    </div>
+  </div>
+  <a href="#drawer" class="icon">drawer</a>
+  <button id="back2">back</button>
 </body>
+
+<script type="text/javascript">
+  document.querySelector("#Pos-1").addEventListener("click", function() {
+    document.querySelector("#Pos-1").className = "left";
+    document.querySelector("#Pos-2").className = "current";
+  });
+
+  document.querySelector("#Pos-2").addEventListener("click", function() {
+    document.querySelector("#Pos-2").className = "left";
+    document.querySelector("#Pos-3").className = "current";
+    document.querySelector("#Pos-2").setAttribute("data-position", "current");
+  });
+
+  document.querySelector("#Pos-3").addEventListener("click", function() {
+    document.querySelector("#Pos-2").className = "right";
+    document.querySelector("#Pos-3").className = "right";
+  });
+
+  document.querySelector("#back2").addEventListener("click", function() {
+    document.querySelector("#Pos-2").setAttribute("data-position", "right");
+    document.querySelector("#Pos-2").className = "right";
+    document.querySelector("#Pos-1").className = "current";
+  });
+
+</script>
 
 </html>

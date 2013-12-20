@@ -103,6 +103,7 @@ var RunBikeHike = function() {
   /*----------------- Tracks View -----------------*/
   /* Tracks View Back button */
   document.querySelector("#btn-tracks-back").addEventListener ("click", function () {
+    document.querySelector("#tracksView").setAttribute("data-position", "right");
     document.querySelector("#tracksView").className = "right";
     document.querySelector("#homeView").className = "current";
   })
@@ -111,7 +112,7 @@ var RunBikeHike = function() {
   /* Track View Back button */
   document.querySelector("#btn-track-back").addEventListener ("click", function () {
     document.querySelector("#trackView").className = "right";
-    document.querySelector("#tracksView").className = "current";
+    document.querySelector("#tracksView").className = "right";
     // document.querySelector("#tracksView").setAttribute("data-position", "right");
   })
   /* Track View Delete button */
