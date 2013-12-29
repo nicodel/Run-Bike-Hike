@@ -37,7 +37,7 @@ Un outil d'enregistrement GPS pour les sportifs qui aiment suivre leurs évoluti
 * Available language : French, Spanish.
 
 ### v0.3
-* During tracking, position can be displayed on a reszisable and dynamic map.
+* During tracking, position can be displayed on a resizable and dynamic map.
 
 
 
