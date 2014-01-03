@@ -130,11 +130,17 @@ var Config = function() {
     var d = new Date(inDate);
 
     var year = d.getFullYear();
-    var month = d.getMonth();
+    var month = d.getMonth() + 1;
     var day = d.getDate();
     var hour = d.getHours();
     var min = d.getMinutes();
     var sec = d.getSeconds();
+    if (month < 10) {
+      month = "0" + month.toString();
+    };
+    if (day < 10) {
+      day = "0" + day.toString();
+    };
     var outDate = day+"/"+month+"/"+year;
     // var outDate = day+"/"+month+"/"+year+ " "+hour+":"+min+":"+sec;
     return  outDate;

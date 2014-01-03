@@ -8,11 +8,11 @@ var InfosView = function() {
     console.log("showing: ", inDistance);
 
     // checking accuracy and display appropriate GPS status
-    if (inPosition.coords.accuracy > 30) {
-      document.getElementById("gps-status").setAttribute("src", "img/gps_red.png");
-    } else {
-      document.getElementById("gps-status").setAttribute("src", "img/gps_green.png");
-    }
+    // if (inPosition.coords.accuracy > 30) {
+    //   document.getElementById("gps-status").setAttribute("src", "img/gps_red.png");
+    // } else {
+    //   document.getElementById("gps-status").setAttribute("src", "img/gps_green.png");
+    // }
     // updating distance using Settings choosen unit
     document.getElementById("infos-dist").innerHTML = Config.userDistance(inDistance);
     // updating speed using Settings choosen unit

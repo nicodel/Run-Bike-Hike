@@ -17,11 +17,18 @@ var Tracks = function() {
     current_track.id = current_track.date;
     // Build track name
     var year = d.getFullYear();
-    var month = d.getMonth();
+    var month = d.getMonth() + 1;
     var day = d.getDate();
     var hour = d.getHours();
     var min = d.getMinutes();
     var sec = d.getSeconds();
+    if (month < 10) {
+      month = "0" + month.toString();
+    };
+    if (day < 10) {
+      day = "0" + day.toString();
+    };
+
     current_track.name = "TR-"+year+month+day+"-"+hour+min+sec;
     // Initiate the rest
     current_track.duration = 0;
