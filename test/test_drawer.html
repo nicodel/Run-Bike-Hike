@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title >Test Drawer</title>
+  <!-- Reset -->
+  <link rel="stylesheet" type="text/css" href="../css/reset.css"/>
+
+  <!-- Firefox OS Building Blocks -->
+  <link rel="stylesheet" type="text/css" href="../css/building_blocks/util.css">
+  <link rel="stylesheet" type="text/css" href="../css/building_blocks/transitions.css">
+  <link rel="stylesheet" type="text/css" href="../css/building_blocks/style/action_menu.css">
+  <link rel="stylesheet" type="text/css" href="../css/building_blocks/style/buttons.css">
+  <link rel="stylesheet" type="text/css" href="../css/building_blocks/style/confirm.css">
+  <link rel="stylesheet" type="text/css" href="../css/building_blocks/style/edit_mode.css">
+  <link rel="stylesheet" type="text/css" href="../css/building_blocks/style/status.css">
+  <link rel="stylesheet" type="text/css" href="../css/building_blocks/style/headers.css">
+  <link rel="stylesheet" type="text/css" href="../css/building_blocks/style_unstable/lists.css">
+  <link rel="stylesheet" type="text/css" href="../css/building_blocks/style_unstable/toolbars.css">
+  <link rel="stylesheet" type="text/css" href="../css/building_blocks/style_unstable/progress_activity.css">
+  <link rel="stylesheet" type="text/css" href="../css/building_blocks/style_unstable/drawer.css">
+
+  <link rel="stylesheet" type="text/css" href="../css/building_blocks/icons/styles/action_icons.css">
+
+  <!-- Fonts -->
+  <link rel="stylesheet" href="../css/fonts.css"/>
+
+  <!-- My own Style ! -->
+  <link rel="stylesheet" href="../css/app.css"/>
+  <link rel="stylesheet" href="../css/styles.css"/>
+</head>
+<body>
+<!-- <section id="settingsView"> -->
+  <section id="settingsView" data-type="sidebar">
+    <header>
+      <a href="#">Done</a>
+      <h1>Settings</h1>
+    </header>
+    <nav>
+      <ul>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+      </ul>
+    </nav>
+  </section>
+
+  <section id="drawer" role="region">
+    <header class="fixed">
+      <a href="#"><span class="icon icon-menu">hide sidebar</span></a>
+      <a href="#drawer"><span class="icon icon-menu">show sidebar</span></a>
+      <h1>Run, Bike, Hike...</h1>
+    </header>
+    <article class="content scrollable header">
+        <div class="compass-container">
+          <button data-l10n-id="btn-start" id="btn-start" class="recommend small align-right">Start</button>
+        </div>
+        <div class="infos-container">
+        <ul>
+          <li>
+            <div data-l10n-id="latitude">
+              Latitude
+              <span class="bold align-right" id="home-lat"></span>
+            </div>
+          </li>
+          <li>
+            <div data-l10n-id="longitude">
+              Longitude
+              <span class="bold align-right" id="home-lon"></span>
+            </div>
+          </li>
+          <li>
+            <div data-l10n-id="altitude">
+              Altitude
+              <span class="bold align-right" id="home-alt"></span>
+            </div>
+          </li>
+          <li>
+            <div data-l10n-id="accuracy">
+              Accuracy
+              <span class="bold align-right" id="home-acc"></span>
+            </div>
+          </li>
+        </ul>
+        <div id="message-area" class="align-center">
+          <progress id="spinner"></progress>
+          <p id="msg" class="bold align-center">Retreiving GPS signal. It may take some time...</p>
+        </div>
+        <!-- </div> -->
+    </article>
+    <footer role="toolbar">
+      <ul>
+        <li><button id="btn-settings" class="action-icon settings">Settings</button></li>
+      </ul>
+      <ul>
+        <li><button id="btn-tracks" class="icon-list">Tracks</button></li>
+      </ul>
+    </footer>
+  </section>
+<!-- </section> -->
+
+
+  <section role="region" id="infosView" class="move-right">
+    <header>
+      <h1 data-l10n-id="rbh-tracking">Tracking...</h1>
+    </header>
+    <div class="compass-container">
+      <button data-l10n-id="btn-stop" id="btn-stop" class="danger small align-right">Stop</button>
+    </div>
+    <ul class="infos-container">
+      <li>
+        <div data-l10n-id="elapsed-time">
+          Elapsed time
+          <span id="infos-chrono" class="bold align-right">00:00:00</span>
+        </div>
+          </span>
+        </div>
+      </li>
+      <li>
+        <div data-l10n-id="distance">
+          Distance
+          <span id="infos-dist" class="bold align-right"></span>
+        </div>
+      </li>
+      <li>
+        <div data-l10n-id="speed">
+          Speed
+          <span id="infos-speed" class="bold align-right"></span>
+        </div>
+      </li>
+      <li>
+        <div data-l10n-id="altitude">
+          Altitude
+          <span id="infos-alt" class="bold align-right"></span>
+        </div>
+      </li>
+    </ul>
+    <footer class="toolbar">
+    </footer>
+
+    <form id="stop-form-confirm" role="dialog" data-type="confirm" class="hidden">
+      <section>
+        <h1 data-l10n-id="confirmation">Confirmation</h1>
+        <p>
+          <span data-l10n-id="stop-track-desc" data-l10n-args="{"n":"0"}">Are you sure you want to stop recording this track?</span>
+        </p>
+      </section>
+      <menu>
+        <button id="btn-cancel-stop" class="cancel" data-l10n-id="cancel">Cancel</button>
+        <button id="btn-confirm-stop" role="button" class="danger" data-l10n-id="confirm">Delete</button>
+      </menu>
+    </form>
+  </section>
+
+<section id="tracksView" role="region" class="move-right">
+  <header>
+    <a id="btn-tracks-back" href="#">
+      <span class="icon icon-back">Back</span>
+    </a>
+    <h1>Tracks</h1>
+  </header>
+  <div role="main">
+    <section data-type="list">
+      <ul>
+        <li>
+          <a id="track-go" href="#">Track name</a>
+        </li>
+      </ul>
+    </section>
+  </div>
+
+  <footer class="toolbar"></footer>
+</section>
+<section id="trackView" role="region" class="move-right">
+  <header>
+    <a id="btn-track-back" href="#">
+      <span class="icon icon-back">Back</span>
+    </a>
+    <h1>Track</h1>
+  </header>
+  <div role="main">
+
+  </div>
+
+  <footer class="toolbar"></footer>
+</section>
+
+<script type="text/javascript" src="../css/building_blocks/js/action_menu.js"></script>
+<script type="text/javascript">
+
+  document.querySelector("#btn-start").addEventListener ("click", function () {
+    document.querySelector("#infosView").classList.remove("move-right");
+    document.querySelector("#infosView").classList.add("move-center");
+  });
+
+  document.querySelector("#btn-stop").addEventListener ("click", function () {
+    document.getElementById("stop-form-confirm").classList.remove("hidden");
+  });
+  document.querySelector("#btn-cancel-stop").addEventListener ("click", function () {
+    document.getElementById("stop-form-confirm").classList.add("hidden");
+  });
+  document.querySelector("#btn-confirm-stop").addEventListener ("click", function () {
+    document.querySelector("#infosView").classList.remove("move-center");
+    document.querySelector("#infosView").classList.add("move-right");
+    document.getElementById("stop-form-confirm").classList.add("hidden");
+  });
+
+
+
+
+
+  document.querySelector("#btn-tracks").addEventListener ("click", function () {
+    document.querySelector("#tracksView").classList.remove("move-right");
+    document.querySelector("#tracksView").classList.add("move-center");
+  });
+  document.querySelector("#btn-tracks-back").addEventListener ("click", function () {
+    document.querySelector("#tracksView").classList.remove("move-center");
+    document.querySelector("#tracksView").classList.add("move-right");
+  });
+  document.querySelector("#track-go").addEventListener ("click", function () {
+    document.querySelector("#trackView").classList.remove("move-right");
+    document.querySelector("#trackView").classList.add("move-center");
+  });
+  document.querySelector("#btn-track-back").addEventListener ("click", function () {
+    document.querySelector("#trackView").classList.remove("move-center");
+    document.querySelector("#trackView").classList.add("move-right");
+  });
+</script>
+
+</body>
+</html>

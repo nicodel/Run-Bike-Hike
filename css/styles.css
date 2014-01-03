@@ -25,3 +25,18 @@ button.small {
 .bad-signal {
   color: red;
 }
+
+
+
+
+
+.move-right {
+  transform: translateX(100%);
+  transition: transform 0.4s;
+  z-index: 0;
+}
+.move-center {
+  transform: translateX(0);
+  transition: transform 0.4s;
+  z-index: 200;
+}

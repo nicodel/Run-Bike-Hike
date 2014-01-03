@@ -15,10 +15,10 @@ var HomeView = function() {
     // checking accuracy and display appropriate GPS status
     if (inPosition.coords.accuracy > 30) {
       document.getElementById("home-acc").className = "align-right bold bad-signal";
-      document.getElementById("gps-status").setAttribute("src", "img/gps_red.png");
+      // document.getElementById("gps-status").setAttribute("src", "img/gps_red.png");
     } else {
       document.getElementById("home-acc").className = "align-right bold";
-      document.getElementById("gps-status").setAttribute("src", "img/gps_green.png");
+      // document.getElementById("gps-status").setAttribute("src", "img/gps_green.png");
     }
     // display latitude using Settings format
     document.getElementById("home-lat").innerHTML = Config.userLatitude(inPosition.coords.latitude);
@@ -34,7 +34,11 @@ var HomeView = function() {
 
   function displayError(inError){
     console.log("error:", inError)
-    document.getElementById('msg').innerHTML = error.code + ': ' + error.message;
+    document.getElementById('msg').innerHTML = "Error: " + inError.message;
+    // hide spinner
+    if (document.getElementById("spinner")) {
+      __hideSpinner();
+    };
   }
 
   function __displayCompass(event) {

@@ -19,48 +19,42 @@ var RunBikeHike = function() {
   /* Home View Tracks button */
   document.querySelector("#btn-tracks").addEventListener ("click", function () {
     Controller.displayTracks();
-    document.querySelector("#tracksView").className = "current";
-    document.querySelector("#homeView").className = "left";
+    document.querySelector("#tracksView").classList.remove("move-right");
+    document.querySelector("#tracksView").classList.add("move-center");
   })
-  /* Home View Settings button */
-  document.querySelector("#btn-settings").addEventListener ("click", function () {
-    document.querySelector("#settingsView").className = "current skin-organic settings";
-    document.querySelector("#homeView").className = "left";
-  })
+
   /* Home View Start tracking button */
   document.querySelector("#btn-start").addEventListener ("click", function () {
     Controller.startWatch();
-    document.querySelector("#infosView").className = "current";
-    document.querySelector("#homeView").className = "left";
+    document.querySelector("#infosView").classList.remove("move-right");
+    document.querySelector("#infosView").classList.add("move-center");
   })
 
   /*----------------- Infos View -----------------*/
   /* Infos View Stop button */
   document.querySelector("#btn-stop").addEventListener ("click", function () {
-      // document.querySelector("#infosView").className = "fade-out";
-      document.querySelector("#stopTrackingConfirmation").className = "fade-in";
+      document.getElementById("stop-form-confirm").classList.remove("hidden");
   })
   
   /*-------- Stop tracking confirmation ------------*/
   /* Stop tracking Confirm button */
   document.querySelector("#btn-confirm-stop").addEventListener ("click", function () {
-      document.querySelector("#infosView").className = "right";
-      document.querySelector("#stopTrackingConfirmation").className = "fade-out";
-      document.querySelector("#homeView").className = "current";
+      document.querySelector("#infosView").classList.remove("move-center");
+    document.querySelector("#infosView").classList.add("move-right");
+    document.getElementById("stop-form-confirm").classList.add("hidden");
       Controller.stopWatch();
   })
   /* Stop tracking Cancel button */
   document.querySelector("#btn-cancel-stop").addEventListener ("click", function () {
-      document.querySelector("#stopTrackingConfirmation").className = "fade-out";
-      // document.querySelector("#infosView").className = "current";
+      document.getElementById("stop-form-confirm").classList.add("hidden")
   })
 
   /*----------------- Settings View -----------------*/
   /* Settings View Back button */
-  document.querySelector("#btn-settings-back").addEventListener ("click", function () {
-    document.querySelector("#settingsView").className = "right";
-    document.querySelector("#homeView").className = "current";
-  })
+  // document.querySelector("#btn-settings-back").addEventListener ("click", function () {
+  //   document.querySelector("#settingsView").className = "right";
+  //   document.querySelector("#homeView").className = "current";
+  // })
   /* Settings View Screen keep alive radio button */
   document.querySelector("#screen-keep").onchange = function () {
     Controller.updateSettings("screen", this.checked);
@@ -103,17 +97,15 @@ var RunBikeHike = function() {
   /*----------------- Tracks View -----------------*/
   /* Tracks View Back button */
   document.querySelector("#btn-tracks-back").addEventListener ("click", function () {
-    document.querySelector("#tracksView").setAttribute("data-position", "right");
-    document.querySelector("#tracksView").className = "right";
-    document.querySelector("#homeView").className = "current";
+    document.querySelector("#tracksView").classList.remove("move-center");
+    document.querySelector("#tracksView").classList.add("move-right");
   })
 
   /*----------------- Track Detail View -----------------*/
   /* Track View Back button */
   document.querySelector("#btn-track-back").addEventListener ("click", function () {
-    document.querySelector("#trackView").className = "right";
-    document.querySelector("#tracksView").className = "right";
-    // document.querySelector("#tracksView").setAttribute("data-position", "right");
+    document.querySelector("#trackView").classList.remove("move-center");
+    document.querySelector("#trackView").classList.add("move-right");
   })
   /* Track View Delete button */
   document.querySelector("#btn-delete").addEventListener ("click", function() {
@@ -134,18 +126,16 @@ var RunBikeHike = function() {
 
   /*----------------- Track Delete Confirmation -----------------*/
   /* Delete Track Cancel button */
-  document.querySelector("#btn-cancel-delete").addEventListener ("click", function() {
-      // document.querySelector("#trackView").className = "fade-in";
-      document.querySelector("#deleteTrackConfirmation").className = "fade-out";
-  })
+  // document.querySelector("#btn-cancel-delete").addEventListener ("click", function() {
+  //     document.querySelector("#deleteTrackConfirmation").className = "fade-out";
+  // })
 
   /* Delete Track Confirm button */
-  document.querySelector("#btn-confirm-delete").addEventListener ("click", function() {
-      // document.querySelector("#trackView").className = "fade-in";
-      document.querySelector("#deleteTrackConfirmation").className = "fade-out";
-      document.querySelector("#trackView").className = "right";
-      document.querySelector("#tracksView").className = "current";
-  })
+  // document.querySelector("#btn-confirm-delete").addEventListener ("click", function() {
+  //     document.querySelector("#deleteTrackConfirmation").className = "fade-out";
+  //     document.querySelector("#trackView").className = "right";
+  //     document.querySelector("#tracksView").className = "current";
+  // })
 
   /*----------------- Track Edit View -----------------*/
   /* Delete Track Cancel button */
