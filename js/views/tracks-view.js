@@ -35,7 +35,7 @@ var TracksView = function() {
     var lia = document.createElement("a");
     // lia.className = "it-track";
 
-    var div = '<p><span class="align-left">' + inTrack.name + '</span>';
+    var div = '<p><span class="align-left bold clipped">' + inTrack.name + '</span>';
     div = div + '<span class="align-right">' + Config.userDate(inTrack.date) + '</span></p>';
     div = div + '<p class="new-line"><span class="align-left">' + Config.userDistance(inTrack.distance) + '</span>';
     var d = inTrack.duration / 60000;

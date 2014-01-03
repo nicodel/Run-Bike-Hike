@@ -54,8 +54,14 @@ var Controller = function() {
     Chrono.reset();
     // Close track
     var track = Tracks.close();
-    // Save to DB
-    DB.addTrack(__addTrackSuccess, __addTrackError, track);
+    // if no gps point were retreive we don't save the track
+    if (track.data.length < 1) {
+      // we notify that we do nothing (cause that's good)
+      utils.status.show("Track empty. Not saving");
+    } else{
+      // Save to DB
+      DB.addTrack(__addTrackSuccess, __addTrackError, track);
+    };
   }
   function __locationChanged(inPosition){
     // console.log("Position found");

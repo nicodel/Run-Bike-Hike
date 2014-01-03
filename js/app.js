@@ -67,6 +67,7 @@ var RunBikeHike = function() {
     } else{
       window.navigator.requestWakeLock('screen').unlock();
     };
+    console.log("window.navigator", window.navigator);
   }
   /* Settings View Language selection */
   document.querySelector("#language").onchange = function() {

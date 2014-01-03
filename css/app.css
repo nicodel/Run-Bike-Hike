@@ -210,11 +210,13 @@ section[role="region"] > header:first-child img {
   padding: 1rem;
   height: 54%;
   line-height: 2rem;
+  font-size: 1.5rem;
 }
 .infos-container > div:last-child {
   padding-top: 2rem;
 }
-
+.info-container ul li {
+}
 
 .settings {
   background-color: #F4F4F4;
@@ -242,4 +244,23 @@ section[role="region"] {
   right: 0;
   bottom: 0;
   padding-left: 0;
+}
+
+section[data-type="sidebar"] > nav > ul > li > a {
+  font-size: 1.9rem;
+}
+section[data-type="sidebar"] > nav > ul > li > p {
+  text-decoration: none;
+  color: #FFF;
+  font-size: 1.9rem;
+  line-height: 4.35rem;
+  border-bottom: 0.1rem solid #596068;
+  text-indent: 3rem;
+  padding-right: 0.8rem;
+  width: 100%;
+  -moz-box-sizing: border-box;
+  display: block;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }

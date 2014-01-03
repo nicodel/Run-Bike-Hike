@@ -65,13 +65,13 @@
         <nav>
           <ul>
             <li>
-              <span data-l10n-id="keep-screen-alive">Keep screen alive ?</span>
-              <label class="pack-switch">
+              <label class="pack-switch align-right">
                 <input id="screen-keep" type="checkbox">
                 <span></span>
               </label>
+              <a data-l10n-id="keep-screen-alive" class="text-big">Keep screen alive ?</a>
             </li>
-            <li>
+            <li class="new-line">
               <p data-l10n-id="language">Language</p>
                 <select id="language" class="button icon icon-dialog">
                   <option value="en" data-l10n-id="english">English</option>
@@ -117,7 +117,7 @@
         <article class="content scrollable header">
           
           <div class="compass-container">
-            <img id="home-compass" class="compass" src="img/compass_inactive.png" alt="Compass" />
+            <img id="home-compass" src="img/compass_inactive.png" alt="Compass" />
             <button data-l10n-id="btn-start" id="btn-start" class="recommend small align-right">Start</button>
           </div>
           <div class="infos-container">
@@ -212,7 +212,7 @@
         </section>
         <menu>
           <button id="btn-cancel-stop" class="cancel" data-l10n-id="cancel">Cancel</button>
-          <button id="btn-confirm-stop" role="button" class="danger" data-l10n-id="confirm">Delete</button>
+          <button id="btn-confirm-stop" role="button" class="danger" data-l10n-id="confirm">Confirm</button>
         </menu>
       </form>
     </section>
@@ -271,33 +271,56 @@
       <article  class="scrollable">
       <ul class="infos-container">
         <li>
-          <div data-l10n-id="date">
+          <div data-l10n-id="date" class="text-small">
             Date
             <span id="trk-date" class="bold align-right"></span>
           </div>
         </li>
         <li>
-          <div data-l10n-id="distance">
+          <div data-l10n-id="distance" class="text-small">
             Distance
             <span id="trk-dist" class="bold align-right"></span>
           </div>
         </li>
         <li>
-          <div data-l10n-id="duration">
+          <div data-l10n-id="duration" class="text-small">
             Duration
             <span id="trk-dur" class="bold align-right"></span>
           </div>
         </li>
         <li>
-          <div data-l10n-id="map" id="trk-dt-map">Map</div>
-          <img src="" id="map-img" />
+          <div data-l10n-id="max_speed" class="text-small">
+            Max speed
+            <span id="trk-max-speed" class="bold align-right"></span>
+          </div>
         </li>
         <li>
-          <div data-l10n-id="altitude" id="trk-dt-alt">Altitude</div>
+          <div data-l10n-id="max_alt" class="text-small">
+            Max altitude
+            <span id="trk-max-alt" class="bold align-right"></span>
+          </div>
+        </li>
+        <li class="separateur-bottom">
+          <div data-l10n-id="min_alt" class="text-small">
+            Min altitude
+            <span id="trk-min-alt" class="bold align-right"></span>
+          </div>
+        </li>
+
+
+
+
+
+        <li class="separateur-bottom">
+          <div data-l10n-id="map" id="trk-dt-map" class="text-small bold">Map</div>
+          <img src="" id="map-img" class="hidden absolute" />
+        </li>
+        <li class="separateur-bottom">
+          <div data-l10n-id="altitude" id="trk-dt-alt" class="text-small bold">Altitude</div>
           <canvas id="alt-canvas"></canvas>
         </li>
         <li>
-          <div data-l10n-id="speed" id="trk-dt-speed">Speed</div>
+          <div data-l10n-id="speed" id="trk-dt-speed" class="text-small bold">Speed</div>
           <canvas id="speed-canvas"></canvas>
         </li>
       </ul>

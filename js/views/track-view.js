@@ -58,6 +58,12 @@ var TrackView = function() {
         t.end = dt;
       }
     }
+    document.getElementById("trk-max-speed").innerHTML = Config.userDistance(t.max_speed);
+    document.getElementById("trk-max-alt").innerHTML = Config.userDistance(t.max_alt);
+    document.getElementById("trk-min-alt").innerHTML = Config.userDistance(t.min_alt);
+
+
+
     // console.log("t.start", t.start);
     // console.log("t.end", t.end);
     __buildAltitudeGraph(t);
@@ -294,6 +300,9 @@ var TrackView = function() {
   }
 
   function __buildMap2(inTrack) {
+    /*
+     * http://pafciu17.dev.openstreetmap.org/
+     */
 
     // get the min and max longitude/ latitude
     // and build the path
@@ -346,11 +355,12 @@ var TrackView = function() {
       return;
     };
 
+    var MAX_POINTS = 50;
     var paths = "&paths=";
     var j = 0;
-    if (inTrack.data.length > 400) {
-      var y = parseInt(inTrack.data.length / 400, 10);
-      if (y * inTrack.data.length > 400) {
+    if (inTrack.data.length > MAX_POINTS) {
+      var y = parseInt(inTrack.data.length / MAX_POINTS, 10);
+      if (y * inTrack.data.length > MAX_POINTS) {
         y = y + 1;
       };
     } else {
@@ -373,7 +383,11 @@ var TrackView = function() {
     // var base_url = "http://tile.openstreetmap.org/cgi-bin/export?"
     var bbox = "&bbox=" + p1.lon + ","+ p1.lat + ","+ p2.lon + "," + p2.lat;
     var width = "&width=" + SCREEN_WIDTH;
-    var loc = base_url + bbox + width + paths;
+    var thickness = ',thickness:3';
+    var BLUE = "0:0:255"
+    var GREEN = "0:255:0"
+    var color = ",color:" + BLUE;
+    var loc = base_url + bbox + width + paths + thickness + color;
     // var loc = base_url + bbox + scale + "&format=jpeg";
     // var center = __getCenter(inTrack);
     // var j = 0;
@@ -394,6 +408,13 @@ var TrackView = function() {
 
     // var loc = "http://dev.openstreetmap.org/~pafciu17/?module=map&lon=" + center.lon + "&lat=" + center.lat + "&zoom=8&width=" + SCREEN_WIDTH + "&height=" + SCREEN_HEIGHT + dw;
     document.getElementById("map-img").width = SCREEN_WIDTH;
+    document.getElementById("map-img").onload = function () {
+      document.querySelector("#map-img").classList.remove("hidden");
+      document.querySelector("#map-img").classList.remove("absolute");
+      document.querySelector("#infos-spinner").classList.add("hidden");
+      document.querySelector("#infos-spinner").classList.add("absolute");
+
+    };
     document.getElementById("map-img").src = loc;
     console.log("loc:", loc);
   }
@@ -421,10 +442,10 @@ var TrackView = function() {
     console.log("loc:", loc);
   }
 
-  function __imageLoaded() {
-    console.log("removing infos spinner");
-    document.getElementById("map-area").removeChild(document.getElementById("infos-spinner"));
-  }
+  // function __imageLoaded() {
+  //   console.log("removing infos spinner");
+  //   document.getElementById("map-area").removeChild(document.getElementById("infos-spinner"));
+  // }
 
   function __createRectCanvas(inElementId, inRange, inSpace) {
     var graph = document.getElementById(inElementId);

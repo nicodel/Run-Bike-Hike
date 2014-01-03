@@ -1,7 +1,12 @@
 button.small {
 	max-width: 25%;
 }
-
+.text-small {
+  font-size: 1.5rem;
+}
+.text-big {
+  font-size: normal;
+}
 .align-left {
   float: left;
   margin-left: 8px;
@@ -26,8 +31,20 @@ button.small {
   color: red;
 }
 
+.clipped {
+  max-width: 80%; /* for Peak screen*/
+  width: 65%;  /*for Keon screen*/
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 
+.separateur-bottom {
+  border-bottom: 0.1rem solid #E7E7E7;
+}
 
+.absolute {
+  position: absolute;
+}
 
 
 .move-right {
