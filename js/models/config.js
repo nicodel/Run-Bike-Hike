@@ -67,7 +67,23 @@ var Config = function() {
     if (userUnits === METRIC_UNITS){
       return (velocityMPS * 3.6).toFixed(0)+" km/h";
     }
-      return velocityMPS+ " m/s";
+    return velocityMPS+ " m/s";
+  }
+
+  function userSpeedInteger(velocityMPS) {
+    // console.log("SPEED METRIC:", velocityMPS);
+    if (velocityMPS === null || velocityMPS<0 || isNaN(velocityMPS)) {
+      return null;
+    }
+
+    if (userUnits === IMPERIAL_UNITS){
+      /* FIXME: I'am not sure that it is right */
+      return (velocityMPS * 2.237).toFixed(0);
+    }
+    if (userUnits === METRIC_UNITS){
+      return (velocityMPS * 3.6).toFixed(0);
+    }
+    return velocityMPS;
   }
 
   function userDegree(degree){
@@ -220,6 +236,7 @@ var Config = function() {
     save: save,
     SCREEN_KEEP_ALIVE: SCREEN_KEEP_ALIVE,
     userSpeed: userSpeed,
+    userSpeedInteger: userSpeedInteger,
     userDegree: userDegree,
     userLatitude: userLatitude,
     userLongitude: userLongitude,

@@ -67,6 +67,7 @@ var TrackView = function() {
         t.end = dt;
       }
     }
+    console.log("t.max_speed",Config.userSpeed(t.max_speed));
     document.getElementById("trk-max-speed").innerHTML = Config.userSpeed(t.max_speed);
     document.getElementById("trk-max-alt").innerHTML = Config.userSmallDistance(t.max_alt);
     document.getElementById("trk-min-alt").innerHTML = Config.userSmallDistance(t.min_alt);
@@ -205,8 +206,8 @@ var TrackView = function() {
   function __buildSpeedGraph(inData) {
     data = inData.data;
 
-    var max_y = inData.max_speed;
-    var min_y = inData.min_speed;
+    var max_y = Config.userSpeedInteger(inData.max_speed);
+    var min_y = Config.userSpeedInteger(inData.min_speed);
     console.log("max_y", max_y);
     console.log("min_y",min_y);
     
@@ -214,6 +215,7 @@ var TrackView = function() {
     var range = max_y - min_y;
     range = range + (range * 0.2);
     var yspace = parseInt(range / 4, 10);
+    console.log("range ", range);
     var c = __createRectCanvas("speed-canvas", range, yspace);
     
     var espace = parseInt(data.length / (SCREEN_WIDTH - xPadding), 10);
@@ -223,9 +225,11 @@ var TrackView = function() {
     c.strokeStyle = VALUE_COLOR;
     c.lineWidth = LINE_WIDTH;
     c.beginPath();
-    c.moveTo(__getXPixel(0,data), __getYPixel(data[0].speed, range));
+    var value = Config.userSpeedInteger(data[0].speed);
+    c.moveTo(__getXPixel(0,data), __getYPixel(value, range));
     for(i=1;i<data.length;i+=espace) {
-      c.lineTo(__getXPixel(i,data), __getYPixel(data[i].speed, range));
+      var value = Config.userSpeedInteger(data[i].speed);
+      c.lineTo(__getXPixel(i,data), __getYPixel(value, range));
       c.stroke();
     }
 
