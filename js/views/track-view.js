@@ -114,8 +114,10 @@ var TrackView = function() {
     var espace = parseInt(data.length / (SCREEN_WIDTH - xPadding), 10);
     espace = espace * SPACE_BTW_POINTS; // increase spacing between points so that the chart looks smoother.
     // console.log("espace", espace);
+
     // Draw vertAccuracy lines
     c.strokeStyle = ACCURACY_COLOR;
+    c.fillStyle = ACCURACY_FILL_COLOR;
     c.lineWidth = LINE_WIDTH;
     c.beginPath();
     //~ var z = parseInt(getXPixel(data[0].altitude) - parseInt(data[0].vertAccuracy));
@@ -124,9 +126,32 @@ var TrackView = function() {
     var y1 = alt0 - acc0;
     var y2 = alt0 + acc0;
     if(y1<0) {y1=0;} // we don't want the lines to go under 0
+
+    for(i = 1 ; i<data.length ; i += espace) {
+      var value = parseInt(data[i].altitude, 10) + parseInt(data[i].vertAccuracy, 10);
+      if (i === 1) {
+        c.moveTo(__getXPixel(i,data), __getYPixel(value, range));
+      } else {
+        c.lineTo(__getXPixel(i,data), __getYPixel(value, range));
+      }
+    };
+    for(i = data.length - 1 ; i >= 1 ; i = i - espace) {
+      var value = parseInt(data[i].altitude, 10) - parseInt(data[i].vertAccuracy, 10);
+      if (value < 0) {value = 0;}
+      if (i === 1) {
+        var value = parseInt(data[i].altitude, 10) + parseInt(data[i].vertAccuracy, 10);
+        c.lineTo(__getXPixel(i,data), __getYPixel(value, range));
+      } else {
+        c.lineTo(__getXPixel(i,data), __getYPixel(value, range));
+      }
+    }
+    c.fill();
+    c.stroke();
+    
+    
     // console.log("alt: "+ alt0 +" - acc: "+ acc0);
     // console.log("y1: "+y1+" - y2: "+y2);
-    c.moveTo(__getXPixel(0,data), __getYPixel(y1, range));
+    /*c.moveTo(__getXPixel(0,data), __getYPixel(y1, range));
     c.lineTo(__getXPixel(0,data), __getYPixel(y2, range));
     for(i=1;i<data.length;i+=espace) {
       var alti = parseInt(data[i].altitude, 10);
@@ -137,7 +162,7 @@ var TrackView = function() {
       c.moveTo(__getXPixel(i,data), __getYPixel(y1, range));
       c.lineTo(__getXPixel(i,data), __getYPixel(y2, range));
       c.stroke();
-    }
+    }*/
     
     // Draw Altitude points
     c.strokeStyle = VALUE_COLOR;
@@ -146,9 +171,7 @@ var TrackView = function() {
     c.moveTo(__getXPixel(0,data), __getYPixel(data[0].altitude, range));
     for(i=1;i<data.length;i+=espace) {
       c.lineTo(__getXPixel(i,data), __getYPixel(data[i].altitude, range));
-      //~ c.arc(getXPixel(i,data), getYPixel(data[i].altitude, range),1,0,1);
       c.stroke();
-      //~ console.log("i: " + i + " - x: " + getXPixel(i, data) + " / y: " + getYPixel(data[i].altitude, range));
     }
 
     c.lineWidth = 1;
