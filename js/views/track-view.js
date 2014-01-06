@@ -9,6 +9,8 @@ var TrackView = function() {
 
   var SPACE_BTW_POINTS = 5;
   var LINE_WIDTH = 2;
+  var TEXT_STYLE = "8pt 'MozTTLight', 'Helvetica Neue','Nimbus Sans L',Arial,sans-serif";
+  var TEXT_COLOR = "#333";
   var VALUE_COLOR = "#008000";
   var ACCURACY_COLOR = "#805A5A";
   var ACCURACY_FILL_COLOR = "#C89696";
@@ -171,20 +173,13 @@ var TrackView = function() {
     c.moveTo(__getXPixel(0,data), __getYPixel(data[0].altitude, range));
     for(i=1;i<data.length;i+=espace) {
       c.lineTo(__getXPixel(i,data), __getYPixel(data[i].altitude, range));
-      c.stroke();
     }
+    c.stroke();
 
     c.lineWidth = 1;
-    c.strokeStyle = "#333";
-    c.font = "italic 6pt sans-serif";
+    c.fillStyle = TEXT_COLOR;
+    c.font = TEXT_STYLE;
     c.textAlign = "center";
-    
-    // Draw X and Y Axis
-    // c.beginPath();
-    // c.moveTo(xPadding, 0);
-    // c.lineTo(xPadding, SCREEN_HEIGHT - yPadding);
-    // c.lineTo(SCREEN_WIDTH, SCREEN_HEIGHT - yPadding);
-    // c.stroke();
     
     // Write X Axis text and lines
     var xspace = data.length / 5;
@@ -194,6 +189,7 @@ var TrackView = function() {
       //~ console.log("i",i);
       var date = new Date(data[i].date).getHours() + ":" + new Date(data[i].date).getMinutes();
       c.fillText(date, __getXPixel(i,data), SCREEN_HEIGHT - yPadding + 20);
+      // draw vertical lines
       c.beginPath();
       c.strokeStyle  = "rgba(150,150,150, 0.5)";
       c.lineWidth = 1;
@@ -232,21 +228,11 @@ var TrackView = function() {
       c.lineTo(__getXPixel(i,data), __getYPixel(data[i].speed, range));
       c.stroke();
     }
-    /*for(i=1;i<data.length;i+=espace) {
-      c.fillRect(__getXPixel(i,data), __getYPixel(data[i].speed), 2, 2);
-    }*/
 
     c.lineWidth = 1;
-    c.strokeStyle = "#333";
-    c.font = "italic 6pt sans-serif";
+    c.fillStyle = TEXT_COLOR;
+    c.font = TEXT_STYLE;
     c.textAlign = "center";
-    
-    // Draw X and Y Axis
-    // c.beginPath();
-    // c.moveTo(xPadding, 0);
-    // c.lineTo(xPadding, SCREEN_HEIGHT - yPadding);
-    // c.lineTo(SCREEN_WIDTH, SCREEN_HEIGHT - yPadding);
-    // c.stroke();
     
     // Write X Axis text and lines
     var xspace = data.length / 5;
@@ -383,7 +369,7 @@ var TrackView = function() {
       document.querySelector("#infos-spinner").classList.add("absolute");
 
     };
-    // document.getElementById("map-img").src = loc;
+    document.getElementById("map-img").src = loc;
     // console.log("loc:", loc);
   }
 
@@ -417,6 +403,8 @@ var TrackView = function() {
     graph.setAttribute("width",SCREEN_WIDTH);
     graph.setAttribute("height",SCREEN_HEIGHT);
 
+    c.fillStyle = TEXT_COLOR;
+    c.font = TEXT_STYLE;
     c.textAlign = "right";
     c.textBaseline = "middle";
     var j = 0;
