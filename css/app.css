@@ -153,7 +153,7 @@ nav[data-type="scrollbar"] p {
   opacity: 1;
 }
 .scrollable {
-  /*max-height: 85%;*/
+  max-height: 85%;
 }
 
 /* Seek bars */

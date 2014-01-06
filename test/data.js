@@ -11,6 +11,30 @@ var sec = d.getSeconds();
 testdata.name = "TR-"+year+month+day+"-"+hour+min+sec;
 testdata.duration = 28158000;
 testdata.distance = 0;
+
+/*testdata.data = [
+{latitude:"7.423378", longitude:"-80.159667", date:"2012-02-26T13:53:47Z",altitude:"57",speed:"17",accuracy:"6",vertAccuracy:"4"},
+{latitude:"7.423410", longitude:"-80.159817", date:"2012-02-26T13:53:48Z",altitude:"57",speed:"17",accuracy:"6",vertAccuracy:"4"},
+{latitude:"7.423447", longitude:"-80.159967", date:"2012-02-26T13:53:49Z",altitude:"57",speed:"17",accuracy:"6",vertAccuracy:"4"},
+{latitude:"7.423480", longitude:"-80.160117", date:"2012-02-26T13:53:50Z",altitude:"58",speed:"17",accuracy:"6",vertAccuracy:"4"},
+{latitude:"7.423512", longitude:"-80.160273", date:"2012-02-26T13:53:51Z",altitude:"58",speed:"16",accuracy:"6",vertAccuracy:"4"},
+{latitude:"7.423528", longitude:"-80.160418", date:"2012-02-26T13:53:52Z",altitude:"58",speed:"16",accuracy:"6",vertAccuracy:"4"},
+{latitude:"7.423533", longitude:"-80.160557", date:"2012-02-26T13:53:53Z",altitude:"58",speed:"15",accuracy:"6",vertAccuracy:"4"},
+{latitude:"7.423512", longitude:"-80.160697", date:"2012-02-26T13:53:54Z",altitude:"58",speed:"15",accuracy:"6",vertAccuracy:"4"},
+{latitude:"7.423485", longitude:"-80.160836", date:"2012-02-26T13:53:55Z",altitude:"58",speed:"15",accuracy:"6",vertAccuracy:"4"},
+{latitude:"7.423447", longitude:"-80.160970", date:"2012-02-26T13:53:56Z",altitude:"58",speed:"16",accuracy:"6",vertAccuracy:"4"},
+{latitude:"7.423405", longitude:"-80.161115", date:"2012-02-26T13:53:57Z",altitude:"58",speed:"16",accuracy:"6",vertAccuracy:"4"},
+{latitude:"7.423362", longitude:"-80.161265", date:"2012-02-26T13:53:59Z",altitude:"58",speed:"17",accuracy:"6",vertAccuracy:"4"},
+{latitude:"7.423319", longitude:"-80.161421", date:"2012-02-26T13:53:59Z",altitude:"58",speed:"17",accuracy:"6",vertAccuracy:"4"},
+{latitude:"7.423276", longitude:"-80.161582", date:"2012-02-26T13:54:00Z",altitude:"58",speed:"18",accuracy:"6",vertAccuracy:"4"},
+{latitude:"7.423233", longitude:"-80.161737", date:"2012-02-26T13:54:01Z",altitude:"58",speed:"18",accuracy:"6",vertAccuracy:"4"},
+{latitude:"7.423190", longitude:"-80.161898", date:"2012-02-26T13:54:02Z",altitude:"59",speed:"18",accuracy:"6",vertAccuracy:"4"},
+{latitude:"7.423147", longitude:"-80.162059", date:"2012-02-26T13:54:03Z",altitude:"59",speed:"18",accuracy:"6",vertAccuracy:"4"},
+{latitude:"7.423110", longitude:"-80.162220", date:"2012-02-26T13:54:04Z",altitude:"59",speed:"18",accuracy:"6",vertAccuracy:"4"},
+{latitude:"7.423067", longitude:"-80.162381", date:"2012-02-26T13:54:05Z",altitude:"59",speed:"18",accuracy:"6",vertAccuracy:"4"},
+{latitude:"7.423029", longitude:"-80.162542", date:"2012-02-26T13:54:06Z",altitude:"59",speed:"18",accuracy:"6",vertAccuracy:"4"},
+{latitude:"7.422981", longitude:"-80.162703", date:"2012-02-26T13:54:07Z",altitude:"59",speed:"18",accuracy:"6",vertAccuracy:"4"}];*/
+
 testdata.data = [
 {latitude:"7.735083", longitude:"-80.250771", date:"2012-02-26T12:45:46Z",altitude:"46",speed:"0",accuracy:"136",vertAccuracy:"192"},
 {latitude:"7.735077", longitude:"-80.250830", date:"2012-02-26T12:45:47Z",altitude:"39",speed:"0",accuracy:"136",vertAccuracy:"192"},
@@ -4298,4 +4322,5 @@ testdata.data = [
 {latitude:"7.419564", longitude:"-80.180427", date:"2012-02-26T14:03:49Z",altitude:"19",speed:"0",accuracy:"10",vertAccuracy:"8"},
 {latitude:"7.419564", longitude:"-80.180427", date:"2012-02-26T14:03:52Z",altitude:"19",speed:"0",accuracy:"10",vertAccuracy:"6"},
 {latitude:"7.419564", longitude:"-80.180427", date:"2012-02-26T14:03:53Z",altitude:"19",speed:"0",accuracy:"9",vertAccuracy:"6"},
-{latitude:"7.419564", longitude:"-80.180427", date:"2012-02-26T14:03:59Z",altitude:"19",speed:"0",accuracy:"7",vertAccuracy:"6"}];
+{latitude:"7.419564", longitude:"-80.180427", date:"2012-02-26T14:03:59Z",altitude:"19",speed:"0",accuracy:"7",vertAccuracy:"6"}
+];
