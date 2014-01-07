@@ -115,7 +115,6 @@ var DB = function() {
 
   function deleteTrack(successCallback, errorCallback, inTrack) {
     if (typeof successCallback === "function") {
-
       var tx = db.transaction(DB_STORE_TRACKS, "readwrite");
       tx.oncomplete = function(e) {
         console.log("delete_track transaction completed !");

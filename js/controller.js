@@ -47,8 +47,6 @@ var Controller = function() {
     //Stop the calculation of elapsed time
     // InfosView.stopChrono();
     Chrono.stop();
-    // Clear the watch
-    // navigator.geolocation.clearWatch(watchID);
     // reset counters
     Tracks.reset();
     Chrono.reset();
@@ -58,6 +56,7 @@ var Controller = function() {
     if (track.data.length < 1) {
       // we notify that we do nothing (cause that's good)
       utils.status.show("Track empty. Not saving");
+      DB.addTrack(__addTrackSuccess, __addTrackError, track);
     } else{
       // Save to DB
       DB.addTrack(__addTrackSuccess, __addTrackError, track);
@@ -190,7 +189,8 @@ var Controller = function() {
   }
 
   function deleteTrack() {
-    DB.deleteTrack(__deleteTrackSuccess, __deleteTrackError, displayed_track);
+    // DB.deleteTrack(__deleteTrackSuccess, __deleteTrackError, displayed_track);
+    console.log("delete track: ", displayed_track);
   }
 
   function __deleteTrackSuccess() {

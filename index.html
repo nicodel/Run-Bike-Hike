@@ -55,7 +55,7 @@
     <!--···························· Settings View ··························-->
     <!--··························· Home View ·······························-->
     <!-- <section id="homeView" data-position="current"> -->
-      <section id="settingsView" data-type="sidebar">
+      <section id="homeView" data-type="sidebar">
         <header>
           <menu type="toolbar">
             <a data-l10n-id="done" href="#">Done</a>
@@ -213,7 +213,7 @@
         <section>
           <h1 data-l10n-id="confirmation">Confirmation</h1>
           <p>
-            <span data-l10n-id="stop-track-desc" data-l10n-args="{"n":"0"}">Are you sure you want to stop recording this track?</span>
+            <span data-l10n-id="stop-track-desc">Are you sure you want to stop recording this track?</span>
           </p>
         </section>
         <menu>
@@ -222,22 +222,6 @@
         </menu>
       </form>
     </section>
-    
-    <!--·············· Stop the track confirmation dialog ···················-->
-<!--     <section id="stopTrackingConfirmation" data-position="back" class="fullscreen">
-      <form role="dialog" data-type="confirm" onsubmit="return false;">
-        <section>
-          <h1 data-l10n-id="confirmation">Confirmation</h1>
-          <p>
-            <span data-l10n-id="stop-track-desc" data-l10n-args="{"n":"0"}">Are you sure you want to stop recording this track?</span>
-          </p>
-        </section>
-        <menu>
-          <button id="btn-cancel-stop" class="cancel" data-l10n-id="cancel">Cancel</button>
-          <button id="btn-confirm-stop" role="button" class="danger" data-l10n-id="confirm">Confirm</button>
-        </menu>
-      </form>
-    </section> -->
 
     <!--·················· Track successfully stored dialog ·················-->
     <section role="status" id="storeSuccessView">
@@ -248,7 +232,6 @@
     <section role="status" id="storeFailedView">
       <p>Error saving track <span id="track-name"><strong></strong></span> to database.</p>
     </section>
-
 
     <!--·························· Tracks View ······························-->
     <section role="region" id="tracksView" class="move-right">
@@ -312,11 +295,6 @@
             <span id="trk-min-alt" class="bold align-right"></span>
           </div>
         </li>
-
-
-
-
-
         <li class="separateur-bottom">
           <div data-l10n-id="map" id="trk-dt-map" class="text-small bold">Map</div>
           <img src="" id="map-img" class="hidden absolute" />
@@ -338,6 +316,18 @@
           <li><button data-l10n-id="edit" class="action-icon compose" disabled="" id="btn-edit">Edit</button></li>
         </ul>
       </footer>
+      <form id="del-form-confirm" role="dialog" data-type="confirm" class="hidden">
+        <section>
+          <h1 data-l10n-id="confirmation">Confirmation</h1>
+          <p>
+            <span data-l10n-id="delete-track-desc">Are you sure you want to delete this track?</span>
+          </p>
+        </section>
+        <menu>
+          <button id="btn-cancel-delete" class="cancel" data-l10n-id="cancel">Cancel</button>
+          <button id="btn-confirm-delete" role="button" class="danger" data-l10n-id="confirm">Confirm</button>
+        </menu>
+      </form>
     </section>
 
     <!--················ Delete the track confirmation dialog ···············-->
@@ -393,6 +383,7 @@
         "js/models/config.js",
         "js/models/db.js",
         "js/models/tracks.js",
+        "js/events.js",
         "js/controller.js",
         "js/app.js"
         ]);
