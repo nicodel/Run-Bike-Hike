@@ -190,7 +190,7 @@ var Controller = function() {
   }
 
   function deleteTrack() {
-    // DB.deleteTrack(__deleteTrackSuccess, __deleteTrackError, displayed_track);
+    DB.deleteTrack(__deleteTrackSuccess, __deleteTrackError, displayed_track);
     console.log("delete track: ", displayed_track);
   }
 
