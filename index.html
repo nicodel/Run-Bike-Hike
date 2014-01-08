@@ -55,7 +55,7 @@
     <!--···························· Settings View ··························-->
     <!--··························· Home View ·······························-->
     <!-- <section id="homeView" data-position="current"> -->
-      <section id="settingsView" data-type="sidebar">
+      <section id="homeView" data-type="sidebar">
         <header>
           <menu type="toolbar">
             <a data-l10n-id="done" href="#">Done</a>
@@ -65,13 +65,13 @@
         <nav>
           <ul>
             <li>
-              <span data-l10n-id="keep-screen-alive">Keep screen alive ?</span>
-              <label class="pack-switch">
+              <label class="pack-switch align-right">
                 <input id="screen-keep" type="checkbox">
                 <span></span>
               </label>
+              <a data-l10n-id="keep-screen-alive" class="text-big">Keep screen alive ?</a>
             </li>
-            <li>
+            <li class="new-line">
               <p data-l10n-id="language">Language</p>
                 <select id="language" class="button icon icon-dialog">
                   <option value="en" data-l10n-id="english">English</option>
@@ -117,7 +117,7 @@
         <article class="content scrollable header">
           
           <div class="compass-container">
-            <img id="home-compass" class="compass" src="img/compass_inactive.png" alt="Compass" />
+            <img id="home-compass" src="img/compass_inactive.png" alt="Compass" />
             <button data-l10n-id="btn-start" id="btn-start" class="recommend small align-right">Start</button>
           </div>
           <div class="infos-container">
@@ -200,30 +200,20 @@
             <span id="infos-alt" class="bold align-right"></span>
           </div>
         </li>
+        <li>
+          <div data-l10n-id="accuracy">
+            Accuracy
+            <span id="infos-acc" class="bold align-right"></span>
+          </div>
+        </li>
       </ul>
       <footer class="toolbar">
       </footer>
-      <form id="stop-form-confirm" role="dialog" data-type="confirm" class="hidden">
+      <form id="stop-form-confirm" role="dialog" data-type="confirm" class="hidden" onsubmit="return false;">
         <section>
           <h1 data-l10n-id="confirmation">Confirmation</h1>
           <p>
-            <span data-l10n-id="stop-track-desc" data-l10n-args="{"n":"0"}">Are you sure you want to stop recording this track?</span>
-          </p>
-        </section>
-        <menu>
-          <button id="btn-cancel-stop" class="cancel" data-l10n-id="cancel">Cancel</button>
-          <button id="btn-confirm-stop" role="button" class="danger" data-l10n-id="confirm">Delete</button>
-        </menu>
-      </form>
-    </section>
-    
-    <!--·············· Stop the track confirmation dialog ···················-->
-<!--     <section id="stopTrackingConfirmation" data-position="back" class="fullscreen">
-      <form role="dialog" data-type="confirm" onsubmit="return false;">
-        <section>
-          <h1 data-l10n-id="confirmation">Confirmation</h1>
-          <p>
-            <span data-l10n-id="stop-track-desc" data-l10n-args="{"n":"0"}">Are you sure you want to stop recording this track?</span>
+            <span data-l10n-id="stop-track-desc">Are you sure you want to stop recording this track?</span>
           </p>
         </section>
         <menu>
@@ -231,7 +221,7 @@
           <button id="btn-confirm-stop" role="button" class="danger" data-l10n-id="confirm">Confirm</button>
         </menu>
       </form>
-    </section> -->
+    </section>
 
     <!--·················· Track successfully stored dialog ·················-->
     <section role="status" id="storeSuccessView">
@@ -242,7 +232,6 @@
     <section role="status" id="storeFailedView">
       <p>Error saving track <span id="track-name"><strong></strong></span> to database.</p>
     </section>
-
 
     <!--·························· Tracks View ······························-->
     <section role="region" id="tracksView" class="move-right">
@@ -271,33 +260,51 @@
       <article  class="scrollable">
       <ul class="infos-container">
         <li>
-          <div data-l10n-id="date">
+          <div data-l10n-id="date" class="text-small">
             Date
             <span id="trk-date" class="bold align-right"></span>
           </div>
         </li>
         <li>
-          <div data-l10n-id="distance">
+          <div data-l10n-id="distance" class="text-small">
             Distance
             <span id="trk-dist" class="bold align-right"></span>
           </div>
         </li>
         <li>
-          <div data-l10n-id="duration">
+          <div data-l10n-id="duration" class="text-small">
             Duration
             <span id="trk-dur" class="bold align-right"></span>
           </div>
         </li>
         <li>
-          <div data-l10n-id="map" id="trk-dt-map">Map</div>
-          <img src="" id="map-img" />
+          <div data-l10n-id="max_speed" class="text-small">
+            Max speed
+            <span id="trk-max-speed" class="bold align-right"></span>
+          </div>
         </li>
         <li>
-          <div data-l10n-id="altitude" id="trk-dt-alt">Altitude</div>
+          <div data-l10n-id="max_alt" class="text-small">
+            Max altitude
+            <span id="trk-max-alt" class="bold align-right"></span>
+          </div>
+        </li>
+        <li class="separateur-bottom">
+          <div data-l10n-id="min_alt" class="text-small">
+            Min altitude
+            <span id="trk-min-alt" class="bold align-right"></span>
+          </div>
+        </li>
+        <li class="separateur-bottom">
+          <div data-l10n-id="map" id="trk-dt-map" class="text-small bold">Map</div>
+          <img src="" id="map-img" class="hidden absolute" />
+        </li>
+        <li class="separateur-bottom">
+          <div data-l10n-id="altitude" id="trk-dt-alt" class="text-small bold">Altitude</div>
           <canvas id="alt-canvas"></canvas>
         </li>
         <li>
-          <div data-l10n-id="speed" id="trk-dt-speed">Speed</div>
+          <div data-l10n-id="speed" id="trk-dt-speed" class="text-small bold">Speed</div>
           <canvas id="speed-canvas"></canvas>
         </li>
       </ul>
@@ -309,6 +316,18 @@
           <li><button data-l10n-id="edit" class="action-icon compose" disabled="" id="btn-edit">Edit</button></li>
         </ul>
       </footer>
+      <form id="del-form-confirm" role="dialog" data-type="confirm" class="hidden" onsubmit="return false;">
+        <section>
+          <h1 data-l10n-id="confirmation">Confirmation</h1>
+          <p>
+            <span data-l10n-id="delete-track-desc">Are you sure you want to delete this track?</span>
+          </p>
+        </section>
+        <menu>
+          <button id="btn-cancel-delete" class="cancel" data-l10n-id="cancel">Cancel</button>
+          <button id="btn-confirm-delete" role="button" class="danger" data-l10n-id="confirm">Confirm</button>
+        </menu>
+      </form>
     </section>
 
     <!--················ Delete the track confirmation dialog ···············-->
@@ -364,6 +383,7 @@
         "js/models/config.js",
         "js/models/db.js",
         "js/models/tracks.js",
+        "js/events.js",
         "js/controller.js",
         "js/app.js"
         ]);

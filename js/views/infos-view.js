@@ -19,6 +19,14 @@ var InfosView = function() {
     document.getElementById("infos-speed").innerHTML = Config.userSpeed(inPosition.coords.speed);
     // updating altitude using Settings choosen unit
     document.getElementById("infos-alt").innerHTML = Config.userSmallDistance(inPosition.coords.altitude);
+    // updating accuracy using settings units
+    document.getElementById("infos-acc").innerHTML = "&#177;" + Config.userSmallDistance(inPosition.coords.accuracy);
+    // checking accuracy and display appropriate GPS status
+    if (inPosition.coords.accuracy > 30) {
+      document.getElementById("infos-acc").className = "align-right bold bad-signal";
+    } else {
+      document.getElementById("infos-acc").className = "align-right bold";
+    }
     // update compass direction
     __displayCompass(inPosition.coords);
 
