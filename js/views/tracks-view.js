@@ -3,7 +3,7 @@ var TracksView = function() {
   function display(inTracks) {
     // __remove_childs("tracks-list");
     var list = document.getElementById("tracks-list");
-    console.log("list.childNodes",list.childNodes);
+    // console.log("list.childNodes",list.childNodes);
     for (i = 0; i = list.childNodes.length - 1; i++) {
       if (list.childNodes[i]) {
         if (list.childNodes[i].className === "it-track") {

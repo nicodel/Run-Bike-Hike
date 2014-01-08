@@ -8,7 +8,6 @@ var Controller = function() {
   var displayed_track;
 
   function init() {
-    console.log("initiate");
     // startWatch();
     DB.initiate(__initiateSuccess, __initiateError);
     if (navigator.geolocation) {
@@ -134,7 +133,7 @@ var Controller = function() {
 
   function __initiateSuccess(inEvent) {
     // utils.status.show(inEvent);
-    console.log("__initiateSuccess ", inEvent);
+    // console.log("__initiateSuccess ", inEvent);
     DB.getConfig(__getConfigSuccess, __getConfigError);
   }
 
@@ -143,7 +142,7 @@ var Controller = function() {
   }
 
   function __getConfigSuccess(inSettings) {
-    console.log("__getConfigSuccess ", inSettings);
+    // console.log("__getConfigSuccess ", inSettings);
     settings = inSettings;
     __setConfigView(inSettings);
   }

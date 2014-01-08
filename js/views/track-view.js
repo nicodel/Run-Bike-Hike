@@ -24,7 +24,7 @@ var TrackView = function() {
 
     var tr = document.getElementById("tr-name");
     tr.innerHTML = inTrack.name;
-    console.log("show track: ", inTrack);
+    // console.log("show track: ", inTrack);
 
     document.getElementById("trk-date").innerHTML = Config.userDate(inTrack.date);
     document.getElementById("trk-dist").innerHTML = Config.userDistance(inTrack.distance);
@@ -67,7 +67,7 @@ var TrackView = function() {
         t.end = dt;
       }
     }
-    console.log("t.max_speed",Config.userSpeed(t.max_speed));
+    // console.log("t.max_speed",Config.userSpeed(t.max_speed));
     document.getElementById("trk-max-speed").innerHTML = Config.userSpeed(t.max_speed);
     document.getElementById("trk-max-alt").innerHTML = Config.userSmallDistance(t.max_alt);
     document.getElementById("trk-min-alt").innerHTML = Config.userSmallDistance(t.min_alt);
@@ -208,14 +208,14 @@ var TrackView = function() {
 
     var max_y = Config.userSpeedInteger(inData.max_speed);
     var min_y = Config.userSpeedInteger(inData.min_speed);
-    console.log("max_y", max_y);
-    console.log("min_y",min_y);
+    // console.log("max_y", max_y);
+    // console.log("min_y",min_y);
     
     // Write Y Axis text
     var range = max_y - min_y;
     range = range + (range * 0.2);
     var yspace = parseInt(range / 4, 10);
-    console.log("range ", range);
+    // console.log("range ", range);
     var c = __createRectCanvas("speed-canvas", range, yspace);
     
     var espace = parseInt(data.length / (SCREEN_WIDTH - xPadding), 10);
