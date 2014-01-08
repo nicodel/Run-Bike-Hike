@@ -8,6 +8,7 @@ var Controller = function() {
   var displayed_track;
 
   function init() {
+    console.log("initiate");
     // startWatch();
     DB.initiate(__initiateSuccess, __initiateError);
     if (navigator.geolocation) {
