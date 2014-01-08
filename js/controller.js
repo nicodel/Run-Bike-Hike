@@ -57,7 +57,6 @@ var Controller = function() {
     if (track.data.length < 1) {
       // we notify that we do nothing (cause that's good)
       utils.status.show("Track empty. Not saving");
-      DB.addTrack(__addTrackSuccess, __addTrackError, track);
     } else{
       // Save to DB
       DB.addTrack(__addTrackSuccess, __addTrackError, track);
