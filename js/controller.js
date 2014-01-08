@@ -47,15 +47,19 @@ var Controller = function() {
     //Stop the calculation of elapsed time
     // InfosView.stopChrono();
     Chrono.stop();
-    // Clear the watch
-    // navigator.geolocation.clearWatch(watchID);
     // reset counters
     Tracks.reset();
     Chrono.reset();
     // Close track
     var track = Tracks.close();
-    // Save to DB
-    DB.addTrack(__addTrackSuccess, __addTrackError, track);
+    // if no gps point were retreive we don't save the track
+    if (track.data.length < 1) {
+      // we notify that we do nothing (cause that's good)
+      utils.status.show("Track empty. Not saving");
+    } else{
+      // Save to DB
+      DB.addTrack(__addTrackSuccess, __addTrackError, track);
+    };
   }
   function __locationChanged(inPosition){
     // console.log("Position found");
@@ -129,7 +133,7 @@ var Controller = function() {
 
   function __initiateSuccess(inEvent) {
     // utils.status.show(inEvent);
-    console.log("__initiateSuccess ", inEvent);
+    // console.log("__initiateSuccess ", inEvent);
     DB.getConfig(__getConfigSuccess, __getConfigError);
   }
 
@@ -138,7 +142,7 @@ var Controller = function() {
   }
 
   function __getConfigSuccess(inSettings) {
-    console.log("__getConfigSuccess ", inSettings);
+    // console.log("__getConfigSuccess ", inSettings);
     settings = inSettings;
     __setConfigView(inSettings);
   }
@@ -185,6 +189,7 @@ var Controller = function() {
 
   function deleteTrack() {
     DB.deleteTrack(__deleteTrackSuccess, __deleteTrackError, displayed_track);
+    console.log("delete track: ", displayed_track);
   }
 
   function __deleteTrackSuccess() {

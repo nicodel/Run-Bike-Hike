@@ -40,30 +40,48 @@
   </header>
   <article class="scrollable">
   <ul class="infos-container">
-    <li>
-      <div data-l10n-id="date">
-        Date
-        <span id="trk-date" class="bold align-right"></span>
-      </div>
-    </li>
-    <li>
-      <div data-l10n-id="distance">
-        Distance
-        <span id="trk-dist" class="bold align-right"></span>
-      </div>
-    </li>
-    <li>
-      <div data-l10n-id="duration">
-        Duration
-        <span id="trk-dur" class="bold align-right"></span>
-      </div>
-    </li>
+        <li>
+          <div data-l10n-id="date" class="text-small">
+            Date
+            <span id="trk-date" class="bold align-right"></span>
+          </div>
+        </li>
+        <li>
+          <div data-l10n-id="distance" class="text-small">
+            Distance
+            <span id="trk-dist" class="bold align-right"></span>
+          </div>
+        </li>
+        <li>
+          <div data-l10n-id="duration" class="text-small">
+            Duration
+            <span id="trk-dur" class="bold align-right"></span>
+          </div>
+        </li>
+        <li>
+          <div data-l10n-id="max_speed" class="text-small">
+            Max speed
+            <span id="trk-max-speed" class="bold align-right"></span>
+          </div>
+        </li>
+        <li>
+          <div data-l10n-id="max_alt" class="text-small">
+            Max altitude
+            <span id="trk-max-alt" class="bold align-right"></span>
+          </div>
+        </li>
+        <li class="separateur-bottom">
+          <div data-l10n-id="min_alt" class="text-small">
+            Min altitude
+            <span id="trk-min-alt" class="bold align-right"></span>
+          </div>
+        </li>
     <li id="map-area">
       <div data-l10n-id="map" id="trk-dt-map">Map</div>
       <div  class="align-center">
         <progress id="infos-spinner"></progress>
       </div>
-        <img src="" id="map-img" />
+        <img src="" id="map-img" class="hidden absolute"/>
     </li>
     <li>
       <div data-l10n-id="altitude" id="trk-dt-alt">Altitude</div>
@@ -85,7 +103,7 @@
 </body>
 <script>
   // document.getElementById("map-img").onload = alert("removing infos spinner");
-  document.getElementById("map-img").addEventListener("load", console.log("removing infos spinner"));
+  // document.getElementById("map-img").addEventListener("load", console.log("removing infos spinner"));
   TrackView.display(testdata);
 </script>
 </html>

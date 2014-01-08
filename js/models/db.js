@@ -20,7 +20,7 @@ var DB = function() {
       // DB.reset_app(DB_NAME);
       var req = window.indexedDB.open(DB_NAME, DB_VERSION);
       req.onsuccess = function(e) {
-        console.log("DB created successfully: ", req.result);
+        // console.log("DB created successfully: ", req.result);
         db = req.result;
         successCallback(req.result);
         db.onabort = function(e) {
@@ -93,7 +93,7 @@ var DB = function() {
           // ui.build_track(cursor.value);
           cursor.continue();
         } else{
-          console.log("got all tracks: ", all_tracks);
+          // console.log("got all tracks: ", all_tracks);
           successCallback(all_tracks);
         }
       };
@@ -115,7 +115,6 @@ var DB = function() {
 
   function deleteTrack(successCallback, errorCallback, inTrack) {
     if (typeof successCallback === "function") {
-
       var tx = db.transaction(DB_STORE_TRACKS, "readwrite");
       tx.oncomplete = function(e) {
         console.log("delete_track transaction completed !");
@@ -151,7 +150,7 @@ var DB = function() {
           settings.push(cursor.value);
           cursor.continue();
         } else{
-          console.log("got settings: ", settings);
+          // console.log("got settings: ", settings);
           if (settings.length === 0) {
             settings = CONFIG;
             __saveDefaultConfig(settings);

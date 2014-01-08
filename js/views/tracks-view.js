@@ -3,7 +3,7 @@ var TracksView = function() {
   function display(inTracks) {
     // __remove_childs("tracks-list");
     var list = document.getElementById("tracks-list");
-    console.log("list.childNodes",list.childNodes);
+    // console.log("list.childNodes",list.childNodes);
     for (i = 0; i = list.childNodes.length - 1; i++) {
       if (list.childNodes[i]) {
         if (list.childNodes[i].className === "it-track") {
@@ -35,7 +35,7 @@ var TracksView = function() {
     var lia = document.createElement("a");
     // lia.className = "it-track";
 
-    var div = '<p><span class="align-left">' + inTrack.name + '</span>';
+    var div = '<p><span class="align-left bold clipped">' + inTrack.name + '</span>';
     div = div + '<span class="align-right">' + Config.userDate(inTrack.date) + '</span></p>';
     div = div + '<p class="new-line"><span class="align-left">' + Config.userDistance(inTrack.distance) + '</span>';
     var d = inTrack.duration / 60000;
