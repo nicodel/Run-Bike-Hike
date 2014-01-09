@@ -16,16 +16,27 @@ var TracksView = function() {
       // console.log("remove element " + i + " " + list.childNodes[i].textContent);
       // document.getElementById("tracks-list").removeChild(d.childNodes[i]);
     }
-  
-    var tracks = [];
-    tracks = inTracks;
-    for (var i = tracks.length - 1; i >= 0; i--) {
-      __buildList(tracks[i]);
-    }
+
+    if (inTracks.length === 0) {
+      __showEmpty();
+    } else{
+      var tracks = [];
+      tracks = inTracks;
+      for (var i = tracks.length - 1; i >= 0; i--) {
+        __buildList(tracks[i]);
+      }
+    };
   }
 
   function reset() {
     __remove_childs("tracks-list");
+  }
+
+  function __showEmpty() {
+    var el = document.createElement("p");
+    el.className = "empty-tracks";
+    el.innerHTML = "Empty tracks list."
+    document.getElementById("tracks-list").appendChild(el);
   }
 
   function __buildList(inTrack) {
