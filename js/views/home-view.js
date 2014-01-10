@@ -32,6 +32,14 @@ var HomeView = function() {
     __displayCompass(inPosition.coords);
   }
 
+  function updateSettings(inSettings) {
+    document.querySelector("#screen-keep").checked = inSettings.screen;
+    document.querySelector("#language").value = inSettings.language;
+    document.querySelector("#distance").value = inSettings.distance;
+    document.querySelector("#speed").value = inSettings.speed;
+    document.querySelector("#position").value = inSettings.position;
+  }
+
   function displayError(inError){
     console.log("error:", inError)
     document.getElementById('msg').innerHTML = "Error: " + inError.message;
@@ -66,6 +74,7 @@ var HomeView = function() {
   return {
     // hideSpinner: hideSpinner,
     updateInfos: updateInfos,
+    updateSettings: updateSettings,
     displayError: displayError
   };
 

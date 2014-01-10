@@ -272,8 +272,6 @@ section[data-type="sidebar"] > nav > ul > li > p {
   padding: 1rem 1.5rem;
   border-top: 0.1rem solid #686868;
   line-height: 3rem;
-  font-size: 1.9rem;
-  font-weight: normal;
   width: 100%;
   display: inline-block;
   overflow-y: scroll;

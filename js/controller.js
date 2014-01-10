@@ -133,7 +133,7 @@ var Controller = function() {
 
   function __initiateSuccess(inEvent) {
     // utils.status.show(inEvent);
-    // console.log("__initiateSuccess ", inEvent);
+    console.log("__initiateSuccess ", inEvent);
     DB.getConfig(__getConfigSuccess, __getConfigError);
   }
 
@@ -142,22 +142,48 @@ var Controller = function() {
   }
 
   function __getConfigSuccess(inSettings) {
-    // console.log("__getConfigSuccess ", inSettings);
+    console.log("__getConfigSuccess ", inSettings);
     settings = inSettings;
     __setConfigView(inSettings);
   }
   function __getConfigError(inEvent) { console.log("__getConfigError ", inEvent); }
 
-  function updateSettings(inKey, inValue) {
-    settings.inKey = inValue;
+  function savingSettings(inKey, inValue) {
+    for (var i = 0; i < settings.length; i++) {
+      if (settings[i].key === inKey) {
+        settings[i].value = inValue;
+      }
+    };
+    console.log("now settings:", settings);
+    DB.updateConfig(__savingSettingsSuccess, __savingSettingsError, settings);
+  }
+
+  function __savingSettingsSuccess() {
+    console.log("YES !");
+  }
+
+  function __savingSettingsError(inError) {
+    console.log("NO !", inError);
   }
 
   function __setConfigView(inSettings) {
-    document.querySelector("#screen-keep").checked = inSettings.screen;
-    document.querySelector("#language").value = inSettings.language;
-    document.querySelector("#distance").value = inSettings.distance;
-    document.querySelector("#speed").value = inSettings.speed;
-    document.querySelector("#position").value = inSettings.position;
+    console.log("updating the settings DOM elements");
+    for (var i = 0; i < inSettings.length; i++) {
+      var param = inSettings[i];
+      if (param.key === "screen") {
+        document.getElementById(param.key).checked = param.value;
+      } else{
+        document.getElementById(param.key).value = param.value;
+      };
+    };
+
+
+
+/*    document.querySelector("#screen").checked = inSettings.screen.value;
+    document.querySelector("#language").value = inSettings.language.value;
+    document.querySelector("#distance").value = inSettings.distance.value;
+    document.querySelector("#speed").value = inSettings.speed.value;
+    document.querySelector("#position").value = inSettings.position.value*/;
   }
 
   function __addTrackSuccess(inEvent) {
@@ -205,7 +231,7 @@ var Controller = function() {
     displayTracks: displayTracks,
     displayTrack: displayTrack,
     deleteTrack: deleteTrack,
-    updateSettings: updateSettings
+    savingSettings: savingSettings
   };
 }();
 // })

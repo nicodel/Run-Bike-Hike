@@ -7,13 +7,13 @@ var DB = function() {
   var DB_STORE_TRACKS = "tracks";
   var DB_STORE_SETTINGS = "settings";
 
-  var CONFIG = {
-    screen:false,
-    language: "en",
-    distance: "0",
-    speed: "0",
-    position: "0"
-  };
+  var DEFAULT_CONFIG = [
+    {"key":"screen", "value":false},
+    {"key":"language", "value":"en"},
+    {"key":"distance", "value":"0"},
+    {"key":"speed", "value":"0"},
+    {"key":"position", "value":"0"}
+  ];
 
   function initiate(successCallback, errorCallback) {
     if (typeof(successCallback) === "function") {
@@ -43,8 +43,14 @@ var DB = function() {
         //
         // Create settings store as:
         //
-        var store =  req.result.createObjectStore(DB_STORE_SETTINGS, {keyPath:"id", autoIncrement: true});
-        store.createIndex("settings", "settings", {unique: true});
+        // var store =  req.result.createObjectStore(DB_STORE_SETTINGS, {keyPath:"id", autoIncrement: false});
+        var store = req.result.createObjectStore(DB_STORE_SETTINGS, {keyPath: "key"});
+        store.createIndex("key", "key", {unique: true});
+        store.createIndex("value", "value", {unique: false});
+/*        store.createIndex("language", "language", {unique: true});
+        store.createIndex("distance", "distance", {unique: true});
+        store.createIndex("speed", "speed", {unique: true});
+        store.createIndex("position", "position", {unique: true});*/
       };
     } else  {
       errorCallback("initiate successCallback should be a function");
@@ -137,7 +143,6 @@ var DB = function() {
       errorCallback("deleteTrack successCallback should be a function");
     }
   }
-
   function getConfig(successCallback, errorCallback) {
     if (typeof successCallback === "function") {
       var settings = [];
@@ -149,13 +154,14 @@ var DB = function() {
         if (cursor) {
           settings.push(cursor.value);
           cursor.continue();
-        } else{
-          // console.log("got settings: ", settings);
+        } else {
+        console.log("got settings: ", settings);
           if (settings.length === 0) {
-            settings = CONFIG;
-            __saveDefaultConfig(settings);
+            console.log("no settings stored, loading default values.")
+            settings = DEFAULT_CONFIG;
+            __saveDefaultConfig();
           };
-          successCallback(settings);
+        successCallback(settings);
         }
       };
       req.onerror = function(e) {console.error("getConfig store.openCursor error: ", e.error.name);};
@@ -163,8 +169,7 @@ var DB = function() {
       errorCallback("getConfig successCallback should be a function");
     }
   }
-
-  function __saveDefaultConfig(inSettings) {
+  function __saveDefaultConfig() {
     var tx = db.transaction(DB_STORE_SETTINGS, "readwrite");
     tx.oncomplete = function(e) {
       console.log("successful creating default config !");
@@ -173,17 +178,45 @@ var DB = function() {
       console.error("default config transaction error: ", tx.error.name);
       errorCallback(x.error.name);
     };
-    var store = tx.objectStore(DB_STORE_SETTINGS);
-    var req = store.add(inSettings);
-    req.onsuccess = function(e) {
-      console.log("successful");
-    };
-    req.onerror = function(e) {
-      console.error("error: ", req.error.name);
+    var store = tx.objectStore([DB_STORE_SETTINGS]);
+    for (var i = 0; i < DEFAULT_CONFIG.length; i++) {
+      var req = store.add(DEFAULT_CONFIG[i]);
+      req.onsuccess = function(e) {
+        // body...
+        console.log("added: ", e.target.result);
+      };
+      req.onerror = function(e) {
+        console.error("error: ", req.error.name);
+      };
     };
   }
   
-  function saveConfig() {}
+  function updateConfig(successCallback, errorCallback, inSettings) {
+    if (typeof successCallback === "function") {
+      var tx = db.transaction([DB_STORE_SETTINGS], "readwrite");
+      tx.oncomplete = function(e) {
+        console.log("successful updating config !");
+        successCallback();
+      };
+      tx.onerror = function(e) {
+        console.error("saving config transaction error: ", tx.error.name);
+        errorCallback(tx.error.name);
+      };
+      var store = tx.objectStore(DB_STORE_SETTINGS);
+      for (var i = 0; i < inSettings.length; i++) {
+        var req = store.delete(inSettings[i].key);
+        req.onsuccess = function(e) {};
+        req.onerror = function(e) {};
+      };
+      for (var i = 0; i < inSettings.length; i++) {
+        var req = store.add(inSettings[i]);
+        req.onsuccess = function(e) {};
+        req.onerror = function(e) {};
+      };
+    } else {
+      errorCallback("getConfig successCallback should be a function");
+    }
+  }
 
   return {
     initiate: initiate,
@@ -192,7 +225,7 @@ var DB = function() {
     deleteTrack: deleteTrack,
     reset_app: reset_app,
     getConfig: getConfig,
-    saveConfig: saveConfig
+    updateConfig: updateConfig
   };
 }();
 // });
