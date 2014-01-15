@@ -55,6 +55,7 @@ var TracksView = function() {
     li.appendChild(lia);
     document.getElementById("tracks-list").appendChild(li);
     lia.addEventListener("click", function(e){
+      // console.log("click: track " + inTrack + "will be displayed");
       document.querySelector("#trackView").classList.remove("move-right");
       document.querySelector("#trackView").classList.add("move-center");
       Controller.displayTrack(inTrack);

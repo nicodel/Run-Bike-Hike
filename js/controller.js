@@ -134,7 +134,7 @@ var Controller = function() {
   function __initiateSuccess(inEvent) {
     // utils.status.show(inEvent);
     console.log("__initiateSuccess ", inEvent);
-    DB.getConfig(__getConfigSuccess, __getConfigError);
+    // DB.getConfig(__getConfigSuccess, __getConfigError);
   }
 
   function __initiateError(inEvent) {

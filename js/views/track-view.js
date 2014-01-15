@@ -115,7 +115,11 @@ var TrackView = function() {
     var c = __createRectCanvas("alt-canvas", range, yspace);
     
     var espace = parseInt(data.length / (SCREEN_WIDTH - xPadding), 10);
-    espace = espace * SPACE_BTW_POINTS; // increase spacing between points so that the chart looks smoother.
+    if (espace === 0) {
+      espace = 1;
+    } else {
+      espace = espace * SPACE_BTW_POINTS; // increase spacing between points so that the chart looks smoother.
+    };
     // console.log("espace", espace);
 
     // Draw vertAccuracy lines
@@ -150,22 +154,6 @@ var TrackView = function() {
     }
     c.fill();
     c.stroke();
-    
-    
-    // console.log("alt: "+ alt0 +" - acc: "+ acc0);
-    // console.log("y1: "+y1+" - y2: "+y2);
-    /*c.moveTo(__getXPixel(0,data), __getYPixel(y1, range));
-    c.lineTo(__getXPixel(0,data), __getYPixel(y2, range));
-    for(i=1;i<data.length;i+=espace) {
-      var alti = parseInt(data[i].altitude, 10);
-      var acci = parseInt(data[i].vertAccuracy, 10);
-      y1 = alti - acci;
-      y2 = alti + acci;
-      if(y1<0) {y1=0;} // we don't want the lines to go under 0
-      c.moveTo(__getXPixel(i,data), __getYPixel(y1, range));
-      c.lineTo(__getXPixel(i,data), __getYPixel(y2, range));
-      c.stroke();
-    }*/
     
     // Draw Altitude points
     c.strokeStyle = VALUE_COLOR;
@@ -219,7 +207,11 @@ var TrackView = function() {
     var c = __createRectCanvas("speed-canvas", range, yspace);
     
     var espace = parseInt(data.length / (SCREEN_WIDTH - xPadding), 10);
-    espace = espace * 5; // increase spacing between points so that the chart looks smoother.
+    if (espace === 0) {
+      espace = 1;
+    } else {
+      espace = espace * SPACE_BTW_POINTS; // increase spacing between points so that the chart looks smoother.
+    };
     // Draw line
     // c.strokeStyle = "#0560A6";
     c.strokeStyle = VALUE_COLOR;
@@ -318,6 +310,7 @@ var TrackView = function() {
     var j = 0;
     if (inTrack.data.length > MAX_POINTS) {
       var y = parseInt(inTrack.data.length / MAX_POINTS, 10);
+      console.log("y: ", y);
       if (y * inTrack.data.length > MAX_POINTS) {
         y = y + 1;
       };
