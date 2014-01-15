@@ -134,7 +134,7 @@ var Controller = function() {
   function __initiateSuccess(inEvent) {
     // utils.status.show(inEvent);
     console.log("__initiateSuccess ", inEvent);
-    // DB.getConfig(__getConfigSuccess, __getConfigError);
+    DB.getConfig(__getConfigSuccess, __getConfigError);
   }
 
   function __initiateError(inEvent) {
@@ -166,6 +166,27 @@ var Controller = function() {
     console.log("NO !", inError);
   }
 
+  function toogleScreen(inChecked) {
+    if (this.checked) {
+      var lock = window.navigator.requestWakeLock('screen');
+      /* Unlock the screen */
+      window.addEventListener('unload', function () {
+        lock.unlock();
+      })
+    } else{
+      window.navigator.requestWakeLock('screen').unlock();
+    };
+  }
+  function changeLanguage(inLanguage) {
+  }
+  function changeUnit(inUnit) {
+    Config.USER_UNIT = inUnit;
+    // HomeView.updateInfos();
+  }
+  function changePosition(inFormat) {
+    Config.USER_POSITION_FORMAT = inFormat;
+  }
+
   function __setConfigView(inSettings) {
     console.log("updating the settings DOM elements");
     for (var i = 0; i < inSettings.length; i++) {
@@ -176,9 +197,6 @@ var Controller = function() {
         document.getElementById(param.key).value = param.value;
       };
     };
-
-
-
 /*    document.querySelector("#screen").checked = inSettings.screen.value;
     document.querySelector("#language").value = inSettings.language.value;
     document.querySelector("#distance").value = inSettings.distance.value;
@@ -231,7 +249,11 @@ var Controller = function() {
     displayTracks: displayTracks,
     displayTrack: displayTrack,
     deleteTrack: deleteTrack,
-    savingSettings: savingSettings
+    savingSettings: savingSettings,
+    toogleScreen: toogleScreen,
+    changeLanguage: changeLanguage,
+    changeUnit: changeUnit,
+    changePosition: changePosition
   };
 }();
 // })
