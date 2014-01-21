@@ -50,7 +50,7 @@ document.querySelector("#screen").onchange = function () {
   } else{
     window.navigator.requestWakeLock('screen').unlock();
   };*/
-  Controller.toogleChecked(this.checked);
+  Controller.toogleScreen(this.checked);
   console.log("this.checked", this.checked);
   // Controller.savingSettings("screen", this.checked);
 }
@@ -66,14 +66,14 @@ document.querySelector("#distance").onchange = function() {
   var dom = document.querySelector("#distance");
   var id = this.selectedIndex;
   Controller.savingSettings("distance", dom[id].value);
-  Controller.changeUnit(dom[id].value);
+  Controller.changeDistance(dom[id].value);
 };
 /* Settings View Speed unit selection */
 document.querySelector("#speed").onchange = function() {
   var dom = document.querySelector("#speed");
   var id = this.selectedIndex;
   Controller.savingSettings("speed", dom[id].value);
-  Controller.changeUnit(dom[id].value);
+  Controller.changeSpeed(dom[id].value);
 };
 /* Settings View Position unit selection */
 document.querySelector("#position").onchange = function() {

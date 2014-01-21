@@ -26,8 +26,8 @@ var TrackView = function() {
     tr.innerHTML = inTrack.name;
     // console.log("show track: ", inTrack);
 
-    document.getElementById("trk-date").innerHTML = Config.userDate(inTrack.date);
-    document.getElementById("trk-dist").innerHTML = Config.userDistance(inTrack.distance);
+    document.getElementById("trk-date").innerHTML = Controller.userDate(inTrack.date);
+    document.getElementById("trk-dist").innerHTML = Controller.userDistance(inTrack.distance);
     var d = inTrack.duration / 60000;
     document.getElementById("trk-dur").innerHTML = d.toFixed() +" min";
     
@@ -67,10 +67,10 @@ var TrackView = function() {
         t.end = dt;
       }
     }
-    // console.log("t.max_speed",Config.userSpeed(t.max_speed));
-    document.getElementById("trk-max-speed").innerHTML = Config.userSpeed(t.max_speed);
-    document.getElementById("trk-max-alt").innerHTML = Config.userSmallDistance(t.max_alt);
-    document.getElementById("trk-min-alt").innerHTML = Config.userSmallDistance(t.min_alt);
+    // console.log("t.max_speed",Controller.userSpeed(t.max_speed));
+    document.getElementById("trk-max-speed").innerHTML = Controller.userSpeed(t.max_speed);
+    document.getElementById("trk-max-alt").innerHTML = Controller.userSmallDistance(t.max_alt);
+    document.getElementById("trk-min-alt").innerHTML = Controller.userSmallDistance(t.min_alt);
 
 
 
@@ -194,8 +194,8 @@ var TrackView = function() {
   function __buildSpeedGraph(inData) {
     data = inData.data;
 
-    var max_y = Config.userSpeedInteger(inData.max_speed);
-    var min_y = Config.userSpeedInteger(inData.min_speed);
+    var max_y = Controller.userSpeedInteger(inData.max_speed);
+    var min_y = Controller.userSpeedInteger(inData.min_speed);
     // console.log("max_y", max_y);
     // console.log("min_y",min_y);
     
@@ -217,10 +217,10 @@ var TrackView = function() {
     c.strokeStyle = VALUE_COLOR;
     c.lineWidth = LINE_WIDTH;
     c.beginPath();
-    var value = Config.userSpeedInteger(data[0].speed);
+    var value = Controller.userSpeedInteger(data[0].speed);
     c.moveTo(__getXPixel(0,data), __getYPixel(value, range));
     for(i=1;i<data.length;i+=espace) {
-      var value = Config.userSpeedInteger(data[i].speed);
+      var value = Controller.userSpeedInteger(data[i].speed);
       c.lineTo(__getXPixel(i,data), __getYPixel(value, range));
       c.stroke();
     }
