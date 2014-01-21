@@ -52,6 +52,7 @@ var Controller = function() {
     Chrono.reset();
     // Close track
     var track = Tracks.close();
+    tracking = false;
     // if no gps point were retreive we don't save the track
     if (track.data.length < 1) {
       // we notify that we do nothing (cause that's good)
