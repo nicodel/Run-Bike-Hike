@@ -171,7 +171,7 @@ var Controller = function() {
 
   function toogleScreen(inChecked) {
     if (this.checked) {
-      var lock = window.navigator.requestWakeLock('screen');
+      lock = window.navigator.requestWakeLock('screen');
       /* Unlock the screen */
       window.addEventListener('unload', function () {
         lock.unlock();

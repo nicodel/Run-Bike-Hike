@@ -42,14 +42,14 @@ document.querySelector("#btn-cancel-stop").addEventListener ("click", function (
 /* Settings View Screen keep alive radio button */
 document.querySelector("#screen").onchange = function () {
   Controller.savingSettings("screen", this.checked);
-/*  if (this.checked) {
-    var lock = window.navigator.requestWakeLock('screen');
-    window.addEventListener('unload', function () {
-      lock.unlock();
-    })
-  } else{
-    window.navigator.requestWakeLock('screen').unlock();
-  };*/
+  // if (this.checked) {
+  //   lock = window.navigator.requestWakeLock('screen');
+  //   window.addEventListener('unload', function () {
+  //     lock.unlock();
+  //   })
+  // } else{
+  //   window.navigator.requestWakeLock('screen').unlock();
+  // };
   Controller.toogleScreen(this.checked);
   console.log("this.checked", this.checked);
   // Controller.savingSettings("screen", this.checked);
