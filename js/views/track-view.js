@@ -36,6 +36,7 @@ var TrackView = function() {
     t.max_alt = 0;
     t.max_speed = 0;
     t.min_speed = 0;
+    t.av_speed = 0;
     t.start = null;
     t.end = null;
 
@@ -66,9 +67,13 @@ var TrackView = function() {
       if (t.end === null || dt > t.end) {
         t.end = dt;
       }
+      t.av_speed = t.av_speed + speed_int;
     }
-    // console.log("t.max_speed",Controller.userSpeed(t.max_speed));
+    console.log("t.av_speed",t.av_speed);
+    t.av_speed = t.av_speed / inTrack.data.length;
+    console.log("t.av_speed",t.av_speed);
     document.getElementById("trk-max-speed").innerHTML = Controller.userSpeed(t.max_speed);
+    document.getElementById("trk-av-speed").innerHTML = Controller.userSpeed(t.av_speed);
     document.getElementById("trk-max-alt").innerHTML = Controller.userSmallDistance(t.max_alt);
     document.getElementById("trk-min-alt").innerHTML = Controller.userSmallDistance(t.min_alt);
 
@@ -310,7 +315,7 @@ var TrackView = function() {
     var j = 0;
     if (inTrack.data.length > MAX_POINTS) {
       var y = parseInt(inTrack.data.length / MAX_POINTS, 10);
-      console.log("y: ", y);
+      // console.log("y: ", y);
       if (y * inTrack.data.length > MAX_POINTS) {
         y = y + 1;
       };
