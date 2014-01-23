@@ -264,3 +264,19 @@ section[data-type="sidebar"] > nav > ul > li > p {
   white-space: nowrap;
   overflow: hidden;
 }
+
+
+.empty-tracks {
+  word-wrap: break-word;
+  margin: 1rem 0px 0px;
+  padding: 1rem 1.5rem;
+  border-top: 0.1rem solid #686868;
+  line-height: 3rem;
+  width: 100%;
+  display: inline-block;
+  overflow-y: scroll;
+  max-height: 100%;
+  vertical-align: middle;
+  white-space: normal;
+  margin-top:40%;
+}

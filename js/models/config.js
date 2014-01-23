@@ -42,17 +42,20 @@ var Config = function() {
 
   var DEFAULT_DISCARD_VALUE = 500 * 1000;
 
-  var SCREEN_KEEP_ALIVE = true;
 
   // Default config values
-  var userUnits = 0;
-  var userPosFormat = 0;
+  // var SCREEN_KEEP_ALIVE = true;
+  // var USER_UNIT = 0;
+  // var USER_POSITION_FORMAT = 0;
+  var SCREEN_KEEP_ALIVE = null;
+  var USER_DISTANCE = null;
+  var USER_SPEED = null;
+  var USER_POSITION_FORMAT = null;
 
-  function get() {
-
+  function change(inKey, inValue) {
+    inKey = inValue;
+    console.log(inKey+":"+inValue);
   }
-
-  function save() {}
 
   function userSpeed(velocityMPS){
     // console.log("SPEED METRIC:", velocityMPS);
@@ -60,11 +63,11 @@ var Config = function() {
       return "?";
     }
 
-    if (userUnits === IMPERIAL_UNITS){
+    if (USER_SPEEDUSER_SPEED === IMPERIAL_UNITS){
       /* FIXME: I'am not sure that it is right */
       return (velocityMPS * 2.237).toFixed(0)+" MPH";
     }
-    if (userUnits === METRIC_UNITS){
+    if (USER_SPEED === METRIC_UNITS){
       return (velocityMPS * 3.6).toFixed(0)+" km/h";
     }
     return velocityMPS+ " m/s";
@@ -76,11 +79,11 @@ var Config = function() {
       return null;
     }
 
-    if (userUnits === IMPERIAL_UNITS){
+    if (USER_SPEED === IMPERIAL_UNITS){
       /* FIXME: I'am not sure that it is right */
       return (velocityMPS * 2.237).toFixed(0);
     }
-    if (userUnits === METRIC_UNITS){
+    if (USER_SPEED === METRIC_UNITS){
       return (velocityMPS * 3.6).toFixed(0);
     }
     return velocityMPS;
@@ -93,20 +96,21 @@ var Config = function() {
   }
 
   function userLatitude(degree){
-     if (userPosFormat === DEGREES_POS_FORMAT)
+    console.log("userLatitude - USER_POSITION_FORMAT: ", USER_POSITION_FORMAT);
+     if (USER_POSITION_FORMAT === DEGREES_POS_FORMAT)
        return degree;
 
-     if (userPosFormat === GEOCACHING_POS_FORMAT)
+     if (USER_POSITION_FORMAT === GEOCACHING_POS_FORMAT)
       return (degree>0? "N":"S") +" "+ this.userDegreeLikeGeocaching( Math.abs(degree) );
 
      return this.userDegree( Math.abs(degree) ) + (degree>0? "N":"S");
   }
 
   function userLongitude(degree){
-     if (userPosFormat === DEGREES_POS_FORMAT)
+     if (USER_POSITION_FORMAT === DEGREES_POS_FORMAT)
        return degree;
 
-     if (userPosFormat === GEOCACHING_POS_FORMAT)
+     if (USER_POSITION_FORMAT === GEOCACHING_POS_FORMAT)
       return (degree>0? "E":"W") +" "+ this.userDegreeLikeGeocaching( Math.abs(degree) );
 
      return this.userDegree( Math.abs(degree) ) + (degree>0? "E":"W");
@@ -116,25 +120,27 @@ var Config = function() {
      if ((distanceM === null) || ((distanceM < 0) && (!canNegative)))
        return "?";
 
-     if (userUnits === IMPERIAL_UNITS){
+     if (USER_DISTANCE === IMPERIAL_UNITS){
        /* FIXME: I'am not sure that it is right */
        return (distanceM * 3.2808).toFixed(0)+" ft";
      }
-     if (userUnits === METRIC_UNITS){
+     if (USER_DISTANCE === METRIC_UNITS){
        return (distanceM * 1.0).toFixed(0)+" m";
      }
      return distanceM+" m";
   }
 
   function userDistance (distanceM, canNegative){
+    console.log("USER_DISTANCE = ", USER_DISTANCE);
+    console.log("IMPERIAL_UNITS = ", IMPERIAL_UNITS);
     if ((distanceM === null) || ((distanceM < 0) && (!canNegative)))
       return "?";
 
-    if (userUnits === METRIC_UNITS){
+    if (USER_DISTANCE === METRIC_UNITS){
       tmp = (distanceM / 1000);
       return (tmp >= 10? tmp.toFixed(0): tmp.toFixed(1))+" km";
     }
-    if (userUnits === IMPERIAL_UNITS){
+    if (USER_DISTANCE === IMPERIAL_UNITS){
       /* FIXME: I'am not sure that it is right */
       tmp = (distanceM / 1609.344);
       return (tmp >= 10? tmp.toFixed(0): tmp.toFixed(1))+" miles";
@@ -232,9 +238,11 @@ var Config = function() {
   };
 
   return {
-    get: get,
-    save: save,
-    SCREEN_KEEP_ALIVE: SCREEN_KEEP_ALIVE,
+/*    SCREEN_KEEP_ALIVE: SCREEN_KEEP_ALIVE,
+    USER_SPEED: USER_SPEED,
+    USER_DISTANCE: USER_DISTANCE,
+    USER_POSITION_FORMAT: USER_POSITION_FORMAT,*/
+    change: change,
     userSpeed: userSpeed,
     userSpeedInteger: userSpeedInteger,
     userDegree: userDegree,

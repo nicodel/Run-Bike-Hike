@@ -30,8 +30,10 @@
     <link rel="stylesheet" href="../css/styles.css"/>
 
   <script type="text/javascript" src="data.js"></script>
+  <script type="text/javascript" src="../js/models/db.js"></script>
   <script type="text/javascript" src="../js/views/track-view.js"></script>
   <script type="text/javascript" src="../js/models/config.js"></script>
+  <script type="text/javascript" src="../js/controller.js"></script>
 </head>
 <body>
   <header>
@@ -104,6 +106,7 @@
 <script>
   // document.getElementById("map-img").onload = alert("removing infos spinner");
   // document.getElementById("map-img").addEventListener("load", console.log("removing infos spinner"));
+  Controller.init();
   TrackView.display(testdata);
 </script>
 </html>

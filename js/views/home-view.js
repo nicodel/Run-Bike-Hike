@@ -11,7 +11,7 @@ var HomeView = function() {
       __hideSpinner();
     };
     // display accuracy using settings unit
-    document.getElementById("home-acc").innerHTML = "&#177;" + Config.userSmallDistance(inPosition.coords.accuracy);
+    document.getElementById("home-acc").innerHTML = "&#177;" + Controller.userSmallDistance(inPosition.coords.accuracy);
     // checking accuracy and display appropriate GPS status
     if (inPosition.coords.accuracy > 30) {
       document.getElementById("home-acc").className = "align-right bold bad-signal";
@@ -21,15 +21,23 @@ var HomeView = function() {
       // document.getElementById("gps-status").setAttribute("src", "img/gps_green.png");
     }
     // display latitude using Settings format
-    document.getElementById("home-lat").innerHTML = Config.userLatitude(inPosition.coords.latitude);
+    document.getElementById("home-lat").innerHTML = Controller.userLatitude(inPosition.coords.latitude);
     // display longitude using Settings format
-    document.getElementById("home-lon").innerHTML = Config.userLongitude(inPosition.coords.longitude);
+    document.getElementById("home-lon").innerHTML = Controller.userLongitude(inPosition.coords.longitude);
     // display altitude using Settings format
-    document.getElementById("home-alt").innerHTML = Config.userSmallDistance(inPosition.coords.altitude)/* + "(&#177;" + Config.userSmallDistance(inPosition.coords.altitudeAccuracy) + ")"*/;
+    document.getElementById("home-alt").innerHTML = Controller.userSmallDistance(inPosition.coords.altitude)/* + "(&#177;" + Config.userSmallDistance(inPosition.coords.altitudeAccuracy) + ")"*/;
     // empty message area
     document.getElementById('msg').innerHTML = "";
     //display compass
     __displayCompass(inPosition.coords);
+  }
+
+  function updateSettings(inSettings) {
+    document.querySelector("#screen-keep").checked = inSettings.screen;
+    document.querySelector("#language").value = inSettings.language;
+    document.querySelector("#distance").value = inSettings.distance;
+    document.querySelector("#speed").value = inSettings.speed;
+    document.querySelector("#position").value = inSettings.position;
   }
 
   function displayError(inError){
@@ -66,6 +74,7 @@ var HomeView = function() {
   return {
     // hideSpinner: hideSpinner,
     updateInfos: updateInfos,
+    updateSettings: updateSettings,
     displayError: displayError
   };
 
