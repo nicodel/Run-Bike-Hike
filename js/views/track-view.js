@@ -367,8 +367,9 @@ var TrackView = function() {
     document.getElementById("map-img").onload = function () {
       document.querySelector("#map-img").classList.remove("hidden");
       document.querySelector("#map-img").classList.remove("absolute");
-      document.querySelector("#infos-spinner").classList.add("hidden");
-      document.querySelector("#infos-spinner").classList.add("absolute");
+      document.querySelector("#map-img").classList.add("hidden");
+      // document.querySelector("#infos-spinner").classList.add("hidden");
+      // document.querySelector("#infos-spinner").classList.add("absolute");
 
     };
     document.getElementById("map-img").src = loc;
