@@ -326,7 +326,7 @@ var TrackView = function() {
         }
         j++
       };
-      console.log("PATH: ", PATH);
+      // console.log("PATH: ", PATH);
       var BESTFIT = "&bestfit=" + p1.lat + ","+ p1.lon + ","+ p2.lat + "," + p2.lon;
       var SIZE = "&size=" + SCREEN_WIDTH + "," + SCREEN_WIDTH;
       var TYPE = "&type=map&imagetype=jpeg";
@@ -342,7 +342,7 @@ var TrackView = function() {
         document.querySelector("#map-img").classList.remove("absolute");
       };
       document.getElementById("map-img").src = loc;
-      console.log("loc:", loc);
+      // console.log("loc:", loc);
   }
 
   function __buildMap(inTrack) {
