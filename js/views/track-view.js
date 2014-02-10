@@ -206,7 +206,8 @@ var TrackView = function() {
     
     // Write Y Axis text
     var range = max_y - min_y;
-    range = range + (range * 0.2);
+    // range = range + (range * 0.2);
+    range = range * 2;
     var yspace = parseInt(range / 4, 10);
     // console.log("range ", range);
     var c = __createRectCanvas("speed-canvas", range, yspace);
@@ -230,7 +231,7 @@ var TrackView = function() {
       c.stroke();
     }
 
-    c.lineWidth = 1;
+    c.lineWidth = LINE_WIDTH;
     c.fillStyle = TEXT_COLOR;
     c.font = TEXT_STYLE;
     c.textAlign = "center";
@@ -255,125 +256,93 @@ var TrackView = function() {
   }
 
   function __buildMap2(inTrack) {
-    /*
-     * http://pafciu17.dev.openstreetmap.org/
-     */
-
-    // get the min and max longitude/ latitude
-    // and build the path
-    var minLat, minLon, maxLat, maxLon;
-    for (i = 0; i< inTrack.data.length; i++){
-      var point = {
-        lat: inTrack.data[i].latitude / 1,
-        lon: inTrack.data[i].longitude / 1
+      // get the min and max longitude/ latitude
+      // and build the path
+      var minLat, minLon, maxLat, maxLon;
+      for (i = 0; i< inTrack.data.length; i++){
+        var point = {
+          lat: inTrack.data[i].latitude / 1,
+          lon: inTrack.data[i].longitude / 1
+          };
+        if (minLat === undefined || minLat > point.lat) {
+          minLat = point.lat;
         };
-      if (minLat === undefined || minLat > point.lat) {
-        minLat = point.lat;
+        if (maxLat === undefined || maxLat < point.lat) {
+          maxLat = point.lat;
+        };
+        if (minLon === undefined || minLon > point.lon) {
+          minLon = point.lon;
+        };
+        if (maxLon === undefined || maxLon < point.lon) {
+          maxLon = point.lon;
+        };
       };
-      if (maxLat === undefined || maxLat < point.lat) {
-        maxLat = point.lat;
+      // Calculate the Bouncing Box
+      var p1 = {lon: minLon, lat: maxLat};
+      var p2 = {lon: maxLon, lat: minLat};
+      var realHeight = __getDistance(p1.lat, p1.lon, p2.lat, p1.lon);
+      var realWidth = __getDistance(p1.lat, p1.lon, p1.lat, p2.lon);
+      var larger = realWidth > realHeight ? realWidth : realHeight;
+      // we limit the number of points on the map to 200
+      if (larger < 200) {
+        larger = 200;
       };
-      if (minLon === undefined || minLon > point.lon) {
-        minLon = point.lon;
+      // add some borders
+      p1 = __movePoint(p1, larger * -0.1, larger * -0.1);
+      p2 = __movePoint(p2, larger * 0.1, larger * 0.1);
+      // make map width always larger
+      if (realWidth < realHeight) {
+        p1 = __movePoint(p1, (realHeight - realWidth) / -2, 0);
+        p2 = __movePoint(p2, (realHeight - realWidth) / +2, 0);
+        realHeight = __getDistance(p1.lat, p1.lon, p2.lat, p1.lon);
+        realWidth = __getDistance(p1.lat, p1.lon, p1.lat, p2.lon);
+        larger = realWidth > realHeight ? realWidth : realHeight;
       };
-      if (maxLon === undefined || maxLon < point.lon) {
-        maxLon = point.lon;
+      if (larger === 0) {
+        return;
       };
-    };
-    // console.log("minLat, minLon, maxLat, maxLon", minLat + ","+ minLon + ","+ maxLat + ","+ maxLon);
-    // Calculate the Bouncing Box
-    var p1 = {lon: minLon, lat: maxLat};
-    var p2 = {lon: maxLon, lat: minLat};
-    var realHeight = __getDistance(p1.lat, p1.lon, p2.lat, p1.lon);
-    var realWidth = __getDistance(p1.lat, p1.lon, p1.lat, p2.lon);
-    var larger = realWidth > realHeight ? realWidth : realHeight;
-    // we limit the number of points on the map to 200
-    if (larger < 200) {
-      larger = 200;
-    };
-    // console.log("1- realHeight, realWidth, larger", realHeight + ","+ realWidth + ","+ larger);
-    // add some borders
-    p1 = __movePoint(p1, larger * -0.1, larger * -0.1);
-    p2 = __movePoint(p2, larger * 0.1, larger * 0.1);
-    // console.log("1- p1.lat, p1.lon, p2.lat, p2.lon", p1.lat + ","+ p1.lon + ","+ p2.lat + ","+ p2.lon);
-    // make map width always larger
-    if (realWidth < realHeight) {
-      p1 = __movePoint(p1, (realHeight - realWidth) / -2, 0);
-      p2 = __movePoint(p2, (realHeight - realWidth) / +2, 0);
-      realHeight = __getDistance(p1.lat, p1.lon, p2.lat, p1.lon);
-      realWidth = __getDistance(p1.lat, p1.lon, p1.lat, p2.lon);
-      larger = realWidth > realHeight ? realWidth : realHeight;
-      // console.log("2- realHeight, realWidth, larger", realHeight + ","+ realWidth + ","+ larger);
-      // console.log("2- p1.lat, p1.lon, p2.lat, p2.lon", p1.lat + ","+ p1.lon + ","+ p2.lat + ","+ p2.lon);
-    };
-    if (larger === 0) {
-      return;
-    };
 
-    var MAX_POINTS = 100;
-    var paths = "&paths=";
-    var j = 0;
-    if (inTrack.data.length > MAX_POINTS) {
-      var y = parseInt(inTrack.data.length / MAX_POINTS, 10);
-      // console.log("y: ", y);
-      if (y * inTrack.data.length > MAX_POINTS) {
-        y = y + 1;
-      };
-    } else {
-      var y = 1;
-    };
-    // console.log("y ", y);
-    for (var i = 0; i < inTrack.data.length; i = i + y) {
-      if (i === inTrack.data.length - 1) {
-        paths = paths + inTrack.data[i].longitude + "," + inTrack.data[i].latitude;
+      var MAX_POINTS = 100;
+      var BLACK = "0x000000";
+      var BLUE = "0x0AFF00";
+      var RED = "0xFF0000";
+      var GREEN = "0x0027FF";
+      var PATH = "&polyline=color:" + BLUE + "|width:3|";
+      var j = 0;
+      if (inTrack.data.length > MAX_POINTS) {
+        var y = parseInt(inTrack.data.length / MAX_POINTS, 10);
+        // console.log("y: ", y);
+        if (y * inTrack.data.length > MAX_POINTS) {
+          y = y + 1;
+        };
       } else {
-        paths = paths + inTrack.data[i].longitude + "," + inTrack.data[i].latitude + ",";
-      }
-      j++
-    };
-    // console.log("j ", j);
-    var magic = 0.00017820;
-    var scale = Math.round(larger / (magic * SCREEN_WIDTH));
-    scale = "&scale=" + scale;
-    var base_url = "http://dev.openstreetmap.org/~pafciu17/?module=map"
-    // var base_url = "http://tile.openstreetmap.org/cgi-bin/export?"
-    var bbox = "&bbox=" + p1.lon + ","+ p1.lat + ","+ p2.lon + "," + p2.lat;
-    var width = "&width=" + SCREEN_WIDTH;
-    var thickness = ',thickness:3';
-    var BLUE = "0:0:255"
-    var GREEN = "0:255:0"
-    var color = ",color:" + BLUE;
-    var loc = base_url + bbox + width + paths + thickness + color;
-    // var loc = base_url + bbox + scale + "&format=jpeg";
-    // var center = __getCenter(inTrack);
-    // var j = 0;
-    // var MAX = parseInt(inTrack.data.length / 14, 10);
-    // console.log("MAX", MAX);
-    // var dw = "&paths=";
-    // for (i = 0; i< inTrack.data.length; i = i + MAX) {
-    //   if (i === 0) {
-    //     lt = inTrack.data[i].latitude + ",";
-    //   } else{
-    //     lt = "," + inTrack.data[i].latitude + ",";
-    //   };
-    //   ln = inTrack.data[i].longitude;
-    //   dw = dw + lt + ln;
-    //   j++;
-    // }
-    // console.log("dw", dw);
+        var y = 1;
+      };
+      for (var i = 0; i < inTrack.data.length; i = i + y) {
+        if (i === inTrack.data.length - 1) {
+          PATH = PATH + inTrack.data[i].latitude + "," + inTrack.data[i].longitude;
+        } else {
+          PATH = PATH + inTrack.data[i].latitude + "," + inTrack.data[i].longitude + ",";
+        }
+        j++
+      };
+      console.log("PATH: ", PATH);
+      var BESTFIT = "&bestfit=" + p1.lat + ","+ p1.lon + ","+ p2.lat + "," + p2.lon;
+      var SIZE = "&size=" + SCREEN_WIDTH + "," + SCREEN_WIDTH;
+      var TYPE = "&type=map&imagetype=jpeg";
+      var BASE_URL = "http://www.mapquestapi.com/staticmap/v4/getmap?key=Fmjtd%7Cluur21u720%2Cr5%3Do5-90tx9a&";
 
-    // var loc = "http://dev.openstreetmap.org/~pafciu17/?module=map&lon=" + center.lon + "&lat=" + center.lat + "&zoom=8&width=" + SCREEN_WIDTH + "&height=" + SCREEN_HEIGHT + dw;
-    document.getElementById("map-img").width = SCREEN_WIDTH;
-    document.getElementById("map-img").onload = function () {
-      document.querySelector("#map-img").classList.remove("hidden");
-      document.querySelector("#map-img").classList.remove("absolute");
-      document.querySelector("#map-img").classList.add("hidden");
-      // document.querySelector("#infos-spinner").classList.add("hidden");
-      // document.querySelector("#infos-spinner").classList.add("absolute");
 
-    };
-    document.getElementById("map-img").src = loc;
-    // console.log("loc:", loc);
+      var loc = BASE_URL + SIZE + TYPE + BESTFIT + PATH;
+
+      document.getElementById("map-img").width = SCREEN_WIDTH;
+      document.getElementById("map-img").onload = function () {
+        document.querySelector("#map-text").classList.add("hidden");
+        document.querySelector("#map-img").classList.remove("hidden");
+        document.querySelector("#map-img").classList.remove("absolute");
+      };
+      document.getElementById("map-img").src = loc;
+      console.log("loc:", loc);
   }
 
   function __buildMap(inTrack) {
