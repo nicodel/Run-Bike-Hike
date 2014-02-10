@@ -27,7 +27,7 @@
     <link rel="stylesheet" type="text/css" href="css/building_blocks/style_unstable/lists.css">
     <link rel="stylesheet" type="text/css" href="css/building_blocks/style_unstable/toolbars.css">
     <link rel="stylesheet" type="text/css" href="css/building_blocks/style_unstable/progress_activity.css">
-    <link rel="stylesheet" href="css/building_blocks/style_unstable/value_selector.css">
+    <link rel="stylesheet" type="text/css" href="css/building_blocks/style_unstable/value_selector.css">
     <link rel="stylesheet" type="text/css" href="css/building_blocks/style_unstable/drawer.css">
 
     <link rel="stylesheet" type="text/css" href="css/building_blocks/icons/styles/action_icons.css">
@@ -66,21 +66,21 @@
           <ul>
             <li>
               <label class="pack-switch align-right">
-                <input id="screen-keep" type="checkbox">
+                <input id="screen" type="checkbox">
                 <span></span>
               </label>
               <a data-l10n-id="keep-screen-alive" class="text-big">Keep screen alive ?</a>
             </li>
             <li class="new-line">
               <p data-l10n-id="language">Language</p>
-                <select id="language" class="button icon icon-dialog">
+                <select disabled id="language" class="button icon icon-dialog">
                   <option value="en" data-l10n-id="english">English</option>
                   <option value="es" data-l10n-id="spanish">Español</option>
                   <option value="fr" data-l10n-id="french">Français</option>
                 </select>
             </li>
             <li>
-              <p data-l10n-id="distance-unit">Distance unit</p>
+              <p data-l10n-id="distance-unit">Unit</p>
                 <select id="distance" class="button icon icon-dialog">
                   <option value="0" data-l10n-id="metric">Metric</option>
                   <option value="1" data-l10n-id="imperial">Imperial</option>
@@ -284,6 +284,12 @@
           </div>
         </li>
         <li>
+          <div data-l10n-id="av_speed" class="text-small">
+            Average speed
+            <span id="trk-av-speed" class="bold align-right"></span>
+          </div>
+        </li>
+        <li>
           <div data-l10n-id="max_alt" class="text-small">
             Max altitude
             <span id="trk-max-alt" class="bold align-right"></span>
@@ -297,15 +303,16 @@
         </li>
         <li class="separateur-bottom">
           <div data-l10n-id="map" id="trk-dt-map" class="text-small bold">Map</div>
+          <p data-l10-id="loading-map" id="map-text">Loading map ...</p>
           <img src="" id="map-img" class="hidden absolute" />
-        </li>
-        <li class="separateur-bottom">
-          <div data-l10n-id="altitude" id="trk-dt-alt" class="text-small bold">Altitude</div>
-          <canvas id="alt-canvas"></canvas>
         </li>
         <li>
           <div data-l10n-id="speed" id="trk-dt-speed" class="text-small bold">Speed</div>
           <canvas id="speed-canvas"></canvas>
+        </li>
+        <li class="separateur-bottom">
+          <div data-l10n-id="altitude" id="trk-dt-alt" class="text-small bold">Altitude</div>
+          <canvas id="alt-canvas"></canvas>
         </li>
       </ul>
       </article>
@@ -329,22 +336,6 @@
         </menu>
       </form>
     </section>
-
-    <!--················ Delete the track confirmation dialog ···············-->
-<!--     <section id="deleteTrackConfirmation" data-position="back" class="fullscreen">
-      <form role="dialog" data-type="confirm" onsubmit="return false;">
-        <section>
-          <h1 data-l10n-id="confirmation">Confirmation</h1>
-          <p>
-            <span data-l10n-id="delete-track-desc" data-l10n-args="{"n":"0"}">Are you sure you want to delete this track?</span>
-          </p>
-        </section>
-        <menu>
-          <button id="btn-cancel-delete" class="cancel" data-l10n-id="cancel">Cancel</button>
-          <button id="btn-confirm-delete" role="button" class="danger" data-l10n-id="confirm">Confirm</button>
-        </menu>
-      </form>
-    </section> -->
 
     <!--···················· Share track Action Menu ························-->
 <!--     <section id="ShareMenu" data-position="back" class="fullscreen">
@@ -376,15 +367,15 @@
       LazyLoad.js([
         "js/views/home-view.js",
         "js/views/infos-view.js",
-        "js/views/settings-view.js",
         "js/views/tracks-view.js",
         "js/views/track-view.js",
         "js/models/chrono.js",
-        "js/models/config.js",
+        // "js/models/config.js",
         "js/models/db.js",
         "js/models/tracks.js",
         "js/events.js",
         "js/controller.js",
+        "test/data.js",
         "js/app.js"
         ]);
     </script>

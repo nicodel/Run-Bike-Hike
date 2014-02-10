@@ -52,6 +52,7 @@ var Controller = function() {
     Chrono.reset();
     // Close track
     var track = Tracks.close();
+    tracking = false;
     // if no gps point were retreive we don't save the track
     if (track.data.length < 1) {
       // we notify that we do nothing (cause that's good)
@@ -133,7 +134,7 @@ var Controller = function() {
 
   function __initiateSuccess(inEvent) {
     // utils.status.show(inEvent);
-    // console.log("__initiateSuccess ", inEvent);
+    console.log("__initiateSuccess ", inEvent);
     DB.getConfig(__getConfigSuccess, __getConfigError);
   }
 
@@ -142,22 +143,79 @@ var Controller = function() {
   }
 
   function __getConfigSuccess(inSettings) {
-    // console.log("__getConfigSuccess ", inSettings);
+    console.log("__getConfigSuccess ", inSettings);
     settings = inSettings;
     __setConfigView(inSettings);
+    // __setConfigValues(inSettings);
   }
   function __getConfigError(inEvent) { console.log("__getConfigError ", inEvent); }
 
-  function updateSettings(inKey, inValue) {
-    settings.inKey = inValue;
+  function savingSettings(inKey, inValue) {
+/*    for (var i = 0; i < settings.length; i++) {
+      if (settings[i].key === inKey) {
+        settings[i].value = inValue;
+      }
+    };*/
+    settings[inKey] = inValue;
+    console.log("now settings:", settings);
+    DB.updateConfig(__savingSettingsSuccess, __savingSettingsError, settings);
+  }
+
+  function __savingSettingsSuccess() {
+    console.log("YES !");
+  }
+
+  function __savingSettingsError(inError) {
+    console.log("NO !", inError);
+  }
+
+  function toogleScreen(inChecked) {
+    if (this.checked) {
+      lock = window.navigator.requestWakeLock('screen');
+      /* Unlock the screen */
+      window.addEventListener('unload', function () {
+        lock.unlock();
+      })
+    } else{
+      window.navigator.requestWakeLock('screen').unlock();
+    };
+  }
+  function changeLanguage(inSetting) {
+    settings.language = inSetting;
+  }
+  function changeDistance(inSetting) {
+    settings.distance = inSetting;
+  }
+  function changeSpeed(inSetting) {
+    settings.speed = inSetting;
+  }
+  function changePosition(inSetting) {
+    settings.position = inSetting;
   }
 
   function __setConfigView(inSettings) {
-    document.querySelector("#screen-keep").checked = inSettings.screen;
-    document.querySelector("#language").value = inSettings.language;
-    document.querySelector("#distance").value = inSettings.distance;
-    document.querySelector("#speed").value = inSettings.speed;
-    document.querySelector("#position").value = inSettings.position;
+    // console.log("updating the settings DOM elements");
+    document.getElementById("screen").checked = inSettings.screen;
+    document.getElementById("language").value = inSettings.language;
+    document.getElementById("distance").value = inSettings.distance;
+    document.getElementById("speed").value = inSettings.speed;
+    document.getElementById("position").value = inSettings.position;
+  }
+  function __setConfigValues(inSettings) {
+    for (var i = 0; i < inSettings.length; i++) {
+      var param = inSettings[i];
+      if (param.key === "screen") {
+        Config.change("SCREEN_KEEP_ALIVE", param.value);
+      } else if (param.key === "language") {
+        // Config.change("")
+      } else if (param.key === "distance") {
+        Config.change("USER_DISTANCE", param.value);
+      } else if (param.key === "speed") {
+        Config.change("USER_SPEED", param.value);
+      } else if (param.key === "position") {
+        Config.change("USER_POSITION_FORMAT", param.value);
+      }
+    };
   }
 
   function __addTrackSuccess(inEvent) {
@@ -198,6 +256,108 @@ var Controller = function() {
 
   function __deleteTrackError() {}
 
+  function userSpeed(velocityMPS){
+    console.log("settings.speed", settings.speed);
+    if (velocityMPS === null || velocityMPS<0 || isNaN(velocityMPS)) {
+      return "?";
+    } else if (settings.speed === "1"){
+      /* FIXME: I'am not sure that it is right */
+      return (velocityMPS * 2.237).toFixed(0)+" MPH";
+    }  else if (settings.speed === "0"){
+      return (velocityMPS * 3.6).toFixed(0)+" km/h";
+    } else {
+      return velocityMPS+ " m/s";
+    };
+  }
+  function userSpeedInteger(velocityMPS) {
+    if (velocityMPS === null || velocityMPS<0 || isNaN(velocityMPS)) {
+      return null;
+    } else if (settings.speed === "1"){
+      /* FIXME: I'am not sure that it is right */
+      return (velocityMPS * 2.237).toFixed(0);
+    } else if (settings.speed === "0"){
+      return (velocityMPS * 3.6).toFixed(0);
+    } else {
+      return velocityMPS;
+    };
+  }
+  function __userDegree(degree) {
+     minutes = (degree - Math.floor(degree)) * 60;
+     seconds = (minutes - Math.floor(minutes )) * 60;
+     return Math.floor(degree) + "°" + (minutes<10?"0":"") + Math.floor(minutes) + "'" + (seconds<10?"0":"") + seconds.toFixed(2) + "\"";
+  }
+  function __userDegreeLikeGeocaching(degree) {
+    minutes = (degree - Math.floor(degree)) * 60;
+    return Math.floor(degree) + "°"
+        + (minutes<10?"0":"") + minutes.toFixed(3) + "'"
+  }
+  function userLatitude(degree) {
+    if (settings.position === "2") {
+       return degree;
+      } else if (settings.position === "1") {
+      return (degree>0? "N":"S") +" "+ __userDegreeLikeGeocaching( Math.abs(degree) );
+    } else {
+      return __userDegree( Math.abs(degree) ) + (degree>0? "N":"S");
+    };
+  }
+  function userLongitude(degree) {
+    if (settings.position === "2") {
+      return degree;
+    } else if (settings.position === "1") {
+    return (degree>0? "E":"W") +" "+ __userDegreeLikeGeocaching( Math.abs(degree) );
+    } else {
+      return __userDegree( Math.abs(degree) ) + (degree>0? "E":"W");
+    };
+  }
+  function userSmallDistance(distanceM, canNegative){
+    if ((distanceM === null) || ((distanceM < 0) && (!canNegative))) {
+      return "?";
+    } else if (settings.distance === "1") {
+     /* FIXME: I'am not sure that it is right */
+     return (distanceM * 3.2808).toFixed(0)+" ft";
+    } else if (settings.distance === "0") {
+     return (distanceM * 1.0).toFixed(0)+" m";
+    } else {
+      return distanceM+" m";
+    };
+  }
+  function userDistance (distanceM, canNegative){
+    console.log("settings.distance:", settings.distance);
+    if ((distanceM === null) || ((distanceM < 0) && (!canNegative))) {
+      return "?";
+    } else if (distanceM < 4000) {
+      return userSmallDistance(distanceM);
+    } else if (settings.distance === "0") {
+      tmp = (distanceM / 1000);
+      return (tmp >= 10? tmp.toFixed(0): tmp.toFixed(1))+" km";
+    } else if (settings.distance === "1") {
+      /* FIXME: I'am not sure that it is right */
+      tmp = (distanceM / 1609.344);
+      return (tmp >= 10? tmp.toFixed(0): tmp.toFixed(1))+" miles";
+    } else {
+      return distanceM+" m";
+    };
+  }
+  function userDate(inDate) {
+    var d = new Date(inDate);
+
+    var year = d.getFullYear();
+    var month = d.getMonth() + 1;
+    var day = d.getDate();
+    var hour = d.getHours();
+    var min = d.getMinutes();
+    var sec = d.getSeconds();
+    if (month < 10) {
+      month = "0" + month.toString();
+    };
+    if (day < 10) {
+      day = "0" + day.toString();
+    };
+    var outDate = day+"/"+month+"/"+year;
+    // var outDate = day+"/"+month+"/"+year+ " "+hour+":"+min+":"+sec;
+    return  outDate;
+  }
+
   return {
     init: init,
     startWatch: startWatch,
@@ -205,7 +365,20 @@ var Controller = function() {
     displayTracks: displayTracks,
     displayTrack: displayTrack,
     deleteTrack: deleteTrack,
-    updateSettings: updateSettings
+    savingSettings: savingSettings,
+    toogleScreen: toogleScreen,
+    changeLanguage: changeLanguage,
+    changeDistance: changeDistance,
+    changeSpeed: changeSpeed,
+    changePosition: changePosition,
+    userSpeed: userSpeed,
+    userSpeedInteger: userSpeedInteger,
+    // userDegree: userDegree,
+    userLatitude: userLatitude,
+    userLongitude: userLongitude,
+    userSmallDistance: userSmallDistance,
+    userDistance: userDistance,
+    userDate: userDate
   };
 }();
 // })

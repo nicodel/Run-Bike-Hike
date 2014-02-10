@@ -1,5 +1,5 @@
 body {
-  /*background-color:  #eaeaea;*/
+  /*background-color:  #fcfcfc;*/
 }
 #homeView {
   /*height: 100%;*/
@@ -237,13 +237,18 @@ a {
   background: none repeat scroll 0% 0% rgba(0, 0, 0, 1);
 }
 section[role="region"] {
-  background: #fff;
+  /*background: #fff;*/
+  background: #f3f3f3;
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
   padding-left: 0;
+}
+section[role="region"] > .content {
+  padding: 0px 3rem 1.5rem;
+  background: none repeat scroll 0% 0% #f3f3f3;
 }
 
 section[data-type="sidebar"] > nav > ul > li > a {
@@ -263,4 +268,20 @@ section[data-type="sidebar"] > nav > ul > li > p {
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+}
+
+
+.empty-tracks {
+  word-wrap: break-word;
+  margin: 1rem 0px 0px;
+  padding: 1rem 1.5rem;
+  border-top: 0.1rem solid #686868;
+  line-height: 3rem;
+  width: 100%;
+  display: inline-block;
+  overflow-y: scroll;
+  max-height: 100%;
+  vertical-align: middle;
+  white-space: normal;
+  margin-top:40%;
 }
