@@ -1,5 +1,5 @@
 body {
-  /*background-color:  #eaeaea;*/
+  /*background-color:  #fcfcfc;*/
 }
 #homeView {
   /*height: 100%;*/
@@ -237,13 +237,18 @@ a {
   background: none repeat scroll 0% 0% rgba(0, 0, 0, 1);
 }
 section[role="region"] {
-  background: #fff;
+  /*background: #fff;*/
+  background: #f3f3f3;
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
   padding-left: 0;
+}
+section[role="region"] > .content {
+  padding: 0px 3rem 1.5rem;
+  background: none repeat scroll 0% 0% #f3f3f3;
 }
 
 section[data-type="sidebar"] > nav > ul > li > a {
