@@ -43,12 +43,6 @@
     <!-- <link rel="prefetch" type="application/l10n" href="locales/data.ini" />
     <script type="text/javascript" src="lib/webL10n/l10n.js"></script> -->
 
-    <!-- Firefox OS Status / Notifications -->
-    <script type="text/javascript" defer src="css/building_blocks/js/status.js"></script>
-
-    <script type="text/javascript" src="test/test-geolocation.js"></script>
-
-
   </head>
   <body id="app">
 
@@ -107,7 +101,7 @@
       <section id="drawer" role="region">
         <header class="fixed">
           <menu type="toolbar">
-            <button data-l10n-id="install" id="install" style="display:none;">Install</button>
+            <button data-l10n-id="install" id="install">Install</button>
           </menu>
           <a href="#"><span class="icon icon-menu">hide sidebar</span></a>
           <a href="#drawer"><span class="icon icon-menu">show sidebar</span></a>
@@ -363,6 +357,10 @@
     </section> -->
 
     <script type="text/javascript" src="lib/lazyload/lazyload-min.js"></script>
+    <script type="text/javascript" src="js/base.js"></script>
+    <!-- Firefox OS Status / Notifications -->
+    <script type="text/javascript" defer src="css/building_blocks/js/status.js"></script>
+    <script type="text/javascript" src="test/test-geolocation.js"></script>
     <script type="text/javascript">
       LazyLoad.js([
         "js/views/home-view.js",
