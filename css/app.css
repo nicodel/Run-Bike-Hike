@@ -1,5 +1,5 @@
 body {
-  /*background-color:  #fcfcfc;*/
+  /*background-color: #fcfcfc;*/
 }
 #homeView {
   /*height: 100%;*/
@@ -121,7 +121,7 @@ button.icon-list:before {
 
 /* Lists */
 /* to avoid double background effect on press */
-[data-type=list] li>a:active { 
+[data-type=list] li>a:active {
   background-color: transparent;
 }
 [data-type="list"] li p:first-of-type {
@@ -130,19 +130,19 @@ button.icon-list:before {
 
 /* Drawer */
 /*section[role="region"]:not(#drawer) {
-  transition: none;
-  left: 0;
-  z-index: 0;
-  padding-left: 0;
+transition: none;
+left: 0;
+z-index: 0;
+padding-left: 0;
 }*/
-section[data-type="sidebar"] + section[role="region"] > header:first-child > button, 
+section[data-type="sidebar"] + section[role="region"] > header:first-child > button,
 section[data-type="sidebar"] + section[role="region"] > header:first-child > a {
   background-position: 3.5rem center;
 }
 
 /* Switches */
 #switches label:last-child {
-  margin-left: 2rem;  
+  margin-left: 2rem;
 }
 
 /* Scrolling */
@@ -223,7 +223,7 @@ section[role="region"] > header:first-child img {
 }
 .fake-select {
   /*padding-left: 0;
-  padding-right: 0;*/
+padding-right: 0;*/
   position: relative;
   display: block;
   padding: 1.1rem 3rem;
