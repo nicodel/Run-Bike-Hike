@@ -4,6 +4,7 @@ var Install = function() {
   var manifest_url = "http://nicodel.github.com/Run-Bike-Hike/manifest.webapp";
   
   function __install(ev) {
+    console.log("installing !");
     ev.preventDefault();
     var installApp = navigator.mozApps.install(manifest_url);
 
