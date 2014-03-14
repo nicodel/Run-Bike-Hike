@@ -33,17 +33,17 @@
     <x-deck id="views">
 
 
-      <!-- Settings View -->
+      <!-- Card 0 :  Settings View -->
       <x-card>
         <x-layout>
           <x-appbar>
-            <button id="btn-track-back">Back</button>
+            <button id="btn-settings-back">Back</button>
             <h1 data-l10n-id="settings">Settings</h1>
           </x-appbar>
           <section>
             <ul>
               <li>
-                <x-toggle label="Keep screen alive?"></x-toggle>
+                <x-toggle id="screen" label="Keep screen alive?"></x-toggle>
               </li>
               <li class="new-line">
                 <p data-l10n-id="language">Language</p>
@@ -81,7 +81,7 @@
       </x-card>
 
 
-      <!-- Home View -->
+      <!-- Card 1 :  Home View -->
       <x-card show>
         <x-layout>
           <x-appbar>
@@ -130,7 +130,7 @@
         </x-layout>
       </x-card>
 
-      <!-- Tracking View -->
+      <!-- Card 2 :  Tracking View -->
       <x-card>
         <x-appbar>
           <h1 data-l10n-id="rbh-tracking">Tracking...</h1>
@@ -175,7 +175,7 @@
         </ul>
       </x-card>
 
-      <!-- Stop tracking confirmation form -->
+      <!-- Card 3 :  Stop tracking confirmation form -->
       <x-card>
         <form id="stop-form-confirm" role="dialog" data-type="confirm" class="hidden" onsubmit="return false;">
           <section>
@@ -191,8 +191,8 @@
         </form>
       </x-card>
 
-      <!-- Tracks View -->
-      <x-card>
+      <!-- Card 4 :  Tracks View -->
+      <x-card transition-type="slide-left">
         <x-appbar>
           <button id="btn-tracks-back">Back</button>
           <h1 data-l10n-id="recorded-tracks">Recorded tracks</h1>
@@ -205,7 +205,7 @@
         </x-layout>
       </x-card>
 
-      <!-- Track View -->
+      <!-- Card 5 :  Track View -->
       <x-card>
         <x-appbar>
           <button id="btn-track-back">Back</button>
@@ -280,21 +280,33 @@
         </x-layout>
       </x-card>
 
-
-
-
+      <!--  Card 6 : Delete track confirmation form -->
+      <x-card>
+        <form id="del-form-confirm" role="dialog" data-type="confirm" class="hidden" onsubmit="return false;">
+          <section>
+            <h1 data-l10n-id="confirmation">Confirmation</h1>
+            <p>
+              <span data-l10n-id="delete-track-desc">Are you sure you want to delete this track?</span>
+            </p>
+          </section>
+          <menu>
+            <button id="btn-cancel-delete" class="cancel" data-l10n-id="cancel">Cancel</button>
+            <button id="btn-confirm-delete" role="button" class="danger" data-l10n-id="confirm">Confirm</button>
+          </menu>
+        </form>
+      </x-card>
 
     </x-deck>
 
     <script type="text/javascript" src="lib/brick/brick-1.0.0.min.js"></script>
-<!--     // <script type="text/javascript" src="lib/lazyload/lazyload-min.js"></script>
-    // <script type="text/javascript" src="js/install.js"></script> -->
+    <script type="text/javascript" src="lib/lazyload/lazyload-min.js"></script>
+    <script type="text/javascript" src="js/install.js"></script>
     <script type="text/javascript">
       document.addEventListener('DOMComponentsLoaded', function(){
         // run code here...
         var deck = document.getElementById("views");
-        deck.showCard(0);
-        // LazyLoad.js([
+        deck.showCard(1);
+        LazyLoad.js([
         //   "js/views/home-view.js",
         //   "js/views/infos-view.js",
         //   "js/views/tracks-view.js",
@@ -303,11 +315,11 @@
         //   // "js/models/config.js",
         //   "js/models/db.js",
         //   "js/models/tracks.js",
-        //   "js/events.js",
+          "js/events.js",
         //   "js/controller.js",
         //   "test/data.js",
         //   "js/app.js"
-        //   ]);
+          ]);
       });
     </script>
 

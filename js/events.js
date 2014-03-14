@@ -7,16 +7,14 @@
 /*----------------- Home View -----------------*/
 /* Home View Tracks button */
 document.querySelector("#btn-tracks").addEventListener ("click", function () {
-  Controller.displayTracks();
-  document.querySelector("#tracksView").classList.remove("move-right");
-  document.querySelector("#tracksView").classList.add("move-center");
+  // Controller.displayTracks();
+  document.getElementById("views").showCard(4);
 });
 
 /* Home View Start tracking button */
 document.querySelector("#btn-start").addEventListener ("click", function () {
   Controller.startWatch();
-  document.querySelector("#infosView").classList.remove("move-right");
-  document.querySelector("#infosView").classList.add("move-center");
+  document.getElementById("views").showCard(2);
 });
 
 /*----------------- Infos View -----------------*/
@@ -87,8 +85,7 @@ document.querySelector("#position").onchange = function() {
 /*----------------- Tracks View -----------------*/
 /* Tracks View Back button */
 document.querySelector("#btn-tracks-back").addEventListener ("click", function () {
-  document.querySelector("#tracksView").classList.remove("move-center");
-  document.querySelector("#tracksView").classList.add("move-right");
+  document.getElementById("views").showCard(1);
 });
 
 /*----------------- Track Detail View -----------------*/
