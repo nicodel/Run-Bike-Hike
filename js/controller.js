@@ -279,7 +279,7 @@ var Controller = function() {
       return (velocityMPS * 3.6).toFixed(0);
     } else {
       return velocityMPS;
-    };
+    }
   }
   function __userDegree(degree) {
      minutes = (degree - Math.floor(degree)) * 60;
@@ -288,8 +288,7 @@ var Controller = function() {
   }
   function __userDegreeLikeGeocaching(degree) {
     minutes = (degree - Math.floor(degree)) * 60;
-    return Math.floor(degree) + "°"
-        + (minutes<10?"0":"") + minutes.toFixed(3) + "'"
+    return Math.floor(degree) + "°" + (minutes<10?"0":"") + minutes.toFixed(3) + "'";
   }
   function userLatitude(degree) {
     if (settings.position === "2") {
@@ -298,7 +297,7 @@ var Controller = function() {
       return (degree>0? "N":"S") +" "+ __userDegreeLikeGeocaching( Math.abs(degree) );
     } else {
       return __userDegree( Math.abs(degree) ) + (degree>0? "N":"S");
-    };
+    }
   }
   function userLongitude(degree) {
     if (settings.position === "2") {
@@ -307,7 +306,7 @@ var Controller = function() {
     return (degree>0? "E":"W") +" "+ __userDegreeLikeGeocaching( Math.abs(degree) );
     } else {
       return __userDegree( Math.abs(degree) ) + (degree>0? "E":"W");
-    };
+    }
   }
   function userSmallDistance(distanceM, canNegative){
     if ((distanceM === null) || ((distanceM < 0) && (!canNegative))) {
@@ -319,7 +318,7 @@ var Controller = function() {
      return (distanceM * 1.0).toFixed(0)+" m";
     } else {
       return distanceM+" m";
-    };
+    }
   }
   function userDistance (distanceM, canNegative){
     console.log("settings.distance:", settings.distance);

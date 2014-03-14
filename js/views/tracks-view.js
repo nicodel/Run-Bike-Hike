@@ -11,8 +11,8 @@ var TracksView = function() {
           list.removeChild(list.childNodes[i]);
         } else {
           console.log("element " + i + " " + list.childNodes[i]);
-        };
-      };
+        }
+      }
       // console.log("remove element " + i + " " + list.childNodes[i].textContent);
       // document.getElementById("tracks-list").removeChild(d.childNodes[i]);
     }
@@ -25,7 +25,7 @@ var TracksView = function() {
       for (var i = tracks.length - 1; i >= 0; i--) {
         __buildList(tracks[i]);
       }
-    };
+    }
   }
 
   function reset() {
@@ -35,7 +35,7 @@ var TracksView = function() {
   function __showEmpty() {
     var el = document.createElement("p");
     el.className = "empty-tracks";
-    el.innerHTML = "Empty tracks list."
+    el.innerHTML = "Empty tracks list.";
     document.getElementById("tracks-list").appendChild(el);
   }
 
