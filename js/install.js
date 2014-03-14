@@ -19,6 +19,7 @@ var Install = function() {
   var installCheck = navigator.mozApps.checkInstalled("http://nicodel.github.io/Run-Bike-Hike/manifest.webapp");
   installCheck.onsuccess = function() {
     console.log("checking app installation");
+      console.log("installCheck.result", installCheck.result);
     if(installCheck.result) {
       console.log("already installed");
       button.style.display = "non";
