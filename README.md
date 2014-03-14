@@ -40,7 +40,6 @@ Un outil d'enregistrement GPS pour les sportifs qui aiment suivre leurs évoluti
 * During tracking, position can be displayed on a resizable and dynamic map.
 
 
-
 ## Licence
 
 Run, Bike, Hike... is distributed under the [MPL2.0 licence](http://www.mozilla.org/MPL/2.0/)
