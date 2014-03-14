@@ -20,8 +20,10 @@ var Install = function() {
   installCheck.onsuccess = function() {
     console.log("checking app installation");
     if(installCheck.result) {
+      console.log("already installed");
       button.style.display = "non";
     } else {
+      console.log("not installed");
       button.addEventListener("click", __install, false);
     }
   };
