@@ -13,24 +13,8 @@
     <!--······························ Reset ································-->
     <link rel="stylesheet" type="text/css" href="css/reset.css"/>
 
-    <!--···················· Firefox OS Building Blocks ·····················-->
-    <link rel="stylesheet" type="text/css" href="css/building_blocks/util.css">
-    <link rel="stylesheet" type="text/css" href="css/building_blocks/transitions.css">
-    <!-- <link rel="stylesheet" type="text/css" href="css/building_blocks/cross_browser.css"> -->
-    <link rel="stylesheet" type="text/css" href="css/building_blocks/style/action_menu.css">
-    <link rel="stylesheet" type="text/css" href="css/building_blocks/style/buttons.css">
-    <link rel="stylesheet" type="text/css" href="css/building_blocks/style/confirm.css">
-    <link rel="stylesheet" type="text/css" href="css/building_blocks/style/edit_mode.css">
-    <link rel="stylesheet" type="text/css" href="css/building_blocks/style/status.css">
-    <link rel="stylesheet" type="text/css" href="css/building_blocks/style/headers.css">
-    <link rel="stylesheet" type="text/css" href="css/building_blocks/style/switches.css">
-    <link rel="stylesheet" type="text/css" href="css/building_blocks/style_unstable/lists.css">
-    <link rel="stylesheet" type="text/css" href="css/building_blocks/style_unstable/toolbars.css">
-    <link rel="stylesheet" type="text/css" href="css/building_blocks/style_unstable/progress_activity.css">
-    <link rel="stylesheet" type="text/css" href="css/building_blocks/style_unstable/value_selector.css">
-    <link rel="stylesheet" type="text/css" href="css/building_blocks/style_unstable/drawer.css">
-
-    <link rel="stylesheet" type="text/css" href="css/building_blocks/icons/styles/action_icons.css">
+    <!--······························ Brick ································-->
+    <link rel="stylesheet" type="text/css" href="lib/brick/brick-1.0.0.min.css"/>
 
     <!--······························ Fonts ································-->
     <link rel="stylesheet" href="css/fonts.css"/>
@@ -46,75 +30,70 @@
   </head>
   <body id="app">
 
-    <!--···························· Settings View ··························-->
-    <!--··························· Home View ·······························-->
-    <!-- <section id="homeView" data-position="current"> -->
-      <section id="homeView" data-type="sidebar">
-        <header>
-          <menu type="toolbar">
-            <a data-l10n-id="done" href="#">Done</a>
-          </menu>
-          <h1 data-l10n-id="settings">Settings</h1>
-        </header>
-        <nav>
-          <ul>
-            <li>
-              <label class="pack-switch align-right">
-                <input id="screen" type="checkbox">
-                <span></span>
-              </label>
-              <a data-l10n-id="keep-screen-alive" class="text-big">Keep screen alive ?</a>
-            </li>
-            <li class="new-line">
-              <p data-l10n-id="language">Language</p>
-                <select disabled id="language" class="button icon icon-dialog">
-                  <option value="en" data-l10n-id="english">English</option>
-                  <option value="es" data-l10n-id="spanish">Español</option>
-                  <option value="fr" data-l10n-id="french">Français</option>
-                </select>
-            </li>
-            <li>
-              <p data-l10n-id="distance-unit">Unit</p>
-                <select id="distance" class="button icon icon-dialog">
-                  <option value="0" data-l10n-id="metric">Metric</option>
-                  <option value="1" data-l10n-id="imperial">Imperial</option>
-                </select>
-            </li>
-            <li>
-              <p data-l10n-id="speed-unit">Speed unit</p>
-                <select id="speed" class="button icon icon-dialog">
-                  <option value="0">km/h</option>
-                  <option value="1">mph</option>
-                </select>
-            </li>
-            <li>
-              <p data-l10n-id="position-format">Position format</p>
-                <select id="position" class="button icon icon-dialog">
-                  <option value="0">49°08'06.22</option>
-                  <option value="1">49°08.104'</option>
-                  <option value="2">49.135060</option>
-                </select>
-            </li>
-          </ul>
-        </nav>
-      </section>    
-      <section id="drawer" role="region">
-        <header class="fixed">
-          <menu type="toolbar">
-            <button data-l10n-id="install" id="install">Install Me</button>
-          </menu>
-          <a href="#"><span class="icon icon-menu">hide sidebar</span></a>
-          <a href="#drawer"><span class="icon icon-menu">show sidebar</span></a>
-          <h1 data-l10n-id="title" class="align-left">Run, Bike, Hike ...</h1>
-          <!-- <img id="gps-status" class="gps-status align-right" src="img/gps_white.png" alt="Geolocation status" /> -->
-        </header>
-        <article class="content scrollable header">
-          
+    <x-deck id="views">
+
+
+      <!-- Settings View -->
+      <x-card>
+        <x-layout>
+          <x-appbar>
+            <button id="btn-track-back">Back</button>
+            <h1 data-l10n-id="settings">Settings</h1>
+          </x-appbar>
+          <section>
+            <ul>
+              <li>
+                <x-toggle label="Keep screen alive?"></x-toggle>
+              </li>
+              <li class="new-line">
+                <p data-l10n-id="language">Language</p>
+                  <select disabled id="language" class="button icon icon-dialog">
+                    <option value="en" data-l10n-id="english">English</option>
+                    <option value="es" data-l10n-id="spanish">Español</option>
+                    <option value="fr" data-l10n-id="french">Français</option>
+                  </select>
+              </li>
+              <li>
+                <p data-l10n-id="distance-unit">Unit</p>
+                  <select id="distance" class="button icon icon-dialog">
+                    <option value="0" data-l10n-id="metric">Metric</option>
+                    <option value="1" data-l10n-id="imperial">Imperial</option>
+                  </select>
+              </li>
+              <li>
+                <p data-l10n-id="speed-unit">Speed unit</p>
+                  <select id="speed" class="button icon icon-dialog">
+                    <option value="0">km/h</option>
+                    <option value="1">mph</option>
+                  </select>
+              </li>
+              <li>
+                <p data-l10n-id="position-format">Position format</p>
+                  <select id="position" class="button icon icon-dialog">
+                    <option value="0">49°08'06.22</option>
+                    <option value="1">49°08.104'</option>
+                    <option value="2">49.135060</option>
+                  </select>
+              </li>
+            </ul>
+          </section>
+        </x-layout>
+      </x-card>
+
+
+      <!-- Home View -->
+      <x-card show>
+        <x-layout>
+          <x-appbar>
+            <button id="settings-button">=</button>
+            <h1>Run, Bike, Hike...</h1>
+            <button id="install">Install me</button>
+          </x-appbar>
           <div class="compass-container">
             <img id="home-compass" src="img/compass_inactive.png" alt="Compass" />
             <button data-l10n-id="btn-start" id="btn-start" class="recommend small align-right">Start</button>
           </div>
-          <div class="infos-container">
+        <div class="infos-container">
           <ul>
             <li>
               <div data-l10n-id="latitude">
@@ -141,241 +120,195 @@
               </div>
             </li>
           </ul>
-          <div id="message-area" class="align-center">
-            <progress id="spinner"></progress>
-            <p id="msg" class="bold align-center">Retreiving GPS signal. It may take some time...</p>
           </div>
-          </div>
-        </article>
-        <footer role="toolbar">
-          <ul>
-            <li><button id="btn-tracks" class="icon-list">Tracks</button></li>
+          <footer role="toolbar">
+            <ul>
+              <li><button id="btn-tracks" class="icon-list">Tracks</button></li>
+            </ul>
+          </footer>
+
+        </x-layout>
+      </x-card>
+
+      <!-- Tracking View -->
+      <x-card>
+        <x-appbar>
+          <h1 data-l10n-id="rbh-tracking">Tracking...</h1>
+        </x-appbar>
+        <div class="compass-container">
+          <img id="infos-compass" class="compass" src="img/compass.png" alt="Compass" />
+          <button data-l10n-id="btn-stop" id="btn-stop" class="danger small align-right">Stop</button>
+        </div>
+        <ul class="infos-container">
+          <li>
+            <div data-l10n-id="elapsed-time">
+              Elapsed time
+              <span id="infos-chrono" class="bold align-right">00:00:00</span>
+            </div>
+              </span>
+            </div>
+          </li>
+          <li>
+            <div data-l10n-id="distance">
+              Distance
+              <span id="infos-dist" class="bold align-right"></span>
+            </div>
+          </li>
+          <li>
+            <div data-l10n-id="speed">
+              Speed
+              <span id="infos-speed" class="bold align-right"></span>
+            </div>
+          </li>
+          <li>
+            <div data-l10n-id="altitude">
+              Altitude
+              <span id="infos-alt" class="bold align-right"></span>
+            </div>
+          </li>
+          <li>
+            <div data-l10n-id="accuracy">
+              Accuracy
+              <span id="infos-acc" class="bold align-right"></span>
+            </div>
+          </li>
+        </ul>
+      </x-card>
+
+      <!-- Stop tracking confirmation form -->
+      <x-card>
+        <form id="stop-form-confirm" role="dialog" data-type="confirm" class="hidden" onsubmit="return false;">
+          <section>
+            <h1 data-l10n-id="confirmation">Confirmation</h1>
+            <p>
+              <span data-l10n-id="stop-track-desc">Are you sure you want to stop recording this track?</span>
+            </p>
+          </section>
+          <menu>
+            <button id="btn-cancel-stop" class="cancel" data-l10n-id="cancel">Cancel</button>
+            <button id="btn-confirm-stop" role="button" class="danger" data-l10n-id="confirm">Confirm</button>
+          </menu>
+        </form>
+      </x-card>
+
+      <!-- Tracks View -->
+      <x-card>
+        <x-appbar>
+          <button id="btn-tracks-back">Back</button>
+          <h1 data-l10n-id="recorded-tracks">Recorded tracks</h1>
+        </x-appbar>
+        <x-layout>
+        <section data-type="list">
+          <ul id="tracks-list">
           </ul>
-        </footer>
-      </section>
-    <!-- </section> -->
-    
-
-
-
-    <!--··························· Infos View ······························-->
-    <section role="region" id="infosView" class="move-right">
-      <header>
-        <h1 data-l10n-id="rbh-tracking">Tracking...</h1>
-      </header>
-      <div class="compass-container">
-        <img id="infos-compass" class="compass" src="img/compass.png" alt="Compass" />
-        <button data-l10n-id="btn-stop" id="btn-stop" class="danger small align-right">Stop</button>
-      </div>
-      <ul class="infos-container">
-        <li>
-          <div data-l10n-id="elapsed-time">
-            Elapsed time
-            <span id="infos-chrono" class="bold align-right">00:00:00</span>
-          </div>
-            </span>
-          </div>
-        </li>
-        <li>
-          <div data-l10n-id="distance">
-            Distance
-            <span id="infos-dist" class="bold align-right"></span>
-          </div>
-        </li>
-        <li>
-          <div data-l10n-id="speed">
-            Speed
-            <span id="infos-speed" class="bold align-right"></span>
-          </div>
-        </li>
-        <li>
-          <div data-l10n-id="altitude">
-            Altitude
-            <span id="infos-alt" class="bold align-right"></span>
-          </div>
-        </li>
-        <li>
-          <div data-l10n-id="accuracy">
-            Accuracy
-            <span id="infos-acc" class="bold align-right"></span>
-          </div>
-        </li>
-      </ul>
-      <footer class="toolbar">
-      </footer>
-      <form id="stop-form-confirm" role="dialog" data-type="confirm" class="hidden" onsubmit="return false;">
-        <section>
-          <h1 data-l10n-id="confirmation">Confirmation</h1>
-          <p>
-            <span data-l10n-id="stop-track-desc">Are you sure you want to stop recording this track?</span>
-          </p>
         </section>
-        <menu>
-          <button id="btn-cancel-stop" class="cancel" data-l10n-id="cancel">Cancel</button>
-          <button id="btn-confirm-stop" role="button" class="danger" data-l10n-id="confirm">Confirm</button>
-        </menu>
-      </form>
-    </section>
+        </x-layout>
+      </x-card>
 
-    <!--·················· Track successfully stored dialog ·················-->
-    <section role="status" id="storeSuccessView">
-      <p data-l10n-id="track-success-stored">The track <span id="track-name"><strong></strong></span> has been successfully stored.</p>
-    </section>
+      <!-- Track View -->
+      <x-card>
+        <x-appbar>
+          <button id="btn-track-back">Back</button>
+          <h1 data-l10n-id="recorded-tracks">Track:</h1>
+        </x-appbar>
+        <x-layout>
+          <ul class="infos-container">
+            <li>
+              <div data-l10n-id="date" class="text-small">
+                Date
+                <span id="trk-date" class="bold align-right"></span>
+              </div>
+            </li>
+            <li>
+              <div data-l10n-id="distance" class="text-small">
+                Distance
+                <span id="trk-dist" class="bold align-right"></span>
+              </div>
+            </li>
+            <li>
+              <div data-l10n-id="duration" class="text-small">
+                Duration
+                <span id="trk-dur" class="bold align-right"></span>
+              </div>
+            </li>
+            <li>
+              <div data-l10n-id="max_speed" class="text-small">
+                Max speed
+                <span id="trk-max-speed" class="bold align-right"></span>
+              </div>
+            </li>
+            <li>
+              <div data-l10n-id="av_speed" class="text-small">
+                Average speed
+                <span id="trk-av-speed" class="bold align-right"></span>
+              </div>
+            </li>
+            <li>
+              <div data-l10n-id="max_alt" class="text-small">
+                Max altitude
+                <span id="trk-max-alt" class="bold align-right"></span>
+              </div>
+            </li>
+            <li class="separateur-bottom">
+              <div data-l10n-id="min_alt" class="text-small">
+                Min altitude
+                <span id="trk-min-alt" class="bold align-right"></span>
+              </div>
+            </li>
+            <li class="separateur-bottom">
+              <div data-l10n-id="map" id="trk-dt-map" class="text-small bold">Map</div>
+              <p data-l10-id="loading-map" id="map-text">Loading map ...</p>
+              <img src="" id="map-img" class="hidden absolute" />
+            </li>
+            <li>
+              <div data-l10n-id="speed" id="trk-dt-speed" class="text-small bold">Speed</div>
+              <canvas id="speed-canvas"></canvas>
+            </li>
+            <li class="separateur-bottom">
+              <div data-l10n-id="altitude" id="trk-dt-alt" class="text-small bold">Altitude</div>
+              <canvas id="alt-canvas"></canvas>
+            </li>
+          </ul>
 
-    <!--······················ Failed to store track dialog ·················-->
-    <section role="status" id="storeFailedView">
-      <p>Error saving track <span id="track-name"><strong></strong></span> to database.</p>
-    </section>
+          <footer>
+            <ul>
+              <li><button data-l10n-id="delete" class="action-icon delete" id="btn-delete">Delete</button></li>
+              <li><button data-l10n-id="share" class="action-icon email-share" disabled="" id="btn-share">Share</button></li>
+              <li><button data-l10n-id="edit" class="action-icon compose" disabled="" id="btn-edit">Edit</button></li>
+            </ul>
+          </footer>
+        </x-layout>
+      </x-card>
 
-    <!--·························· Tracks View ······························-->
-    <section role="region" id="tracksView" class="move-right">
-      <header>
-        <a id="btn-tracks-back" href="#">
-          <span class="icon icon-back">Back</span>
-        </a>
-        <h1 data-l10n-id="recorded-tracks">Recorded tracks</h1>
-      </header>
-      <article  class="scrollable">
-      <section data-type="list">
-        <ul id="tracks-list">
-        </ul>
-      </section>
-      </article>
-      <footer class="toolbar">
-      </footer>
-    </section>
 
-    <!--·························· Track View ·······························-->
-    <section role="region" id="trackView" class="move-right">
-      <header>
-        <a><span id="btn-track-back" class="icon icon-back">Back</span></a>
-        <h1 data-l10n-id="track" id="tr-name">Track:</h1>
-      </header>
-      <article  class="scrollable">
-      <ul class="infos-container">
-        <li>
-          <div data-l10n-id="date" class="text-small">
-            Date
-            <span id="trk-date" class="bold align-right"></span>
-          </div>
-        </li>
-        <li>
-          <div data-l10n-id="distance" class="text-small">
-            Distance
-            <span id="trk-dist" class="bold align-right"></span>
-          </div>
-        </li>
-        <li>
-          <div data-l10n-id="duration" class="text-small">
-            Duration
-            <span id="trk-dur" class="bold align-right"></span>
-          </div>
-        </li>
-        <li>
-          <div data-l10n-id="max_speed" class="text-small">
-            Max speed
-            <span id="trk-max-speed" class="bold align-right"></span>
-          </div>
-        </li>
-        <li>
-          <div data-l10n-id="av_speed" class="text-small">
-            Average speed
-            <span id="trk-av-speed" class="bold align-right"></span>
-          </div>
-        </li>
-        <li>
-          <div data-l10n-id="max_alt" class="text-small">
-            Max altitude
-            <span id="trk-max-alt" class="bold align-right"></span>
-          </div>
-        </li>
-        <li class="separateur-bottom">
-          <div data-l10n-id="min_alt" class="text-small">
-            Min altitude
-            <span id="trk-min-alt" class="bold align-right"></span>
-          </div>
-        </li>
-        <li class="separateur-bottom">
-          <div data-l10n-id="map" id="trk-dt-map" class="text-small bold">Map</div>
-          <p data-l10-id="loading-map" id="map-text">Loading map ...</p>
-          <img src="" id="map-img" class="hidden absolute" />
-        </li>
-        <li>
-          <div data-l10n-id="speed" id="trk-dt-speed" class="text-small bold">Speed</div>
-          <canvas id="speed-canvas"></canvas>
-        </li>
-        <li class="separateur-bottom">
-          <div data-l10n-id="altitude" id="trk-dt-alt" class="text-small bold">Altitude</div>
-          <canvas id="alt-canvas"></canvas>
-        </li>
-      </ul>
-      </article>
-      <footer role="toolbar">
-        <ul>
-          <li><button data-l10n-id="delete" class="action-icon delete" id="btn-delete">Delete</button></li>
-          <li><button data-l10n-id="share" class="action-icon email-share" disabled="" id="btn-share">Share</button></li>
-          <li><button data-l10n-id="edit" class="action-icon compose" disabled="" id="btn-edit">Edit</button></li>
-        </ul>
-      </footer>
-      <form id="del-form-confirm" role="dialog" data-type="confirm" class="hidden" onsubmit="return false;">
-        <section>
-          <h1 data-l10n-id="confirmation">Confirmation</h1>
-          <p>
-            <span data-l10n-id="delete-track-desc">Are you sure you want to delete this track?</span>
-          </p>
-        </section>
-        <menu>
-          <button id="btn-cancel-delete" class="cancel" data-l10n-id="cancel">Cancel</button>
-          <button id="btn-confirm-delete" role="button" class="danger" data-l10n-id="confirm">Confirm</button>
-        </menu>
-      </form>
-    </section>
 
-    <!--···················· Share track Action Menu ························-->
-<!--     <section id="ShareMenu" data-position="back" class="fullscreen">
-      <form role="dialog" data-type="action">
-        <header>Export track to</header>
-        <menu>
-          <button data-l10n-id="share-local" id="btn-share-local">Local (GPX)</button>
-          <button data-l10n-id="share-email-html" id="btn-share-email-html">Email (HTML)</button>
-          <button data-l10n-id="share-email-gpx" id="btn-share-email-gpx">Email (GPX)</button>
-          <button data-l10n-id="cancel" id="btn-share-cancel"> Cancel </button>
-        </menu>
-      </form>
-    </section> -->
 
-    <!--···················· Edit track View ························-->
-<!--     <section id="EditView" data-position="back" class="fullscreen">
-      <form role="dialog" data-type="action">
-        <header>Track name</header>
-        <input type="text" required="" value="" placeholder="Track name"></input>
-        <menu>
-          <button id="btn-cancel-edit" class="cancel" data-l10n-id="cancel">Cancel</button>
-          <button id="btn-confirm-edit" role="button" class="danger" data-l10n-id="confirm">Confirm</button>
-        </menu>
-      </form>
-    </section> -->
 
-    <script type="text/javascript" src="lib/lazyload/lazyload-min.js"></script>
-    <script type="text/javascript" src="js/install.js"></script>
-    <!-- Firefox OS Status / Notifications -->
-    <script type="text/javascript" defer src="css/building_blocks/js/status.js"></script>
-    <script type="text/javascript" src="test/test-geolocation.js"></script>
+    </x-deck>
+
+    <script type="text/javascript" src="lib/brick/brick-1.0.0.min.js"></script>
+<!--     // <script type="text/javascript" src="lib/lazyload/lazyload-min.js"></script>
+    // <script type="text/javascript" src="js/install.js"></script> -->
     <script type="text/javascript">
-      LazyLoad.js([
-        "js/views/home-view.js",
-        "js/views/infos-view.js",
-        "js/views/tracks-view.js",
-        "js/views/track-view.js",
-        "js/models/chrono.js",
-        // "js/models/config.js",
-        "js/models/db.js",
-        "js/models/tracks.js",
-        "js/events.js",
-        "js/controller.js",
-        "test/data.js",
-        "js/app.js"
-        ]);
+      document.addEventListener('DOMComponentsLoaded', function(){
+        // run code here...
+        var deck = document.getElementById("views");
+        deck.showCard(0);
+        // LazyLoad.js([
+        //   "js/views/home-view.js",
+        //   "js/views/infos-view.js",
+        //   "js/views/tracks-view.js",
+        //   "js/views/track-view.js",
+        //   "js/models/chrono.js",
+        //   // "js/models/config.js",
+        //   "js/models/db.js",
+        //   "js/models/tracks.js",
+        //   "js/events.js",
+        //   "js/controller.js",
+        //   "test/data.js",
+        //   "js/app.js"
+        //   ]);
+      });
     </script>
 
   </body>
