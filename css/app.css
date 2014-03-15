@@ -17,18 +17,13 @@ x-layout {
   overflow: scroll;
   height: 95%;
 }
-x-layout > header, x-layout > footer{
+x-layout > header {
   padding: 0;
   background-color: orange;
   color: white;
   font-weight: bold;
   text-align: center;
 }
-x-layout > footer {
-  height: 3rem;
-  width: 100%;
-  position: fixed;
-  bottom: 0px;
-  left: 0px;
-  z-index: 100;
+x-appbar {
+  background-color: rgba(48, 209, 146, 1);
 }

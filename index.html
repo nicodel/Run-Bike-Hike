@@ -34,7 +34,7 @@
 
 
       <!-- Card 0 :  Settings View -->
-      <x-card>
+      <x-card transition-type="fade-scale">
         <x-layout>
           <x-appbar>
             <button id="btn-settings-back">Back</button>
@@ -85,9 +85,10 @@
       <x-card show>
         <x-layout>
           <x-appbar>
-            <button id="settings-button">=</button>
+            <button id="btn-settings">=</button>
             <h1>Run, Bike, Hike...</h1>
             <button id="install">Install me</button>
+            <button id="btn-tracks" class="icon-list">Tracks</button>
           </x-appbar>
           <div class="compass-container">
             <img id="home-compass" src="img/compass_inactive.png" alt="Compass" />
@@ -121,11 +122,11 @@
             </li>
           </ul>
           </div>
-          <footer role="toolbar">
+<!--           <footer role="toolbar">
             <ul>
-              <li><button id="btn-tracks" class="icon-list">Tracks</button></li>
+              <li></li>
             </ul>
-          </footer>
+          </footer> -->
 
         </x-layout>
       </x-card>
@@ -176,7 +177,7 @@
       </x-card>
 
       <!-- Card 3 :  Stop tracking confirmation form -->
-      <x-card>
+      <x-card transition-type="fade-scale">
         <form id="stop-form-confirm" role="dialog" data-type="confirm" class="hidden" onsubmit="return false;">
           <section>
             <h1 data-l10n-id="confirmation">Confirmation</h1>
@@ -200,16 +201,31 @@
         <x-layout>
         <section data-type="list">
           <ul id="tracks-list">
+          <li>
+            <a href="#" id="track-sample">
+              <p>
+                <span class="align-left bold clipped">TR-20140314-0145240</span>
+                <span class="align-right">14/03/2014</span>
+              </p>
+              <p class="new-line">
+                <span class="align-left">7.1 km</span>
+                <span class="align-right">47 min</span>
+              </p>
+            </a>
+          </li>
           </ul>
         </section>
         </x-layout>
       </x-card>
 
       <!-- Card 5 :  Track View -->
-      <x-card>
+      <x-card transition-type="slide-left">
         <x-appbar>
           <button id="btn-track-back">Back</button>
           <h1 data-l10n-id="recorded-tracks">Track:</h1>
+          <button data-l10n-id="delete" class="action-icon delete" id="btn-delete">Delete</button>
+          <button data-l10n-id="share" class="action-icon email-share" disabled="" id="btn-share">Share</button>
+          <button data-l10n-id="edit" class="action-icon compose" disabled="" id="btn-edit">Edit</button>
         </x-appbar>
         <x-layout>
           <ul class="infos-container">
@@ -270,18 +286,18 @@
             </li>
           </ul>
 
-          <footer>
+          <!-- <footer>
             <ul>
-              <li><button data-l10n-id="delete" class="action-icon delete" id="btn-delete">Delete</button></li>
-              <li><button data-l10n-id="share" class="action-icon email-share" disabled="" id="btn-share">Share</button></li>
-              <li><button data-l10n-id="edit" class="action-icon compose" disabled="" id="btn-edit">Edit</button></li>
+              <li></li>
+              <li></li>
+              <li></li>
             </ul>
-          </footer>
+          </footer> -->
         </x-layout>
       </x-card>
 
       <!--  Card 6 : Delete track confirmation form -->
-      <x-card>
+      <x-card transition-type="fade-scale">
         <form id="del-form-confirm" role="dialog" data-type="confirm" class="hidden" onsubmit="return false;">
           <section>
             <h1 data-l10n-id="confirmation">Confirmation</h1>
