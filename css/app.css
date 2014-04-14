@@ -8,22 +8,3 @@ html, body {
 h1 {
   font-size: 100%;
 }
- 
-x-deck > x-card {
-  background: #eee;
-  /*padding: 0.6em*/
-}
-x-layout {
-  overflow: scroll;
-  height: 95%;
-}
-x-layout > header {
-  padding: 0;
-  background-color: orange;
-  color: white;
-  font-weight: bold;
-  text-align: center;
-}
-x-appbar {
-  background-color: rgba(48, 209, 146, 1);
-}

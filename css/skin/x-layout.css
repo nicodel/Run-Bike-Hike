@@ -1,0 +1,12 @@
+
+x-layout {
+  overflow: scroll;
+  height: 95%;
+}
+x-layout > header {
+  padding: 0;
+  background-color: orange;
+  color: white;
+  font-weight: bold;
+  text-align: center;
+}

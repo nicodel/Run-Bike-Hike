@@ -19,7 +19,18 @@
     <!--······························ Fonts ································-->
     <link rel="stylesheet" href="css/fonts.css"/>
 
-    <!--··························· My own Style ! ···························-->
+    <!--··························· My own Skin ·····························-->
+    <link rel="stylesheet" href="css/skin/x.css"/>
+    <link rel="stylesheet" href="css/skin/x-layout.css"/>
+    <link rel="stylesheet" href="css/skin/x-appbar.css"/>
+<!--
+    <link rel="stylesheet" href="css/skin/button.css"/>
+    <link rel="stylesheet" href="css/skin/list.css"/>
+    <link rel="stylesheet" href="css/skin/x-toggle.css"/>
+    <link rel="stylesheet" href="css/skin/select.css"/>
+-->
+    
+    <!--························ My common style ! ··························-->
     <link rel="stylesheet" href="css/app.css"/>
     <link rel="stylesheet" href="css/styles.css"/>
     
@@ -85,10 +96,10 @@
       <x-card show>
         <x-layout>
           <x-appbar>
-            <button id="btn-settings">=</button>
+            <button id="btn-settings" class="icon icon-menu">=</button>
             <h1>Run, Bike, Hike...</h1>
-            <button id="install">Install me</button>
-            <button id="btn-tracks" class="icon-list">Tracks</button>
+            <button id="install"class="icon">Install me</button>
+            <button id="btn-tracks" class="icon icon-list">Tracks</button>
           </x-appbar>
           <div class="compass-container">
             <img id="home-compass" src="img/compass_inactive.png" alt="Compass" />
