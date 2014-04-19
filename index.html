@@ -93,7 +93,7 @@
 
 
       <!-- Card 1 :  Home View -->
-      <x-card show>
+      <x-card>
         <x-layout>
           <x-appbar>
             <button id="btn-settings" class="icon icon-settings">Settings</button>
@@ -212,8 +212,33 @@
           <h1 data-l10n-id="recorded-tracks">Recorded tracks</h1>
         </x-appbar>
         <x-layout>
-        <section data-type="list">
+        <!-- <section data-type="list"> -->
+        <section>
           <ul id="tracks-list">
+          <li>
+            <a href="#" id="track-sample">
+              <p>
+                <span class="align-left bold clipped">TR-20140314-0145240</span>
+                <span class="align-right">14/03/2014</span>
+              </p>
+              <p class="new-line">
+                <span class="align-left">7.1 km</span>
+                <span class="align-right">47 min</span>
+              </p>
+            </a>
+          </li>
+          <li>
+            <a href="#" id="track-sample">
+              <p>
+                <span class="align-left bold clipped">TR-20140314-0145240</span>
+                <span class="align-right">14/03/2014</span>
+              </p>
+              <p class="new-line">
+                <span class="align-left">7.1 km</span>
+                <span class="align-right">47 min</span>
+              </p>
+            </a>
+          </li>
           <li>
             <a href="#" id="track-sample">
               <p>
@@ -334,7 +359,7 @@
       document.addEventListener('DOMComponentsLoaded', function(){
         // run code here...
         var deck = document.getElementById("views");
-        deck.showCard(1);
+        deck.showCard(4);
         LazyLoad.js([
         //   "js/views/home-view.js",
         //   "js/views/infos-view.js",
