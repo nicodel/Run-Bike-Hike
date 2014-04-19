@@ -1,6 +1,10 @@
 
 x-appbar {
-  background-color: rgba(48, 209, 146, 1);
+  background-color: rgba(0, 145, 162, 1);
+}
+
+x-appbar > h1 {
+  font-size: 19px;
 }
 
 x-appbar > button.icon {

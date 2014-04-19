@@ -41,11 +41,11 @@
   </head>
   <body id="app">
 
-    <x-deck id="views">
+    <x-deck transition-type="slide-left" id="views">
 
 
       <!-- Card 0 :  Settings View -->
-      <x-card transition-type="fade-scale">
+      <x-card>
         <x-layout>
           <x-appbar>
             <button id="btn-settings-back">Back</button>
@@ -101,38 +101,40 @@
             <button id="install"class="icon">Install me</button>
             <button id="btn-tracks" class="icon icon-list">Tracks</button>
           </x-appbar>
-          <div class="compass-container">
-            <img id="home-compass" src="img/compass_inactive.png" alt="Compass" />
-            <button data-l10n-id="btn-start" id="btn-start" class="recommend small align-right">Start</button>
-          </div>
-        <div class="infos-container">
-          <ul>
-            <li>
-              <div data-l10n-id="latitude">
-                Latitude
-                <span class="bold align-right" id="home-lat"></span>
-              </div>
-            </li>
-            <li>
-              <div data-l10n-id="longitude">
-                Longitude
-                <span class="bold align-right" id="home-lon"></span>
-              </div>
-            </li>
-            <li>
-              <div data-l10n-id="altitude">
-                Altitude
-                <span class="bold align-right" id="home-alt"></span>
-              </div>
-            </li>
-            <li>
-              <div data-l10n-id="accuracy">
-                Accuracy
-                <span class="bold align-right" id="home-acc"></span>
-              </div>
-            </li>
-          </ul>
-          </div>
+          <section>
+            <div class="compass-container">
+              <img id="home-compass" src="img/compass_inactive.png" alt="Compass" />
+              <button data-l10n-id="btn-start" id="btn-start" class="recommend small align-right">Start</button>
+            </div>
+            <div class="infos-container">
+              <ul>
+                <li>
+                  <div data-l10n-id="latitude">
+                    Latitude
+                    <span class="bold align-right" id="home-lat">lat test</span>
+                  </div>
+                </li>
+                <li>
+                  <div data-l10n-id="longitude">
+                    Longitude
+                    <span class="bold align-right" id="home-lon">Lon test</span>
+                  </div>
+                </li>
+                <li>
+                  <div data-l10n-id="altitude">
+                    Altitude
+                    <span class="bold align-right" id="home-alt">Alt test</span>
+                  </div>
+                </li>
+                <li>
+                  <div data-l10n-id="accuracy">
+                    Accuracy
+                    <span class="bold align-right" id="home-acc">Acc test</span>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
 <!--           <footer role="toolbar">
             <ul>
               <li></li>
@@ -204,7 +206,7 @@
       </x-card>
 
       <!-- Card 4 :  Tracks View -->
-      <x-card transition-type="slide-left">
+      <x-card>
         <x-appbar>
           <button id="btn-tracks-back">Back</button>
           <h1 data-l10n-id="recorded-tracks">Recorded tracks</h1>
@@ -230,7 +232,7 @@
       </x-card>
 
       <!-- Card 5 :  Track View -->
-      <x-card transition-type="slide-left">
+      <x-card>
         <x-appbar>
           <button id="btn-track-back">Back</button>
           <h1 data-l10n-id="recorded-tracks">Track:</h1>
@@ -308,7 +310,7 @@
       </x-card>
 
       <!--  Card 6 : Delete track confirmation form -->
-      <x-card transition-type="fade-scale">
+      <x-card>
         <form id="del-form-confirm" role="dialog" data-type="confirm" class="hidden" onsubmit="return false;">
           <section>
             <h1 data-l10n-id="confirmation">Confirmation</h1>
