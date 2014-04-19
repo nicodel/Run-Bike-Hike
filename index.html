@@ -48,8 +48,8 @@
       <x-card>
         <x-layout>
           <x-appbar>
-            <button id="btn-settings-back">Back</button>
             <h1 data-l10n-id="settings">Settings</h1>
+            <button id="btn-settings-back" class="icon icon-forward">Back</button>
           </x-appbar>
           <section>
             <ul>
@@ -96,7 +96,7 @@
       <x-card show>
         <x-layout>
           <x-appbar>
-            <button id="btn-settings" class="icon icon-menu">=</button>
+            <button id="btn-settings" class="icon icon-settings">Settings</button>
             <h1>Run, Bike, Hike...</h1>
             <button id="install"class="icon">Install me</button>
             <button id="btn-tracks" class="icon icon-list">Tracks</button>
@@ -208,7 +208,7 @@
       <!-- Card 4 :  Tracks View -->
       <x-card>
         <x-appbar>
-          <button id="btn-tracks-back">Back</button>
+          <button id="btn-tracks-back" class="icon icon-back">Back</button>
           <h1 data-l10n-id="recorded-tracks">Recorded tracks</h1>
         </x-appbar>
         <x-layout>
@@ -234,11 +234,11 @@
       <!-- Card 5 :  Track View -->
       <x-card>
         <x-appbar>
-          <button id="btn-track-back">Back</button>
+          <button id="btn-track-back" class="icon icon-back">Back</button>
           <h1 data-l10n-id="recorded-tracks">Track:</h1>
-          <button data-l10n-id="delete" class="action-icon delete" id="btn-delete">Delete</button>
-          <button data-l10n-id="share" class="action-icon email-share" disabled="" id="btn-share">Share</button>
-          <button data-l10n-id="edit" class="action-icon compose" disabled="" id="btn-edit">Edit</button>
+          <button data-l10n-id="delete" class="icon icon-delete" id="btn-delete">Delete</button>
+          <button data-l10n-id="share" class="icon icon-share" disabled="" id="btn-share">Share</button>
+          <button data-l10n-id="edit" class="icon icon-edit" disabled="" id="btn-edit">Edit</button>
         </x-appbar>
         <x-layout>
           <ul class="infos-container">

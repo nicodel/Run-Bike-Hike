@@ -1,3 +1,7 @@
+/*
+  Common styles
+ */
+
 html, body {
   margin: 0;
   padding: 0;
@@ -9,7 +13,9 @@ h1 {
   font-size: 100%;
 }
 
-
+/*
+  Home View specific styles
+ */
 
 #btn-start {
   margin-top: 41px;
@@ -25,4 +31,5 @@ h1 {
 }
 .infos-container > ul li {
   margin-top: 10px;
+  font-size: 18px;
 }

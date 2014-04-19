@@ -30,3 +30,27 @@ x-appbar > button.icon.icon-menu {
 x-appbar > button.icon.icon-list {
   background-image: url("images/icon-list.png");
 }
+
+x-appbar > button.icon.icon-back {
+  background-image: url("images/icon-back.png");
+}
+
+x-appbar > button.icon.icon-forward {
+  background-image: url("images/icon-forward.png");
+}
+
+x-appbar > button.icon.icon-settings {
+  background-image: url("images/icon-settings.png");
+}
+
+x-appbar > button.icon.icon-delete {
+  background-image: url("images/icon-delete.png");
+}
+
+x-appbar > button.icon.icon-share {
+  background-image: url("images/icon-share.png");
+}
+
+x-appbar > button.icon.icon-edit {
+  background-image: url("images/icon-edit.png");
+}
