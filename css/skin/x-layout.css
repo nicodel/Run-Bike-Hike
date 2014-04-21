@@ -39,6 +39,11 @@ x-layout > section button.recommend {
   color: #F2F2F2;
 }
 
+x-layout > section button.danger {
+  background-color: #B90000;
+  color: #F2F2F2;
+}
+
 /*
   Lists
  */
