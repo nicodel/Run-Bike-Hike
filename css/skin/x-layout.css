@@ -23,7 +23,7 @@ x-layout > section button {
   text-align: center;
   margin: 0;
   white-space: nowrap;
-  font-size: 18px;
+  font-size: 1.5rem;
   color: #292929;
   padding: 6px 18px;
   overflow: hidden;
@@ -43,22 +43,22 @@ x-layout > section button.recommend {
   Lists
  */
 
-x-layout > section ul {
+x-layout > [data-type="list"] ul {
   padding-right: 10px;
 }
-x-layout > section ul li {
+x-layout > [data-type="list"] ul li {
   height: 3rem;
   border-bottom: solid 0.1rem #C3C3C3;
   margin-bottom:0.5rem;
 }
 
-x-layout > section ul li:last-child {
+x-layout > [data-type="list"] ul li:last-child {
   border: none;
 }
 
-x-layout > section ul li p.new-line {
+x-layout > [data-type="list"] ul li p.new-line {
   padding-top: 0.5rem;
 }
-x-layout > section ul li p span.align-left {
+x-layout > [data-type="list"] ul li p span.align-left {
   margin-left: 0;
 }

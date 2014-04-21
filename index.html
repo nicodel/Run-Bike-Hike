@@ -109,27 +109,27 @@
             <div class="infos-container">
               <ul>
                 <li>
-                  <div data-l10n-id="latitude">
+                  <div data-l10n-id="latitude" class="text-big">
                     Latitude
-                    <span class="bold align-right" id="home-lat">lat test</span>
+                    <span class="bold align-right text-big" id="home-lat">lat test</span>
                   </div>
                 </li>
                 <li>
-                  <div data-l10n-id="longitude">
+                  <div data-l10n-id="longitude" class="text-big">
                     Longitude
-                    <span class="bold align-right" id="home-lon">Lon test</span>
+                    <span class="bold align-right text-big" id="home-lon">Lon test</span>
                   </div>
                 </li>
                 <li>
-                  <div data-l10n-id="altitude">
+                  <div data-l10n-id="altitude" class="text-big">
                     Altitude
-                    <span class="bold align-right" id="home-alt">Alt test</span>
+                    <span class="bold align-right text-big" id="home-alt">Alt test</span>
                   </div>
                 </li>
                 <li>
-                  <div data-l10n-id="accuracy">
+                  <div data-l10n-id="accuracy" class="text-big">
                     Accuracy
-                    <span class="bold align-right" id="home-acc">Acc test</span>
+                    <span class="bold align-right text-big" id="home-acc">Acc test</span>
                   </div>
                 </li>
               </ul>
@@ -158,8 +158,6 @@
             <div data-l10n-id="elapsed-time">
               Elapsed time
               <span id="infos-chrono" class="bold align-right">00:00:00</span>
-            </div>
-              </span>
             </div>
           </li>
           <li>
@@ -212,8 +210,7 @@
           <h1 data-l10n-id="recorded-tracks">Recorded tracks</h1>
         </x-appbar>
         <x-layout>
-        <!-- <section data-type="list"> -->
-        <section>
+        <section data-type="list">
           <ul id="tracks-list">
           <li>
             <a href="#" id="track-sample">
@@ -266,64 +263,65 @@
           <button data-l10n-id="edit" class="icon icon-edit" disabled="" id="btn-edit">Edit</button>
         </x-appbar>
         <x-layout>
-          <ul class="infos-container">
-            <li>
-              <div data-l10n-id="date" class="text-small">
-                Date
-                <span id="trk-date" class="bold align-right"></span>
-              </div>
-            </li>
-            <li>
-              <div data-l10n-id="distance" class="text-small">
-                Distance
-                <span id="trk-dist" class="bold align-right"></span>
-              </div>
-            </li>
-            <li>
-              <div data-l10n-id="duration" class="text-small">
-                Duration
-                <span id="trk-dur" class="bold align-right"></span>
-              </div>
-            </li>
-            <li>
-              <div data-l10n-id="max_speed" class="text-small">
-                Max speed
-                <span id="trk-max-speed" class="bold align-right"></span>
-              </div>
-            </li>
-            <li>
-              <div data-l10n-id="av_speed" class="text-small">
-                Average speed
-                <span id="trk-av-speed" class="bold align-right"></span>
-              </div>
-            </li>
-            <li>
-              <div data-l10n-id="max_alt" class="text-small">
-                Max altitude
-                <span id="trk-max-alt" class="bold align-right"></span>
-              </div>
-            </li>
-            <li class="separateur-bottom">
-              <div data-l10n-id="min_alt" class="text-small">
-                Min altitude
-                <span id="trk-min-alt" class="bold align-right"></span>
-              </div>
-            </li>
-            <li class="separateur-bottom">
-              <div data-l10n-id="map" id="trk-dt-map" class="text-small bold">Map</div>
-              <p data-l10-id="loading-map" id="map-text">Loading map ...</p>
-              <img src="" id="map-img" class="hidden absolute" />
-            </li>
-            <li>
-              <div data-l10n-id="speed" id="trk-dt-speed" class="text-small bold">Speed</div>
-              <canvas id="speed-canvas"></canvas>
-            </li>
-            <li class="separateur-bottom">
-              <div data-l10n-id="altitude" id="trk-dt-alt" class="text-small bold">Altitude</div>
-              <canvas id="alt-canvas"></canvas>
-            </li>
-          </ul>
-
+          <div class="infos-container">
+            <ul>
+              <li>
+                <div data-l10n-id="date" class="text-small">
+                  Date
+                  <span id="trk-date" class="bold align-right">test date</span>
+                </div>
+              </li>
+              <li>
+                <div data-l10n-id="distance" class="text-small">
+                  Distance
+                  <span id="trk-dist" class="bold align-right">test dist</span>
+                </div>
+              </li>
+              <li>
+                <div data-l10n-id="duration" class="text-small">
+                  Duration
+                  <span id="trk-dur" class="bold align-right">test dur</span>
+                </div>
+              </li>
+              <li>
+                <div data-l10n-id="max_speed" class="text-small">
+                  Max speed
+                  <span id="trk-max-speed" class="bold align-right">test max</span>
+                </div>
+              </li>
+              <li>
+                <div data-l10n-id="av_speed" class="text-small">
+                  Average speed
+                  <span id="trk-av-speed" class="bold align-right">test avr</span>
+                </div>
+              </li>
+              <li>
+                <div data-l10n-id="max_alt" class="text-small">
+                  Max altitude
+                  <span id="trk-max-alt" class="bold align-right">test max</span>
+                </div>
+              </li>
+              <li class="separateur-bottom">
+                <div data-l10n-id="min_alt" class="text-small">
+                  Min altitude
+                  <span id="trk-min-alt" class="bold align-right">test min</span>
+                </div>
+              </li>
+              <li class="separateur-bottom">
+                <div data-l10n-id="map" id="trk-dt-map" class="text-small bold">Map</div>
+                <p data-l10-id="loading-map" id="map-text">Loading map ...</p>
+                <img src="" id="map-img" class="hidden absolute" />
+              </li>
+              <li>
+                <div data-l10n-id="speed" id="trk-dt-speed" class="text-small bold">Speed</div>
+                <canvas id="speed-canvas"></canvas>
+              </li>
+              <li class="separateur-bottom">
+                <div data-l10n-id="altitude" id="trk-dt-alt" class="text-small bold">Altitude</div>
+                <canvas id="alt-canvas"></canvas>
+              </li>
+            </ul>
+          </div>
           <!-- <footer>
             <ul>
               <li></li>
@@ -359,7 +357,7 @@
       document.addEventListener('DOMComponentsLoaded', function(){
         // run code here...
         var deck = document.getElementById("views");
-        deck.showCard(4);
+        deck.showCard(5);
         LazyLoad.js([
         //   "js/views/home-view.js",
         //   "js/views/infos-view.js",

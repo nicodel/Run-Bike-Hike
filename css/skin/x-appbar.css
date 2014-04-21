@@ -4,7 +4,8 @@ x-appbar {
 }
 
 x-appbar > h1 {
-  font-size: 19px;
+  font-size: 1.3rem;
+  text-align: left;
 }
 
 x-appbar > button.icon {
