@@ -1,6 +1,9 @@
 button.small {
 	max-width: 25%;
 }
+.text-smaller {
+  font-size: 0.9rem;
+}
 .text-small {
   font-size: 1.1rem;
 }

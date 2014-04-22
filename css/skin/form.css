@@ -1,0 +1,82 @@
+form {
+/*  background-color: #333333;
+  width: 100%;*/
+  background:
+    url(images/pattern-confirm.png) repeat left top,
+    url(images/gradient-confirm.png) no-repeat left top / 100% 100%;
+  overflow: hidden;
+  position: absolute;
+  z-index: 100;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding-bottom: 7rem;
+  font-size: 0;
+  /* Using font-size: 0; we avoid the unwanted visual space (about 3px)
+  created by white-spaces and break lines in the code betewen inline-block elements */
+  color: #fff;
+  text-align: left;
+
+
+
+}
+form > * {
+  /*position: absolute;*/
+}
+form section h1 {
+/*  padding-top: 35%;
+  border-bottom:  solid 0.1rem #FFFFFF;*/
+  font-weight: normal;
+  font-size: 1.6rem;
+  line-height: 1.5em;
+  color: #fff;
+  margin: 0;
+  padding: 0 1.5rem;
+}
+form > section {
+  /*padding-top: 20px;*/
+  font-weight: lighter;
+  font-size: 2.2rem;
+  color: #FAFAFA;
+  padding: 0 1.5rem;
+  -moz-box-sizing: padding-box;
+  width: 100%;
+  display: inline-block;
+  overflow-y: scroll;
+  max-height: 100%;
+  vertical-align: middle;
+  white-space: normal;
+}
+
+form menu {
+/*  position: absolute;
+  bottom: 10px;*/
+  white-space: nowrap;
+  margin: 0;
+  padding: 1.5rem;
+  border-top: solid 0.1rem rgba(255, 255, 255, 0.1);
+  background: #2d2d2d url(confirm/images/ui/pattern.png) repeat left top;
+  display: block;
+  overflow: hidden;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+form menu button {
+  height: 3.8rem;
+  text-align: center;
+  margin: 0;
+  white-space: nowrap;
+  font-size: 1.5rem;
+  color: #292929;
+  /*padding: 6px 18px;*/
+  padding: 0 1.5rem;
+  overflow: hidden;
+  border: 1px solid rgba(15, 15, 15, 0.2);
+  border-radius: 3px;
+  box-shadow: inset 0px 1px 0px rgba(255,255,255,0.2);
+  background: #E1E1E1 url("images/gradient.png") repeat-x bottom;
+  text-overflow: ellipsis;
+}
