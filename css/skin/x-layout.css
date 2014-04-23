@@ -54,10 +54,13 @@ x-layout > section button.danger {
  */
 
 ul {
-    margin: 0px;
-    padding: 0px;
-    overflow: hidden;
-    list-style: none outside none;
+  margin: 0px;
+  padding: 0px;
+  overflow: hidden;
+  list-style: none outside none;
+}
+x-layout > [data-type="settings"] ul {
+  position: inherit;
 }
 x-layout > [data-type="settings"] ul li {
   position: relative;
@@ -81,13 +84,23 @@ x-layout > [data-type="settings"] ul li > label > span {
   text-decoration: none;
   outline: 0px none;
   color: #000;
-  -moz-box-sizing: border-box;
   height: 6rem;
   font-size: 1.9rem;
   line-height: 6rem;
   padding: 0px 3rem;
   margin: 0px -1.5rem;
 }
+x-layout > [data-type="settings"] ul li > *,
+x-layout > [data-type="settings"] ul li > label > * {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+
+
+
 
 
 x-layout > [data-type="list"] ul {
