@@ -2,7 +2,6 @@
 x-layout {
   overflow: scroll;
   height: 95%;
-  font-size:1.5rem;
 }
 x-layout > header {
   padding: 0;
@@ -13,6 +12,7 @@ x-layout > header {
 }
 
 x-layout > section {
+  font-size:1.5rem;
   padding: 10px;
 }
 

@@ -24,6 +24,7 @@
     <link rel="stylesheet" href="css/skin/x-layout.css"/>
     <link rel="stylesheet" href="css/skin/x-appbar.css"/>
     <link rel="stylesheet" href="css/skin/form.css"/>
+    <link rel="stylesheet" href="css/skin/switches.css"/>
 <!--
     <link rel="stylesheet" href="css/skin/button.css"/>
     <link rel="stylesheet" href="css/skin/list.css"/>
@@ -49,13 +50,18 @@
       <x-card>
         <x-layout>
           <x-appbar>
-            <h1 data-l10n-id="settings">Settings</h1>
+            <h1 data-l10n-id="settings" id="settings-tittle">Settings</h1>
             <button id="btn-settings-back" class="icon icon-forward">Back</button>
           </x-appbar>
           <section>
             <ul>
               <li>
-                <x-toggle id="screen" label="Keep screen alive?"></x-toggle>
+                <!-- <x-toggle id="screen" label="Keep screen alive?"></x-toggle> -->
+                <span>Keep screen alive?</span>
+                <label class="pack-switch">
+                  <input type="checkbox" id="screen">
+                  <span></span>
+                </label>
               </li>
               <li class="new-line">
                 <p data-l10n-id="language">Language</p>
@@ -364,7 +370,7 @@
       document.addEventListener('DOMComponentsLoaded', function(){
         // run code here...
         var deck = document.getElementById("views");
-        deck.showCard(3);
+        deck.showCard(0);
         LazyLoad.js([
         //   "js/views/home-view.js",
         //   "js/views/infos-view.js",

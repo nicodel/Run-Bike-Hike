@@ -44,5 +44,8 @@ h1 {
 
 
 /*
-  Track detail View specific styles
+  Settings View specific styles
  */
+#settings-tittle {
+  padding-left: 30px;
+}
