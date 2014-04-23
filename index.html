@@ -53,45 +53,44 @@
             <h1 data-l10n-id="settings" id="settings-tittle">Settings</h1>
             <button id="btn-settings-back" class="icon icon-forward">Back</button>
           </x-appbar>
-          <section class="settings">
+          <section data-type="settings" class="settings">
             <ul>
               <li>
                 <!-- <x-toggle id="screen" label="Keep screen alive?"></x-toggle> -->
-                <a>Keep screen alive?</a>
                 <label class="pack-switch">
                   <input type="checkbox" id="screen">
-                  <span></span>
+                  <span class="settings-item">Keep screen alive?</span>
                 </label>
               </li>
               <li class="new-line">
                 <p data-l10n-id="language">Language</p>
-                  <select disabled id="language" class="button icon icon-dialog">
-                    <option value="en" data-l10n-id="english">English</option>
-                    <option value="es" data-l10n-id="spanish">Español</option>
-                    <option value="fr" data-l10n-id="french">Français</option>
-                  </select>
+                <select disabled id="language" class="button icon icon-dialog">
+                  <option value="en" data-l10n-id="english">English</option>
+                  <option value="es" data-l10n-id="spanish">Español</option>
+                  <option value="fr" data-l10n-id="french">Français</option>
+                </select>
               </li>
               <li>
                 <p data-l10n-id="distance-unit">Unit</p>
-                  <select id="distance" class="button icon icon-dialog">
-                    <option value="0" data-l10n-id="metric">Metric</option>
-                    <option value="1" data-l10n-id="imperial">Imperial</option>
-                  </select>
+                <select id="distance" class="button icon icon-dialog">
+                  <option value="0" data-l10n-id="metric">Metric</option>
+                  <option value="1" data-l10n-id="imperial">Imperial</option>
+                </select>
               </li>
               <li>
                 <p data-l10n-id="speed-unit">Speed unit</p>
-                  <select id="speed" class="button icon icon-dialog">
-                    <option value="0">km/h</option>
-                    <option value="1">mph</option>
-                  </select>
+                <select id="speed" class="button icon icon-dialog">
+                  <option value="0">km/h</option>
+                  <option value="1">mph</option>
+                </select>
               </li>
               <li>
                 <p data-l10n-id="position-format">Position format</p>
-                  <select id="position" class="button icon icon-dialog">
-                    <option value="0">49°08'06.22</option>
-                    <option value="1">49°08.104'</option>
-                    <option value="2">49.135060</option>
-                  </select>
+                <select id="position" class="button icon icon-dialog">
+                  <option value="0">49°08'06.22</option>
+                  <option value="1">49°08.104'</option>
+                  <option value="2">49.135060</option>
+                </select>
               </li>
             </ul>
           </section>

@@ -11,9 +11,13 @@ x-layout > header {
   text-align: center;
 }
 
-x-layout > section {
+x-layout > section,
+x-layout > section[data-type="list"] {
   font-size:1.5rem;
   padding: 10px;
+}
+x-layout > section[data-type="settings"] {
+  padding: 0;
 }
 
 /*
@@ -48,6 +52,43 @@ x-layout > section button.danger {
 /*
   Lists
  */
+
+ul {
+    margin: 0px;
+    padding: 0px;
+    overflow: hidden;
+    list-style: none outside none;
+}
+x-layout > [data-type="settings"] ul li {
+  position: relative;
+  min-height: 6rem;
+  margin: 0px 1.5rem;
+  border-bottom: 0.1rem solid #E6E6E3;
+  color: #000;
+}
+x-layout > [data-type="settings"] ul li a {
+  font-size: 1.5rem;
+  line-height: 5rem;
+  vertical-align: middle;
+}
+x-layout > [data-type="settings"] ul li > label.pack-switch > span {
+  padding-right: 9rem;
+}
+x-layout > [data-type="settings"] ul li > a,
+x-layout > [data-type="settings"] ul li > span,
+x-layout > [data-type="settings"] ul li > label > span {
+  display: block;
+  text-decoration: none;
+  outline: 0px none;
+  color: #000;
+  -moz-box-sizing: border-box;
+  height: 6rem;
+  font-size: 1.9rem;
+  line-height: 6rem;
+  padding: 0px 3rem;
+  margin: 0px -1.5rem;
+}
+
 
 x-layout > [data-type="list"] ul {
   padding-right: 10px;

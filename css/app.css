@@ -48,12 +48,12 @@ h1 {
 #settings-tittle {
   padding-left: 30px;
 }
-
-section.settings ul li a {
-  font-size: 1.5rem;
-  line-height: 5rem;
-  vertical-align: middle;
+ul li > label.pack-switch {
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    overflow: visible;
 }
-section.settings ul li label {
-  padding-left: 10rem;
+.settings-item {
+
 }
