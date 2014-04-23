@@ -2,6 +2,7 @@
 x-layout {
   overflow: scroll;
   height: 95%;
+  font-size:1.5rem;
 }
 x-layout > header {
   padding: 0;
@@ -28,7 +29,7 @@ x-layout > section button {
   padding: 6px 18px;
   overflow: hidden;
   border: 1px solid rgba(15, 15, 15, 0.2);
-  border-radius: 3px;
+  border-radius: 0.5rem;
   box-shadow: inset 0px 1px 0px rgba(255,255,255,0.2);
   background: #E1E1E1 url("images/gradient.png") repeat-x bottom;
   text-overflow: ellipsis;
@@ -40,8 +41,8 @@ x-layout > section button.recommend {
 }
 
 x-layout > section button.danger {
-  background-color: #B90000;
-  color: #F2F2F2;
+  background-color: #e51e1e;
+  color: #fff;
 }
 
 /*
@@ -50,9 +51,10 @@ x-layout > section button.danger {
 
 x-layout > [data-type="list"] ul {
   padding-right: 10px;
+  min-width: 95%;
 }
 x-layout > [data-type="list"] ul li {
-  height: 3rem;
+  height: 4rem;
   border-bottom: solid 0.1rem #C3C3C3;
   margin-bottom:0.5rem;
 }
