@@ -99,7 +99,7 @@ document.querySelector("#btn-delete").addEventListener ("click", function () {
 /*----------------- Track Delete Confirmation -----------------*/
 /* Delete Track Cancel button */
 document.querySelector("#btn-cancel-delete").addEventListener("click", function () {
-  document.getElementById("views").showCard(6);
+  document.getElementById("views").showCard(5);
 });
 /* Delete Track Confirm button */
 document.querySelector("#btn-confirm-delete").addEventListener("click", function () {
