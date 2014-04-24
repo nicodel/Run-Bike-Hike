@@ -22,9 +22,9 @@ h1 {
   Home View & Tracking View specific styles
  */
 
-#btn-start, #btn-stop {
-  margin-top: 41px;
-  margin-right: 30px;
+button.alternate {
+  margin-top: 35px;
+  margin-right: 25px;
 }
 #home-compass, #infos-compass {
   margin-left: 30px;
