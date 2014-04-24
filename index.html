@@ -278,58 +278,58 @@
           <div class="infos-container">
             <ul>
               <li>
-                <div data-l10n-id="date" class="text-small">
+                <div data-l10n-id="date">
                   Date
                   <span id="trk-date" class="bold align-right">test date</span>
                 </div>
               </li>
               <li>
-                <div data-l10n-id="distance" class="text-small">
+                <div data-l10n-id="distance">
                   Distance
                   <span id="trk-dist" class="bold align-right">test dist</span>
                 </div>
               </li>
               <li>
-                <div data-l10n-id="duration" class="text-small">
+                <div data-l10n-id="duration">
                   Duration
                   <span id="trk-dur" class="bold align-right">test dur</span>
                 </div>
               </li>
               <li>
-                <div data-l10n-id="max_speed" class="text-small">
+                <div data-l10n-id="max_speed">
                   Max speed
                   <span id="trk-max-speed" class="bold align-right">test max</span>
                 </div>
               </li>
               <li>
-                <div data-l10n-id="av_speed" class="text-small">
+                <div data-l10n-id="av_speed">
                   Average speed
                   <span id="trk-av-speed" class="bold align-right">test avr</span>
                 </div>
               </li>
               <li>
-                <div data-l10n-id="max_alt" class="text-small">
+                <div data-l10n-id="max_alt">
                   Max altitude
                   <span id="trk-max-alt" class="bold align-right">test max</span>
                 </div>
               </li>
               <li class="separateur-bottom">
-                <div data-l10n-id="min_alt" class="text-small">
+                <div data-l10n-id="min_alt">
                   Min altitude
                   <span id="trk-min-alt" class="bold align-right">test min</span>
                 </div>
               </li>
               <li class="separateur-bottom">
-                <div data-l10n-id="map" id="trk-dt-map" class="text-small bold">Map</div>
+                <div data-l10n-id="map" id="trk-dt-map" class="bold">Map</div>
                 <p data-l10-id="loading-map" id="map-text">Loading map ...</p>
                 <img src="" id="map-img" class="hidden absolute" />
               </li>
               <li>
-                <div data-l10n-id="speed" id="trk-dt-speed" class="text-small bold">Speed</div>
+                <div data-l10n-id="speed" id="trk-dt-speed" class="bold">Speed</div>
                 <canvas id="speed-canvas"></canvas>
               </li>
               <li class="separateur-bottom">
-                <div data-l10n-id="altitude" id="trk-dt-alt" class="text-small bold">Altitude</div>
+                <div data-l10n-id="altitude" id="trk-dt-alt" class="bold">Altitude</div>
                 <canvas id="alt-canvas"></canvas>
               </li>
             </ul>
@@ -369,7 +369,7 @@
       document.addEventListener('DOMComponentsLoaded', function(){
         // run code here...
         var deck = document.getElementById("views");
-        deck.showCard(0);
+        deck.showCard(5);
         LazyLoad.js([
         //   "js/views/home-view.js",
         //   "js/views/infos-view.js",
