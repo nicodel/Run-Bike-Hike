@@ -53,10 +53,9 @@
             <h1 data-l10n-id="settings" id="settings-tittle">Settings</h1>
             <button id="btn-settings-back" class="icon icon-forward">Back</button>
           </x-appbar>
-          <section data-type="settings" class="settings">
+          <section data-type="settings">
             <ul>
               <li>
-                <!-- <x-toggle id="screen" label="Keep screen alive?"></x-toggle> -->
                 <label class="pack-switch">
                   <input type="checkbox" id="screen">
                   <span class="settings-item">Keep screen alive?</span>
@@ -369,7 +368,7 @@
       document.addEventListener('DOMComponentsLoaded', function(){
         // run code here...
         var deck = document.getElementById("views");
-        deck.showCard(1);
+        deck.showCard(0);
         LazyLoad.js([
         //   "js/views/home-view.js",
         //   "js/views/infos-view.js",

@@ -56,7 +56,7 @@ x-layout > section button.danger {
 ul {
   margin: 0px;
   padding: 0px;
-  overflow: hidden;
+  /*overflow: hidden;*/
   list-style: none outside none;
 }
 x-layout > [data-type="settings"] ul {
@@ -142,12 +142,12 @@ x-layout > [data-type="settings"] ul li .button.icon-dialog:before {
 }
 x-layout > [data-type="settings"] ul li .button:after {
   content: "";
-  position: absolute;
+  /*position: absolute;*/
   top: 100%;
   left: 0px;
   right: 0px;
   height: 0.2rem;
-  /*background: url('buttons/images/ui/shadow.png') repeat-x scroll left bottom / auto 100% transparent;*/
+  background: url('buttons/images/ui/shadow.png') repeat-x scroll left bottom / auto 100% transparent;
 }
 /*x-layout > [data-type="settings"] ul li .button.icon:before {
   content: "";
