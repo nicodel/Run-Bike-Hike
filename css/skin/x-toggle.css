@@ -1,0 +1,14 @@
+x-toggle:after {
+    content: none;
+}
+x-toggle:before {
+    content: attr(label);
+    display: inline-block;
+    vertical-align: middle;
+    padding-right: 30%;
+}
+x-toggle .x-toggle-check {
+  width: 33px;
+  height: 33px;
+  border: 0.1rem solid #A6A6A6;
+}

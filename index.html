@@ -23,6 +23,7 @@
     <link rel="stylesheet" href="css/skin/x.css"/>
     <link rel="stylesheet" href="css/skin/x-layout.css"/>
     <link rel="stylesheet" href="css/skin/x-appbar.css"/>
+    <link rel="stylesheet" href="css/skin/x-toggle.css"/>
     <link rel="stylesheet" href="css/skin/form.css"/>
     <link rel="stylesheet" href="css/skin/switches.css"/>
 <!--
@@ -56,10 +57,13 @@
           <section data-type="settings">
             <ul>
               <li>
-                <label class="pack-switch">
+<!--                 <label class="pack-switch">
                   <input type="checkbox" id="screen">
                   <span class="settings-item">Keep screen alive?</span>
-                </label>
+                </label> -->
+                <p>
+                <x-toggle id="screen" focus active label="Keep screen alive?"></x-toggle>
+                </p>
               </li>
               <li>
                 <p data-l10n-id="language">Language</p>
@@ -368,7 +372,7 @@
       document.addEventListener('DOMComponentsLoaded', function(){
         // run code here...
         var deck = document.getElementById("views");
-        deck.showCard(0);
+        deck.showCard(1);
         LazyLoad.js([
         //   "js/views/home-view.js",
         //   "js/views/infos-view.js",
