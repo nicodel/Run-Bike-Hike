@@ -1,11 +1,17 @@
 button.small {
 	max-width: 25%;
 }
+button.big {
+  font-size: 3rem;
+}
+.text-smaller {
+  font-size: 0.9rem;
+}
 .text-small {
-  font-size: 1.5rem;
+  font-size: 1.1rem;
 }
 .text-big {
-  font-size: normal;
+  font-size: 1.5rem;
 }
 .align-left {
   float: left;
@@ -39,7 +45,8 @@ button.small {
 }
 
 .separateur-bottom {
-  border-bottom: 0.1rem solid #E7E7E7;
+  border-bottom: 0.1rem solid #C3C3C3;
+  padding-bottom: 2rem;
 }
 
 .absolute {

@@ -1,0 +1,287 @@
+body {
+  /*background-color: #fcfcfc;*/
+}
+#homeView {
+  /*height: 100%;*/
+}
+
+[data-position="right"] {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  transform: translateX(100%);
+  -webkit-transform: translateX(100%);
+  z-index: 15;
+  z-index: 100; /* -> drawer */
+}
+section[role="region"][data-position="current"],
+section[role="region"][data-position="right"] {
+  position: absolute;
+}
+[data-position="right"].current {
+  animation: rightToCurrent 0.6s forwards;
+  -webkit-animation: rightToCurrent 0.6s forwards;
+}
+[data-position="right"].right {
+  animation: currentToRight 0.6s forwards;
+  -webkit-animation: currentToRight 0.4s forwards;
+}
+[data-position="current"].left {
+  animation: currentToLeft 0.6s forwards;
+  -webkit-animation: currentToLeft 0.6s forwards;
+}
+[data-position="current"].current {
+  animation: leftToCurrent 0.6s forwards;
+  -webkit-animation: leftToCurrent 0.6s forwards;
+}
+[data-position="right"].left {
+  animation: currentToLeft 0.6s forwards;
+  -webkit-animation: currentToLeft 0.6s forwards;
+} 
+[data-position="back"] {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+  opacity: 0;
+  /* z-index: 100; -> drawer */
+}
+[data-position="back"].fade-in {
+  z-index: 120;
+  animation: fadeIn 0.2s forwards;
+  -webkit-animation: fadeIn 0.2s forwards;
+}
+[data-position="back"].fade-out {
+  animation: fadeOut 0.2s forwards;
+  -webkit-animation: fadeOut 0.2s forwards;
+}
+
+[data-position="edit-mode"] {
+  position: absolute;
+  top: -5rem;
+  left: 0;
+  right: 0;
+  bottom: -7rem;
+  z-index: -1;
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+[data-position="edit-mode"].edit {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 120;
+  opacity: 1;
+}
+
+
+/* Icons */
+.icon-list:before {
+  width: 3rem;
+  height: 3rem;
+  position: absolute;
+  content: "";
+  background: url(../img/icon-list.png) no-repeat;
+  /*background-size: 3rem 192rem;*/
+}
+button.icon-list {
+  padding: 0 2rem 0 4rem;
+  text-align: left;
+  position: relative;
+  color: #717171;
+}
+button.icon-list:before {
+  left: 0.5rem;
+  top: 0.3rem;
+}
+[role="toolbar"] .icon-list:before {
+  left: 1.25rem;
+  top: 0.5rem;
+}
+
+/* Headers */
+#headers section[role="region"] {
+  margin-bottom: 1.5rem;
+}
+#headers section[role="region"]:not(#drawer) {
+  display: inline;
+}
+#headers article header:first-child {
+  margin-top: 1.5rem;
+}
+#headers section[role="region"] header h2 {
+  margin: 0 0 1.5rem 0;
+}
+
+/* Lists */
+/* to avoid double background effect on press */
+[data-type=list] li>a:active {
+  background-color: transparent;
+}
+[data-type="list"] li p:first-of-type {
+  font-size: 1.5rem;
+}
+
+/* Drawer */
+/*section[role="region"]:not(#drawer) {
+transition: none;
+left: 0;
+z-index: 0;
+padding-left: 0;
+}*/
+section[data-type="sidebar"] + section[role="region"] > header:first-child > button,
+section[data-type="sidebar"] + section[role="region"] > header:first-child > a {
+  background-position: 3.5rem center;
+}
+
+/* Switches */
+#switches label:last-child {
+  margin-left: 2rem;
+}
+
+/* Scrolling */
+nav[data-type="scrollbar"] {
+  padding-top: 1rem;
+}
+nav[data-type="scrollbar"] p {
+  opacity: 1;
+}
+.scrollable {
+  max-height: 85%;
+}
+
+/* Seek bars */
+div[role="slider"] > label.icon {
+  background: no-repeat right top;
+  background-size: 3rem auto;
+}
+
+/* Tabs */
+#tabs .content {
+  padding: 0;
+}
+#tabs .content .content {
+  padding: 1.5rem 3rem;
+}
+
+/* Filters */
+[role="tablist"][data-type="filter"] {
+  margin-bottom: 2rem;
+}
+
+.bottom[role="tablist"][data-type="filter"] {
+  bottom: auto;
+}
+
+/* Device rotation */
+.landscape section[role="region"]#drawer > header:first-child {
+  /* Whatever needs to be changed on landscape */
+}
+
+
+/* Below is my own styling entries, please don't be afraid */
+#app {
+  font-family: 'MozTTLight', 'Helvetica Neue','Nimbus Sans L',Arial,sans-serif;
+  cursor: default;
+}
+
+/* Header */
+section[role="region"] > header:first-child img {
+  padding-top: 0.8rem;
+}
+
+/* Containers */
+.compass-container {
+  padding: 1rem;
+  padding-left: 3rem;
+  padding-right: 3rem;
+  height: 27%;
+}
+.compass-container button {
+  margin-top: 4rem;
+}
+.infos-container {
+  padding: 1rem;
+  height: 54%;
+  line-height: 2rem;
+  font-size: 1.5rem;
+}
+.infos-container > div:last-child {
+  padding-top: 2rem;
+}
+.info-container ul li {
+}
+
+.settings {
+  background-color: #F4F4F4;
+}
+.fake-select {
+  /*padding-left: 0;
+padding-right: 0;*/
+  position: relative;
+  display: block;
+  padding: 1.1rem 3rem;
+  margin: 0;
+  height: 3.8rem;
+}
+a {
+  text-decoration: none;
+}
+[role="toolbar"] {
+  background: none repeat scroll 0% 0% rgba(0, 0, 0, 1);
+}
+section[role="region"] {
+  /*background: #fff;*/
+  background: #f3f3f3;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding-left: 0;
+}
+section[role="region"] > .content {
+  padding: 0px 3rem 1.5rem;
+  background: none repeat scroll 0% 0% #f3f3f3;
+}
+
+section[data-type="sidebar"] > nav > ul > li > a {
+  font-size: 1.9rem;
+}
+section[data-type="sidebar"] > nav > ul > li > p {
+  text-decoration: none;
+  color: #FFF;
+  font-size: 1.9rem;
+  line-height: 4.35rem;
+  border-bottom: 0.1rem solid #596068;
+  text-indent: 3rem;
+  padding-right: 0.8rem;
+  width: 100%;
+  -moz-box-sizing: border-box;
+  display: block;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+
+.empty-tracks {
+  word-wrap: break-word;
+  margin: 1rem 0px 0px;
+  padding: 1rem 1.5rem;
+  border-top: 0.1rem solid #686868;
+  line-height: 3rem;
+  width: 100%;
+  display: inline-block;
+  overflow-y: scroll;
+  max-height: 100%;
+  vertical-align: middle;
+  white-space: normal;
+  margin-top:40%;
+}

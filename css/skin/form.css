@@ -1,0 +1,259 @@
+/* Main dialog setup */
+form {
+  background:
+    url(images/pattern-confirm.png) repeat left top,
+    url(images/gradient-confirm.png) no-repeat left top / 100% 100%;
+  overflow: hidden;
+  position: absolute;
+  z-index: 100;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding-bottom: 7rem;
+  font-size: 0;
+  /* Using font-size: 0; we avoid the unwanted visual space (about 3px)
+  created by white-spaces and break lines in the code betewen inline-block elements */
+  color: #fff;
+  text-align: left;
+}
+
+form:before {
+  content: "";
+  display: inline-block;
+  vertical-align: middle;
+  width: 0.1rem;
+  height: 100%;
+  margin-left: -0.1rem;
+}
+
+form > section {
+  font-weight: lighter;
+  font-size: 2.2rem;
+  color: #FAFAFA;
+  padding: 0 1.5rem;
+  -moz-box-sizing: padding-box;
+  width: 100%;
+  display: inline-block;
+  overflow-y: scroll;
+  max-height: 100%;
+  vertical-align: middle;
+  white-space: normal;
+}
+
+form h1 {
+  font-weight: normal;
+  font-size: 1.6rem;
+  line-height: 1.5em;
+  color: #fff;
+  margin: 0;
+  padding: 1rem 1.5rem 0;
+}
+
+/* Menu & buttons setup */
+form menu {
+  white-space: nowrap;
+  margin: 0;
+  padding: 1.5rem;
+  background: #2d2d2d url(images/pattern-confirm.png) repeat left top;
+  display: block;
+  overflow: hidden;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+/*form menu button::-moz-focus-inner {
+  border: none;
+  outline: none;
+  margin-top: -0.2rem;
+}*/
+
+form menu button {
+  font-family: sans-serif;
+  font-style: italic;
+  width: 100%;
+  height: 4rem;
+  margin: 0 0 1rem;
+  padding: 0 1.2rem;
+  -moz-box-sizing: border-box;
+  display: inline-block;
+  vertical-align: middle;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  background: #d8d8d8;
+  border: none;
+  border-radius: 0.5rem;
+  font-weight: normal;
+  font-size: 1.6rem;
+  line-height: 4rem;
+  color: #333;
+  text-align: center;
+  text-shadow: none;
+  text-decoration: none;
+  outline: none;
+}
+
+/* Recommend */
+form menu button.recommend {
+  background-color: #00caf2;
+  color: #fff;
+}
+
+/* Danger */
+form menu button.danger {
+  background-color: #e51e1e;
+  color: #fff;
+}
+
+/* Pressed */
+form menu button:active {
+  background: #00aacc;
+  color: #fff;
+}
+
+/* Disabled */
+form > menu > button[disabled] {
+  background-color: #565656;
+  color: rgba(255,255,255,0.4);
+  pointer-events: none;
+}
+
+form > menu > button[disabled].recommend {
+  background-color: #006579;
+}
+
+form > menu > button[disabled].danger {
+  background-color: #730f0f;
+}
+
+
+form menu button:last-child {
+  margin-left: 1rem;
+}
+
+form menu button,
+form menu button:first-child {
+  margin: 0;
+}
+
+form menu button {
+  width: calc((100% - 1rem) / 2);
+}
+
+form menu button.full {
+  width: 100%;
+}
+
+/* Specific component code */
+form p {
+  word-wrap: break-word;
+  margin: 1rem 0 0;
+  padding: 1rem 1.5rem;
+  border-top: 0.1rem solid #686868;
+  line-height: 3rem;
+}
+
+
+
+/*form {
+
+  background:
+    url(images/pattern-confirm.png) repeat left top,
+    url(images/gradient-confirm.png) no-repeat left top / 100% 100%;
+  overflow: hidden;
+  position: absolute;
+  z-index: 100;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding-bottom: 7rem;
+  font-size: 0;
+  color: #fff;
+  text-align: left;
+}
+form:before {
+  content: "";
+  display: inline-block;
+  vertical-align: middle;
+  width: 0.1rem;
+  height: 100%;
+  margin-left: -0.1rem;
+}
+form > section {
+  font-weight: lighter;
+  font-size: 2.2rem;
+  color: #FAFAFA;
+  padding: 0 1.5rem;
+  -moz-box-sizing: padding-box;
+  width: 100%;
+  display: inline-block;
+  overflow-y: scroll;
+  max-height: 100%;
+  vertical-align: middle;
+  white-space: normal;
+}
+form section h1 {
+  font-weight: normal;
+  font-size: 1.6rem;
+  line-height: 1.5em;
+  color: #fff;
+  margin: 0;
+  padding: 0 1.5rem;
+}
+form p {
+  word-wrap: break-word;
+  margin: 1rem 0 0;
+  padding: 1rem 1.5rem;
+  border-top: 0.1rem solid #686868;
+  line-height: 3rem;
+}
+
+form menu {
+  white-space: nowrap;
+  margin: 0;
+  padding: 1.5rem;
+  border-top: solid 0.1rem rgba(255, 255, 255, 0.1);
+  background: #2d2d2d url(confirm/images/ui/pattern.png) repeat left top;
+  display: block;
+  overflow: hidden;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+form menu button {
+  height: 3.8rem;
+  width: 100%;
+  text-align: center;
+  margin: 0;
+  white-space: nowrap;
+  font-size: 1.5rem;
+  color: #292929;
+  padding: 0 1.5rem;
+  overflow: hidden;
+  border: 1px solid rgba(15, 15, 15, 0.2);
+  border-radius: 3px;
+  box-shadow: inset 0px 1px 0px rgba(255,255,255,0.2);
+  background: #E1E1E1 url("images/gradient.png") repeat-x bottom;
+  text-overflow: ellipsis;
+}
+
+form menu button.recommend {
+  background-color: #00caf2;
+  color: #fff;
+}
+
+form menu button.danger {
+  background-color: #e51e1e;
+  color: #fff;
+}
+form menu button:last-child {
+  margin-left: 1rem;
+}
+form menu button, form menu button:first-child {
+  margin: 0px;
+}*/
