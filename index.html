@@ -27,6 +27,7 @@
     <link rel="stylesheet" href="css/skin/x-toggle.css"/>
     <link rel="stylesheet" href="css/skin/form.css"/>
     <link rel="stylesheet" href="css/skin/switches.css"/>
+    <link rel="stylesheet" href="css/skin/spinner.css"/>
 <!--
     <link rel="stylesheet" href="css/skin/button.css"/>
     <link rel="stylesheet" href="css/skin/list.css"/>
@@ -141,6 +142,12 @@
                   <div data-l10n-id="accuracy">
                     Accuracy
                     <span class="bold align-right" id="home-acc">Acc test</span>
+                  </div>
+                </li>
+                <li>
+                  <div id="message-area" class="align-center">
+                    <progress id="spinner"></progress>
+                    <p id="msg" class="bold align-center">Retreiving GPS signal. It may take some time...</p>
                   </div>
                 </li>
               </ul>
@@ -326,6 +333,9 @@
               </li>
               <li class="separateur-bottom">
                 <div data-l10n-id="map" id="trk-dt-map" class="bold">Map</div>
+                <div class="align-center">
+                  <progress id="track-spinner"></progress>
+                </div>
                 <p data-l10-id="loading-map" id="map-text">Loading map ...</p>
                 <img src="" id="map-img" class="hidden absolute" />
               </li>
@@ -376,18 +386,18 @@
         var deck = document.getElementById("views");
         deck.showCard(1);
         LazyLoad.js([
-        //   "js/views/home-view.js",
-        //   "js/views/infos-view.js",
-        //   "js/views/tracks-view.js",
-        //   "js/views/track-view.js",
-        //   "js/models/chrono.js",
-        //   // "js/models/config.js",
-        //   "js/models/db.js",
-        //   "js/models/tracks.js",
+          "js/views/home-view.js",
+          "js/views/infos-view.js",
+          "js/views/tracks-view.js",
+          "js/views/track-view.js",
+          "js/models/chrono.js",
+          // "js/models/config.js",
+          "js/models/db.js",
+          "js/models/tracks.js",
           "js/events.js",
-        //   "js/controller.js",
-        //   "test/data.js",
-        //   "js/app.js"
+          "js/controller.js",
+          // "test/data.js",
+          "js/app.js"
           ]);
       });
     </script>
