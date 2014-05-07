@@ -14,7 +14,8 @@
     <link rel="stylesheet" type="text/css" href="css/reset.css"/>
 
     <!--······························ Brick ································-->
-    <link rel="stylesheet" type="text/css" href="lib/brick/brick-1.0.0.min.css"/>
+    <!-- <link rel="stylesheet" type="text/css" href="lib/brick/brick-1.0.0.min.css"/> -->
+    <link rel="stylesheet" type="text/css" href="lib/brick/brick-1.0.1.byob.min.css"/>
 
     <!--······························ Fonts ································-->
     <link rel="stylesheet" href="css/fonts.css"/>
@@ -23,8 +24,10 @@
     <link rel="stylesheet" href="css/skin/x.css"/>
     <link rel="stylesheet" href="css/skin/x-layout.css"/>
     <link rel="stylesheet" href="css/skin/x-appbar.css"/>
+    <link rel="stylesheet" href="css/skin/x-toggle.css"/>
     <link rel="stylesheet" href="css/skin/form.css"/>
     <link rel="stylesheet" href="css/skin/switches.css"/>
+    <link rel="stylesheet" href="css/skin/spinner.css"/>
 <!--
     <link rel="stylesheet" href="css/skin/button.css"/>
     <link rel="stylesheet" href="css/skin/list.css"/>
@@ -43,7 +46,8 @@
   </head>
   <body id="app">
 
-    <x-deck transition-type="slide-left" id="views">
+    <!-- <x-deck transition-type="slide-left" id="views"> -->
+    <x-deck transition-type="none" id="views">
 
 
       <!-- Card 0 :  Settings View -->
@@ -56,10 +60,13 @@
           <section data-type="settings">
             <ul>
               <li>
-                <label class="pack-switch">
+<!--                 <label class="pack-switch">
                   <input type="checkbox" id="screen">
                   <span class="settings-item">Keep screen alive?</span>
-                </label>
+                </label> -->
+                <p>
+                <x-toggle id="screen" focus active label="Keep screen alive?"></x-toggle>
+                </p>
               </li>
               <li>
                 <p data-l10n-id="language">Language</p>
@@ -137,6 +144,12 @@
                     <span class="bold align-right" id="home-acc">Acc test</span>
                   </div>
                 </li>
+                <li>
+                  <div id="message-area" class="align-center">
+                    <progress id="spinner"></progress>
+                    <p id="msg" class="bold align-center">Retreiving GPS signal. It may take some time...</p>
+                  </div>
+                </li>
               </ul>
             </div>
           </section>
@@ -150,7 +163,7 @@
       </x-card>
 
       <!-- Card 2 :  Tracking View -->
-      <x-card transition-type="fade-scale">
+      <x-card>
       <x-layout>
         <x-appbar>
           <h1 data-l10n-id="rbh-tracking" id="tracking-h1">Tracking...</h1>
@@ -320,6 +333,9 @@
               </li>
               <li class="separateur-bottom">
                 <div data-l10n-id="map" id="trk-dt-map" class="bold">Map</div>
+                <div class="align-center">
+                  <progress id="track-spinner"></progress>
+                </div>
                 <p data-l10-id="loading-map" id="map-text">Loading map ...</p>
                 <img src="" id="map-img" class="hidden absolute" />
               </li>
@@ -344,7 +360,7 @@
       </x-card>
 
       <!--  Card 6 : Delete track confirmation form -->
-      <x-card>
+      <x-card  transition-type="fade-scale">
         <form id="del-form-confirm" role="dialog" data-type="confirm" class="hidden" onsubmit="return false;">
           <section>
             <h1 data-l10n-id="confirmation">Confirmation</h1>
@@ -361,27 +377,27 @@
 
     </x-deck>
 
-    <script type="text/javascript" src="lib/brick/brick-1.0.0.min.js"></script>
+    <script type="text/javascript" src="lib/brick/brick-1.0.1.byob.min.js"></script>
     <script type="text/javascript" src="lib/lazyload/lazyload-min.js"></script>
     <script type="text/javascript" src="js/install.js"></script>
     <script type="text/javascript">
       document.addEventListener('DOMComponentsLoaded', function(){
         // run code here...
         var deck = document.getElementById("views");
-        deck.showCard(0);
+        deck.showCard(1);
         LazyLoad.js([
-        //   "js/views/home-view.js",
-        //   "js/views/infos-view.js",
-        //   "js/views/tracks-view.js",
-        //   "js/views/track-view.js",
-        //   "js/models/chrono.js",
-        //   // "js/models/config.js",
-        //   "js/models/db.js",
-        //   "js/models/tracks.js",
+          "js/views/home-view.js",
+          "js/views/infos-view.js",
+          "js/views/tracks-view.js",
+          "js/views/track-view.js",
+          "js/models/chrono.js",
+          // "js/models/config.js",
+          "js/models/db.js",
+          "js/models/tracks.js",
           "js/events.js",
-        //   "js/controller.js",
-        //   "test/data.js",
-        //   "js/app.js"
+          "js/controller.js",
+          // "test/data.js",
+          "js/app.js"
           ]);
       });
     </script>

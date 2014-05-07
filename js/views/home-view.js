@@ -41,7 +41,7 @@ var HomeView = function() {
   }
 
   function displayError(inError){
-    console.log("error:", inError)
+    // console.log("error:", inError)
     document.getElementById('msg').innerHTML = "Error: " + inError.message;
     // hide spinner
     if (document.getElementById("spinner")) {
