@@ -45,7 +45,8 @@
   </head>
   <body id="app">
 
-    <x-deck transition-type="slide-left" id="views">
+    <!-- <x-deck transition-type="slide-left" id="views"> -->
+    <x-deck transition-type="none" id="views">
 
 
       <!-- Card 0 :  Settings View -->
@@ -155,7 +156,7 @@
       </x-card>
 
       <!-- Card 2 :  Tracking View -->
-      <x-card transition-type="fade-scale">
+      <x-card>
       <x-layout>
         <x-appbar>
           <h1 data-l10n-id="rbh-tracking" id="tracking-h1">Tracking...</h1>
@@ -349,7 +350,7 @@
       </x-card>
 
       <!--  Card 6 : Delete track confirmation form -->
-      <x-card>
+      <x-card  transition-type="fade-scale">
         <form id="del-form-confirm" role="dialog" data-type="confirm" class="hidden" onsubmit="return false;">
           <section>
             <h1 data-l10n-id="confirmation">Confirmation</h1>
