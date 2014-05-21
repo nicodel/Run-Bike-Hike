@@ -1,7 +1,10 @@
 var TrackView = function() {
 
-  var SCREEN_WIDTH = parseInt(window.innerWidth * 0.9,10);
-  var SCREEN_HEIGHT = parseInt(SCREEN_WIDTH * 2 / 3,10);
+  // var SCREEN_WIDTH = parseInt(window.innerWidth * 0.9,10);
+  // var SCREEN_HEIGHT = parseInt(SCREEN_WIDTH * 2 / 3,10);
+  // Only getting a big size map, that will be stored in db
+  var SCREEN_WIDTH = 648; // 720px * 0.9
+  var SCREEN_HEIGHT = 432 // 720px * 3 / 2
   // console.log("width", SCREEN_WIDTH);
   // console.log("height", SCREEN_HEIGHT);
   var xPadding = 30;
