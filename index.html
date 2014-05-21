@@ -236,6 +236,18 @@
         <x-layout>
         <section data-type="list">
           <ul id="tracks-list">
+          <!-- Testing : Start -->
+          <li>
+          <a id="TR-2014421-15195"><p>
+            <span class="align-left bold clipped">TR-SAMPLE</span>
+            <span class="align-right">21/05/2014</span>
+          </p>
+          <p class="new-line">
+            <span class="align-left">15km</span>
+            <span class="align-right">50min</span>
+          </p></a>
+          </li>
+          <!-- Testing : Stop  -->
           </ul>
         </section>
         </x-layout>
@@ -245,7 +257,7 @@
       <x-card>
         <x-appbar>
           <button id="btn-track-back" class="icon icon-back">Back</button>
-          <h1 data-l10n-id="recorded-tracks">Track:</h1>
+          <h1 data-l10n-id="track" id="tr-name"></h1>
           <button data-l10n-id="delete" class="icon icon-delete" id="btn-delete">Delete</button>
           <button data-l10n-id="share" class="icon icon-share" disabled="" id="btn-share">Share</button>
           <button data-l10n-id="edit" class="icon icon-edit" disabled="" id="btn-edit">Edit</button>
@@ -360,7 +372,7 @@
           "js/models/tracks.js",
           "js/events.js",
           "js/controller.js",
-          // "test/data.js",
+          "test/data.js",
           "js/app.js"
           ]);
       });

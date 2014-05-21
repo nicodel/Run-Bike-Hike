@@ -73,7 +73,7 @@ var DB = function() {
       };
       tx.onerror = function(e) {
         console.error("add_track transaction error: ", tx.error.name);
-        errorCallback(x.error.name);
+        errorCallback(e.error.name);
       };
       var store = tx.objectStore(DB_STORE_TRACKS);
       var req = store.add(inTrack);
@@ -184,6 +184,33 @@ var DB = function() {
       errorCallback("getConfig() successCallback should be a function");
     }
   }
+  function saveMap(successCallback, errorCallback, inTrack) {
+    if (typeof successCallback === "function") {
+
+      var tx = db.transaction(DB_STORE_TRACKS, "readwrite");
+      tx.oncomplete = function(e) {};
+      tx.onerror = function(e) {
+        errorCallback(e.error.name);
+      };
+      var store = tx.objectStore(DB_STORE_TRACKS);
+      console.log("inTrack", inTrack);
+      var req = store.get(inTrack.id);
+      req.oncomplete = function(e) {
+        var track = e.target.result;
+        console.log("inTrack.inMap", inTrack.inMap);
+        // track.map = inMap;
+        var req2 = store.put(inTrack);
+        req2.oncomplete = function(e) {
+          console.log("successfully saved");
+        }
+        req2.onerror = function(e) {
+          errorCallback(e.error.name);
+        }
+      }
+    } else  {
+      errorCallback("addTrack successCallback should be a function");
+    }
+  }
   function __saveDefaultConfig() {
     var tx = db.transaction(DB_STORE_SETTINGS, "readwrite");
     tx.oncomplete = function(e) {
@@ -266,7 +293,8 @@ var DB = function() {
     deleteTrack: deleteTrack,
     reset_app: reset_app,
     getConfig: getConfig,
-    updateConfig: updateConfig
+    updateConfig: updateConfig,
+    saveMap: saveMap
   };
 }();
 // });

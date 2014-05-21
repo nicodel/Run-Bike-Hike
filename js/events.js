@@ -113,6 +113,7 @@ document.querySelector("#btn-confirm-delete").addEventListener("click", function
 
 
 /* TEMPORARY TRACK SELECTION */
-document.querySelector("#track-sample").addEventListener("click", function () {
+document.querySelector("#TR-2014421-15195").addEventListener("click", function () {
   document.getElementById("views").showCard(5);
+  Controller.displayTrack(testdata);
 });

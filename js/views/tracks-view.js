@@ -24,8 +24,31 @@ var TracksView = function() {
       tracks = inTracks;
       for (var i = tracks.length - 1; i >= 0; i--) {
         __buildList(tracks[i]);
+
       }
     }
+
+    
+    /*
+     * TESTING !!!
+     */
+    // var div = '<p><span class="align-left bold clipped">' + inTrack.name + '</span>';
+    // div = div + '<span class="align-right">' + Controller.userDate(inTrack.date) + '</span></p>';
+    // div = div + '<p class="new-line"><span class="align-left">' + Controller.userDistance(inTrack.distance) + '</span>';
+    // var d = inTrack.duration / 60000;
+    // div = div + '<span class="align-right">' + d.toFixed() + 'min</span></p>';
+    // lia.innerHTML = div;
+    // li.appendChild(lia);
+    // document.getElementById("tracks-list").appendChild(li);
+    // lia.addEventListener("click", function(e){
+    //   // console.log("click: track " + inTrack + "will be displayed");
+    //   document.querySelector("#trackView").classList.remove("move-right");
+    //   document.querySelector("#trackView").classList.add("move-center");
+    //   Controller.displayTrack(inTrack);
+    // });
+    /*
+     *
+     */
   }
 
   function reset() {
@@ -56,8 +79,7 @@ var TracksView = function() {
     document.getElementById("tracks-list").appendChild(li);
     lia.addEventListener("click", function(e){
       // console.log("click: track " + inTrack + "will be displayed");
-      document.querySelector("#trackView").classList.remove("move-right");
-      document.querySelector("#trackView").classList.add("move-center");
+      document.getElementById("views").showCard(5);
       Controller.displayTrack(inTrack);
     });
   }

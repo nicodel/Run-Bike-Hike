@@ -134,7 +134,7 @@ var Controller = function() {
 
   function __initiateSuccess(inEvent) {
     // utils.status.show(inEvent);
-    console.log("__initiateSuccess ", inEvent);
+    // console.log("__initiateSuccess ", inEvent);
     DB.getConfig(__getConfigSuccess, __getConfigError);
   }
 
@@ -143,7 +143,7 @@ var Controller = function() {
   }
 
   function __getConfigSuccess(inSettings) {
-    console.log("__getConfigSuccess ", inSettings);
+    // console.log("__getConfigSuccess ", inSettings);
     settings = inSettings;
     __setConfigView(inSettings);
     // __setConfigValues(inSettings);
@@ -356,6 +356,11 @@ var Controller = function() {
     // var outDate = day+"/"+month+"/"+year+ " "+hour+":"+min+":"+sec;
     return  outDate;
   }
+  function saveMap(inTrack) {
+    DB.saveMap(__saveMapSuccess, __saveMapError, inTrack);
+  }
+  function __saveMapSuccess() {}
+  function __saveMapError() {}
 
   return {
     init: init,
@@ -377,7 +382,8 @@ var Controller = function() {
     userLongitude: userLongitude,
     userSmallDistance: userSmallDistance,
     userDistance: userDistance,
-    userDate: userDate
+    userDate: userDate,
+    saveMap: saveMap
   };
 }();
 // })

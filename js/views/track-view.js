@@ -19,6 +19,7 @@ var TrackView = function() {
   var ACCURACY_FILL_COLOR = "#C89696";
 
   function display(inTrack) {
+    console.log("inTrack - testing:", inTrack);
     //reset old ressources
     document.getElementById("trk-date").innerHTML = "";
     document.getElementById("trk-dist").innerHTML = "";
@@ -27,7 +28,6 @@ var TrackView = function() {
 
     var tr = document.getElementById("tr-name");
     tr.innerHTML = inTrack.name;
-    // console.log("show track: ", inTrack);
 
     document.getElementById("trk-date").innerHTML = Controller.userDate(inTrack.date);
     document.getElementById("trk-dist").innerHTML = Controller.userDistance(inTrack.distance);
@@ -86,7 +86,16 @@ var TrackView = function() {
     // console.log("t.end", t.end);
     __buildAltitudeGraph(t);
     __buildSpeedGraph(t);
-    __buildMap2(inTrack);
+    if (t.map) {
+      console.log("map exist");
+      document.getElementById("map-img").onload = alert("removing infos spinner");
+      document.getElementById("map-img").width = SCREEN_WIDTH;
+      document.getElementById("map-img").src = t.map;
+    } else {
+      console.log("map does not exist");
+      __buildMap2(inTrack);
+
+    }
   }
 
   function __buildAltitudeGraph(inData) {
@@ -344,8 +353,25 @@ var TrackView = function() {
         document.querySelector("#map-img").classList.remove("hidden");
         document.querySelector("#map-img").classList.remove("absolute");
       };
-      document.getElementById("map-img").src = loc;
+      // document.getElementById("map-img").src = loc;
       // console.log("loc:", loc);
+
+
+    /* Following based on @robertnyman article on hacks.mozilla.org https://hacks.mozilla.org/2012/02/storing-images-and-files-in-indexeddb/ */
+    var xhr = new XMLHttpRequest(), blob;
+    xhr.open('GET', loc, true);
+    xhr.responseType = "blob";
+    xhr.addEventListener("load", function() {
+      if (xhr.status === 200) {
+        blob = xhr.response;
+        var URL = window.URL || window.webkitURL;
+        var imgURL = URL.createObjectURL(blob);
+        document.getElementById("map-img").src = imgURL;
+        inTrack.map = imgURL;
+        Controller.saveMap(inTrack);
+      }
+    }, false);
+    xhr.send();
   }
 
   function __buildMap(inTrack) {
@@ -368,7 +394,7 @@ var TrackView = function() {
     document.getElementById("map-img").onload = alert("removing infos spinner");
     document.getElementById("map-img").width = SCREEN_WIDTH;
     document.getElementById("map-img").src = loc;
-    // console.log("loc:", loc);
+
   }
 
   function __createRectCanvas(inElementId, inRange, inSpace) {

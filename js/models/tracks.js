@@ -42,7 +42,8 @@ var Tracks = function() {
     // Initiate the rest
     current_track.duration = 0;
     current_track.distance = 0;
-    current_track.data = [];
+    current_track.map = "";
+    current_track.data = null;
     // Set the number of gps point
     nb_point = 0;
 
