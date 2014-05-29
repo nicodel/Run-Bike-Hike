@@ -13,7 +13,7 @@ document.querySelector("#btn-tracks").addEventListener ("click", function () {
 
 /* Home View Start tracking button */
 document.querySelector("#btn-start").addEventListener ("click", function () {
-  // Controller.startWatch();
+  Controller.startWatch();
   document.getElementById("views").showCard(2);
 });
 
@@ -32,7 +32,7 @@ document.querySelector("#btn-stop").addEventListener ("click", function () {
 /* Stop tracking Confirm button */
 document.querySelector("#btn-confirm-stop").addEventListener ("click", function () {
   document.getElementById("views").showCard(1);
-    // Controller.stopWatch();
+    Controller.stopWatch();
 });
 /* Stop tracking Cancel button */
 document.querySelector("#btn-cancel-stop").addEventListener ("click", function () {
@@ -104,7 +104,7 @@ document.querySelector("#btn-cancel-delete").addEventListener("click", function 
 /* Delete Track Confirm button */
 document.querySelector("#btn-confirm-delete").addEventListener("click", function () {
   document.getElementById("views").showCard(4);
-  // Controller.deleteTrack();
+  Controller.deleteTrack();
 });
 // }();
 

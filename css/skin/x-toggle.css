@@ -5,7 +5,7 @@ x-toggle:before {
     content: attr(label);
     display: inline-block;
     vertical-align: middle;
-    padding-right: 30%;
+    padding-right: 30px;
 }
 x-toggle .x-toggle-check {
   width: 33px;
