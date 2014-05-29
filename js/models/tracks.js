@@ -43,10 +43,10 @@ var Tracks = function() {
     current_track.duration = 0;
     current_track.distance = 0;
     current_track.map = "";
-    current_track.data = null;
+    current_track.data = [];
     // Set the number of gps point
     nb_point = 0;
-
+    console.log("current_track", current_track);
     return current_track;
   }
 
@@ -58,7 +58,7 @@ var Tracks = function() {
   }
 
   function getDistance(lat, lon) {
-    if (olat != null) {      
+    if (olat != null) {
       distance += __distanceFromPrev(olat, olon, lat, lon);
       console.log("distance: ", distance);
     };
