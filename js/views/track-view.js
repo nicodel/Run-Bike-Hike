@@ -33,7 +33,7 @@ var TrackView = function() {
     document.getElementById("trk-dist").innerHTML = Controller.userDistance(inTrack.distance);
     var d = inTrack.duration / 60000;
     document.getElementById("trk-dur").innerHTML = d.toFixed() +" min";
-    
+
     var t = inTrack;
     t.min_alt = 0;
     t.max_alt = 0;
@@ -123,7 +123,7 @@ var TrackView = function() {
       // console.log("data[i].vertAccuracy", data[i].vertAccuracy);
       max_acc = max_acc / 2;
     }
-    
+
     // Write Y Axis text
     var range = max_y - min_y;
     range = range + (range / 3);

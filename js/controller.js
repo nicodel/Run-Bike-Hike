@@ -139,7 +139,7 @@ var Controller = function() {
   }
 
   function __initiateError(inEvent) {
-    utils.status.show(inEvent); 
+    utils.status.show(inEvent);
   }
 
   function __getConfigSuccess(inSettings) {
@@ -223,7 +223,7 @@ var Controller = function() {
   }
 
   function __addTrackError(inEvent) {
-    utils.status.show(inEvent); 
+    utils.status.show(inEvent);
   }
 
   function displayTracks() {
