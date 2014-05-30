@@ -21,6 +21,7 @@ var Controller = function() {
         }
       );
     }
+
   }
 
   function startWatch() {
@@ -57,7 +58,7 @@ var Controller = function() {
     if (track.data.length === 0) {
       // we notify that we do nothing (cause that's good)
       console.log("Track empty. Not saving");
-      //Utils.status.show("Track empty. Not saving");
+      utils.status.show("Track empty. Not saving");
     } else {
       // Save to DB
       DB.addTrack(__addTrackSuccess, __addTrackError, track);
@@ -134,13 +135,13 @@ var Controller = function() {
   function __positionError(inError) {}
 
   function __initiateSuccess(inEvent) {
-    // //Utils.status.show(inEvent);
+    // utils.status.show(inEvent);
     // console.log("__initiateSuccess ", inEvent);
     DB.getConfig(__getConfigSuccess, __getConfigError);
   }
 
   function __initiateError(inEvent) {
-    //Utils.status.show(inEvent);
+    utils.status.show(inEvent);
   }
 
   function __getConfigSuccess(inSettings) {
@@ -221,11 +222,11 @@ var Controller = function() {
   }
 
   function __addTrackSuccess(inEvent) {
-    //Utils.status.show("Track " + inEvent + " sucessfully saved.");
+    utils.status.show("Track " + inEvent + " sucessfully saved.");
   }
 
   function __addTrackError(inEvent) {
-    //Utils.status.show(inEvent);
+    utils.status.show(inEvent);
   }
 
   function displayTracks() {

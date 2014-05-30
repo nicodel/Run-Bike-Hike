@@ -1,9 +1,9 @@
 
 'use strict';
 // From Mozilla Building Blocks
-var Utils = this.Utils || {};
+var utils = this.utils || {};
 
-Utils.status = (function() {
+utils.status = (function() {
 
   // This constant is essential to resolve what is the path of the CSS file
   // that defines the animations
@@ -13,7 +13,7 @@ Utils.status = (function() {
   var DISPLAYED_TIME = 2000;
 
   // References to the DOMElement(s) that renders the status UI component
-  var section, content;
+  var section, content;  //original
 
   // The numerical ID of the timeout in order to hide UI component
   var timeoutID;
