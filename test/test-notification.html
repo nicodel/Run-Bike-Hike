@@ -22,6 +22,11 @@
     <!--························ My common style ! ··························-->
     <link rel="stylesheet" href="../css/app.css"/>
     <link rel="stylesheet" href="../css/styles.css"/>
+    
+
+
+
+
 <script type="text/javascript" src="../js/views/status.js"></script>
   <style>
 section[role="status"] {
@@ -59,9 +64,6 @@ section[role="status"] {
           </article>
         </section>
       </x-layout>
-<!--         <section class="hidden" role="status">
-          <p>The Alarm is set for 7 hours and 14 minutes from n…</p>
-        </section> -->
     </x-card>
 
   </x-deck>
@@ -77,7 +79,7 @@ document.addEventListener('DOMComponentsLoaded', function(){
 
 
   document.querySelector("#bouton").addEventListener ("click", function () {
-      utils.status.show("A place were the application can talk to its user, without anything in return.");
+      utils.status.show("A place where the application can talk to its user, without anything in return.");
   });
 
 
