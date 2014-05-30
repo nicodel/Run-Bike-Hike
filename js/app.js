@@ -7,5 +7,8 @@ var RunBikeHike = function() {
         lock.unlock();
       })
     };
-*/
+*/ 
+  window.addEventListener('unload', function () {
+    lock.unlock();
+  });
 }();

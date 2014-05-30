@@ -171,13 +171,14 @@ var Controller = function() {
   }
 
   function toogleScreen(inChecked) {
-    if (this.checked) {
+    console.log("inChecked", inChecked);
+    if (inChecked) {
       lock = window.navigator.requestWakeLock('screen');
       /* Unlock the screen */
       window.addEventListener('unload', function () {
         lock.unlock();
       })
-    } else{
+    } else {
       window.navigator.requestWakeLock('screen').unlock();
     };
   }

@@ -44,13 +44,10 @@ var Config = function() {
 
 
   // Default config values
-  // var SCREEN_KEEP_ALIVE = true;
-  // var USER_UNIT = 0;
-  // var USER_POSITION_FORMAT = 0;
-  var SCREEN_KEEP_ALIVE = null;
-  var USER_DISTANCE = null;
-  var USER_SPEED = null;
-  var USER_POSITION_FORMAT = null;
+  var SCREEN_KEEP_ALIVE = false;
+  var USER_DISTANCE = 0;
+  var USER_SPEED = 0;
+  var USER_POSITION_FORMAT = 0;
 
   function change(inKey, inValue) {
     inKey = inValue;

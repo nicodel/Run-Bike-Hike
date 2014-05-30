@@ -358,6 +358,9 @@
     <script type="text/javascript" src="lib/lazyload/lazyload-min.js"></script>
     <script type="text/javascript" src="js/install.js"></script>
     <script type="text/javascript">
+      window.addEventListener('unload', function () {
+        lock.unlock();
+      });
       document.addEventListener('DOMComponentsLoaded', function(){
         // run code here...
         var deck = document.getElementById("views");
