@@ -99,13 +99,13 @@ var DB = function() {
       var req = store.openCursor();
       req.onsuccess = function(e) {
         var cursor = e.target.result;
-        //~ console.log("get_tracks store.openCursor successful !", cursor);
+        console.log("get_tracks store.openCursor successful !", cursor);
         if (cursor) {
           all_tracks.push(cursor.value);
           // ui.build_track(cursor.value);
           cursor.continue();
         } else{
-          // console.log("got all tracks: ", all_tracks);
+          console.log("got all tracks: ", all_tracks);
           successCallback(all_tracks);
         }
       };

@@ -56,6 +56,7 @@ var Controller = function() {
     // if no gps point were retreive we don't save the track
     if (track.data.length === 0) {
       // we notify that we do nothing (cause that's good)
+      console.log("Track empty. Not saving");
       //Utils.status.show("Track empty. Not saving");
     } else {
       // Save to DB

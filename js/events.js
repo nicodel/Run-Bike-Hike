@@ -7,7 +7,7 @@
 /*----------------- Home View -----------------*/
 /* Home View Tracks button */
 document.querySelector("#btn-tracks").addEventListener ("click", function () {
-  // Controller.displayTracks();
+  Controller.displayTracks();
   document.getElementById("views").showCard(4);
 });
 
