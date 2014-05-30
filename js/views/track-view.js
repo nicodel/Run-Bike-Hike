@@ -1,10 +1,10 @@
 var TrackView = function() {
 
-  // var SCREEN_WIDTH = parseInt(window.innerWidth * 0.9,10);
-  // var SCREEN_HEIGHT = parseInt(SCREEN_WIDTH * 2 / 3,10);
+  var SCREEN_WIDTH = parseInt(window.innerWidth * 0.9,10);
+  var SCREEN_HEIGHT = parseInt(SCREEN_WIDTH * 2 / 3,10);
   // Only getting a big size map, that will be stored in db
-  var SCREEN_WIDTH = 648; // 720px * 0.9
-  var SCREEN_HEIGHT = 432 // 720px * 3 / 2
+  var MAP_WIDTH = 648; // 720px * 0.9
+  var MAP_HEIGHT = 432 // 720px * 3 / 2
   // console.log("width", SCREEN_WIDTH);
   // console.log("height", SCREEN_HEIGHT);
   var xPadding = 30;
@@ -33,7 +33,7 @@ var TrackView = function() {
     document.getElementById("trk-dist").innerHTML = Controller.userDistance(inTrack.distance);
     var d = inTrack.duration / 60000;
     document.getElementById("trk-dur").innerHTML = d.toFixed() +" min";
-    
+
     var t = inTrack;
     t.min_alt = 0;
     t.max_alt = 0;
@@ -123,14 +123,14 @@ var TrackView = function() {
       // console.log("data[i].vertAccuracy", data[i].vertAccuracy);
       max_acc = max_acc / 2;
     }
-    
+
     // Write Y Axis text
     var range = max_y - min_y;
     range = range + (range / 3);
     // calculate
     var yspace = parseInt(range / 4, 10);
     var c = __createRectCanvas("alt-canvas", range, yspace);
-    
+
     var espace = parseInt(data.length / (SCREEN_WIDTH - xPadding), 10);
     if (espace === 0) {
       espace = 1;
@@ -171,7 +171,7 @@ var TrackView = function() {
     }
     c.fill();
     c.stroke();
-    
+
     // Draw Altitude points
     c.strokeStyle = VALUE_COLOR;
     c.lineWidth = LINE_WIDTH;
@@ -186,7 +186,7 @@ var TrackView = function() {
     c.fillStyle = TEXT_COLOR;
     c.font = TEXT_STYLE;
     c.textAlign = "center";
-    
+
     // Write X Axis text and lines
     var xspace = data.length / 5;
     // console.log("xspace",xspace);
@@ -215,7 +215,7 @@ var TrackView = function() {
     var min_y = Controller.userSpeedInteger(inData.min_speed);
     // console.log("max_y", max_y);
     // console.log("min_y",min_y);
-    
+
     // Write Y Axis text
     var range = max_y - min_y;
     // range = range + (range * 0.2);
@@ -223,7 +223,7 @@ var TrackView = function() {
     var yspace = parseInt(range / 4, 10);
     // console.log("range ", range);
     var c = __createRectCanvas("speed-canvas", range, yspace);
-    
+
     var espace = parseInt(data.length / (SCREEN_WIDTH - xPadding), 10);
     if (espace === 0) {
       espace = 1;
@@ -247,7 +247,7 @@ var TrackView = function() {
     c.fillStyle = TEXT_COLOR;
     c.font = TEXT_STYLE;
     c.textAlign = "center";
-    
+
     // Write X Axis text and lines
     var xspace = data.length / 5;
     //~ console.log("xspace",xspace);
@@ -340,7 +340,7 @@ var TrackView = function() {
       };
       // console.log("PATH: ", PATH);
       var BESTFIT = "&bestfit=" + p1.lat + ","+ p1.lon + ","+ p2.lat + "," + p2.lon;
-      var SIZE = "&size=" + SCREEN_WIDTH + "," + SCREEN_WIDTH;
+      var SIZE = "&size=" + MAP_WIDTH + "," + MAP_HEIGHT;
       var TYPE = "&type=map&imagetype=jpeg";
       var BASE_URL = "http://www.mapquestapi.com/staticmap/v4/getmap?key=Fmjtd%7Cluur21u720%2Cr5%3Do5-90tx9a&";
 
@@ -373,7 +373,7 @@ var TrackView = function() {
     }, false);
     xhr.send();
   }
-
+/*
   function __buildMap(inTrack) {
     // var lat = inTrack.data[0].latitude;
     // var lon = inTrack.data[0].longitude;
@@ -396,7 +396,7 @@ var TrackView = function() {
     document.getElementById("map-img").src = loc;
 
   }
-
+*/
   function __createRectCanvas(inElementId, inRange, inSpace) {
     var graph = document.getElementById(inElementId);
     var c = graph.getContext("2d");
@@ -466,35 +466,35 @@ var TrackView = function() {
   }
   function __getDistance (lat1, lon1, lat2, lon2) {
     var radius = 6371 * 1000; // Earth radius (mean) in metres {6371, 6367}
-    
+
     var lat1Rad = lat1*( Math.PI / 180);
     var lon1Rad = lon1*( Math.PI / 180);
     var lat2Rad = lat2*( Math.PI / 180);
     var lon2Rad = lon2*( Math.PI / 180);
-    
+
     var dLat = lat2Rad - lat1Rad;
     var dLon = lon2Rad - lon1Rad;
 
     var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
-        Math.cos(lat1Rad) * Math.cos(lat2Rad) * 
-        Math.sin(dLon/2) * Math.sin(dLon/2); 
-    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+        Math.cos(lat1Rad) * Math.cos(lat2Rad) *
+        Math.sin(dLon/2) * Math.sin(dLon/2);
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
     return radius * c;
   }
 
   function __movePoint(p, horizontal, vertical) {
     var radius = 6371 * 1000; // Earth radius (mean) in metres {6371, 6367}
-    
+
     var latRad = p.lat*( Math.PI / 180);
     var lonRad = p.lon*( Math.PI / 180);
 
     var latCircleR = Math.sin( Math.PI/2 - latRad) * radius;
     var horizRad = latCircleR == 0? 0: horizontal / latCircleR;
     var vertRad = vertical / radius;
-    
+
     latRad -= vertRad;
     lonRad += horizRad;
-    
+
     return {
       lat : (latRad / (Math.PI / 180)),
       lon : (lonRad / (Math.PI / 180))

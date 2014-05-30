@@ -24,7 +24,7 @@ var Controller = function() {
   }
 
   function startWatch() {
-    /*navigator.geolocation.clearWatch(initID);
+    // navigator.geolocation.clearWatch(initID);
     watchID = navigator.geolocation.getCurrentPosition(
     // watchID = test.geolocation.watchPosition(
       function(inPosition){
@@ -33,7 +33,7 @@ var Controller = function() {
       function (inError){
         __positionError(inError);
       }
-    );*/
+    );
     tracking = true;
     // Start the calculation of elapsed time
     // InfosView.startChrono();
@@ -54,10 +54,10 @@ var Controller = function() {
     var track = Tracks.close();
     tracking = false;
     // if no gps point were retreive we don't save the track
-    if (track.data.length < 1) {
+    if (track.data.length === 0) {
       // we notify that we do nothing (cause that's good)
-      utils.status.show("Track empty. Not saving");
-    } else{
+      //Utils.status.show("Track empty. Not saving");
+    } else {
       // Save to DB
       DB.addTrack(__addTrackSuccess, __addTrackError, track);
     };
@@ -76,7 +76,7 @@ var Controller = function() {
     // console.log("error:",inError);
     if (tracking) {
       __positionError(inError);
-    } else{
+    } else {
       HomeView.displayError(inError);
     };
   }
@@ -133,13 +133,13 @@ var Controller = function() {
   function __positionError(inError) {}
 
   function __initiateSuccess(inEvent) {
-    // utils.status.show(inEvent);
+    // //Utils.status.show(inEvent);
     // console.log("__initiateSuccess ", inEvent);
     DB.getConfig(__getConfigSuccess, __getConfigError);
   }
 
   function __initiateError(inEvent) {
-    utils.status.show(inEvent); 
+    //Utils.status.show(inEvent);
   }
 
   function __getConfigSuccess(inSettings) {
@@ -219,11 +219,11 @@ var Controller = function() {
   }
 
   function __addTrackSuccess(inEvent) {
-    utils.status.show("Track " + inEvent + " sucessfully saved.");
+    //Utils.status.show("Track " + inEvent + " sucessfully saved.");
   }
 
   function __addTrackError(inEvent) {
-    utils.status.show(inEvent); 
+    //Utils.status.show(inEvent);
   }
 
   function displayTracks() {
