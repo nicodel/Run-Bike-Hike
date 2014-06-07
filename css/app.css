@@ -13,7 +13,7 @@ html, body {
 body {
   background: none;
 }
- 
+
 h1 {
   font-size: 100%;
 }
@@ -40,6 +40,9 @@ button.alternate {
 }
 #tracking-h1 {
   margin-left: 30px;
+}
+#msg {
+  padding-top: 10px;
 }
 
 /*
