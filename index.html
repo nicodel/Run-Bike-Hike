@@ -168,47 +168,53 @@
       <x-layout>
         <x-appbar>
           <h1 data-l10n-id="rbh-tracking" id="tracking-h1">Tracking...</h1>
+          <button data-l10n-id="map" id="btn-map">Map</button>
         </x-appbar>
-        <section>
-        <div class="compass-container">
-          <img id="infos-compass" class="compass" src="img/compass.png" alt="Compass" />
-          <button data-l10n-id="btn-stop" id="btn-stop" class="danger align-right big alternate">Stop</button>
-        </div>
-        <div class="infos-container">
-        <ul>
-          <li>
-            <div data-l10n-id="elapsed-time">
-              Elapsed time
-              <span id="infos-chrono" class="bold align-right">00:00:00</span>
+        <x-flipbox id="infos-flipbox">
+          <section>
+            <div class="compass-container">
+              <img id="infos-compass" class="compass" src="img/compass.png" alt="Compass" />
+              <button data-l10n-id="btn-stop" id="btn-stop" class="danger align-right big alternate">Stop</button>
             </div>
-          </li>
-          <li>
-            <div data-l10n-id="distance">
-              Distance
-              <span id="infos-dist" class="bold align-right"></span>
-            </div>
-          </li>
-          <li>
-            <div data-l10n-id="speed">
-              Speed
-              <span id="infos-speed" class="bold align-right"></span>
-            </div>
-          </li>
-          <li>
-            <div data-l10n-id="altitude">
-              Altitude
-              <span id="infos-alt" class="bold align-right"></span>
-            </div>
-          </li>
-          <li>
-            <div data-l10n-id="accuracy">
-              Accuracy
-              <span id="infos-acc" class="bold align-right"></span>
-            </div>
-          </li>
-        </ul>
-      </div>
+            <div class="infos-container">
+            <ul>
+              <li>
+                <div data-l10n-id="elapsed-time">
+                  Elapsed time
+                  <span id="infos-chrono" class="bold align-right">00:00:00</span>
+                </div>
+              </li>
+              <li>
+                <div data-l10n-id="distance">
+                  Distance
+                  <span id="infos-dist" class="bold align-right"></span>
+                </div>
+              </li>
+              <li>
+                <div data-l10n-id="speed">
+                  Speed
+                  <span id="infos-speed" class="bold align-right"></span>
+                </div>
+              </li>
+              <li>
+                <div data-l10n-id="altitude">
+                  Altitude
+                  <span id="infos-alt" class="bold align-right"></span>
+                </div>
+              </li>
+              <li>
+                <div data-l10n-id="accuracy">
+                  Accuracy
+                  <span id="infos-acc" class="bold align-right"></span>
+                </div>
+              </li>
+            </ul>
+          </div>
         </section>
+        <section>
+          <h1>The map will be displayed here !</h1>
+        </section>
+      </x-flipbox>
       </x-layout>
       </x-card>
 

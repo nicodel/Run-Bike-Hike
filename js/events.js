@@ -28,6 +28,14 @@ document.querySelector("#btn-stop").addEventListener ("click", function () {
     document.getElementById("views").showCard(3);
 });
 
+/* Infos Map button */
+document.querySelector("#btn-map").addEventListener ("click", function () {
+  console.log("flipping!");
+  document.getElementById("infos-flipbox").toggle();
+});
+
+
+
 /*-------- Stop tracking confirmation ------------*/
 /* Stop tracking Confirm button */
 document.querySelector("#btn-confirm-stop").addEventListener ("click", function () {
