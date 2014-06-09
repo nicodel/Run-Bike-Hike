@@ -24,7 +24,7 @@ var InfosView = function() {
   }
 
   var __displayCompass = function(event) {
-    
+
     compass = document.getElementById("infos-compass");
     //~ console.log("heading:", event.heading);
     if (event.heading > 0 ){
