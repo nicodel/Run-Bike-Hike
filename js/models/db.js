@@ -43,7 +43,7 @@ var DB = function() {
       req.onupgradeneeded = function(event) {
         //
         // Create tracks store as:
-        // 
+        //
         var store = req.result.createObjectStore(DB_STORE_TRACKS, {keyPath:"id", autoIncrement: true});
         store.createIndex("trackid", "trackid", {unique: true});
 
@@ -101,12 +101,12 @@ var DB = function() {
         var cursor = e.target.result;
         console.log("get_tracks store.openCursor successful !", cursor);
         if (cursor) {
-          console.log("cursor.value", cursor.value);
+          // console.log("cursor.value", cursor.value);
           all_tracks.push(cursor.value);
           // ui.build_track(cursor.value);
           cursor.continue();
         } else{
-          console.log("got all tracks: ", all_tracks);
+          // console.log("got all tracks: ", all_tracks);
           successCallback(all_tracks);
         }
       };
@@ -179,12 +179,19 @@ var DB = function() {
   function saveMap(successCallback, errorCallback, inTrack) {
     if (typeof successCallback === "function") {
       console.log("saving inTrack in DB.saveMap", inTrack);
+
       var tx = db.transaction(DB_STORE_TRACKS, "readwrite");
       var store = tx.objectStore(DB_STORE_TRACKS);
+      console.log("inTrack.id", inTrack.id);
       var req = store.get(inTrack.id);
-      req.oncomplete = function(e) {
+      console.log("req", req);
+
+      req.onsuccess = function(e) {
+
         console.log("retreived req.result", req.result);
+
         var req2 = store.put(inTrack);
+        console.log("req2", req2);
         req2.oncomplete = function(e) {
           console.log("successfully updated");
         }
@@ -214,7 +221,6 @@ var DB = function() {
     req.onerror = function(e) {
       console.error("error: ", req.error.name);
     };*/
-    
     for (var i = 0; i < DEFAULT_CONFIG.length; i++) {
       var req = store.add(DEFAULT_CONFIG[i]);
       req.onsuccess = function(e) {
@@ -226,7 +232,7 @@ var DB = function() {
       };
     };
   }
-  
+
   function updateConfig(successCallback, errorCallback, inSettings) {
     // FIXME : really not pretty, but ...
     var uglySettings = [];
