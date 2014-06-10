@@ -19,7 +19,7 @@ var TrackView = function() {
   var ACCURACY_FILL_COLOR = "#C89696";
 
   function display(inTrack) {
-    console.log("inTrack - testing:", inTrack);
+    console.log("inTrack in display", inTrack);
     //reset old ressources
     document.getElementById("trk-date").innerHTML = "";
     document.getElementById("trk-dist").innerHTML = "";
@@ -35,6 +35,8 @@ var TrackView = function() {
     document.getElementById("trk-dur").innerHTML = d.toFixed() +" min";
 
     var t = inTrack;
+    console.log("t", t);
+    console.log("t.map", t.map);
     t.min_alt = 0;
     t.max_alt = 0;
     t.max_speed = 0;
@@ -72,15 +74,13 @@ var TrackView = function() {
       }
       t.av_speed = t.av_speed + speed_int;
     }
-    console.log("t.av_speed",t.av_speed);
+    // console.log("t.av_speed",t.av_speed);
     t.av_speed = t.av_speed / inTrack.data.length;
-    console.log("t.av_speed",t.av_speed);
+    // console.log("t.av_speed",t.av_speed);
     document.getElementById("trk-max-speed").innerHTML = Controller.userSpeed(t.max_speed);
     document.getElementById("trk-av-speed").innerHTML = Controller.userSpeed(t.av_speed);
     document.getElementById("trk-max-alt").innerHTML = Controller.userSmallDistance(t.max_alt);
     document.getElementById("trk-min-alt").innerHTML = Controller.userSmallDistance(t.min_alt);
-
-
 
     // console.log("t.start", t.start);
     // console.log("t.end", t.end);
@@ -88,8 +88,7 @@ var TrackView = function() {
     __buildSpeedGraph(t);
     if (t.map) {
       console.log("map exist");
-      // document.getElementById("map-img").onload = alert("removing infos spinner");
-      document.getElementById("infos-container").removeChild(document.getElementById("track-spinner"));
+      // document.getElementById("spinner-box").removeChild(document.getElementById("track-spinner"));
       document.getElementById("map-img").width = SCREEN_WIDTH;
       document.getElementById("map-img").src = t.map;
     } else {

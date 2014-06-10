@@ -101,6 +101,7 @@ var DB = function() {
         var cursor = e.target.result;
         console.log("get_tracks store.openCursor successful !", cursor);
         if (cursor) {
+          console.log("cursor.value", cursor.value);
           all_tracks.push(cursor.value);
           // ui.build_track(cursor.value);
           cursor.continue();
@@ -156,27 +157,18 @@ var DB = function() {
       req.onsuccess = function(e) {
         var cursor = e.target.result;
         if (cursor) {
-          // console.log("push - cursor.value: ",cursor.value);
           settings.push(cursor.value);
           cursor.continue();
         } else {
-          // console.log("no settings ?", settings);
           if (settings.length === 0) {
-            // console.log("no settings stored, loading default values.")
             settings = DEFAULT_CONFIG;
-            // console.log("default settings stored: ", settings);
             __saveDefaultConfig();
           };
           var prettySettings = {};
           for (var i = 0; i < settings.length; i++) {
             prettySettings[settings[i].key] = settings[i].value;
-            // console.log("settings[i].key =", settings[i].key);
-            // console.log("settings[i].value =", settings[i].value);
-            // console.log("prettySettings", prettySettings);
           };
-          // console.log("prettySettings", prettySettings);
           successCallback(prettySettings);
-  /*        successCallback(settings);*/
         }
       };
       req.onerror = function(e) {console.error("getConfig store.openCursor error: ", e.error.name);};
@@ -186,24 +178,18 @@ var DB = function() {
   }
   function saveMap(successCallback, errorCallback, inTrack) {
     if (typeof successCallback === "function") {
-
+      console.log("saving inTrack in DB.saveMap", inTrack);
       var tx = db.transaction(DB_STORE_TRACKS, "readwrite");
-      tx.oncomplete = function(e) {};
-      tx.onerror = function(e) {
-        errorCallback(e.error.name);
-      };
       var store = tx.objectStore(DB_STORE_TRACKS);
-      console.log("inTrack", inTrack);
       var req = store.get(inTrack.id);
       req.oncomplete = function(e) {
-        var track = e.target.result;
-        console.log("inTrack.inMap", inTrack.inMap);
-        // track.map = inMap;
+        console.log("retreived req.result", req.result);
         var req2 = store.put(inTrack);
         req2.oncomplete = function(e) {
-          console.log("successfully saved");
+          console.log("successfully updated");
         }
         req2.onerror = function(e) {
+          console.log("failure on saving map");
           errorCallback(e.error.name);
         }
       }

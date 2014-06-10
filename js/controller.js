@@ -119,6 +119,13 @@ var Controller = function() {
     // nb_point =+ 1;
     InfosView.updateInfos(inPosition, distance)
     //~ console.log("nb_point:", nb_point);
+    /*
+    if (tracking_display === "infos") {
+      InfosView.updateInfos(inPosition, distance)
+    } else if (tracking_display === "map") {
+      MapView.updateInfos(inPosition, distance)
+    }
+    */
 
     // appending gps point
     var gps_point = {
@@ -324,7 +331,7 @@ var Controller = function() {
     }
   }
   function userDistance (distanceM, canNegative){
-    console.log("settings.distance:", settings.distance);
+    // console.log("settings.distance:", settings.distance);
     if ((distanceM === null) || ((distanceM < 0) && (!canNegative))) {
       return "?";
     } else if (distanceM < 4000) {
@@ -360,6 +367,7 @@ var Controller = function() {
     return  outDate;
   }
   function saveMap(inTrack) {
+    console.log("saving inTrack in Controller", inTrack);
     DB.saveMap(__saveMapSuccess, __saveMapError, inTrack);
   }
   function __saveMapSuccess() {}
