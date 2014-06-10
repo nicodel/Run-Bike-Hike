@@ -88,7 +88,8 @@ var TrackView = function() {
     __buildSpeedGraph(t);
     if (t.map) {
       console.log("map exist");
-      document.getElementById("map-img").onload = alert("removing infos spinner");
+      // document.getElementById("map-img").onload = alert("removing infos spinner");
+      document.getElementById("infos-container").removeChild(document.getElementById("track-spinner"));
       document.getElementById("map-img").width = SCREEN_WIDTH;
       document.getElementById("map-img").src = t.map;
     } else {
