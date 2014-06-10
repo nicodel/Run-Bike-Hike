@@ -89,6 +89,10 @@ var TrackView = function() {
     if (t.map) {
       console.log("map exist");
       // document.getElementById("spinner-box").removeChild(document.getElementById("track-spinner"));
+      var spin = document.getElementById("track-spinner");
+      var load = document.getElementById("map-text");
+      spin.parentNode.removeChild(spin);
+      load.parentNode.removeChild(load);
       document.getElementById("map-img").width = SCREEN_WIDTH;
       document.getElementById("map-img").src = t.map;
     } else {
