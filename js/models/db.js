@@ -53,12 +53,6 @@ var DB = function() {
         var store = req.result.createObjectStore(DB_STORE_SETTINGS, {keyPath: "key"});
         store.createIndex("key", "key", {unique: true});
         store.createIndex("value", "value", {unique: false});
-/*        var store = req.result.createObjectStore(DB_STORE_SETTINGS, {keyPath:"screen"});
-        store.createIndex("screen", "screen", {unique: true});
-        store.createIndex("language", "language", {unique: true});
-        store.createIndex("distance", "distance", {unique: true});
-        store.createIndex("speed", "speed", {unique: true});
-        store.createIndex("position", "position", {unique: true});*/
       };
     } else  {
       errorCallback("initiate() successCallback should be a function");
@@ -161,6 +155,7 @@ var DB = function() {
           cursor.continue();
         } else {
           if (settings.length === 0) {
+            console.log("no config found, loading the default one !")
             settings = DEFAULT_CONFIG;
             __saveDefaultConfig();
           };
@@ -168,6 +163,7 @@ var DB = function() {
           for (var i = 0; i < settings.length; i++) {
             prettySettings[settings[i].key] = settings[i].value;
           };
+          console.log("loaded settings are:", prettySettings);
           successCallback(prettySettings);
         }
       };
@@ -178,20 +174,11 @@ var DB = function() {
   }
   function saveMap(successCallback, errorCallback, inTrack) {
     if (typeof successCallback === "function") {
-      console.log("saving inTrack in DB.saveMap", inTrack);
-
       var tx = db.transaction(DB_STORE_TRACKS, "readwrite");
       var store = tx.objectStore(DB_STORE_TRACKS);
-      console.log("inTrack.id", inTrack.id);
       var req = store.get(inTrack.id);
-      console.log("req", req);
-
       req.onsuccess = function(e) {
-
-        console.log("retreived req.result", req.result);
-
         var req2 = store.put(inTrack);
-        console.log("req2", req2);
         req2.oncomplete = function(e) {
           console.log("successfully updated");
         }
@@ -205,6 +192,7 @@ var DB = function() {
     }
   }
   function __saveDefaultConfig() {
+    console.log("saving default config");
     var tx = db.transaction(DB_STORE_SETTINGS, "readwrite");
     tx.oncomplete = function(e) {
       // console.log("successful creating default config !");
@@ -233,48 +221,29 @@ var DB = function() {
     };
   }
 
-  function updateConfig(successCallback, errorCallback, inSettings) {
-    // FIXME : really not pretty, but ...
-    var uglySettings = [];
-    uglySettings[0] = {};
-    uglySettings[0].key = "screen";
-    uglySettings[0].value = inSettings.screen;
-    uglySettings[1] = {};
-    uglySettings[1].key = "language";
-    uglySettings[1].value = inSettings.language;
-    uglySettings[2] = {};
-    uglySettings[2].key = "distance";
-    uglySettings[2].value = inSettings.distance;
-    uglySettings[3] = {};
-    uglySettings[3].key = "speed";
-    uglySettings[3].value = inSettings.speed;
-    uglySettings[4] = {};
-    uglySettings[4].key = "position";
-    uglySettings[4].value = inSettings.position;
-    // console.log("uglySettings:", uglySettings);
+  function updateConfig(successCallback, errorCallback, inKey, inValue) {
     if (typeof successCallback === "function") {
-      var tx = db.transaction([DB_STORE_SETTINGS], "readwrite");
-      tx.oncomplete = function(e) {
-        console.log("successful updating config !");
-        successCallback();
-      };
-      tx.onerror = function(e) {
-        console.error("saving config transaction error: ", tx.error.name);
-        errorCallback(tx.error.name);
-      };
+      var tx = db.transaction(DB_STORE_SETTINGS, "readwrite");
       var store = tx.objectStore(DB_STORE_SETTINGS);
-      for (var i = 0; i < uglySettings.length; i++) {
-        var req = store.delete(uglySettings[i].key);
-        req.onsuccess = function(e) {};
-        req.onerror = function(e) {};
-      };
-      for (var i = 0; i < uglySettings.length; i++) {
-        var req = store.add(uglySettings[i]);
-        req.onsuccess = function(e) {};
-        req.onerror = function(e) {};
-      };
-    } else {
-      errorCallback("getConfig() successCallback should be a function");
+      var req = store.get(inKey);
+      console.log("req", req);
+      req.onsuccess = function(e) {
+        req.result.value = inValue;
+        console.log("req.result", req.result);
+        var req2 = store.put(req.result);
+        console.log("req2", req2);
+        req2.onsuccess = function(e) {
+          successCallback("successfully updated");
+        }
+        req2.onerror = function(e) {
+          errorCallback(e.error.name);
+        }
+      }
+      req.onerror = function(e) {
+        errorCallback(e.error.name);
+      }
+    } else  {
+      errorCallback("updateConfig successCallback should be a function");
     }
   }
 

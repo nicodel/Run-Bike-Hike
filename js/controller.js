@@ -152,7 +152,7 @@ var Controller = function() {
   }
 
   function __getConfigSuccess(inSettings) {
-    // console.log("__getConfigSuccess ", inSettings);
+    // console.log("__getConfigSuccess ", Object.keys(inSettings));
     settings = inSettings;
     __setConfigView(inSettings);
     // __setConfigValues(inSettings);
@@ -166,8 +166,9 @@ var Controller = function() {
       }
     };*/
     settings[inKey] = inValue;
+    console.log("saving:", inKey + " " + inValue);
     console.log("now settings:", settings);
-    DB.updateConfig(__savingSettingsSuccess, __savingSettingsError, settings);
+    DB.updateConfig(__savingSettingsSuccess, __savingSettingsError, inKey, inValue);
   }
 
   function __savingSettingsSuccess() {
