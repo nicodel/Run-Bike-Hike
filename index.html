@@ -44,6 +44,54 @@
     <!-- <link rel="prefetch" type="application/l10n" href="locales/data.ini" />
     <script type="text/javascript" src="lib/webL10n/l10n.js"></script> -->
     <script type="text/javascript" src="js/views/status.js"></script>
+
+
+<!--    <script type="text/javascript" src="lib/brick/brick-1.0.1.byob.min.js"></script>
+    <script type="text/javascript" src="lib/OSM/OpenLayers.js"></script>
+    <script type="text/javascript" src="lib/lazyload/lazyload-min.js"></script> 
+    <script type="text/javascript" src="js/install.js"></script>
+    <script type="text/javascript" src="js/views/home-view.js"></script>
+    <script type="text/javascript" src="js/views/infos-view.js"></script>
+    <script type="text/javascript" src="js/views/tracks-view.js"></script>
+    <script type="text/javascript" src="js/views/track-view.js"></script>
+    <script type="text/javascript" src="js/models/chrono.js"></script>
+    <script type="text/javascript" src="js/models/config.js"></script>
+    <script type="text/javascript" src="js/models/db.js"></script>
+    <script type="text/javascript" src="js/models/tracks.js"></script>
+    <script type="text/javascript" src="js/events.js"></script>
+    <script type="text/javascript" src="js/controller.js"></script>
+    <script type="text/javascript" src="js/app.js"></script>  -->
+<!--
+    <script type="text/javascript">
+
+      document.addEventListener('DOMComponentsLoaded', function(){
+        // run code here...
+        var deck = document.getElementById("views");
+        deck.showCard(1);
+        LazyLoad.js([
+          "js/views/home-view.js",
+          "js/views/infos-view.js",
+          "js/views/tracks-view.js",
+          "js/views/track-view.js",
+          // "js/views/status.js",
+          "js/models/chrono.js",
+          "js/models/config.js",
+          "js/models/db.js",
+          "js/models/tracks.js",
+          "js/events.js",
+          "js/controller.js",
+          // "test/data.js",
+          "js/app.js"
+          ]);
+      });
+    </script>
+-->
+
+
+
+
+
+
   </head>
   <body id="app">
 
@@ -117,7 +165,8 @@
           <section>
             <div class="compass-container">
               <img id="home-compass" src="img/compass_inactive.png" alt="Compass" />
-              <button data-l10n-id="btn-start" id="btn-start" class="recommend align-right big alternate">Start</button>
+              <button data-l10n-id="btn-start" id="btn-start" class="align-right recommend big">Start</button>
+              <!-- <button data-l10n-id="btn-start" id="btn-start" class="recommend align-right big alternate">Start</button> -->
             </div>
             <div class="infos-container">
               <ul>
