@@ -33,8 +33,8 @@ var TracksView = function() {
      * TESTING !!!
      */
 /*    var div = '<p><span class="align-left bold clipped">' + inTrack.name + '</span>';
-    div = div + '<span class="align-right">' + Controller.userDate(inTrack.date) + '</span></p>';
-    div = div + '<p class="new-line"><span class="align-left">' + Controller.userDistance(inTrack.distance) + '</span>';
+    div = div + '<span class="align-right">' + Config.userDate(inTrack.date) + '</span></p>';
+    div = div + '<p class="new-line"><span class="align-left">' + Config.userDistance(inTrack.distance) + '</span>';
     var d = inTrack.duration / 60000;
     div = div + '<span class="align-right">' + d.toFixed() + 'min</span></p>';
     lia.innerHTML = div;
@@ -70,8 +70,8 @@ var TracksView = function() {
     // lia.className = "it-track";
 
     var div = '<p><span class="align-left bold clipped">' + inTrack.name + '</span>';
-    div = div + '<span class="align-right">' + Controller.userDate(inTrack.date) + '</span></p>';
-    div = div + '<p class="new-line"><span class="align-left">' + Controller.userDistance(inTrack.distance) + '</span>';
+    div = div + '<span class="align-right">' + Config.userDate(inTrack.date) + '</span></p>';
+    div = div + '<p class="new-line"><span class="align-left">' + Config.userDistance(inTrack.distance) + '</span>';
     var d = inTrack.duration / 60000;
     div = div + '<span class="align-right">' + d.toFixed() + 'min</span></p>';
     lia.innerHTML = div;
