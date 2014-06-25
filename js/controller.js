@@ -254,7 +254,7 @@ var Controller = function() {
   function __displayTrack(inTrack) {
     // console.log("inTrack display: ", inTrack);
     displayed_track = inTrack;
-    TrackView.display(inTrack);
+    TrackView.display(inTrack, __saveMap);
   }
 
   function displayTrack(inTrack) {
@@ -374,7 +374,7 @@ var Controller = function() {
   //   // var outDate = day+"/"+month+"/"+year+ " "+hour+":"+min+":"+sec;
   //   return  outDate;
   // }
-  function saveMap(inTrack) {
+  function __saveMap(inTrack) {
     console.log("saving inTrack in Controller", inTrack);
     DB.saveMap(__saveMapSuccess, __saveMapError, inTrack);
   }
@@ -393,7 +393,7 @@ var Controller = function() {
     changeLanguage: changeLanguage,
     changeDistance: changeDistance,
     changeSpeed: changeSpeed,
-    changePosition: changePosition,
+    changePosition: changePosition
     // userSpeed: userSpeed,
     // userSpeedInteger: userSpeedInteger,
     // userDegree: userDegree,
@@ -402,7 +402,7 @@ var Controller = function() {
     // userSmallDistance: userSmallDistance,
     // userDistance: userDistance,
     // userDate: userDate,
-    saveMap: saveMap
+    // saveMap: saveMap
   };
 }();
 // })

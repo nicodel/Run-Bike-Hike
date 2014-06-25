@@ -63,7 +63,7 @@ var TracksView = function() {
   }
 
   function __buildList(inTrack, displayTrackCallback) {
-    console.log("__buildList - inTrack: ", inTrack);
+    // console.log("__buildList - inTrack: ", inTrack);
     var li = document.createElement("li");
     li.className = "it-track";
     var lia = document.createElement("a");
@@ -78,7 +78,7 @@ var TracksView = function() {
     li.appendChild(lia);
     document.getElementById("tracks-list").appendChild(li);
     lia.addEventListener("click", function(e){
-      console.log("click: track " + inTrack + "will be displayed");
+      // console.log("click: track " + inTrack + "will be displayed");
       document.getElementById("views").showCard(5);
       // Controller.displayTrack(inTrack);
       displayTrackCallback(inTrack);

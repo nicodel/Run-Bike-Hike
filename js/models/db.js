@@ -64,22 +64,22 @@ var DB = function() {
 
       var tx = db.transaction(DB_STORE_TRACKS, "readwrite");
       tx.oncomplete = function(e) {
-        console.log("add_track transaction completed !");
+        // console.log("add_track transaction completed !");
       };
       tx.onerror = function(e) {
-        console.error("add_track transaction error: ", tx.error.name);
+        // console.error("add_track transaction error: ", tx.error.name);
         errorCallback(e.error.name);
       };
       var store = tx.objectStore(DB_STORE_TRACKS);
       var req = store.add(inTrack);
       req.onsuccess = function(e) {
-        console.log("track_add store store.add successful");
+        // console.log("track_add store store.add successful");
         successCallback(inTrack.name);
         // ??? going back to home ???
         // ui.back_home();
       };
       req.onerror = function(e) {
-        console.error("track_add store store.add error: ", req.error.name);
+        // console.error("track_add store store.add error: ", req.error.name);
         errorCallback(req.error.name);
       };
     } else  {
@@ -94,7 +94,7 @@ var DB = function() {
       var req = store.openCursor();
       req.onsuccess = function(e) {
         var cursor = e.target.result;
-        console.log("get_tracks store.openCursor successful !", cursor);
+        // console.log("get_tracks store.openCursor successful !", cursor);
         if (cursor) {
           // console.log("cursor.value", cursor.value);
           all_tracks.push(cursor.value);

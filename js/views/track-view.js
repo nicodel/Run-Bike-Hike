@@ -19,7 +19,7 @@ var TrackView = function() {
   var ACCURACY_COLOR = "#805A5A";
   var ACCURACY_FILL_COLOR = "#C89696";
 
-  function display(inTrack) {
+  function display(inTrack, saveMapCallback) {
     console.log("inTrack in display", inTrack);
     //reset old ressources
     document.getElementById("trk-date").innerHTML = "";
@@ -98,7 +98,8 @@ var TrackView = function() {
       document.getElementById("map-img").src = t.map;
     } else {
       console.log("map does not exist");
-      __buildMap2(inTrack);
+      mapToSave = __buildMap2(inTrack);
+      saveMapCallback(mapToSave);
 
     }
   }
@@ -212,7 +213,6 @@ var TrackView = function() {
     c.stroke();
     c.closePath();
   }
-
   function __buildSpeedGraph(inData) {
     data = inData.data;
 
@@ -271,7 +271,6 @@ var TrackView = function() {
     c.stroke();
     c.closePath();
   }
-
   function __buildMap2(inTrack) {
       // get the min and max longitude/ latitude
       // and build the path
@@ -373,10 +372,12 @@ var TrackView = function() {
         var imgURL = URL.createObjectURL(blob);
         document.getElementById("map-img").src = imgURL;
         inTrack.map = imgURL;
-        Controller.saveMap(inTrack);
+        // Controller.saveMap(inTrack);
       }
     }, false);
     xhr.send();
+    console.log('inTrack after load', inTrack);
+    return inTrack;
   }
 /*
   function __buildMap(inTrack) {

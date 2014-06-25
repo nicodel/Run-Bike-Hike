@@ -52,7 +52,7 @@ var Config = function() {
 
   function change(inKey, inValue) {
     inKey = inValue;
-    console.log(inKey+":"+inValue);
+    // console.log(inKey+":"+inValue);
   }
   function userSpeed(velocityMPS){
     // console.log("SPEED METRIC:", velocityMPS);
@@ -90,7 +90,7 @@ var Config = function() {
      return Math.floor(degree) + "°" + (minutes<10?"0":"") + Math.floor(minutes) + "'" + (seconds<10?"0":"") + seconds.toFixed(2) + "\"";
   }
   function userLatitude(degree){
-    console.log("userLatitude - USER_POSITION_FORMAT: ", USER_POSITION_FORMAT);
+    // console.log("userLatitude - USER_POSITION_FORMAT: ", USER_POSITION_FORMAT);
      if (USER_POSITION_FORMAT === DEGREES_POS_FORMAT)
        return degree;
 
@@ -122,8 +122,8 @@ var Config = function() {
      return distanceM+" m";
   }
   function userDistance (distanceM, canNegative){
-    console.log("USER_DISTANCE = ", USER_DISTANCE);
-    console.log("IMPERIAL_UNITS = ", IMPERIAL_UNITS);
+    // console.log("USER_DISTANCE = ", USER_DISTANCE);
+    // console.log("IMPERIAL_UNITS = ", IMPERIAL_UNITS);
     if ((distanceM === null) || ((distanceM < 0) && (!canNegative)))
       return "?";
 
@@ -158,25 +158,25 @@ var Config = function() {
     return  outDate;
   }
   _generate_x_axis = function(minTime, maxTime){
-    console.log("minTime", minTime);
-    console.log("maxTime", maxTime);
+    // console.log("minTime", minTime);
+    // console.log("maxTime", maxTime);
     var result = [];
     length = maxTime - minTime;
-    console.log("length", length);
+    // console.log("length", length);
     align = 5*60*1000; // 5 minutes
     maxLines = 6;
     if (length / align > maxLines) {align =    10*60*1000;console.log("10 minutes");}
     if (length / align > maxLines) {align =    15*60*1000;console.log("15 minutes");}
     if (length / align > maxLines) {align =    30*60*1000;console.log("30 minutes");}
     if (length / align > maxLines) {align = 1* 60*60*1000;console.log("60 minutes");}
-    console.log("align", align);
+    // console.log("align", align);
 
     dateobj = new Date(minTime);
     //~ startOfDay = Date.parse( dateobj.getFullYear() + '-' + dateobj.getMonth() + '-' + dateobj.getDate() + ' 0:00' );
     startOfDay = Date.parse(dateobj.getFullYear() + ' - ' + dateobj.getMonth() + ' - ' + dateobj.getDate());
-    console.log("startOfDay", startOfDay);
+    // console.log("startOfDay", startOfDay);
     alignedStart = minTime + ( align - ((minTime - startOfDay) % align));
-    console.log("alignedStart",alignedStart);
+    // console.log("alignedStart",alignedStart);
     var i = 0;
     var now = new Date();
     for (time = alignedStart; time < maxTime ; time += align){
@@ -185,7 +185,7 @@ var Config = function() {
         label : config.format_time(new Date( time + ( now.getTimezoneOffset()*-60*1000 ) ), true)
       };
     }
-    console.log("result", result);
+    // console.log("result", result);
     return result;
   };
   _generate_y_axis = function(min, max, unitMultiply, unit){

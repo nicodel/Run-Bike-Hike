@@ -61,7 +61,7 @@ var Tracks = function() {
   function getDistance(lat, lon) {
     if (olat != null) {
       distance += __distanceFromPrev(olat, olon, lat, lon);
-      console.log("distance: ", distance);
+      // console.log("distance: ", distance);
     };
     olat = lat;
     olon = lon;
@@ -78,7 +78,6 @@ var Tracks = function() {
 
   function reset() {
     distance = 0;
-    
   }
 
   function __distanceFromPrev(lat1, lon1, lat2, lon2) {
