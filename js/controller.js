@@ -245,10 +245,16 @@ var Controller = function() {
   }
 
   function __getTracksSuccess(inTracks) {
-    TracksView.display(inTracks);
+    TracksView.display(inTracks, __displayTrack);
   }
 
   function __getTracksError(inTracks) {}
+
+  function __displayTrack(inTrack) {
+    // console.log("inTrack display: ", inTrack);
+    displayed_track = inTrack;
+    TrackView.display(inTrack);
+  }
 
   function displayTrack(inTrack) {
     // console.log("inTrack display: ", inTrack);

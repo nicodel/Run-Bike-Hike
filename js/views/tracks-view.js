@@ -1,6 +1,6 @@
 var TracksView = function() {
 
-  function display(inTracks) {
+  function display(inTracks, displayTrackCallback) {
     // __remove_childs("tracks-list");
     var list = document.getElementById("tracks-list");
     console.log("list.childNodes",list.childNodes);
@@ -23,7 +23,7 @@ var TracksView = function() {
       var tracks = [];
       tracks = inTracks;
       for (var i = tracks.length - 1; i >= 0; i--) {
-        __buildList(tracks[i]);
+        __buildList(tracks[i], displayTrackCallback);
 
       }
     }
@@ -61,8 +61,8 @@ var TracksView = function() {
     document.getElementById("tracks-list").appendChild(el);
   }
 
-  function __buildList(inTrack) {
-    // console.log("__buildList - inTrack: ", inTrack);
+  function __buildList(inTrack, displayTrackCallback) {
+    console.log("__buildList - inTrack: ", inTrack);
     var li = document.createElement("li");
     li.className = "it-track";
     var lia = document.createElement("a");
@@ -77,9 +77,10 @@ var TracksView = function() {
     li.appendChild(lia);
     document.getElementById("tracks-list").appendChild(li);
     lia.addEventListener("click", function(e){
-      // console.log("click: track " + inTrack + "will be displayed");
+      console.log("click: track " + inTrack + "will be displayed");
       document.getElementById("views").showCard(5);
-      Controller.displayTrack(inTrack);
+      // Controller.displayTrack(inTrack);
+      displayTrackCallback(inTrack);
     });
   }
 
