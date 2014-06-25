@@ -53,7 +53,6 @@ var Config = function() {
     inKey = inValue;
     console.log(inKey+":"+inValue);
   }
-
   function userSpeed(velocityMPS){
     // console.log("SPEED METRIC:", velocityMPS);
     if (velocityMPS === null || velocityMPS<0 || isNaN(velocityMPS)) {
@@ -69,7 +68,6 @@ var Config = function() {
     }
     return velocityMPS+ " m/s";
   }
-
   function userSpeedInteger(velocityMPS) {
     // console.log("SPEED METRIC:", velocityMPS);
     if (velocityMPS === null || velocityMPS<0 || isNaN(velocityMPS)) {
@@ -85,13 +83,11 @@ var Config = function() {
     }
     return velocityMPS;
   }
-
   function userDegree(degree){
      minutes = (degree - Math.floor(degree)) * 60;
      seconds = (minutes - Math.floor(minutes )) * 60;
      return Math.floor(degree) + "°" + (minutes<10?"0":"") + Math.floor(minutes) + "'" + (seconds<10?"0":"") + seconds.toFixed(2) + "\"";
   }
-
   function userLatitude(degree){
     console.log("userLatitude - USER_POSITION_FORMAT: ", USER_POSITION_FORMAT);
      if (USER_POSITION_FORMAT === DEGREES_POS_FORMAT)
@@ -102,7 +98,6 @@ var Config = function() {
 
      return this.userDegree( Math.abs(degree) ) + (degree>0? "N":"S");
   }
-
   function userLongitude(degree){
      if (USER_POSITION_FORMAT === DEGREES_POS_FORMAT)
        return degree;
@@ -112,7 +107,6 @@ var Config = function() {
 
      return this.userDegree( Math.abs(degree) ) + (degree>0? "E":"W");
   }
-
   function userSmallDistance(distanceM, canNegative){
      if ((distanceM === null) || ((distanceM < 0) && (!canNegative)))
        return "?";
@@ -126,7 +120,6 @@ var Config = function() {
      }
      return distanceM+" m";
   }
-
   function userDistance (distanceM, canNegative){
     console.log("USER_DISTANCE = ", USER_DISTANCE);
     console.log("IMPERIAL_UNITS = ", IMPERIAL_UNITS);
@@ -144,7 +137,6 @@ var Config = function() {
     }
     return distanceM+" m";
   }
-
   function userDate(inDate) {
     var d = new Date(inDate);
 
@@ -164,7 +156,6 @@ var Config = function() {
     // var outDate = day+"/"+month+"/"+year+ " "+hour+":"+min+":"+sec;
     return  outDate;
   }
-
   _generate_x_axis = function(minTime, maxTime){
     console.log("minTime", minTime);
     console.log("maxTime", maxTime);
@@ -225,7 +216,6 @@ var Config = function() {
     }
     return config.generate_x_axis(min, max, unitMultiply, unit);
   };
-
   _format_time = function(dateobj, shortFormat){
     strRes = "NA";
     secs = dateobj.getSeconds(); if (secs > 9) strSecs = String(secs); else strSecs = "0" + String(secs);
