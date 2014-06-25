@@ -1,3 +1,4 @@
+"use strict;"
 var DATABASE = function() {
   
   var DB_NAME,        // database name

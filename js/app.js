@@ -1,3 +1,4 @@
+"use strict;"
 var RunBikeHike = function() {
 	Controller.init();
   if (Config.SCREEN_KEEP_ALIVE) {

@@ -1,3 +1,4 @@
+"use strict;"
 var TrackView = function() {
 
   var SCREEN_WIDTH = parseInt(window.innerWidth * 0.9,10);

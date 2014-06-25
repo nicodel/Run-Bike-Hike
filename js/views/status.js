@@ -1,4 +1,3 @@
-
 'use strict';
 // From Mozilla Building Blocks
 var utils = this.utils || {};

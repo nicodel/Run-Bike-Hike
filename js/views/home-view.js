@@ -1,3 +1,4 @@
+"use strict;"
 // define(["models/config"], function(Config) {
 var HomeView = function() {
 

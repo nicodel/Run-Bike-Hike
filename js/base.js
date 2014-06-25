@@ -1,3 +1,4 @@
+"use strict;"
 /*
  * From  robnyman / Firefox-OS-Boilerplate-App
  */

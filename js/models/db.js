@@ -1,3 +1,4 @@
+"use strict;"
 // define(["controller"], function(Controller){
 var DB = function() {
   window.indexedDB = window.shimIndexedDB  && window.shimIndexedDB.__useShim();

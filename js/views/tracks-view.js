@@ -1,3 +1,4 @@
+"use strict;"
 var TracksView = function() {
 
   function display(inTracks, displayTrackCallback) {
