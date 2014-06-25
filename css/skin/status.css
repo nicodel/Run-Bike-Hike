@@ -26,6 +26,11 @@ section[role="status"] p strong {
   font-weight: 500;
 }
 
+
+section[role="status"].hidden {
+  display: none;
+}
+
 /*
  * Right to Left View
  */

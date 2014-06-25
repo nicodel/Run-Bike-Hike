@@ -2,3 +2,7 @@ x-deck > x-card {
   background: #eee;
   /*padding: 0.6em*/
 }
+
+x-flipbox {
+  height: auto;
+}
