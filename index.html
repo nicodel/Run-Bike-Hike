@@ -367,7 +367,7 @@
     <script type="text/javascript" src="lib/brick/brick-1.0.1.byob.min.js"></script>
     <script type="text/javascript" src="lib/OSM/OpenLayers.js"></script>
     <script type="text/javascript" src="js/install.js"></script>
-
+<!--
     <script type="text/javascript" src="lib/lazyload/lazyload-min.js"></script>
     <script type="text/javascript">
 
@@ -392,7 +392,7 @@
           ]);
       });
     </script>
-<!--
+-->
   </body>
     <script type="text/javascript" src="js/views/home-view.js"></script>
     <script type="text/javascript" src="js/views/infos-view.js"></script>
@@ -406,5 +406,11 @@
     <script type="text/javascript" src="js/events.js"></script>
     <script type="text/javascript" src="js/controller.js"></script>
     <script type="text/javascript" src="js/app.js"></script>
--->
+    <script type="text/javascript">
+      document.addEventListener('DOMComponentsLoaded', function(){
+        var deck = document.getElementById("views");
+        deck.showCard(1);
+      });
+    </script>
+
 </html>
