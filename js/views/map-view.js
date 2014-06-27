@@ -91,24 +91,63 @@ var MapView = function() {
     OpenLayers.Console.log('Location detection failed');
     alert('Location detection failed');
   });
-
-  function onFollow() {
+  var onFollow = function() {
     // lock = window.navigator.requestWakeLock('screen');
     vector.removeAllFeatures();
     geolocate.deactivate();
     geolocate.watch = true;
     firstGeolocation = true;
     geolocate.activate();
-  };
-
-// onFollow();
-
-  return {
-    onFollow: onFollow
   }
 
 
 
 
 
+  var firstGeolocation = true;  
+
+  var display = function () {
+
+  }
+
+  var updateMap = function(inPosition) {
+    vector.removeAllFeatures();
+    var point = new OpenLayers.Geometry.Point(inPosition.coords.latitude, inPosition.coords.longitude);
+    console.log("point", point);
+    var circle = new OpenLayers.Feature.Vector(
+      OpenLayers.Geometry.Polygon.createRegularPolygon(
+        // new OpenLayers.Geometry.Point(e.point.x, e.point.y),
+        point,
+        inPosition.coords.accuracy / 2,
+        40,
+        0
+      ), {},
+      style
+    );
+    vector.addFeatures([
+      new OpenLayers.Feature.Vector(
+        // e.point, {}, {
+        point, {}, {
+        graphicName: 'rectangle',
+        strokeColor: '#f00',
+        strokeWidth: 2,
+        fillOpacity: 0,
+        pointRadius: 10
+      }),
+          circle
+    ]);
+    if (firstGeolocation) {
+      consolo.log("first Location");
+      map.zoomToExtent(vector.getDataExtent());
+      pulsate(circle);
+      firstGeolocation = false;
+      // this.bind = true;
+    };
+  }
+
+  return {
+    onFollow: onFollow,
+    updateMap: updateMap,
+    display: display
+  }
 }();

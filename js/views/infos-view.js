@@ -1,8 +1,5 @@
 "use strict;"
 var InfosView = function() {
-/*define(["controller",
-        "models/config"
-  ], function(Controller, Config) {*/
 
   var updateInfos = function(inPosition, inDistance) {
     // console.log("showing: ", inDistance);
@@ -27,7 +24,7 @@ var InfosView = function() {
   var __displayCompass = function(event) {
 
     compass = document.getElementById("infos-compass");
-    //~ console.log("heading:", event.heading);
+    // console.log("heading:", event.heading);
     if (event.heading > 0 ){
       /** in case, when GPS is disabled (only if GSM fix is available),
        * event.heading should be -1 and event.errorCode should be 4,
@@ -45,43 +42,9 @@ var InfosView = function() {
     }
     compass.style.opacity = opacity;
   }
-  /*
-  var cent=0;
-  var sec=0;
-  var min = 0;
-  var compte;
-
-  var startChrono = function() {
-    cent++;
-    if (cent > 9) {cent = 0;sec++;}
-    if (sec > 59) {sec = 0;min++;}
-
-    if (sec < 10) {document.getElementById('trk-sec').innerHTML = '0' + sec;}
-    else {document.getElementById('trk-sec').innerHTML = sec;}
-
-    if (min < 10)
-      {document.getElementById('trk-min').innerHTML = '0' + min;}
-    else
-      {document.getElementById('trk-min').innerHTML = min;}
-    compte = window.setTimeout(startChrono, 100);
-  }
-
-  var stopChrono = function() {
-    window.clearTimeout(compte);
-    cent = 0;
-    sec = 0;
-    min = 0;
-    // document.getElementById('dur-min').innerHTML = min;
-    // document.getElementById('dur-sec').innerHTML = sec;
-  }*/
-
-
 
   return {
-    /*startChrono: startChrono,
-    stopChrono:stopChrono,*/
     updateInfos: updateInfos
-    // backHome: backHome
   }
 
 }();

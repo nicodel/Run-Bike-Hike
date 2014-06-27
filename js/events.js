@@ -33,6 +33,7 @@ document.querySelector("#btn-stop").addEventListener ("click", function () {
 document.querySelector("#btn-map").addEventListener ("click", function () {
   console.log("flipping!");
   document.getElementById("infos-flipbox").toggle();
+  Controller.flippingTrack(document.getElementById("infos-flipbox").flipped);
 });
 
 

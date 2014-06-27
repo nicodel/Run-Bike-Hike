@@ -27,21 +27,22 @@ test.geolocation = function() {
     var date = new Date().getTime();
     var i = 0;  
     function delayedLoop(){
+      // console.log("delayedLoop");
       var pointgpx = test.gpstrack[i];
       var point = {};
       point.timestamp = date;
       point.coords = {};
-      //~ console.log("pointgpx.latitude",pointgpx.latitude);
-      point.coords.latitude = parseInt(pointgpx.latitude, 10);
-      point.coords.longitude = parseInt(pointgpx.longitude, 10);
+      // console.log("pointgpx.latitude",pointgpx.latitude);
+      point.coords.latitude = parseFloat(pointgpx.latitude);
+      point.coords.longitude = parseFloat(pointgpx.longitude);
       point.coords.altitude = parseInt(pointgpx.coords.altitude, 10);
       point.coords.speed = parseInt(pointgpx.coords.speed, 10);
       point.coords.accuracy = parseInt(pointgpx.coords.accuracy, 10);
       point.coords.altitudeAccuracy = parseInt(pointgpx.coords.altitudeAccuracy, 10);
       point.coords.heading = 0;
       date = date + 1000;
-      //~ console.log("test - watch point", point);
       successCallback(point);
+      // console.log("test - watch point", point);
       if (i++ == test.gpstrack.length) {
         window.clearTimeout(wait);
         return;
@@ -49,7 +50,7 @@ test.geolocation = function() {
       wait = window.setTimeout(delayedLoop, 1000);
     }
     delayedLoop();
-    errorCallback("test - error on watch position");
+    // errorCallback("test - error on watch position", test.gpstrack[i], i);
   }
 
   function clearWatch(id) {

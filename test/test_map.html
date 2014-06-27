@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title >Test Map</title>
+
+  <!-- Reset -->
+  <link rel="stylesheet" type="text/css" href="../css/reset.css"/>
+
+  <!--······························ Brick ································-->
+  <link rel="stylesheet" type="text/css" href="../lib/brick/brick-1.0.1.byob.min.css"/>
+
+  <!--······························ Fonts ································-->
+  <link rel="stylesheet" href="../css/fonts.css"/>
+
+  <!--··························· My own Skin ·····························-->
+  <link rel="stylesheet" href="../css/skin/x.css"/>
+  <link rel="stylesheet" href="../css/skin/x-layout.css"/>
+  <link rel="stylesheet" href="../css/skin/x-appbar.css"/>
+  <link rel="stylesheet" href="../css/skin/x-toggle.css"/>
+  <link rel="stylesheet" href="../css/skin/form.css"/>
+  <link rel="stylesheet" href="../css/skin/switches.css"/>
+  <link rel="stylesheet" href="../css/skin/spinner.css"/>
+  <link rel="stylesheet" href="../css/skin/status.css"/>
+
+  <!--························ My common style ! ··························-->
+  <link rel="stylesheet" href="../css/app.css"/>
+  <link rel="stylesheet" href="../css/styles.css"/>
+  <style type="text/css">
+    html, body, #map {
+      margin: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    #text {
+      position: absolute;
+      bottom: 1em;
+      left: 1em;
+      width: 512px;
+      z-index: 20000;
+      background-color: white;
+      padding: 0 0.5em 0.5em 0.5em;
+    }
+  </style>
+
+</head>
+<body id="app">
+<!--   <x-deck transition-type="none" id="views">
+    <x-card>
+      <x-layout>
+        <x-appbar>
+          <h1 data-l10n-id="rbh-tracking" id="tracking-h1">Tracking...</h1>
+          <button data-l10n-id="map" id="btn-map">Map</button>
+        </x-appbar>
+        <section>
+          <h1>The map will be displayed here !</h1> -->
+          <div id="map"></div>
+<!--         </section>
+      </x-layout>
+    </x-card>
+  </x-deck> -->
+</body>
+<script type="text/javascript" src="../lib/OSM/OpenLayers.js"></script>
+<script type="text/javascript" src="../lib/brick/brick-1.0.1.byob.min.js"></script>
+<script type="text/javascript" src="test-geolocation.js"></script>
+<script type="text/javascript" src="test-map.js"></script>
+</html>
