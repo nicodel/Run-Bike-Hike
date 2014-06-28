@@ -25,7 +25,7 @@ test.geolocation = function() {
   function watchPosition(successCallback, errorCallback) {
     console.log("test - watch position");
     var date = new Date().getTime();
-    var i = 0;  
+    var i = 0;
     function delayedLoop(){
       // console.log("delayedLoop");
       var pointgpx = test.gpstrack[i];
@@ -95,7 +95,7 @@ test.geolocation = function() {
       point.coords.accuracy = parseInt(pointgpx.coords.accuracy, 10);
       point.coords.altitudeAccuracy = parseInt(pointgpx.coords.altitudeAccuracy, 10);
       point.coords.heading = 0;
-      
+
       //~ console.log("lat", parseFloat(pointgpx.latitude));
       // calculate distance
       if (last_point !== null) {
@@ -103,7 +103,7 @@ test.geolocation = function() {
         //~ console.log("testgeo.t_distance_from_prev", testgeo.t_distance_from_prev(olat, olon, point.coords.latitude, point.coords.longitude));
       } else {console.log("first ?");}
       trs.duration += 1000;
-      
+
       date = date + 1000;
       trs.data.push(point);
       olat = point.coords.latitude;
