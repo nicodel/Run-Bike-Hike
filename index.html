@@ -32,6 +32,7 @@
 
     <!--··························· My Flat Skin ····························-->
     <link rel="stylesheet" href="css/skin/flat/x-appbar.css"/>
+    <link rel="stylesheet" href="css/skin/flat/spinner.css"/>
     <link rel="stylesheet" href="css/skin/flat/status.css"/>
 
     <!--························ My common style ! ··························-->
@@ -119,6 +120,30 @@
             <div class="infos-container">
               <ul>
                 <li>
+                  <div data-l10n-id="elapsed-time">
+                    Elapsed time
+                    <span id="home-chrono" class="bold align-right hidden">00:00:00</span>
+                  </div>
+                </li>
+                <li>
+                  <div data-l10n-id="distance">
+                    Distance
+                    <span id="home-dist" class="bold align-right hidden"></span>
+                  </div>
+                </li>
+                <li>
+                  <div data-l10n-id="altitude">
+                    Altitude
+                    <span class="bold align-right" id="home-alt"></span>
+                  </div>
+                </li>
+                <li>
+                  <div data-l10n-id="speed">
+                    Speed
+                    <span id="home-speed" class="bold align-right"></span>
+                  </div>
+                </li>
+                <li>
                   <div data-l10n-id="latitude">
                     Latitude
                     <span class="bold align-right" id="home-lat"></span>
@@ -131,35 +156,11 @@
                   </div>
                 </li>
                 <li>
-                  <div data-l10n-id="altitude">
-                    Altitude
-                    <span class="bold align-right" id="home-alt"></span>
-                  </div>
-                </li>
-                <li>
                   <div data-l10n-id="accuracy">
                     Accuracy
                     <span class="bold align-right" id="home-acc"></span>
                   </div>
                 </li>
-                <li>
-                  <div data-l10n-id="elapsed-time">
-                    Elapsed time
-                    <span id="home-chrono" class="bold align-right hidden">00:00:00</span>
-                  </div>
-                </li>
-                <li>
-                  <div data-l10n-id="distance">
-                    Distance
-                    <span id="home-dist" class="bold align-right hidden"></span>
-                  </div>
-                </li>
-              <li>
-                <div data-l10n-id="speed">
-                  Speed
-                  <span id="home-speed" class="bold align-right"></span>
-                </div>
-              </li>
                 <li>
                   <div id="message-area" class="align-center">
                     <progress id="spinner"></progress>
