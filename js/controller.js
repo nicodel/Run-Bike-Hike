@@ -258,10 +258,15 @@ var Controller = function() {
   function __saveMapSuccess() {}
   function __saveMapError() {}
 
-  function flippingTrack (inFlipped) {
+  function flippingTrack(inFlipped) {
     // console.log("inFlipped", inFlipped);
     display_map = inFlipped;
   }
+
+  function shareTrack() {
+    ExportTrack.toGPX(displayed_track);
+  }
+
 
   return {
     init: init,
@@ -276,7 +281,8 @@ var Controller = function() {
     changeDistance: changeDistance,
     changeSpeed: changeSpeed,
     changePosition: changePosition,
-    flippingTrack: flippingTrack
+    flippingTrack: flippingTrack,
+    shareTrack: shareTrack
   };
 }();
 // })

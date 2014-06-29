@@ -105,6 +105,11 @@ document.querySelector("#btn-track-back").addEventListener ("click", function ()
 document.querySelector("#btn-delete").addEventListener ("click", function () {
   document.getElementById("views").showCard(5);
 });
+/* Track View Share button */
+document.querySelector("#btn-share").addEventListener("click", function() {
+  console.Log("exporting");
+  Controller.shareTrack();
+});
 
 /*----------------- Track Delete Confirmation -----------------*/
 /* Delete Track Cancel button */
@@ -116,6 +121,11 @@ document.querySelector("#btn-confirm-delete").addEventListener("click", function
   document.getElementById("views").showCard(3);
   Controller.deleteTrack();
 });
+
+
+
+
+
 // }();
 
 

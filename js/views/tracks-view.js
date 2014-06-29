@@ -79,7 +79,7 @@ var TracksView = function() {
     document.getElementById("tracks-list").appendChild(li);
     lia.addEventListener("click", function(e){
       // console.log("click: track " + inTrack + "will be displayed");
-      document.getElementById("views").showCard(5);
+      document.getElementById("views").showCard(4);
       // Controller.displayTrack(inTrack);
       displayTrackCallback(inTrack);
     });
