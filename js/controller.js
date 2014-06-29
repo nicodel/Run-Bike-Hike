@@ -10,11 +10,9 @@ var Controller = function() {
   var displayed_track;
 
   function init() {
-    // startWatch();
     DB.initiate(__initiateSuccess, __initiateError);
     if (navigator.geolocation) {
       watchID = navigator.geolocation.watchPosition(
-      // initID = test.geolocation.watchPosition(
         function(inPosition){
           __locationChanged(inPosition);
           },
@@ -23,32 +21,52 @@ var Controller = function() {
         }
       );
     }
-
+  }
+  function __initiateSuccess(inEvent) {
+    DB.getConfig(__getConfigSuccess, __getConfigError);
   }
 
-  function startWatch() {
-    // navigator.geolocation.clearWatch(initID);
-    watchID = navigator.geolocation.getCurrentPosition(
-    // watchID = test.geolocation.watchPosition(
-      function(inPosition){
-        __positionChanged(inPosition);
-        },
-      function (inError){
-        __positionError(inError);
-      }
-    );
-    tracking = true;
-    // Start the calculation of elapsed time
-    // InfosView.startChrono();
-    Chrono.load(document.getElementById("infos-chrono"));
-    Chrono.start();
-    // Open new track
-    current_track = Tracks.open();
-    nb_point = 0;
+  function __initiateError(inEvent) {
+    utils.status.show(inEvent);
+  }
+
+  function __locationChanged(inPosition){
+    // console.log("Position found");
+    if (tracking) {
+      // console.log("tracking");
+      __addNewPoint(inPosition);
+    } else {
+      // console.log("not tracking");
+      HomeView.updateInfos(inPosition);
+    };
+  }
+  function __locationError(inError){
+    // console.log("error:",inError);
+    if (tracking) {
+      __positionError(inError);
+    } else {
+      HomeView.displayError(inError);
+    };
+  }
+
+  function toggleWatch() {
+    if (tracking) {
+      document.getElementById("views").showCard(2);
+    } else {
+      tracking = true;
+      // Start the calculation of elapsed time
+      // InfosView.startChrono();
+      Chrono.load(document.getElementById("home-chrono"));
+      Chrono.start();
+      // Open new track
+      current_track = Tracks.open();
+      nb_point = 0;
+      document.querySelector("#btn-start").innerHTML = "Stop";
+      document.querySelector("#btn-start").className = "align-right danger big alternate"
+    };
   }
   function stopWatch(){
     //Stop the calculation of elapsed time
-    // InfosView.stopChrono();
     Chrono.stop();
     // reset counters
     Tracks.reset();
@@ -65,31 +83,14 @@ var Controller = function() {
       // Save to DB
       DB.addTrack(__addTrackSuccess, __addTrackError, track);
     };
+    document.querySelector("#btn-start").innerHTML = "Start";
+    document.querySelector("#btn-start").className = "align-right recommend big alternate"
   }
-  function __locationChanged(inPosition){
-    // console.log("Position found");
-    if (tracking) {
-      // console.log("tracking");
-      __positionChanged(inPosition);
-    } else {
-      // console.log("not tracking");
-      HomeView.updateInfos(inPosition);
-    };
-  }
-  function __locationError(inError){
-    // console.log("error:",inError);
-    if (tracking) {
-      __positionError(inError);
-    } else {
-      HomeView.displayError(inError);
-    };
-  }
-  function __positionChanged(inPosition){
+
+  function __addNewPoint(inPosition){
     if (!inPosition.coords || !inPosition.coords.latitude || !inPosition.coords.longitude) {
-      // console.log("__locationChanged not - inPosition: ", inPosition);
       return;
     }
-    // console.log("__locationChanged - inPosition: ", inPosition);
     var event = inPosition.coords;
     // Display GPS data, log to Db
     var now = new Date();
@@ -108,30 +109,16 @@ var Controller = function() {
     }
     // calculate distance
     var distance = Tracks.getDistance(lat, lon);
-    // if (olat !== null) {
-    //   current_track.distance += __distanceFromPrev(olat, olon, lat, lon);
-    //   console.log("current_track.distance", current_track.distance);
-    //   console.log("__distanceFromPrevrev(olat, olon, lat, lon)", __distanceFromPrevrev(olat, olon, lat, lon));
-    // }
 
     // calculating duration
     duration = Tracks.getDuration(inPosition.timestamp);
 
     // updating UI
-    // nb_point =+ 1;
     if (display_map) {
       MapView.updateMap(inPosition)
     } else {
-      InfosView.updateInfos(inPosition, distance)
+      HomeView.updateInfos(inPosition, distance)
     }
-    //~ console.log("nb_point:", nb_point);
-    /*
-    if (tracking_display === "infos") {
-      InfosView.updateInfos(inPosition, distance)
-    } else if (tracking_display === "map") {
-      MapView.updateInfos(inPosition, distance)
-    }
-    */
 
     // appending gps point
     var gps_point = {
@@ -146,16 +133,6 @@ var Controller = function() {
     Tracks.addNode(gps_point, distance, duration);
   }
   function __positionError(inError) {}
-
-  function __initiateSuccess(inEvent) {
-    // utils.status.show(inEvent);
-    // console.log("__initiateSuccess ", inEvent);
-    DB.getConfig(__getConfigSuccess, __getConfigError);
-  }
-
-  function __initiateError(inEvent) {
-    utils.status.show(inEvent);
-  }
 
   function __getConfigSuccess(inSettings) {
     // console.log("__getConfigSuccess ", Object.keys(inSettings));
@@ -288,7 +265,7 @@ var Controller = function() {
 
   return {
     init: init,
-    startWatch: startWatch,
+    toggleWatch: toggleWatch,
     stopWatch: stopWatch,
     displayTracks: displayTracks,
     displayTrack: displayTrack,

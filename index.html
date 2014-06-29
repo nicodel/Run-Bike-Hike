@@ -145,6 +145,24 @@
                   </div>
                 </li>
                 <li>
+                  <div data-l10n-id="elapsed-time">
+                    Elapsed time
+                    <span id="home-chrono" class="bold align-right hidden">00:00:00</span>
+                  </div>
+                </li>
+                <li>
+                  <div data-l10n-id="distance">
+                    Distance
+                    <span id="home-dist" class="bold align-right hidden"></span>
+                  </div>
+                </li>
+              <li>
+                <div data-l10n-id="speed">
+                  Speed
+                  <span id="home-speed" class="bold align-right"></span>
+                </div>
+              </li>
+                <li>
                   <div id="message-area" class="align-center">
                     <progress id="spinner"></progress>
                     <p id="msg" class="bold align-center">Retreiving GPS signal. It may take some time...</p>
@@ -163,7 +181,7 @@
       </x-card>
 
       <!-- Card 2 :  Tracking View -->
-      <x-card>
+<!--       <x-card>
       <x-layout>
         <x-appbar>
           <h1 data-l10n-id="rbh-tracking" id="tracking-h1">Tracking...</h1>
@@ -173,7 +191,6 @@
           <section>
             <div class="compass-container">
               <img id="infos-compass" class="compass" src="img/compass.png" alt="Compass" />
-              <!-- <button data-l10n-id="btn-stop" id="btn-stop" class="danger align-right big alternate">Stop</button> -->
               <button data-l10n-id="btn-stop" id="btn-stop" class="align-right danger big alternate">Stop</button>
             </div>
             <div class="infos-container">
@@ -217,7 +234,7 @@
         </section>
       </x-flipbox>
       </x-layout>
-      </x-card>
+      </x-card> -->
 
       <!-- Card 3 :  Stop tracking confirmation form -->
       <x-card transition-type="fade-scale">

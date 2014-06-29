@@ -6,7 +6,7 @@ var HomeView = function() {
     document.getElementById("message-area").removeChild(document.getElementById("spinner"));
   }
 
-  function updateInfos(inPosition){
+  function updateInfos(inPosition, inDistance){
     // hide spinner
     if (document.getElementById("spinner")) {
       __hideSpinner();
@@ -27,6 +27,10 @@ var HomeView = function() {
     document.getElementById("home-lon").innerHTML = Config.userLongitude(inPosition.coords.longitude);
     // display altitude using Settings format
     document.getElementById("home-alt").innerHTML = Config.userSmallDistance(inPosition.coords.altitude)/* + "(&#177;" + Config.userSmallDistance(inPosition.coords.altitudeAccuracy) + ")"*/;
+    // updating distance using Settings choosen unit
+    document.getElementById("home-dist").innerHTML = Config.userDistance(inDistance);
+    // updating speed using Settings choosen unit
+    document.getElementById("home-speed").innerHTML = Config.userSpeed(inPosition.coords.speed);
     // empty message area
     document.getElementById('msg').innerHTML = "";
     //display compass
