@@ -1,5 +1,17 @@
 # Run, Bike, Hike...
 
+## La liste des choses à faire
+
+### Fonctionnalités pour le Hackathon
+
+* Suppression d'une trace GPS
+* Renommage d'une trace GPS
+* Partage d'une trace GPS (exporter en GPX, envoyer par email ou stocker sur le téléphone)
+* Partage du résumé d'une trace GPS (résumé regroupant la distance, la durée ... via des réseaux sociaux)
+
+### Fonctionnalités futures
+
+
 ## Description
 
 Un outil d'enregistrement GPS pour les sportifs qui aiment suivre leurs évolutions.
