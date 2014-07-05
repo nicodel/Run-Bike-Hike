@@ -20,28 +20,26 @@
     <!--······························ Fonts ································-->
     <link rel="stylesheet" href="css/fonts.css"/>
 
-    <!--··························· My own Skin ·····························-->
-    <link rel="stylesheet" href="css/skin/x.css"/>
-    <link rel="stylesheet" href="css/skin/x-layout.css"/>
-    <link rel="stylesheet" href="css/skin/x-appbar.css"/>
-    <link rel="stylesheet" href="css/skin/x-toggle.css"/>
-    <link rel="stylesheet" href="css/skin/form.css"/>
-    <link rel="stylesheet" href="css/skin/switches.css"/>
-    <link rel="stylesheet" href="css/skin/spinner.css"/>
-<!--
-    <link rel="stylesheet" href="css/skin/button.css"/>
-    <link rel="stylesheet" href="css/skin/list.css"/>
-    <link rel="stylesheet" href="css/skin/x-toggle.css"/>
-    <link rel="stylesheet" href="css/skin/select.css"/>
--->
-    
+    <!--··························· My BB Skin ······························-->
+<!--     <link rel="stylesheet" href="css/skin/bb/x.css"/>
+    <link rel="stylesheet" href="css/skin/bb/x-layout.css"/>
+    <link rel="stylesheet" href="css/skin/bb/x-appbar.css"/>
+    <link rel="stylesheet" href="css/skin/bb/x-toggle.css"/>
+    <link rel="stylesheet" href="css/skin/bb/form.css"/>
+    <link rel="stylesheet" href="css/skin/bb/switches.css"/>
+    <link rel="stylesheet" href="css/skin/bb/spinner.css"/>
+    <link rel="stylesheet" href="css/skin/bb/status.css"/> -->
+
+    <!--··························· My Flat Skin ····························-->
+    <link rel="stylesheet" href="css/skin/flat/x-appbar.css"/>
+    <link rel="stylesheet" href="css/skin/flat/spinner.css"/>
+    <link rel="stylesheet" href="css/skin/flat/status.css"/>
+
     <!--························ My common style ! ··························-->
     <link rel="stylesheet" href="css/app.css"/>
     <link rel="stylesheet" href="css/styles.css"/>
-    
-    <!-- Localization -->
-    <!-- <link rel="prefetch" type="application/l10n" href="locales/data.ini" />
-    <script type="text/javascript" src="lib/webL10n/l10n.js"></script> -->
+
+
 
   </head>
   <body id="app">
@@ -116,10 +114,35 @@
           <section>
             <div class="compass-container">
               <img id="home-compass" src="img/compass_inactive.png" alt="Compass" />
-              <button data-l10n-id="btn-start" id="btn-start" class="recommend align-right big alternate">Start</button>
+              <button data-l10n-id="btn-start" id="btn-start" class="align-right recommend big alternate">Start</button>
+              <!-- <button data-l10n-id="btn-start" id="btn-start" class="recommend align-right big alternate">Start</button> -->
             </div>
             <div class="infos-container">
               <ul>
+                <li>
+                  <div data-l10n-id="elapsed-time">
+                    Elapsed time
+                    <span id="home-chrono" class="bold align-right hidden">00:00:00</span>
+                  </div>
+                </li>
+                <li>
+                  <div data-l10n-id="distance">
+                    Distance
+                    <span id="home-dist" class="bold align-right hidden"></span>
+                  </div>
+                </li>
+                <li>
+                  <div data-l10n-id="altitude">
+                    Altitude
+                    <span class="bold align-right" id="home-alt"></span>
+                  </div>
+                </li>
+                <li>
+                  <div data-l10n-id="speed">
+                    Speed
+                    <span id="home-speed" class="bold align-right"></span>
+                  </div>
+                </li>
                 <li>
                   <div data-l10n-id="latitude">
                     Latitude
@@ -130,12 +153,6 @@
                   <div data-l10n-id="longitude">
                     Longitude
                     <span class="bold align-right" id="home-lon"></span>
-                  </div>
-                </li>
-                <li>
-                  <div data-l10n-id="altitude">
-                    Altitude
-                    <span class="bold align-right" id="home-alt"></span>
                   </div>
                 </li>
                 <li>
@@ -163,53 +180,60 @@
       </x-card>
 
       <!-- Card 2 :  Tracking View -->
-      <x-card>
+<!--       <x-card>
       <x-layout>
         <x-appbar>
           <h1 data-l10n-id="rbh-tracking" id="tracking-h1">Tracking...</h1>
+          <button data-l10n-id="map" id="btn-map">Map</button>
         </x-appbar>
-        <section>
-        <div class="compass-container">
-          <img id="infos-compass" class="compass" src="img/compass.png" alt="Compass" />
-          <button data-l10n-id="btn-stop" id="btn-stop" class="danger align-right big alternate">Stop</button>
-        </div>
-        <div class="infos-container">
-        <ul>
-          <li>
-            <div data-l10n-id="elapsed-time">
-              Elapsed time
-              <span id="infos-chrono" class="bold align-right">00:00:00</span>
+        <x-flipbox id="infos-flipbox">
+          <section>
+            <div class="compass-container">
+              <img id="infos-compass" class="compass" src="img/compass.png" alt="Compass" />
+              <button data-l10n-id="btn-stop" id="btn-stop" class="align-right danger big alternate">Stop</button>
             </div>
-          </li>
-          <li>
-            <div data-l10n-id="distance">
-              Distance
-              <span id="infos-dist" class="bold align-right"></span>
-            </div>
-          </li>
-          <li>
-            <div data-l10n-id="speed">
-              Speed
-              <span id="infos-speed" class="bold align-right"></span>
-            </div>
-          </li>
-          <li>
-            <div data-l10n-id="altitude">
-              Altitude
-              <span id="infos-alt" class="bold align-right"></span>
-            </div>
-          </li>
-          <li>
-            <div data-l10n-id="accuracy">
-              Accuracy
-              <span id="infos-acc" class="bold align-right"></span>
-            </div>
-          </li>
-        </ul>
-      </div>
+            <div class="infos-container">
+            <ul>
+              <li>
+                <div data-l10n-id="elapsed-time">
+                  Elapsed time
+                  <span id="infos-chrono" class="bold align-right">00:00:00</span>
+                </div>
+              </li>
+              <li>
+                <div data-l10n-id="distance">
+                  Distance
+                  <span id="infos-dist" class="bold align-right"></span>
+                </div>
+              </li>
+              <li>
+                <div data-l10n-id="speed">
+                  Speed
+                  <span id="infos-speed" class="bold align-right"></span>
+                </div>
+              </li>
+              <li>
+                <div data-l10n-id="altitude">
+                  Altitude
+                  <span id="infos-alt" class="bold align-right"></span>
+                </div>
+              </li>
+              <li>
+                <div data-l10n-id="accuracy">
+                  Accuracy
+                  <span id="infos-acc" class="bold align-right"></span>
+                </div>
+              </li>
+            </ul>
+          </div>
         </section>
+        <section>
+          <h1>The map will be displayed here !</h1>
+          <div id="mapdiv"></div>
+        </section>
+      </x-flipbox>
       </x-layout>
-      </x-card>
+      </x-card> -->
 
       <!-- Card 3 :  Stop tracking confirmation form -->
       <x-card transition-type="fade-scale">
@@ -237,6 +261,18 @@
         <section data-type="list">
           <ul id="tracks-list">
           </ul>
+          <!-- Testing : Start -->
+<!--           <li>
+          <a id="TR-2014421-15195"><p>
+            <span class="align-left bold clipped">TR-SAMPLE</span>
+            <span class="align-right">21/05/2014</span>
+          </p>
+          <p class="new-line">
+            <span class="align-left">15km</span>
+            <span class="align-right">50min</span>
+          </p></a>
+          </li> -->
+          <!-- Testing : Stop  -->
         </section>
         </x-layout>
       </x-card>
@@ -245,10 +281,10 @@
       <x-card>
         <x-appbar>
           <button id="btn-track-back" class="icon icon-back">Back</button>
-          <h1 data-l10n-id="recorded-tracks">Track:</h1>
+          <h1 data-l10n-id="track" id="tr-name"></h1>
           <button data-l10n-id="delete" class="icon icon-delete" id="btn-delete">Delete</button>
-          <button data-l10n-id="share" class="icon icon-share" disabled="" id="btn-share">Share</button>
-          <button data-l10n-id="edit" class="icon icon-edit" disabled="" id="btn-edit">Edit</button>
+          <button data-l10n-id="share" class="icon icon-share" id="btn-share">Share</button>
+          <button data-l10n-id="edit" class="icon icon-edit" id="btn-edit">Edit</button>
         </x-appbar>
         <x-layout>
           <div class="infos-container">
@@ -297,11 +333,11 @@
               </li>
               <li class="separateur-bottom">
                 <div data-l10n-id="map" id="trk-dt-map" class="bold">Map</div>
-                <div class="align-center">
+                <div id="spinner-box" class="align-center">
                   <progress id="track-spinner"></progress>
                 </div>
                 <p data-l10-id="loading-map" id="map-text">Loading map ...</p>
-                <img src="" id="map-img" class="hidden absolute" />
+                <img src="" id="map-img" class="hidden" />
               </li>
               <li class="separateur-bottom">
                 <div data-l10n-id="speed" id="trk-dt-speed" class="bold">Speed</div>
@@ -341,10 +377,16 @@
 
     </x-deck>
 
+    <!-- Localization -->
+    <!-- <link rel="prefetch" type="application/l10n" href="locales/data.ini" />
+    <script type="text/javascript" src="lib/webL10n/l10n.js"></script> -->
     <script type="text/javascript" src="lib/brick/brick-1.0.1.byob.min.js"></script>
-    <script type="text/javascript" src="lib/lazyload/lazyload-min.js"></script>
+    <script type="text/javascript" src="lib/OSM/OpenLayers.js"></script>
     <script type="text/javascript" src="js/install.js"></script>
+<!--
+    <script type="text/javascript" src="lib/lazyload/lazyload-min.js"></script>
     <script type="text/javascript">
+
       document.addEventListener('DOMComponentsLoaded', function(){
         // run code here...
         var deck = document.getElementById("views");
@@ -354,8 +396,9 @@
           "js/views/infos-view.js",
           "js/views/tracks-view.js",
           "js/views/track-view.js",
+          "js/views/status.js",
           "js/models/chrono.js",
-          // "js/models/config.js",
+          "js/models/config.js",
           "js/models/db.js",
           "js/models/tracks.js",
           "js/events.js",
@@ -365,6 +408,27 @@
           ]);
       });
     </script>
-
+-->
   </body>
+    <script type="text/javascript" src="js/views/home-view.js"></script>
+    <script type="text/javascript" src="js/views/infos-view.js"></script>
+    <script type="text/javascript" src="js/views/map-view.js"></script>
+    <script type="text/javascript" src="js/views/tracks-view.js"></script>
+    <script type="text/javascript" src="js/views/track-view.js"></script>
+    <script type="text/javascript" src="js/views/status.js"></script>
+    <script type="text/javascript" src="js/models/chrono.js"></script>
+    <script type="text/javascript" src="js/models/config.js"></script>
+    <script type="text/javascript" src="js/models/db.js"></script>
+    <script type="text/javascript" src="js/models/tracks.js"></script>
+    <script type="text/javascript" src="js/models/export_tracks.js"></script>
+    <script type="text/javascript" src="js/events.js"></script>
+    <script type="text/javascript" src="js/controller.js"></script>
+    <script type="text/javascript" src="js/app.js"></script>
+    <script type="text/javascript">
+      document.addEventListener('DOMComponentsLoaded', function(){
+        var deck = document.getElementById("views");
+        deck.showCard(1);
+      });
+    </script>
+
 </html>

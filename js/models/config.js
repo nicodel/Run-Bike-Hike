@@ -1,3 +1,4 @@
+"use strict;"
 // define(function(){
 var Config = function() {
 
@@ -44,19 +45,15 @@ var Config = function() {
 
 
   // Default config values
-  // var SCREEN_KEEP_ALIVE = true;
-  // var USER_UNIT = 0;
-  // var USER_POSITION_FORMAT = 0;
-  var SCREEN_KEEP_ALIVE = null;
-  var USER_DISTANCE = null;
-  var USER_SPEED = null;
-  var USER_POSITION_FORMAT = null;
+  var SCREEN_KEEP_ALIVE = false;
+  var USER_DISTANCE = 0;
+  var USER_SPEED = 0;
+  var USER_POSITION_FORMAT = 0;
 
   function change(inKey, inValue) {
     inKey = inValue;
-    console.log(inKey+":"+inValue);
+    // console.log(inKey+":"+inValue);
   }
-
   function userSpeed(velocityMPS){
     // console.log("SPEED METRIC:", velocityMPS);
     if (velocityMPS === null || velocityMPS<0 || isNaN(velocityMPS)) {
@@ -72,7 +69,6 @@ var Config = function() {
     }
     return velocityMPS+ " m/s";
   }
-
   function userSpeedInteger(velocityMPS) {
     // console.log("SPEED METRIC:", velocityMPS);
     if (velocityMPS === null || velocityMPS<0 || isNaN(velocityMPS)) {
@@ -88,15 +84,13 @@ var Config = function() {
     }
     return velocityMPS;
   }
-
   function userDegree(degree){
      minutes = (degree - Math.floor(degree)) * 60;
      seconds = (minutes - Math.floor(minutes )) * 60;
      return Math.floor(degree) + "°" + (minutes<10?"0":"") + Math.floor(minutes) + "'" + (seconds<10?"0":"") + seconds.toFixed(2) + "\"";
   }
-
   function userLatitude(degree){
-    console.log("userLatitude - USER_POSITION_FORMAT: ", USER_POSITION_FORMAT);
+    // console.log("userLatitude - USER_POSITION_FORMAT: ", USER_POSITION_FORMAT);
      if (USER_POSITION_FORMAT === DEGREES_POS_FORMAT)
        return degree;
 
@@ -105,7 +99,6 @@ var Config = function() {
 
      return this.userDegree( Math.abs(degree) ) + (degree>0? "N":"S");
   }
-
   function userLongitude(degree){
      if (USER_POSITION_FORMAT === DEGREES_POS_FORMAT)
        return degree;
@@ -115,7 +108,6 @@ var Config = function() {
 
      return this.userDegree( Math.abs(degree) ) + (degree>0? "E":"W");
   }
-
   function userSmallDistance(distanceM, canNegative){
      if ((distanceM === null) || ((distanceM < 0) && (!canNegative)))
        return "?";
@@ -129,10 +121,9 @@ var Config = function() {
      }
      return distanceM+" m";
   }
-
   function userDistance (distanceM, canNegative){
-    console.log("USER_DISTANCE = ", USER_DISTANCE);
-    console.log("IMPERIAL_UNITS = ", IMPERIAL_UNITS);
+    // console.log("USER_DISTANCE = ", USER_DISTANCE);
+    // console.log("IMPERIAL_UNITS = ", IMPERIAL_UNITS);
     if ((distanceM === null) || ((distanceM < 0) && (!canNegative)))
       return "?";
 
@@ -147,7 +138,6 @@ var Config = function() {
     }
     return distanceM+" m";
   }
-
   function userDate(inDate) {
     var d = new Date(inDate);
 
@@ -167,27 +157,26 @@ var Config = function() {
     // var outDate = day+"/"+month+"/"+year+ " "+hour+":"+min+":"+sec;
     return  outDate;
   }
-
   _generate_x_axis = function(minTime, maxTime){
-    console.log("minTime", minTime);
-    console.log("maxTime", maxTime);
+    // console.log("minTime", minTime);
+    // console.log("maxTime", maxTime);
     var result = [];
     length = maxTime - minTime;
-    console.log("length", length);
+    // console.log("length", length);
     align = 5*60*1000; // 5 minutes
     maxLines = 6;
     if (length / align > maxLines) {align =    10*60*1000;console.log("10 minutes");}
     if (length / align > maxLines) {align =    15*60*1000;console.log("15 minutes");}
     if (length / align > maxLines) {align =    30*60*1000;console.log("30 minutes");}
     if (length / align > maxLines) {align = 1* 60*60*1000;console.log("60 minutes");}
-    console.log("align", align);
+    // console.log("align", align);
 
     dateobj = new Date(minTime);
     //~ startOfDay = Date.parse( dateobj.getFullYear() + '-' + dateobj.getMonth() + '-' + dateobj.getDate() + ' 0:00' );
     startOfDay = Date.parse(dateobj.getFullYear() + ' - ' + dateobj.getMonth() + ' - ' + dateobj.getDate());
-    console.log("startOfDay", startOfDay);
+    // console.log("startOfDay", startOfDay);
     alignedStart = minTime + ( align - ((minTime - startOfDay) % align));
-    console.log("alignedStart",alignedStart);
+    // console.log("alignedStart",alignedStart);
     var i = 0;
     var now = new Date();
     for (time = alignedStart; time < maxTime ; time += align){
@@ -196,7 +185,7 @@ var Config = function() {
         label : config.format_time(new Date( time + ( now.getTimezoneOffset()*-60*1000 ) ), true)
       };
     }
-    console.log("result", result);
+    // console.log("result", result);
     return result;
   };
   _generate_y_axis = function(min, max, unitMultiply, unit){
@@ -228,7 +217,6 @@ var Config = function() {
     }
     return config.generate_x_axis(min, max, unitMultiply, unit);
   };
-
   _format_time = function(dateobj, shortFormat){
     strRes = "NA";
     secs = dateobj.getSeconds(); if (secs > 9) strSecs = String(secs); else strSecs = "0" + String(secs);

@@ -1,3 +1,4 @@
+"use strict;"
 // var Events = function() {
 
 /******************
@@ -7,14 +8,14 @@
 /*----------------- Home View -----------------*/
 /* Home View Tracks button */
 document.querySelector("#btn-tracks").addEventListener ("click", function () {
-  // Controller.displayTracks();
-  document.getElementById("views").showCard(4);
+  Controller.displayTracks();
+  document.getElementById("views").showCard(3);
 });
 
 /* Home View Start tracking button */
 document.querySelector("#btn-start").addEventListener ("click", function () {
-  // Controller.startWatch();
-  document.getElementById("views").showCard(2);
+  Controller.toggleWatch();
+  // document.getElementById("views").showCard(1);
 });
 
 /* Home View settings button */
@@ -24,19 +25,28 @@ document.querySelector("#btn-settings").addEventListener ("click", function () {
 
 /*----------------- Infos View -----------------*/
 /* Infos View Stop button */
-document.querySelector("#btn-stop").addEventListener ("click", function () {
-    document.getElementById("views").showCard(3);
-});
+// document.querySelector("#btn-stop").addEventListener ("click", function () {
+//     document.getElementById("views").showCard(3);
+// });
+
+/* Infos Map button */
+// document.querySelector("#btn-map").addEventListener ("click", function () {
+//   console.log("flipping!");
+//   document.getElementById("infos-flipbox").toggle();
+//   Controller.flippingTrack(document.getElementById("infos-flipbox").flipped);
+// });
+
+
 
 /*-------- Stop tracking confirmation ------------*/
 /* Stop tracking Confirm button */
 document.querySelector("#btn-confirm-stop").addEventListener ("click", function () {
   document.getElementById("views").showCard(1);
-    // Controller.stopWatch();
+    Controller.stopWatch();
 });
 /* Stop tracking Cancel button */
 document.querySelector("#btn-cancel-stop").addEventListener ("click", function () {
-  document.getElementById("views").showCard(2);
+  document.getElementById("views").showCard(1);
 });
 
 /*----------------- Settings View -----------------*/
@@ -89,23 +99,33 @@ document.querySelector("#btn-tracks-back").addEventListener ("click", function (
 /*----------------- Track Detail View -----------------*/
 /* Track View Back button */
 document.querySelector("#btn-track-back").addEventListener ("click", function () {
-  document.getElementById("views").showCard(4);
+  document.getElementById("views").showCard(3);
 });
 /* Track View Delete button */
 document.querySelector("#btn-delete").addEventListener ("click", function () {
-  document.getElementById("views").showCard(6);
+  document.getElementById("views").showCard(5);
+});
+/* Track View Share button */
+document.querySelector("#btn-share").addEventListener("click", function() {
+  console.Log("exporting");
+  Controller.shareTrack();
 });
 
 /*----------------- Track Delete Confirmation -----------------*/
 /* Delete Track Cancel button */
 document.querySelector("#btn-cancel-delete").addEventListener("click", function () {
-  document.getElementById("views").showCard(5);
+  document.getElementById("views").showCard(4);
 });
 /* Delete Track Confirm button */
 document.querySelector("#btn-confirm-delete").addEventListener("click", function () {
-  document.getElementById("views").showCard(4);
-  // Controller.deleteTrack();
+  document.getElementById("views").showCard(3);
+  Controller.deleteTrack();
 });
+
+
+
+
+
 // }();
 
 
@@ -113,6 +133,7 @@ document.querySelector("#btn-confirm-delete").addEventListener("click", function
 
 
 /* TEMPORARY TRACK SELECTION */
-document.querySelector("#track-sample").addEventListener("click", function () {
-  document.getElementById("views").showCard(5);
-});
+// document.querySelector("#TR-2014421-15195").addEventListener("click", function () {
+//   document.getElementById("views").showCard(5);
+//   Controller.displayTrack(testdata);
+// });

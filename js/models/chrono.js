@@ -1,3 +1,4 @@
+"use strict;"
 /* chrono.js
  * Role : simule un chronometre et affiche le temps ecoule
  * Projet : JsLib

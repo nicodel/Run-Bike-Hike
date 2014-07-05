@@ -1,7 +1,7 @@
 testdata = {};
 var d = new Date();
 testdata.date = d.toISOString();
-testdata.trackid = testdata.date;
+testdata.id = testdata.date;
 var year = d.getFullYear();
 var month = d.getMonth();
 var day = d.getDate();
@@ -11,6 +11,7 @@ var sec = d.getSeconds();
 testdata.name = "TR-"+year+month+day+"-"+hour+min+sec;
 testdata.duration = 28158000;
 testdata.distance = 0;
+testdata.map = null;
 
 /*testdata.data = [
 {latitude:"7.423378", longitude:"-80.159667", date:"2012-02-26T13:53:47Z",altitude:"57",speed:"17",accuracy:"6",vertAccuracy:"4"},

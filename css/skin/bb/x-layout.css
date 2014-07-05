@@ -24,7 +24,8 @@ x-layout > section[data-type="settings"] {
   Buttons
  */
 
-x-layout > section button {
+x-layout > section button,
+x-flipbox > section button {
   text-align: center;
   margin: 0;
   white-space: nowrap;
@@ -32,19 +33,22 @@ x-layout > section button {
   color: #292929;
   padding: 6px 18px;
   overflow: hidden;
-  border: 1px solid rgba(15, 15, 15, 0.2);
-  border-radius: 0.5rem;
+  /*border: 1px solid rgba(15, 15, 15, 0.2);*/
+  border: none;
+  border-radius: 1.5rem;
   box-shadow: inset 0px 1px 0px rgba(255,255,255,0.2);
-  background: #E1E1E1 url("images/gradient.png") repeat-x bottom;
+  /*background: #E1E1E1 url("images/gradient.png") repeat-x bottom;*/
   text-overflow: ellipsis;
 }
 
-x-layout > section button.recommend {
+x-layout > section button.recommend,
+x-flipbox > section button.recommend {
   background-color: rgba(15, 173, 45, 1);
   color: #F2F2F2;
 }
 
-x-layout > section button.danger {
+x-layout > section button.danger,
+x-flipbox > section button.danger {
   background-color: #e51e1e;
   color: #fff;
 }

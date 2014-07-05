@@ -1,3 +1,4 @@
+"use strict;"
 // var Geolocation = function() {
 navigator.geolocation = test.geolocation;
 

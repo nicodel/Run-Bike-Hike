@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title >Test IndexedDB</title>
+  <link rel="stylesheet" type="text/css" href="../lib/brick/brick-1.0.1.byob.min.css"/>
+
+    <!--······························ Fonts ································-->
+    <link rel="stylesheet" href="../css/fonts.css"/>
+
+    <!--··························· My own Skin ·····························-->
+    <link rel="stylesheet" href="../css/skin/x.css"/>
+    <link rel="stylesheet" href="../css/skin/x-layout.css"/>
+    <link rel="stylesheet" href="../css/skin/x-appbar.css"/>
+    <link rel="stylesheet" href="../css/skin/x-toggle.css"/>
+    <link rel="stylesheet" href="../css/skin/form.css"/>
+    <link rel="stylesheet" href="../css/skin/switches.css"/>
+    <link rel="stylesheet" href="../css/skin/spinner.css"/>
+    <link rel="stylesheet" href="../css/skin/status.css"/>
+
+    <!--························ My common style ! ··························-->
+    <link rel="stylesheet" href="../css/app.css"/>
+    <link rel="stylesheet" href="../css/styles.css"/>
+
+    <script type="text/javascript" src="../lib/brick/brick-1.0.1.byob.min.js"></script>
+    <script type="text/javascript" src="data.js"></script>
+    <script type="text/javascript" src=".../js.js"></script>
+    <script type="text/javascript" src="../js/models/db.js"></script>
+    <script type="text/javascript" src="../js/views/track-view.js"></script>
+  <style>
+
+  </style>
+<body>
+<x-deck id="views">
+  <!-- Card 5 :  Track View -->
+  <x-card>
+    <x-appbar>
+      <button id="btn-track-back" class="icon icon-back">Back</button>
+      <h1 data-l10n-id="track" id="tr-name"></h1>
+      <button data-l10n-id="delete" class="icon icon-delete" id="btn-delete">Delete</button>
+      <button data-l10n-id="share" class="icon icon-share" disabled="" id="btn-share">Share</button>
+      <button data-l10n-id="edit" class="icon icon-edit" disabled="" id="btn-edit">Edit</button>
+    </x-appbar>
+    <x-layout>
+      <div class="infos-container">
+        <ul>
+          <li>
+            <div data-l10n-id="date">
+              Date
+              <span id="trk-date" class="bold align-right"></span>
+            </div>
+          </li>
+          <li>
+            <div data-l10n-id="distance">
+              Distance
+              <span id="trk-dist" class="bold align-right"></span>
+            </div>
+          </li>
+          <li>
+            <div data-l10n-id="duration">
+              Duration
+              <span id="trk-dur" class="bold align-right"></span>
+            </div>
+          </li>
+          <li>
+            <div data-l10n-id="max_speed">
+              Max speed
+              <span id="trk-max-speed" class="bold align-right"></span>
+            </div>
+          </li>
+          <li>
+            <div data-l10n-id="av_speed">
+              Average speed
+              <span id="trk-av-speed" class="bold align-right"></span>
+            </div>
+          </li>
+          <li>
+            <div data-l10n-id="max_alt">
+              Max altitude
+              <span id="trk-max-alt" class="bold align-right"></span>
+            </div>
+          </li>
+          <li class="separateur-bottom">
+            <div data-l10n-id="min_alt">
+              Min altitude
+              <span id="trk-min-alt" class="bold align-right"></span>
+            </div>
+          </li>
+          <li class="separateur-bottom">
+            <div data-l10n-id="map" id="trk-dt-map" class="bold">Map</div>
+            <div id="spinner-box" class="align-center">
+              <progress id="track-spinner"></progress>
+            </div>
+            <p data-l10-id="loading-map" id="map-text">Loading map ...</p>
+            <img src="" id="map-img" class="hidden absolute" />
+          </li>
+          <li class="separateur-bottom">
+            <div data-l10n-id="speed" id="trk-dt-speed" class="bold">Speed</div>
+            <canvas id="speed-canvas"></canvas>
+          </li>
+          <li class="separateur-bottom">
+            <div data-l10n-id="altitude" id="trk-dt-alt" class="bold">Altitude</div>
+            <canvas id="alt-canvas"></canvas>
+          </li>
+        </ul>
+      </div>>
+    </x-layout>
+  </x-card>
+</x-deck>
+
+
+</body>
+<script type="text/javascript" src="../lib/lazyload/lazyload-min.js"></script>
+<script type="text/javascript">
+  LazyLoad.js([
+    "test-controller.js",
+    "data.js",
+    "../js/models/db.js",
+    "test_db.js"
+    ]);
+</script>
+<script>
+  // document.getElementById("map-img").onload = alert("removing infos spinner");
+  // document.getElementById("map-img").addEventListener("load", console.log("removing infos spinner"));
+  // Controller.init();
+  // TrackView.display(testdata);
+</script>
+</html>
