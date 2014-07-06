@@ -88,9 +88,9 @@ var TracksView = function() {
   function __remove_childs(parent) {
     var d = document.getElementById(parent).childNodes;
     console.log("d",d);
-    for (i = 0; i <= d.length; i++) {
-      document.getElementById(parent).removeChild(d[i]);
+    for (i = 0; i < d.length; i++) {
       console.log("remove element " + i + " " + d[i]);
+      document.getElementById(parent).removeChild(d[i]);
     }
   }
 

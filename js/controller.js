@@ -223,6 +223,7 @@ var Controller = function() {
   }
 
   function __getTracksSuccess(inTracks) {
+    console.log("inTracks to display are", inTracks);
     TracksView.display(inTracks, __displayTrack);
   }
 
@@ -246,6 +247,7 @@ var Controller = function() {
   }
 
   function __deleteTrackSuccess() {
+    TracksView.reset();
     displayTracks();
   }
 
