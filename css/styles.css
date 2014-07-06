@@ -53,6 +53,9 @@ button.big {
   position: absolute;
 }
 
+.hidden {
+  display: none;
+}
 
 .move-right {
   transform: translateX(100%);
