@@ -122,13 +122,13 @@
                 <li>
                   <div data-l10n-id="elapsed-time">
                     Elapsed time
-                    <span id="home-chrono" class="bold align-right hidden">00:00:00</span>
+                    <span id="home-chrono" class="bold align-right">00:00:00</span>
                   </div>
                 </li>
                 <li>
                   <div data-l10n-id="distance">
                     Distance
-                    <span id="home-dist" class="bold align-right hidden"></span>
+                    <span id="home-dist" class="bold align-right"></span>
                   </div>
                 </li>
                 <li>
@@ -235,9 +235,9 @@
       </x-layout>
       </x-card> -->
 
-      <!-- Card 3 :  Stop tracking confirmation form -->
+      <!-- Card 2 :  Stop tracking confirmation form -->
       <x-card transition-type="fade-scale">
-        <form id="stop-form-confirm" role="dialog" data-type="confirm" class="hidden" onsubmit="return false;">
+        <form id="stop-form-confirm" role="dialog" data-type="confirm" onsubmit="return false;">
           <section>
             <h1 data-l10n-id="confirmation">Confirmation</h1>
             <p>
@@ -251,7 +251,7 @@
         </form>
       </x-card>
 
-      <!-- Card 4 :  Tracks View -->
+      <!-- Card 3 :  Tracks View -->
       <x-card>
         <x-appbar>
           <button id="btn-tracks-back" class="icon icon-back">Back</button>
@@ -277,7 +277,7 @@
         </x-layout>
       </x-card>
 
-      <!-- Card 5 :  Track View -->
+      <!-- Card 4 :  Track View -->
       <x-card>
         <x-appbar>
           <button id="btn-track-back" class="icon icon-back">Back</button>
@@ -335,8 +335,8 @@
                 <div data-l10n-id="map" id="trk-dt-map" class="bold">Map</div>
                 <div id="spinner-box" class="align-center">
                   <progress id="track-spinner"></progress>
+                  <p data-l10-id="loading-map" id="map-text">Loading map ...</p>
                 </div>
-                <p data-l10-id="loading-map" id="map-text">Loading map ...</p>
                 <img src="" id="map-img" class="hidden" />
               </li>
               <li class="separateur-bottom">
@@ -359,9 +359,9 @@
         </x-layout>
       </x-card>
 
-      <!--  Card 6 : Delete track confirmation form -->
+      <!--  Card 5 : Delete track confirmation form -->
       <x-card  transition-type="fade-scale">
-        <form id="del-form-confirm" role="dialog" data-type="confirm" class="hidden" onsubmit="return false;">
+        <form id="del-form-confirm" role="dialog" data-type="confirm" onsubmit="return false;">
           <section>
             <h1 data-l10n-id="confirmation">Confirmation</h1>
             <p>
@@ -382,7 +382,7 @@
     <script type="text/javascript" src="lib/webL10n/l10n.js"></script> -->
     <script type="text/javascript" src="lib/brick/brick-1.0.1.byob.min.js"></script>
     <script type="text/javascript" src="lib/OSM/OpenLayers.js"></script>
-    <script type="text/javascript" src="js/install.js"></script>
+    <script type="text/javascript" src="js/base.js"></script>
 <!--
     <script type="text/javascript" src="lib/lazyload/lazyload-min.js"></script>
     <script type="text/javascript">

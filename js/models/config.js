@@ -124,6 +124,9 @@ var Config = function() {
   function userDistance (distanceM, canNegative){
     // console.log("USER_DISTANCE = ", USER_DISTANCE);
     // console.log("IMPERIAL_UNITS = ", IMPERIAL_UNITS);
+    if (distanceM === undefined) {
+      distanceM = 0;
+    }
     if ((distanceM === null) || ((distanceM < 0) && (!canNegative)))
       return "?";
 
