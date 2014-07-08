@@ -2,7 +2,8 @@
   "version": "0.1.4",
   "name": "Run-Bike-Hike",
   "description": "Run-Bike-Hike helps you when you want to keep records of your running sessions, when you want to visualize where you have been biking all afternoon...",
-  "launch_path": "/Run-Bike-Hike/index.html",
+  "launch_path": "/Run-Bike-Hike/index.html", // for testing on GitHub gh-pages
+  // "launch_path": "/index.html", // for Packaged App
   "icons": {
     "48": "/img/icon48.png",
     "60": "/img/icon60.png",
