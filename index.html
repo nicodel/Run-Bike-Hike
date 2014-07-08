@@ -44,9 +44,7 @@
   </head>
   <body id="app">
 
-    <!-- <x-deck transition-type="slide-left" id="views"> -->
     <x-deck transition-type="none" id="views">
-
 
       <!-- Card 0 :  Settings View -->
       <x-card>
@@ -58,10 +56,6 @@
           <section data-type="settings">
             <ul>
               <li>
-<!--                 <label class="pack-switch">
-                  <input type="checkbox" id="screen">
-                  <span class="settings-item">Keep screen alive?</span>
-                </label> -->
                 <p>
                 <x-toggle id="screen" focus active label="Keep screen alive?"></x-toggle>
                 </p>
@@ -170,70 +164,8 @@
               </ul>
             </div>
           </section>
-<!--           <footer role="toolbar">
-            <ul>
-              <li></li>
-            </ul>
-          </footer> -->
-
         </x-layout>
       </x-card>
-
-      <!-- Card 2 :  Tracking View -->
-<!--       <x-card>
-      <x-layout>
-        <x-appbar>
-          <h1 data-l10n-id="rbh-tracking" id="tracking-h1">Tracking...</h1>
-          <button data-l10n-id="map" id="btn-map">Map</button>
-        </x-appbar>
-        <x-flipbox id="infos-flipbox">
-          <section>
-            <div class="compass-container">
-              <img id="infos-compass" class="compass" src="img/compass.png" alt="Compass" />
-              <button data-l10n-id="btn-stop" id="btn-stop" class="align-right danger big alternate">Stop</button>
-            </div>
-            <div class="infos-container">
-            <ul>
-              <li>
-                <div data-l10n-id="elapsed-time">
-                  Elapsed time
-                  <span id="infos-chrono" class="bold align-right">00:00:00</span>
-                </div>
-              </li>
-              <li>
-                <div data-l10n-id="distance">
-                  Distance
-                  <span id="infos-dist" class="bold align-right"></span>
-                </div>
-              </li>
-              <li>
-                <div data-l10n-id="speed">
-                  Speed
-                  <span id="infos-speed" class="bold align-right"></span>
-                </div>
-              </li>
-              <li>
-                <div data-l10n-id="altitude">
-                  Altitude
-                  <span id="infos-alt" class="bold align-right"></span>
-                </div>
-              </li>
-              <li>
-                <div data-l10n-id="accuracy">
-                  Accuracy
-                  <span id="infos-acc" class="bold align-right"></span>
-                </div>
-              </li>
-            </ul>
-          </div>
-        </section>
-        <section>
-          <h1>The map will be displayed here !</h1>
-          <div id="mapdiv"></div>
-        </section>
-      </x-flipbox>
-      </x-layout>
-      </x-card> -->
 
       <!-- Card 2 :  Stop tracking confirmation form -->
       <x-card transition-type="fade-scale">
@@ -349,13 +281,6 @@
               </li>
             </ul>
           </div>
-          <!-- <footer>
-            <ul>
-              <li></li>
-              <li></li>
-              <li></li>
-            </ul>
-          </footer> -->
         </x-layout>
       </x-card>
 
@@ -377,39 +302,13 @@
 
     </x-deck>
 
+  </body>
     <!-- Localization -->
     <!-- <link rel="prefetch" type="application/l10n" href="locales/data.ini" />
     <script type="text/javascript" src="lib/webL10n/l10n.js"></script> -->
     <script type="text/javascript" src="lib/brick/brick-1.0.1.byob.min.js"></script>
     <script type="text/javascript" src="lib/OSM/OpenLayers.js"></script>
     <script type="text/javascript" src="js/base.js"></script>
-<!--
-    <script type="text/javascript" src="lib/lazyload/lazyload-min.js"></script>
-    <script type="text/javascript">
-
-      document.addEventListener('DOMComponentsLoaded', function(){
-        // run code here...
-        var deck = document.getElementById("views");
-        deck.showCard(1);
-        LazyLoad.js([
-          "js/views/home-view.js",
-          "js/views/infos-view.js",
-          "js/views/tracks-view.js",
-          "js/views/track-view.js",
-          "js/views/status.js",
-          "js/models/chrono.js",
-          "js/models/config.js",
-          "js/models/db.js",
-          "js/models/tracks.js",
-          "js/events.js",
-          "js/controller.js",
-          // "test/data.js",
-          "js/app.js"
-          ]);
-      });
-    </script>
--->
-  </body>
     <script type="text/javascript" src="js/views/home-view.js"></script>
     <script type="text/javascript" src="js/views/infos-view.js"></script>
     <script type="text/javascript" src="js/views/map-view.js"></script>
