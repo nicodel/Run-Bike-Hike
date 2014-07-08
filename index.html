@@ -20,19 +20,19 @@
     <link rel="stylesheet" href="css/fonts.css"/>
 
     <!--··························· My BB Skin ······························-->
-<!--     <link rel="stylesheet" href="css/skin/bb/x.css"/>
+    <link rel="stylesheet" href="css/skin/bb/x.css"/>
     <link rel="stylesheet" href="css/skin/bb/x-layout.css"/>
     <link rel="stylesheet" href="css/skin/bb/x-appbar.css"/>
     <link rel="stylesheet" href="css/skin/bb/x-toggle.css"/>
     <link rel="stylesheet" href="css/skin/bb/form.css"/>
     <link rel="stylesheet" href="css/skin/bb/switches.css"/>
     <link rel="stylesheet" href="css/skin/bb/spinner.css"/>
-    <link rel="stylesheet" href="css/skin/bb/status.css"/> -->
+    <link rel="stylesheet" href="css/skin/bb/status.css"/>
 
     <!--··························· My Flat Skin ····························-->
-    <link rel="stylesheet" href="css/skin/flat/x-appbar.css"/>
+    <!-- <link rel="stylesheet" href="css/skin/flat/x-appbar.css"/>
     <link rel="stylesheet" href="css/skin/flat/spinner.css"/>
-    <link rel="stylesheet" href="css/skin/flat/status.css"/>
+    <link rel="stylesheet" href="css/skin/flat/status.css"/> -->
 
     <!--························ My common style ! ··························-->
     <link rel="stylesheet" href="css/app.css"/>
@@ -61,11 +61,11 @@
               </li>
               <li>
                 <p data-l10n-id="language">Language</p>
-                  <select disabled id="language" class="button icon-dialog">
-                    <option value="en" data-l10n-id="english">English</option>
-                    <option value="es" data-l10n-id="spanish">Español</option>
-                    <option value="fr" data-l10n-id="french">Français</option>
-                  </select>
+                <select disabled id="language" class="button icon-dialog">
+                  <option value="en" data-l10n-id="english">English</option>
+                  <option value="es" data-l10n-id="spanish">Español</option>
+                  <option value="fr" data-l10n-id="french">Français</option>
+                </select>
               </li>
               <li>
                 <p data-l10n-id="distance-unit">Unit</p>
@@ -299,6 +299,44 @@
         </form>
       </x-card>
 
+      <!--  Card 6 : Rename a track form -->
+      <x-card  transition-type="fade-scale">
+        <form id="rename-form" role="dialog" data-type="entry" onsubmit="return false;">
+          <section>
+            <h1 data-l10n-id="rename-track">Rename a track</h1>
+            <p>
+              <span data-l10n-id="enter-new-track-name">Enter below the new track name</span>
+            </p>
+          </section>
+          <input type="text" placeholder="New name" id="input-rename">
+          <menu>
+            <button id="btn-cancel-rename" class="cancel" data-l10n-id="cancel">Cancel</button>
+            <button id="btn-confirm-rename" role="button" class="danger" data-l10n-id="confirm">Confirm</button>
+          </menu>
+        </form>
+      </x-card>
+
+      <!--  Card 6 : Share a track form -->
+      <x-card  transition-type="fade-scale">
+        <form id="share-form" role="dialog" data-type="entry" onsubmit="return false;">
+          <section>
+            <h1 data-l10n-id="share-track">Share a track</h1>
+            <p>
+              <span data-l10n-id="choose-how-share-track">Choose how you want to share your track</span>
+            </p>
+          </section>
+          <select disabled id="language" class="button icon-dialog">
+            <option value="en" data-l10n-id="english">English</option>
+            <option value="es" data-l10n-id="spanish">Español</option>
+            <option value="fr" data-l10n-id="french">Français</option>
+          </select>
+          <menu>
+            <button id="btn-cancel-rename" class="cancel" data-l10n-id="cancel">Cancel</button>
+            <button id="btn-confirm-rename" role="button" class="danger" data-l10n-id="confirm">Confirm</button>
+          </menu>
+        </form>
+      </x-card>
+
     </x-deck>
 
   </body>
@@ -325,7 +363,7 @@
     <script type="text/javascript">
       document.addEventListener('DOMComponentsLoaded', function(){
         var deck = document.getElementById("views");
-        deck.showCard(1);
+        deck.showCard(6);
       });
     </script>
 

@@ -11,6 +11,17 @@
 
 ### Fonctionnalités futures
 
+* Possibility to zoom in and out
+* Map orientation chosen between North or user direction
+
+### Issues
+
+* Geolocation inside Firefox Mobile
+* Speed graph is not centered vertically
+* Infos track view toolbar does not look good
+* Config.Keep_screen_alive does not survive an application exist and enter
+* Track View Map is not displayed after an application restart
+* It seems that infos are not properly retreived from the database
 
 ## Description
 
@@ -55,3 +66,20 @@ Un outil d'enregistrement GPS pour les sportifs qui aiment suivre leurs évoluti
 ## Licence
 
 Run, Bike, Hike... is distributed under the [MPL2.0 licence](http://www.mozilla.org/MPL/2.0/)
+
+
+
+
+## Misc
+
+### App Icons
+* 2 formats: 128px (Marketplace) et 60px (Appareil)
+* Representing a map with a compass, along with a bike a running and hiking shoes
+### App Description
+* One phrase short description ( catch phrase).
+* Two to three phrases long description.
+### App Screenshots
+* Portrait & Landscape
+* Sizes:
+** 320x480
+** 720x1280
