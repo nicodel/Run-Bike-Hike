@@ -192,6 +192,26 @@ var DB = function() {
       errorCallback("addTrack successCallback should be a function");
     }
   }
+  function updateTrack(successCallback, errorCallback, inTrack) {
+    if (typeof successCallback === "function") {
+      var tx = db.transaction(DB_STORE_TRACKS, "readwrite");
+      var store = tx.objectStore(DB_STORE_TRACKS);
+      var req = store.get(inTrack.id);
+      req.onsuccess = function(e) {
+        var req2 = store.put(inTrack);
+        req2.oncomplete = function(e) {
+          console.log("successfully updated");
+          successCallback();
+        }
+        req2.onerror = function(e) {
+          console.log("failure on updating");
+          errorCallback(e.error.name);
+        }
+      }
+    } else  {
+      errorCallback("addTrack successCallback should be a function");
+    }
+  }
   function __saveDefaultConfig() {
     console.log("saving default config");
     var tx = db.transaction(DB_STORE_SETTINGS, "readwrite");
@@ -234,7 +254,8 @@ var DB = function() {
         var req2 = store.put(req.result);
         console.log("req2", req2);
         req2.onsuccess = function(e) {
-          successCallback("successfully updated");
+          console.log("successfully updated");
+          successCallback();
         }
         req2.onerror = function(e) {
           errorCallback(e.error.name);
@@ -256,7 +277,8 @@ var DB = function() {
     reset_app: reset_app,
     getConfig: getConfig,
     updateConfig: updateConfig,
-    saveMap: saveMap
+    saveMap: saveMap,
+    updateTrack: updateTrack
   };
 }();
 // });

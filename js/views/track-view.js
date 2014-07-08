@@ -104,6 +104,11 @@ var TrackView = function() {
     }
   }
 
+  function updateName(inName) {
+    var tr = document.getElementById("tr-name");
+    tr.innerHTML = inName;
+  }
+
   function __buildAltitudeGraph(inData) {
     data = inData.data;
     // console.log("data.length", data.length);
@@ -510,7 +515,8 @@ var TrackView = function() {
   }
 
   return {
-    display: display
+    display: display,
+    updateName: updateName
   };
 
 }();

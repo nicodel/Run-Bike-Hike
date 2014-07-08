@@ -109,8 +109,20 @@ document.querySelector("#btn-delete").addEventListener ("click", function () {
 document.querySelector("#btn-rename").addEventListener("click", function() {
   console.Log("renaming");
   document.getElementById("views").showCard(6);
-  // Controller.shareTrack();
 });
+/* Rename Cancel button */
+document.querySelector("#btn-cancel-rename").addEventListener("click", function() {
+  document.getElementById("views").showCard(4);
+});
+/* Rename Confirm button */
+document.querySelector("#btn-confirm-rename").addEventListener("click", function() {
+  document.getElementById("views").showCard(4);
+  var new_name = document.querySelector("#input-rename");
+  Controller.renameTrack(new_name.value);
+});
+
+
+
 /* Track View Share button */
 document.querySelector("#btn-share").addEventListener("click", function() {
   console.Log("exporting");

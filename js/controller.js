@@ -265,6 +265,15 @@ var Controller = function() {
     display_map = inFlipped;
   }
 
+  function renameTrack(inName) {
+    displayed_track.name = inName
+    DB.updateTrack(__updateTrackSuccess, __updateTrackError, displayed_track);
+  }
+  function __updateTrackSuccess() {
+    TrackView.updateName(displayed_track.name);
+  }
+  function __updateTrackError() {}
+
   function shareTrack() {
     ExportTrack.toGPX(displayed_track);
   }
@@ -284,6 +293,7 @@ var Controller = function() {
     changeSpeed: changeSpeed,
     changePosition: changePosition,
     flippingTrack: flippingTrack,
+    renameTrack: renameTrack,
     shareTrack: shareTrack
   };
 }();
