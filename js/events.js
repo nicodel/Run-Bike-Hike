@@ -105,9 +105,16 @@ document.querySelector("#btn-track-back").addEventListener ("click", function ()
 document.querySelector("#btn-delete").addEventListener ("click", function () {
   document.getElementById("views").showCard(5);
 });
+/* Track View Rename button */
+document.querySelector("#btn-rename").addEventListener("click", function() {
+  console.Log("renaming");
+  document.getElementById("views").showCard(6);
+  // Controller.shareTrack();
+});
 /* Track View Share button */
 document.querySelector("#btn-share").addEventListener("click", function() {
   console.Log("exporting");
+  document.getElementById("views").showCard(7);
   Controller.shareTrack();
 });
 
