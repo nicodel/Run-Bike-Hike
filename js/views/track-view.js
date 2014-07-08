@@ -90,10 +90,10 @@ var TrackView = function() {
     if (t.map) {
       console.log("map exist");
       // document.getElementById("spinner-box").removeChild(document.getElementById("track-spinner"));
-      var spin = document.getElementById("track-spinner");
-      var load = document.getElementById("map-text");
-      spin.parentNode.removeChild(spin);
-      load.parentNode.removeChild(load);
+      // var spin = document.getElementById("track-spinner");
+      // var load = document.getElementById("map-text");
+      // spin.parentNode.removeChild(spin);
+      // load.parentNode.removeChild(load);
       document.getElementById("map-img").width = SCREEN_WIDTH;
       document.getElementById("map-img").src = t.map;
     } else {
@@ -354,8 +354,10 @@ var TrackView = function() {
       document.getElementById("map-img").width = SCREEN_WIDTH;
       document.getElementById("map-img").onload = function () {
         document.querySelector("#map-text").classList.add("hidden");
+        document.getElementById("spinner-box").removeChild(document.getElementById("track-spinner"));
+        // document.querySelector("#track-spinner").classList.add("hidden");
         document.querySelector("#map-img").classList.remove("hidden");
-        document.querySelector("#map-img").classList.remove("absolute");
+        // document.querySelector("#map-img").classList.remove("absolute");
       };
       // document.getElementById("map-img").src = loc;
       // console.log("loc:", loc);
