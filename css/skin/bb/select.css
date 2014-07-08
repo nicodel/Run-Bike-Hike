@@ -1,0 +1,22 @@
+select {
+    margin: 0px 0px 1rem;
+    padding: 1rem 1.5rem 0px;
+    background-color: rgba(0, 0, 0, 0.05);
+}
+select {
+    border: 0.1rem solid #C7C7C7;
+    width: 100%;
+    box-sizing: border-box;
+    font-family: sans-serif;
+    font-style: italic;
+    font-size: 1.6rem;
+    margin: 0px 0px 1.5rem;
+    padding: 0px 1.5rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    height: 4rem;
+    color: #333;
+    border-radius: 0px;
+    background: url('input_areas/dialog.svg') no-repeat scroll calc(100% - 1rem) calc(100% - 1rem) #FFF;
+}

@@ -18,6 +18,10 @@ form {
   text-align: left;
 }
 
+form.light {
+  background: url(images/pattern-confirm.png) repeat left top / 100% 100%;
+}
+
 form:before {
   content: "";
   display: inline-block;
@@ -41,6 +45,10 @@ form > section {
   white-space: normal;
 }
 
+form.light > section {
+  color: #292929;
+}
+
 form h1 {
   font-weight: normal;
   font-size: 1.6rem;
@@ -48,6 +56,10 @@ form h1 {
   color: #fff;
   margin: 0;
   padding: 1rem 1.5rem 0;
+}
+
+form.light h1 {
+  color: #292929;
 }
 
 /* Menu & buttons setup */
@@ -64,6 +76,9 @@ form menu {
   bottom: 0;
 }
 
+form.light menu {
+  background: url(images/pattern-confirm.png) repeat left top;
+}
 /*form menu button::-moz-focus-inner {
   border: none;
   outline: none;
