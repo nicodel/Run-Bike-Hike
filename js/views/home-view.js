@@ -4,6 +4,7 @@ var HomeView = function() {
 
   function __hideSpinner(){
     document.getElementById("message-area").removeChild(document.getElementById("spinner"));
+    document.getElementById("message-area").removeChild(document.getElementById("msg"));
   }
 
   function updateInfos(inPosition, inDistance){
