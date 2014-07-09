@@ -107,7 +107,7 @@ document.querySelector("#btn-delete").addEventListener ("click", function () {
 });
 /* Track View Rename button */
 document.querySelector("#btn-rename").addEventListener("click", function() {
-  console.Log("renaming");
+  console.log("renaming");
   document.getElementById("views").showCard(6);
 });
 /* Rename Cancel button */
@@ -120,9 +120,6 @@ document.querySelector("#btn-confirm-rename").addEventListener("click", function
   var new_name = document.querySelector("#input-rename");
   Controller.renameTrack(new_name.value);
 });
-
-
-
 /* Track View Share button */
 document.querySelector("#btn-share").addEventListener("click", function() {
   console.Log("exporting");

@@ -20,7 +20,7 @@ var TrackView = function() {
   var ACCURACY_FILL_COLOR = "#C89696";
 
   function display(inTrack, saveMapCallback) {
-    console.log("inTrack in display", inTrack);
+    // console.log("inTrack in display", inTrack);
     //reset old ressources
     document.getElementById("trk-date").innerHTML = "";
     document.getElementById("trk-dist").innerHTML = "";
@@ -36,8 +36,8 @@ var TrackView = function() {
     document.getElementById("trk-dur").innerHTML = d.toFixed() +" min";
 
     var t = inTrack;
-    console.log("t", t);
-    console.log("t.map", t.map);
+    // console.log("t", t);
+    // console.log("t.map", t.map);
     t.min_alt = 0;
     t.max_alt = 0;
     t.max_speed = 0;
@@ -83,30 +83,21 @@ var TrackView = function() {
     document.getElementById("trk-max-alt").innerHTML = Config.userSmallDistance(t.max_alt);
     document.getElementById("trk-min-alt").innerHTML = Config.userSmallDistance(t.min_alt);
 
-    // console.log("t.start", t.start);
-    // console.log("t.end", t.end);
     __buildAltitudeGraph(t);
     __buildSpeedGraph(t);
     if (t.map) {
       console.log("map exist");
-      // document.getElementById("spinner-box").removeChild(document.getElementById("track-spinner"));
-      // var spin = document.getElementById("track-spinner");
-      // var load = document.getElementById("map-text");
-      // spin.parentNode.removeChild(spin);
-      // load.parentNode.removeChild(load);
-      document.getElementById("map-img").width = SCREEN_WIDTH;
-      document.getElementById("map-img").src = t.map;
+      // document.getElementById("map-img").width = SCREEN_WIDTH;
+      // document.getElementById("map-img").src = t.map;
     } else {
       console.log("map does not exist");
       mapToSave = __buildMap2(inTrack);
       saveMapCallback(mapToSave);
-
     }
   }
 
   function updateName(inName) {
-    var tr = document.getElementById("tr-name");
-    tr.innerHTML = inName;
+    document.getElementById("tr-name").innerHTML = inName;
   }
 
   function __buildAltitudeGraph(inData) {
