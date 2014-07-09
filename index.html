@@ -29,6 +29,7 @@
     <link rel="stylesheet" href="css/skin/bb/spinner.css"/>
     <link rel="stylesheet" href="css/skin/bb/status.css"/>
     <link rel="stylesheet" href="css/skin/bb/input_areas.css"/>
+    <link rel="stylesheet" href="css/skin/bb/select.css"/>
 
     <!--··························· My Flat Skin ····························-->
     <!-- <link rel="stylesheet" href="css/skin/flat/x-appbar.css"/>
@@ -62,33 +63,41 @@
               </li>
               <li>
                 <p data-l10n-id="language">Language</p>
-                <select disabled id="language">
+                <div class="styled-select" disabled>
+                <select id="language">
                   <option value="en" data-l10n-id="english">English</option>
                   <option value="es" data-l10n-id="spanish">Español</option>
                   <option value="fr" data-l10n-id="french">Français</option>
                 </select>
+                </div>
               </li>
               <li>
                 <p data-l10n-id="distance-unit">Unit</p>
-                <select id="distance">
-                  <option value="0" data-l10n-id="metric">Metric</option>
-                  <option value="1" data-l10n-id="imperial">Imperial</option>
-                </select>
+                <div class="styled-select">
+                  <select id="distance">
+                    <option value="0" data-l10n-id="metric">Metric</option>
+                    <option value="1" data-l10n-id="imperial">Imperial</option>
+                  </select>
+                </div>
               </li>
               <li>
                 <p data-l10n-id="speed-unit">Speed unit</p>
+                <div class="styled-select">
                 <select id="speed">
                   <option value="0">km/h</option>
                   <option value="1">mph</option>
                 </select>
+                </div>
               </li>
               <li>
                 <p data-l10n-id="position-format">Position format</p>
+                <div class="styled-select">
                 <select id="position">
                   <option value="0">49°08'06.22</option>
                   <option value="1">49°08.104'</option>
                   <option value="2">49.135060</option>
                 </select>
+                </div>
               </li>
             </ul>
           </section>
@@ -325,11 +334,13 @@
             <p>
               <span data-l10n-id="choose-how-share-track">Choose how you want to share your track</span>
             </p>
+            <div class="styled-select">
             <select id="select-share">
               <option value="email" data-l10n-id="email">Email</option>
               <option value="twitter" data-l10n-id="twitter">Twitter</option>
               <option value="local" data-l10n-id="local-storage">Local storage</option>
             </select>
+            </div>
           </section>
           <menu>
             <button id="btn-cancel-share" class="cancel" data-l10n-id="cancel">Cancel</button>
@@ -364,7 +375,7 @@
     <script type="text/javascript">
       document.addEventListener('DOMComponentsLoaded', function(){
         var deck = document.getElementById("views");
-        deck.showCard(1);
+        deck.showCard(6);
       });
     </script>
 

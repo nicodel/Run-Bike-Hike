@@ -118,8 +118,7 @@ fieldset legend,
 input[type="date"],
 input[type="time"],
 input[type="datetime"],
-input[type="datetime-local"],
-select {
+input[type="datetime-local"] {
   border: 0.1rem solid #c7c7c7;
   width: 100%;
   box-sizing: border-box;
@@ -137,15 +136,13 @@ select {
   background: #fff url(images/input_areas/dialog.svg) no-repeat calc(100% - 1rem) calc(100% - 1rem);
 }
 
-fieldset legend,
-select {
+fieldset legend {
   margin: 0 0 1rem;
-  padding: 1rem 1.5rem 0;
+  /*padding: 1rem 1.5rem 0;*/
   background-color: rgba(0,0,0,0.05);
 }
 
-fieldset[disabled],
-select[disabled] {
+fieldset[disabled] {
   opacity: 0.5;
   pointer-events: none;
 }
