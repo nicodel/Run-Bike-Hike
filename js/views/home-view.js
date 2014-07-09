@@ -4,7 +4,6 @@ var HomeView = function() {
 
   function __hideSpinner(){
     document.getElementById("message-area").removeChild(document.getElementById("spinner"));
-    document.getElementById("message-area").removeChild(document.getElementById("msg"));
   }
 
   function updateInfos(inPosition, inDistance){
@@ -48,6 +47,12 @@ var HomeView = function() {
 
   function displayError(inError){
     // console.log("error:", inError)
+    document.getElementById("home-acc").innerHTML = "??";
+    document.getElementById("home-lat").innerHTML = "??";
+    document.getElementById("home-lon").innerHTML = "??";
+    document.getElementById("home-alt").innerHTML = "??";
+    document.getElementById("home-dist").innerHTML = "??";
+    document.getElementById("home-speed").innerHTML = "??";
     document.getElementById('msg').innerHTML = "Error: " + inError.message;
     // hide spinner
     if (document.getElementById("spinner")) {

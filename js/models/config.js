@@ -124,8 +124,13 @@ var Config = function() {
   function userDistance (distanceM, canNegative){
     // console.log("USER_DISTANCE = ", USER_DISTANCE);
     // console.log("IMPERIAL_UNITS = ", IMPERIAL_UNITS);
-    if (distanceM === undefined) {
-      distanceM = 0;
+    if (distanceM === undefined && USER_DISTANCE === METRIC_UNITS) {
+      // distanceM = 0;
+      return "--"+" km";
+    }
+    if (distanceM === undefined && USER_DISTANCE === IMPERIAL_UNITS) {
+      // distanceM = 0;
+      return "--"+" miles";
     }
     if ((distanceM === null) || ((distanceM < 0) && (!canNegative)))
       return "?";
