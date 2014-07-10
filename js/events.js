@@ -108,6 +108,7 @@ document.querySelector("#btn-delete").addEventListener ("click", function () {
 /* Track View Rename button */
 document.querySelector("#btn-rename").addEventListener("click", function() {
   console.log("renaming");
+  document.querySelector("#input-rename").value = Controller.getTrackName();
   document.getElementById("views").showCard(6);
 });
 /* Rename Cancel button */

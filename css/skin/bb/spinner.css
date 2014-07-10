@@ -11,6 +11,10 @@ progress:not([value]) {
 progress:not([value])::-moz-progress-bar {
  background: none;
 }
+progress:not([value]).hidden {
+  display: none;
+}
+
 /* Animations */
 @keyframes rotate {
   from { transform: rotate(1deg); }

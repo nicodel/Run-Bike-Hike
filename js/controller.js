@@ -265,7 +265,9 @@ var Controller = function() {
     // console.log("inFlipped", inFlipped);
     display_map = inFlipped;
   }
-
+  function getTrackName() {
+    return displayed_track.name;
+  }
   function renameTrack(inName) {
     displayed_track.name = inName
     console.log("track name is now ", displayed_track.name);
@@ -296,6 +298,7 @@ var Controller = function() {
     changeSpeed: changeSpeed,
     changePosition: changePosition,
     flippingTrack: flippingTrack,
+    getTrackName: getTrackName,
     renameTrack: renameTrack,
     shareTrack: shareTrack
   };

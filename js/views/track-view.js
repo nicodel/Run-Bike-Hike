@@ -276,98 +276,97 @@ var TrackView = function() {
     c.closePath();
   }
   function __buildMap2(inTrack) {
-      // get the min and max longitude/ latitude
-      // and build the path
-      var minLat, minLon, maxLat, maxLon;
-      for (i = 0; i< inTrack.data.length; i++){
-        var point = {
-          lat: inTrack.data[i].latitude / 1,
-          lon: inTrack.data[i].longitude / 1
-          };
-        if (minLat === undefined || minLat > point.lat) {
-          minLat = point.lat;
+    // get the min and max longitude/ latitude
+    // and build the path
+    var minLat, minLon, maxLat, maxLon;
+    for (i = 0; i< inTrack.data.length; i++){
+      var point = {
+        lat: inTrack.data[i].latitude / 1,
+        lon: inTrack.data[i].longitude / 1
         };
-        if (maxLat === undefined || maxLat < point.lat) {
-          maxLat = point.lat;
-        };
-        if (minLon === undefined || minLon > point.lon) {
-          minLon = point.lon;
-        };
-        if (maxLon === undefined || maxLon < point.lon) {
-          maxLon = point.lon;
-        };
+      if (minLat === undefined || minLat > point.lat) {
+        minLat = point.lat;
       };
-      // Calculate the Bouncing Box
-      var p1 = {lon: minLon, lat: maxLat};
-      var p2 = {lon: maxLon, lat: minLat};
-      var realHeight = __getDistance(p1.lat, p1.lon, p2.lat, p1.lon);
-      var realWidth = __getDistance(p1.lat, p1.lon, p1.lat, p2.lon);
-      var larger = realWidth > realHeight ? realWidth : realHeight;
-      // we limit the number of points on the map to 200
-      if (larger < 200) {
-        larger = 200;
+      if (maxLat === undefined || maxLat < point.lat) {
+        maxLat = point.lat;
       };
-      // add some borders
-      p1 = __movePoint(p1, larger * -0.1, larger * -0.1);
-      p2 = __movePoint(p2, larger * 0.1, larger * 0.1);
-      // make map width always larger
-      if (realWidth < realHeight) {
-        p1 = __movePoint(p1, (realHeight - realWidth) / -2, 0);
-        p2 = __movePoint(p2, (realHeight - realWidth) / +2, 0);
-        realHeight = __getDistance(p1.lat, p1.lon, p2.lat, p1.lon);
-        realWidth = __getDistance(p1.lat, p1.lon, p1.lat, p2.lon);
-        larger = realWidth > realHeight ? realWidth : realHeight;
+      if (minLon === undefined || minLon > point.lon) {
+        minLon = point.lon;
       };
-      if (larger === 0) {
-        return;
+      if (maxLon === undefined || maxLon < point.lon) {
+        maxLon = point.lon;
       };
+    };
+    // Calculate the Bouncing Box
+    var p1 = {lon: minLon, lat: maxLat};
+    var p2 = {lon: maxLon, lat: minLat};
+    var realHeight = __getDistance(p1.lat, p1.lon, p2.lat, p1.lon);
+    var realWidth = __getDistance(p1.lat, p1.lon, p1.lat, p2.lon);
+    var larger = realWidth > realHeight ? realWidth : realHeight;
+    // we limit the number of points on the map to 200
+    if (larger < 200) {
+      larger = 200;
+    };
+    // add some borders
+    p1 = __movePoint(p1, larger * -0.1, larger * -0.1);
+    p2 = __movePoint(p2, larger * 0.1, larger * 0.1);
+    // make map width always larger
+    if (realWidth < realHeight) {
+      p1 = __movePoint(p1, (realHeight - realWidth) / -2, 0);
+      p2 = __movePoint(p2, (realHeight - realWidth) / +2, 0);
+      realHeight = __getDistance(p1.lat, p1.lon, p2.lat, p1.lon);
+      realWidth = __getDistance(p1.lat, p1.lon, p1.lat, p2.lon);
+      larger = realWidth > realHeight ? realWidth : realHeight;
+    };
+    if (larger === 0) {
+      return;
+    };
 
-      var MAX_POINTS = 100;
-      var BLACK = "0x000000";
-      var BLUE = "0x0AFF00";
-      var RED = "0xFF0000";
-      var GREEN = "0x0027FF";
-      var PATH = "&polyline=color:" + BLUE + "|width:3|";
-      var j = 0;
-      if (inTrack.data.length > MAX_POINTS) {
-        var y = parseInt(inTrack.data.length / MAX_POINTS, 10);
-        // console.log("y: ", y);
-        if (y * inTrack.data.length > MAX_POINTS) {
-          y = y + 1;
-        };
+    var MAX_POINTS = 100;
+    var BLACK = "0x000000";
+    var BLUE = "0x0AFF00";
+    var RED = "0xFF0000";
+    var GREEN = "0x0027FF";
+    var PATH = "&polyline=color:" + BLUE + "|width:3|";
+    var j = 0;
+    if (inTrack.data.length > MAX_POINTS) {
+      var y = parseInt(inTrack.data.length / MAX_POINTS, 10);
+      // console.log("y: ", y);
+      if (y * inTrack.data.length > MAX_POINTS) {
+        y = y + 1;
+      };
+    } else {
+      var y = 1;
+    };
+    for (var i = 0; i < inTrack.data.length; i = i + y) {
+      if (i === inTrack.data.length - 1) {
+        PATH = PATH + inTrack.data[i].latitude + "," + inTrack.data[i].longitude;
       } else {
-        var y = 1;
-      };
-      for (var i = 0; i < inTrack.data.length; i = i + y) {
-        if (i === inTrack.data.length - 1) {
-          PATH = PATH + inTrack.data[i].latitude + "," + inTrack.data[i].longitude;
-        } else {
-          PATH = PATH + inTrack.data[i].latitude + "," + inTrack.data[i].longitude + ",";
-        }
-        j++
-      };
-      // console.log("PATH: ", PATH);
-      var BESTFIT = "&bestfit=" + p1.lat + ","+ p1.lon + ","+ p2.lat + "," + p2.lon;
-      var SIZE = "&size=" + MAP_WIDTH + "," + MAP_HEIGHT;
-      var TYPE = "&type=map&imagetype=jpeg";
-      var BASE_URL = "http://www.mapquestapi.com/staticmap/v4/getmap?key=Fmjtd%7Cluur21u720%2Cr5%3Do5-90tx9a&";
+        PATH = PATH + inTrack.data[i].latitude + "," + inTrack.data[i].longitude + ",";
+      }
+      j++
+    };
+    // console.log("PATH: ", PATH);
+    var BESTFIT = "&bestfit=" + p1.lat + ","+ p1.lon + ","+ p2.lat + "," + p2.lon;
+    var SIZE = "&size=" + MAP_WIDTH + "," + MAP_HEIGHT;
+    var TYPE = "&type=map&imagetype=jpeg";
+    var BASE_URL = "http://www.mapquestapi.com/staticmap/v4/getmap?key=Fmjtd%7Cluur21u720%2Cr5%3Do5-90tx9a&";
 
 
-      var loc = BASE_URL + SIZE + TYPE + BESTFIT + PATH;
+    var loc = BASE_URL + SIZE + TYPE + BESTFIT + PATH;
 
-      document.getElementById("map-img").width = SCREEN_WIDTH;
-      document.getElementById("map-img").onload = function () {
-        document.querySelector("#map-text").classList.add("hidden");
-        document.getElementById("spinner-box").removeChild(document.getElementById("track-spinner"));
-        // document.querySelector("#track-spinner").classList.add("hidden");
-        document.querySelector("#map-img").classList.remove("hidden");
-        // document.querySelector("#map-img").classList.remove("absolute");
-      };
-      // document.getElementById("map-img").src = loc;
-      // console.log("loc:", loc);
+    document.getElementById("map-img").width = SCREEN_WIDTH;
+    document.getElementById("map-img").onload = function () {
+      document.querySelector("#map-text").classList.add("hidden");
+      // document.getElementById("spinner-box").removeChild(document.getElementById("track-spinner"));
+      document.querySelector("#track-spinner").classList.add("hidden");
+      document.querySelector("#map-img").classList.remove("hidden");
+      // document.querySelector("#map-img").classList.remove("absolute");
+    };
+    // document.getElementById("map-img").src = loc;
+    // console.log("loc:", loc);
 
-
-    /* Following based on @robertnyman article on hacks.mozilla.org https://hacks.mozilla.org/2012/02/storing-images-and-files-in-indexeddb/ */
+    // Following based on @robertnyman article on hacks.mozilla.org https://hacks.mozilla.org/2012/02/storing-images-and-files-in-indexeddb/
     var xhr = new XMLHttpRequest(), blob;
     xhr.open('GET', loc, true);
     xhr.responseType = "blob";
