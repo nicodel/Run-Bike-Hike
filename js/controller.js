@@ -267,10 +267,12 @@ var Controller = function() {
 
   function renameTrack(inName) {
     displayed_track.name = inName
+    console.log("track name is now ", displayed_track.name);
     DB.updateTrack(__updateTrackSuccess, __updateTrackError, displayed_track);
   }
   function __updateTrackSuccess() {
     TrackView.updateName(displayed_track.name);
+    document.getElementById("views").showCard(4);
   }
   function __updateTrackError() {}
 

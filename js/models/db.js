@@ -180,7 +180,7 @@ var DB = function() {
       var req = store.get(inTrack.id);
       req.onsuccess = function(e) {
         var req2 = store.put(inTrack);
-        req2.oncomplete = function(e) {
+        req2.onsuccess = function(e) {
           console.log("successfully updated");
         }
         req2.onerror = function(e) {
@@ -199,7 +199,7 @@ var DB = function() {
       var req = store.get(inTrack.id);
       req.onsuccess = function(e) {
         var req2 = store.put(inTrack);
-        req2.oncomplete = function(e) {
+        req2.onsuccess = function(e) {
           console.log("successfully updated");
           successCallback();
         }

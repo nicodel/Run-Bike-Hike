@@ -116,7 +116,7 @@ document.querySelector("#btn-cancel-rename").addEventListener("click", function(
 });
 /* Rename Confirm button */
 document.querySelector("#btn-confirm-rename").addEventListener("click", function() {
-  document.getElementById("views").showCard(4);
+  // document.getElementById("views").showCard(4);
   var new_name = document.querySelector("#input-rename");
   Controller.renameTrack(new_name.value);
 });

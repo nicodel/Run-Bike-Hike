@@ -97,6 +97,7 @@ var TrackView = function() {
   }
 
   function updateName(inName) {
+    console.log("updating");
     document.getElementById("tr-name").innerHTML = inName;
   }
 
