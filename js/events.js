@@ -126,6 +126,13 @@ document.querySelector("#btn-share").addEventListener("click", function() {
   document.getElementById("views").showCard(7);
   Controller.shareTrack();
 });
+/* Share Cancel button */
+document.querySelector("#btn-cancel-rename").addEventListener("click", function() {
+  document.getElementById("views").showCard(4);
+});
+/* Share Confirm button */
+document.querySelector("#btn-confirm-rename").addEventListener("click", function() {
+})
 
 /*----------------- Track Delete Confirmation -----------------*/
 /* Delete Track Cancel button */
