@@ -74,6 +74,7 @@ var Controller = function() {
     // Close track
     var track = Tracks.close();
     tracking = false;
+    console.log("track is", track);
     // if no gps point were retreive we don't save the track
     if (track.data.length === 0) {
       // we notify that we do nothing (cause that's good)

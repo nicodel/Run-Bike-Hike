@@ -191,11 +191,14 @@ var TrackView = function() {
     c.textAlign = "center";
 
     // Write X Axis text and lines
-    var xspace = data.length / 5;
+    if (data.length <= SPACE_BTW_POINTS) {
+      var xspace = data.length;
+    } else{
+      var xspace = data.length / SPACE_BTW_POINTS;
+    };
     // console.log("xspace",xspace);
     for (i=0;i<data.length;i+=xspace) {
       i = parseInt(i,10);
-      //~ console.log("i",i);
       var date = new Date(data[i].date).getHours() + ":" + new Date(data[i].date).getMinutes();
       c.fillText(date, __getXPixel(i,data), SCREEN_HEIGHT - yPadding + 20);
       // draw vertical lines
@@ -251,7 +254,11 @@ var TrackView = function() {
     c.textAlign = "center";
 
     // Write X Axis text and lines
-    var xspace = data.length / 5;
+    if (data.length <= SPACE_BTW_POINTS) {
+      var xspace = data.length;
+    } else{
+      var xspace = data.length / SPACE_BTW_POINTS;
+    };
     //~ console.log("xspace",xspace);
     for (i=0;i<data.length;i+=xspace) {
       i = parseInt(i,10);
