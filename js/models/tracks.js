@@ -52,6 +52,7 @@ var Tracks = function() {
   }
 
   function addNode(inNode, inDistance, inDuration) {
+    // console.log("inNode", inNode);
     current_track.data.push(inNode);
     current_track.distance = inDistance;
     current_track.duration = inDuration;

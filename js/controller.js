@@ -92,6 +92,7 @@ var Controller = function() {
     if (!inPosition.coords || !inPosition.coords.latitude || !inPosition.coords.longitude) {
       return;
     }
+
     var event = inPosition.coords;
     // Display GPS data, log to Db
     var now = new Date();
@@ -115,11 +116,11 @@ var Controller = function() {
     duration = Tracks.getDuration(inPosition.timestamp);
 
     // updating UI
-    if (display_map) {
-      MapView.updateMap(inPosition)
-    } else {
-      HomeView.updateInfos(inPosition, distance)
-    }
+    // if (display_map) {
+    //   MapView.updateMap(inPosition)
+    // } else {
+    //   HomeView.updateInfos(inPosition, distance)
+    // }
 
     // appending gps point
     var gps_point = {
