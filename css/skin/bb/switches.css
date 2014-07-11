@@ -46,6 +46,17 @@ label.pack-switch input:checked ~ span:after {
  * ON/OFF SWITCHES
  * ---------------------------------- */
 
+label.pack-switch {
+  width: 100%;
+  /*height: 100%;*/
+  height: 5rem;
+  margin: 0px;
+  overflow: visible;
+}
+label.pack-switch span {
+  line-height: 5rem;
+}
+
 label.pack-switch input ~ span:after {
   content: '';
   position: absolute;

@@ -56,6 +56,7 @@ form h1 {
   color: #fff;
   margin: 0;
   padding: 1rem 1.5rem 0;
+  border-bottom: 0.1rem solid #686868;
 }
 
 form.light h1 {
@@ -167,7 +168,7 @@ form p {
   word-wrap: break-word;
   margin: 1rem 0 0;
   padding: 1rem 1.5rem;
-  border-top: 0.1rem solid #686868;
+  /*border-top: 0.1rem solid #686868;*/
   line-height: 3rem;
 }
 

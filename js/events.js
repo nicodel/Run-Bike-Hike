@@ -127,6 +127,29 @@ document.querySelector("#btn-share").addEventListener("click", function() {
   document.getElementById("views").showCard(7);
   Controller.shareTrack();
 });
+
+
+
+/*----------------- Track Share Form -----------------*/
+/* Way to share a track selection */
+document.querySelector("#select-share").onchange = function() {
+  var dom = document.querySelector("#select-share");
+  var id = this.selectedIndex;
+  if (dom[id].value === "email") {
+    console.log("sharing via email");
+    document.querySelector("#toggle-share-summary").disabled = false;
+    document.querySelector("#toggle-share-file").disabled = false;
+  } else if (dom[id].value === "twitter") {
+    console.log("sharing via twitter");
+    document.querySelector("#toggle-share-summary").disabled = false;
+    document.querySelector("#toggle-share-file").disabled = true;
+  } else if (dom[id].value === "local") {
+    console.log("sharing via local");
+    document.querySelector("#toggle-share-summary").disabled = true;
+    document.querySelector("#toggle-share-file").disabled = false;
+  };
+};
+
 /* Share Cancel button */
 document.querySelector("#btn-cancel-rename").addEventListener("click", function() {
   document.getElementById("views").showCard(4);

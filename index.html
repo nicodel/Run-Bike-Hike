@@ -341,8 +341,16 @@
               <option value="local" data-l10n-id="local-storage">Local storage</option>
             </select>
             </div>
-            <div><x-toggle id="toggle-share-summary" focus active label="Track summary"></x-toggle></div>
-            <div><x-toggle id="toggle-share-file" focus active label="GPX file"></x-toggle></div>
+            <label class="pack-switch">
+              <input class="uninit" type="checkbox" id="toggle-share-summary" />
+              <span class="menu-item" data-l10n-id="track-summary">Track summary</span>
+            </label>
+<!--             <div><x-toggle id="toggle-share-summary" focus active label="Track summary"></x-toggle></div>
+            <div><x-toggle id="toggle-share-file" focus active label="GPX file"></x-toggle></div> -->
+            <label class="pack-switch">
+              <input class="uninit" type="checkbox" id="toggle-share-file" />
+              <span class="menu-item" data-l10n-id="gpx-file">GPX file</span>
+            </label>
           </section>
           <menu>
             <button id="btn-cancel-share" class="cancel" data-l10n-id="cancel">Cancel</button>

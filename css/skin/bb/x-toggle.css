@@ -1,3 +1,6 @@
+x-toggle {
+  padding-bottom: 1rem;
+}
 x-toggle:after {
     content: none;
 }
@@ -5,10 +8,11 @@ x-toggle:before {
     content: attr(label);
     display: inline-block;
     vertical-align: middle;
-    padding-right: 30px;
+    padding-right: 10rem;
+    paddin
 }
 x-toggle .x-toggle-check {
-  width: 33px;
-  height: 33px;
+/*  width: 33px;
+  height: 33px;*/
   border: 0.1rem solid #A6A6A6;
 }

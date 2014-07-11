@@ -62,7 +62,7 @@ var Controller = function() {
       current_track = Tracks.open();
       nb_point = 0;
       document.querySelector("#btn-start").innerHTML = "Stop";
-      document.querySelector("#btn-start").className = "align-right danger big alternate"
+      document.querySelector("#btn-start").className = "align-right danger big alternate";
     };
   }
   function stopWatch(){
