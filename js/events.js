@@ -138,15 +138,21 @@ document.querySelector("#select-share").onchange = function() {
   if (dom[id].value === "email") {
     console.log("sharing via email");
     document.querySelector("#toggle-share-summary").disabled = false;
+    document.querySelector("#toggle-share-summary").checked = false;
     document.querySelector("#toggle-share-file").disabled = false;
+    document.querySelector("#toggle-share-file").checked = false;
   } else if (dom[id].value === "twitter") {
     console.log("sharing via twitter");
-    document.querySelector("#toggle-share-summary").disabled = false;
+    document.querySelector("#toggle-share-summary").disabled = true;
+    document.querySelector("#toggle-share-summary").checked = true;
     document.querySelector("#toggle-share-file").disabled = true;
+    document.querySelector("#toggle-share-file").checked = false;
   } else if (dom[id].value === "local") {
     console.log("sharing via local");
     document.querySelector("#toggle-share-summary").disabled = true;
-    document.querySelector("#toggle-share-file").disabled = false;
+    document.querySelector("#toggle-share-summary").checked = false;
+    document.querySelector("#toggle-share-file").disabled = true;
+    document.querySelector("#toggle-share-file").checked = true;
   };
 };
 

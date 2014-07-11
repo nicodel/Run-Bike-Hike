@@ -12,6 +12,10 @@ label.pack-switch {
   position: relative;
   background: none;
 }
+label.pack-checkbox {
+  height: 100%;
+  width: 100%;
+}
 
 label.pack-checkbox input,
 label.pack-radio input,
@@ -27,12 +31,20 @@ label.pack-checkbox input ~ span:after,
 label.pack-radio input ~ span:after {
   content: '';
   position: absolute;
-  left: 50%;
+  /*left: 50%;*/
   top: 50%;
   margin: -1.1rem 0 0 -1.1rem;
   width: 2.2rem;
   height: 2.2rem;
   pointer-events: none;
+}
+
+label.pack-checkbox input ~ span:after {
+  background: url(images/switch/default.png) no-repeat center top / 2.2rem auto;
+}
+
+label.pack-radio input ~ span:after {
+  background: url(images/switch/default.png) no-repeat center top / 2.2rem auto;
 }
 
 label.pack-checkbox input:checked ~ span:after,
@@ -41,6 +53,13 @@ label.pack-switch input:checked ~ span:after {
   background-position: center bottom;
 }
 
+label.pack-checkbox > span:after {
+  left: auto;
+  right: 0px;
+}
+label.pack-checkbox input:disabled ~ span:after {
+  opacity: 0.4;
+}
 
 /* ----------------------------------
  * ON/OFF SWITCHES
