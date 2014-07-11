@@ -57,9 +57,13 @@
           <section data-type="settings">
             <ul>
               <li>
-                <p>
+                <label class="pack-switch">
+                  <input class="uninit" type="checkbox" id="screen" />
+                  <span class="menu-item" data-l10n-id="keep-screen-alive">Keep screen alive?</span>
+                </label>
+<!--                 <p>
                 <x-toggle id="screen" focus active label="Keep screen alive?"></x-toggle>
-                </p>
+                </p> -->
               </li>
               <li>
                 <p data-l10n-id="language">Language</p>
@@ -385,7 +389,7 @@
     <script type="text/javascript">
       document.addEventListener('DOMComponentsLoaded', function(){
         var deck = document.getElementById("views");
-        deck.showCard(7);
+        deck.showCard(0);
       });
     </script>
 
