@@ -128,8 +128,6 @@ document.querySelector("#btn-share").addEventListener("click", function() {
   Controller.shareTrack();
 });
 
-
-
 /*----------------- Track Share Form -----------------*/
 /* Way to share a track selection */
 document.querySelector("#select-share").onchange = function() {
@@ -157,11 +155,11 @@ document.querySelector("#select-share").onchange = function() {
 };
 
 /* Share Cancel button */
-document.querySelector("#btn-cancel-rename").addEventListener("click", function() {
+document.querySelector("#btn-cancel-share").addEventListener("click", function() {
   document.getElementById("views").showCard(4);
 });
 /* Share Confirm button */
-document.querySelector("#btn-confirm-rename").addEventListener("click", function() {
+document.querySelector("#btn-confirm-share").addEventListener("click", function() {
 })
 
 /*----------------- Track Delete Confirmation -----------------*/
