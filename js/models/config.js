@@ -60,7 +60,7 @@ var Config = function() {
       return "?";
     }
 
-    if (USER_SPEEDUSER_SPEED === IMPERIAL_UNITS){
+    if (USER_SPEED === IMPERIAL_UNITS){
       /* FIXME: I'am not sure that it is right */
       return (velocityMPS * 2.237).toFixed(0)+" MPH";
     }
@@ -109,6 +109,7 @@ var Config = function() {
      return this.userDegree( Math.abs(degree) ) + (degree>0? "E":"W");
   }
   function userSmallDistance(distanceM, canNegative){
+    // console.log("distanceM", distanceM);
      if ((distanceM === null) || ((distanceM < 0) && (!canNegative)))
        return "?";
 

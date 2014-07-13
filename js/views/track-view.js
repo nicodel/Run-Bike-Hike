@@ -20,7 +20,7 @@ var TrackView = function() {
   var ACCURACY_FILL_COLOR = "#C89696";
 
   function display(inTrack, saveMapCallback) {
-    // console.log("inTrack in display", inTrack);
+    console.log("inTrack in display", inTrack);
     //reset old ressources
     document.getElementById("trk-date").innerHTML = "";
     document.getElementById("trk-dist").innerHTML = "";
@@ -36,7 +36,7 @@ var TrackView = function() {
     document.getElementById("trk-dur").innerHTML = d.toFixed() +" min";
 
     var t = inTrack;
-    // console.log("t", t);
+    console.log("t", t);
     // console.log("t.map", t.map);
     t.min_alt = 0;
     t.max_alt = 0;
@@ -47,8 +47,8 @@ var TrackView = function() {
     t.end = null;
 
     //~ get min, max altitude, max speed, start and end time
-    for (i=0; i<inTrack.data.length; i++) {
-      var row = inTrack.data[i];
+    for (i=0; i<t.data.length; i++) {
+      var row = t.data[i];
       var alt_int = parseInt(row.altitude, 10);
       var speed_int = parseInt(row.speed, 10);
       // console.log("speed_int ", speed_int);
@@ -62,10 +62,10 @@ var TrackView = function() {
       if (t.max_speed === 0 || speed_int > t.max_speed) {
         t.max_speed = speed_int;
       }
-      if (t.min_speed === 0 || speed_int < t.min_speed) {
-        t.min_speed = speed_int;
-      }
-      var dt = new Date(inTrack.data[i].date).getTime();
+      // if (t.min_speed === 0 || speed_int < t.min_speed) {
+      //   t.min_speed = speed_int;
+      // }
+      var dt = new Date(t.data[i].date).getTime();
       // console.log("dt ", dt);
       if (t.start === null || dt < t.start) {
         t.start = dt;
@@ -75,25 +75,27 @@ var TrackView = function() {
       }
       t.av_speed = t.av_speed + speed_int;
     }
-    // console.log("t.av_speed",t.av_speed);
-    t.av_speed = t.av_speed / inTrack.data.length;
-    // console.log("t.av_speed",t.av_speed);
+    console.log("t.av_speed",t.av_speed);
+    t.av_speed = t.av_speed / t.data.length;
+    console.log("t.max_speed",t.max_speed);
+    // t.max_alt_speed = 15;
+    // console.log("t.max_speed",t.max_speed);
     document.getElementById("trk-max-speed").innerHTML = Config.userSpeed(t.max_speed);
     document.getElementById("trk-av-speed").innerHTML = Config.userSpeed(t.av_speed);
     document.getElementById("trk-max-alt").innerHTML = Config.userSmallDistance(t.max_alt);
     document.getElementById("trk-min-alt").innerHTML = Config.userSmallDistance(t.min_alt);
 
-    __buildAltitudeGraph(t);
-    __buildSpeedGraph(t);
     if (t.map) {
       console.log("map exist");
-      // document.getElementById("map-img").width = SCREEN_WIDTH;
-      // document.getElementById("map-img").src = t.map;
+      document.getElementById("map-img").width = SCREEN_WIDTH;
+      document.getElementById("map-img").src = t.map;
     } else {
       console.log("map does not exist");
       mapToSave = __buildMap2(inTrack);
       saveMapCallback(mapToSave);
     }
+    __buildSpeedGraph(t);
+    __buildAltitudeGraph(t);
   }
 
   function updateName(inName) {

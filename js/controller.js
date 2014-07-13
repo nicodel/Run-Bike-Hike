@@ -232,7 +232,7 @@ var Controller = function() {
   function __getTracksError(inTracks) {}
 
   function __displayTrack(inTrack) {
-    // console.log("inTrack display: ", inTrack);
+    console.log("inTrack display: ", inTrack);
     displayed_track = inTrack;
     TrackView.display(inTrack, __saveMap);
   }
