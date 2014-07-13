@@ -15,6 +15,9 @@
   "permissions": {
     "geolocation": {
       "description": "Required to locate the user's device"
+    },
+    "storage": {
+      "description": "Required to store both settings and tracks"
     }
   },
   "installs_allowed_from": [
