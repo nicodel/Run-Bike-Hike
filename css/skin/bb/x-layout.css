@@ -36,14 +36,15 @@ x-flipbox > section button {
   /*border: 1px solid rgba(15, 15, 15, 0.2);*/
   border: none;
   border-radius: 1.5rem;
-  box-shadow: inset 0px 1px 0px rgba(255,255,255,0.2);
+  /*box-shadow: inset 0px 1px 0px rgba(255,255,255,0.2);*/
   /*background: #E1E1E1 url("images/gradient.png") repeat-x bottom;*/
   text-overflow: ellipsis;
 }
 
 x-layout > section button.recommend,
 x-flipbox > section button.recommend {
-  background-color: rgba(15, 173, 45, 1);
+  /*background-color: rgba(15, 173, 45, 1);*/
+  background-color: #1E824C;
   color: #F2F2F2;
 }
 
