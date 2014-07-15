@@ -61,7 +61,6 @@ var HomeView = function() {
   }
 
   function __displayCompass(event) {
-    
     compass = document.getElementById("home-compass");
     //~ console.log("heading:", event.heading);
     if (event.heading > 0 ){
@@ -75,9 +74,11 @@ var HomeView = function() {
       var rot = 360 - event.heading.toFixed(0);
       compass.style.transform = "rotate(" + rot + "deg)";
       // compass.style.webkitTransform = "rotate(" + rot + "deg)";
+      document.getElementById('home-dir').innerHTML = event.heading;
     } else {
       compass.src = 'img/compass_inactive.png';
       opacity = 1; // 0.3
+      document.getElementById('home-dir').innerHTML = "??";
     }
     compass.style.opacity = opacity;
   }
