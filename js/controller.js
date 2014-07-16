@@ -15,9 +15,14 @@ var Controller = function() {
       watchID = navigator.geolocation.watchPosition(
         function(inPosition){
           __locationChanged(inPosition);
-          },
+        },
         function (inError){
           __locationError(inError);
+        },
+        {
+          enableHighAccuracy: true,
+          timeout: Infinity,
+          maximumAge: 0
         }
       );
     }

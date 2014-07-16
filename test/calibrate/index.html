@@ -1,0 +1,285 @@
+
+
+<!DOCTYPE html>
+<html class="sb-init" lang="es">
+  <head>
+    <meta charset="UTF-8"></meta>
+    <title>
+
+        GPS Calibrate
+
+    </title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"></meta>
+    <meta content="yes" name="apple-mobile-web-app-capable"></meta>
+    <meta content="telephone=no" name="format-detection"></meta>
+    <link href="favicon.ico" rel="shortcut icon"></link>
+    <link href="css/fonts.css" rel="stylesheet"></link>
+    <link href="css/base.css" rel="stylesheet"></link>
+    <link href="css/headers.css" rel="stylesheet"></link>
+    <link href="css/list.css" rel="stylesheet"></link>
+    <link href="css/buttons.css" rel="stylesheet"></link>
+    <link href="css/icons-colors.css" rel="stylesheet"></link>
+    <link href="css/theme.css" rel="stylesheet"></link>
+    <link href="css/slidebars.min.css" rel="stylesheet"></link>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/jquery.transit.min.js"></script>
+    <script src="js/slidebars.min.js"></script>
+    <script src="js/locale.js"></script>
+    <script src="js/smoothie.js"></script>
+  </head>
+  <body>
+    <div id="sb-site" style="min-height: 456px;">
+      <section id="viewPort" style="transform: scale(1, 1); opacity: 1;">
+        <section id="viewState2" class="viewState">
+          <nav class="actionBar">
+            <h1 class="floatLeft" text-translate="app_title">
+
+                Calibrate GPS
+            </h1>
+            <a id="btnBack" class="btnBar floatRight" text-translate="hecho" href="#">
+
+                Done
+            </a>
+          </nav>
+          <section class="content scrollable">
+            <div id="output"></div>
+            <h3>
+
+                Estado de calibración
+            </h3>
+            <ul class="uiList">
+                <li>
+                    <span id="checReciveGPS" class="icon floatLeft checkOff"></span>
+                    <span class="floatLeft">
+
+                        Recibiendo datos GPS
+
+                    </span>
+                    <img class="floatRight icon" src="img/load.gif"></img>
+                </li>
+                <li>
+                    <span id="checkSignalLevel" class="icon floatLeft checkOff"></span>
+                    <span class="floatLeft">
+
+                        Intensidad de señal 3+
+
+                    </span>
+                    <div id="graphSignalStrength" class="floatRight">
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                    </div>
+                </li>
+                <li>
+                    <span id="checkValidData" class="icon floatLeft checkOff"></span>
+                    <span id="totalValidSignalsGPS" class="floatLeft">
+
+                        Datos GPS validos: 0
+
+                    </span>
+                    <em id="percentValidSignalsGPS" class="floatRight textBlue">
+
+                        0%
+
+                    </em>
+                </li>
+            </ul>
+            <button id="btnShowExtraInfo" class="btn textBlue">
+
+                Ver informe
+            </button>
+            <div id="extraInfo">
+                <h3>
+
+                    Informe de calibración
+
+                </h3>
+                <ul class="uiList">
+                    <li>
+
+                        Tiempo transcurrido:
+
+                        <em id="totalTranscurredTime" class="floatRight textBlue">
+
+                            00:00:04
+
+                        </em>
+                    </li>
+                    <li>
+
+                        Estado GPS
+
+                        <em id="statusGPS" class="floatRight textGray">
+
+                            Desconectado
+
+                        </em>
+                    </li>
+                    <li>
+
+                        Primera señal GPS
+
+                        <em id="firstSignalGPS" class="floatRight textGreen">
+                        </em>
+                    </li>
+                    <li>
+
+                        Última señal en las
+
+                        <em id="lastSignal" class="floatRight textBlue">
+                        </em>
+                    </li>
+                    <li>
+
+                        Tiempo última señal:
+
+                        <em id="lastAgoTimeSignal" class="floatRight textGray">
+                        </em>
+                    </li>
+                    <!--
+
+                    <li>Tiempo entre señal y señal:</li>
+
+                    -->
+                    <li>
+
+                        Tipo de coordenadas:
+
+                        <em id="coordResGPS" class="floatRight textGray">
+                        </em>
+                    </li>
+                    <li>
+
+                        Intensidad de señal:
+
+                        <em id="signalGPS" class="floatRight textGray">
+                        </em>
+                    </li>
+                    <li>
+
+                        Error de precisión:
+
+                        <em id="accuracyGPS" class="floatRight textRed">
+                        </em>
+                    </li>
+                </ul>
+                <h3>
+
+                    Valores coordenadas
+
+                </h3>
+                <dl class="valueList">
+                    <dt>
+
+                        Latitud
+
+                    </dt>
+                    <dd id="latitudeGPS">
+
+                        ...
+
+                    </dd>
+                    <dt>
+
+                        Longitud
+
+                    </dt>
+                    <dd id="longitudeGPS">
+
+                        ...
+
+                    </dd>
+                    <dt>
+
+                        Altitud
+
+                    </dt>
+                    <dd id="altitudeGPS">
+
+                        ...
+
+                    </dd>
+                    <dt>
+
+                        Orientación
+
+                    </dt>
+                    <dd id="headingGPS">
+
+                        ...
+
+                    </dd>
+                    <dt>
+
+                        Velocidad
+
+                    </dt>
+                    <dd id="speedGPS">
+
+                        ...
+
+                    </dd>
+                </dl>
+            </div>
+            <div class="simpleToast" style="position: absolute; left: 61px; display: block; opacity: 0;">
+
+                Stop signal
+            </div>
+          </section>
+        </section>
+        <section id="viewState1" class="viewState">
+          <nav class="actionBar">
+              <h1 class="floatLeft" text-translate="app_title">
+
+                  Calibrate GPS
+
+              </h1>
+              <a id="btnMenuApp" class="btnBarIcon iconMenuApp floatRight sb-toggle-right" href="#">
+              </a>
+          </nav>
+          <section class="content">
+              <p>
+
+                  Situarse a una zona despejada de edificios y arbol…
+
+                  <strong class="textBlue">
+
+                      cielo abierto.
+
+                  </strong>
+                  <br></br>
+                  <br></br>
+
+
+                      Tener activada la 
+
+                  <strong class="textBlue">
+
+                      Geolocalización
+
+                  </strong>
+              </p>
+              <button id="startCalibrationGPS" class="btn">
+
+                  Iniciar calibración
+
+              </button>
+          </section>
+          <footer class="advertBlock" style="display: block;">
+              <a target="_blank" href="https://marketplace.firefox.com/app/password-tools/">
+                  <img width="320" alt="password tools" src="http://firefoxosapps.webserveis.com/banners/banner_passwordtools_firefoxos.png"></img>
+              </a>
+          </footer>
+      </section>
+        <!--
+
+         end viewState1 
+
+        -->
+      </section>
+      <script src="js/app.js"></script>
+    </div>
+  </body>
+</html>
+
