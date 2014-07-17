@@ -185,7 +185,7 @@ x-layout > [data-type="list"] ul {
   min-width: 95%;
 }
 x-layout > [data-type="list"] ul li {
-  height: 4rem;
+  height: 5rem;
   border-bottom: solid 0.1rem #C3C3C3;
   margin-bottom:0.5rem;
 }
@@ -195,7 +195,7 @@ x-layout > [data-type="list"] ul li:last-child {
 }
 
 x-layout > [data-type="list"] ul li p.new-line {
-  padding-top: 0.5rem;
+  padding-top: 1rem;
 }
 x-layout > [data-type="list"] ul li p span.align-left {
   margin-left: 0;
