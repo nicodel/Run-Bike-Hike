@@ -125,7 +125,6 @@ document.querySelector("#btn-confirm-rename").addEventListener("click", function
 document.querySelector("#btn-share").addEventListener("click", function() {
   console.Log("exporting");
   document.getElementById("views").showCard(7);
-  Controller.shareTrack();
 });
 
 /*----------------- Track Share Form -----------------*/
@@ -160,6 +159,14 @@ document.querySelector("#btn-cancel-share").addEventListener("click", function()
 });
 /* Share Confirm button */
 document.querySelector("#btn-confirm-share").addEventListener("click", function() {
+  if (document.querySelector("#toggle-share-file").value) {
+    // export file
+    Controller.exportTrack();
+  } else if (document.querySelector("#toggle-share-summary").value) {
+    // create summary
+  } else {
+    // no selction made ???
+  };
 })
 
 /*----------------- Track Delete Confirmation -----------------*/

@@ -28,11 +28,17 @@ var ExportTrack = function() {
     }
       data += "</trkseg>\n</trk>\n";
       data += "</gpx>\n";
-    console.log("export done", data);
+    // console.log("export done", data);
+    return data;
+  }
+
+  var toSummary = function(inTrack) {
+    var name = inTrack.name.replace(/&/g,"&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
   }
 
   return {
-    toGPX: toGPX
+    toGPX: toGPX,
+    toSummary: toSummary
   }
 }();
 /*

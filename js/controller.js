@@ -285,10 +285,27 @@ var Controller = function() {
   }
   function __updateTrackError() {}
 
-  function shareTrack() {
-    ExportTrack.toGPX(displayed_track);
-  }
+  function shareTrack(inFile, inSummary, inShare) {
+    if (inFile || inSummary) {
+      if (inFile) {
+        var gpx_track = ExportTrack.toGPX(displayed_track);
+      };
+      if (inSummary) {
+        var sum_track = ExportTrack.toSummary(displayed_track);
+      }
+    } else {
+      // ?? nothing selected ??
+    };
+    if (inShare === "email") {
 
+    } else if (inShare === "twitter") {
+
+    } else if (inShare === "local") {
+
+    } else {
+      // ?? nothing selected ??
+    };
+  }
 
   return {
     init: init,
