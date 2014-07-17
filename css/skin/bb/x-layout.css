@@ -187,9 +187,14 @@ x-layout > [data-type="list"] ul {
 x-layout > [data-type="list"] ul li {
   height: 5rem;
   border-bottom: solid 0.1rem #C3C3C3;
-  margin-bottom:0.5rem;
+  padding-top:0.5rem;
 }
-
+x-layout > [data-type="list"] ul li:hover {
+  background-color: red;
+}
+x-layout > [data-type="list"] ul li:first-child {
+  padding-top:0;
+}
 x-layout > [data-type="list"] ul li:last-child {
   border: none;
 }
@@ -199,4 +204,7 @@ x-layout > [data-type="list"] ul li p.new-line {
 }
 x-layout > [data-type="list"] ul li p span.align-left {
   margin-left: 0;
+}
+x-layout > [data-type="list"] ul li p span.align-right {
+  margin-right: 0;
 }
