@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<gpx version='1.1'
+creator='Run, Bike, Hike - https://github.com/nicodel/Run-Bike-Hike'
+xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+xmlns='http://www.topografix.com/GPX/1/1'
+xsi:schemaLocation='http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd'>
+<metadata>
+<author><name>Nicolas Delebecque</name><link href='https://github.com/nicodel/'></link></author><name>TR-20140706-1300654</name></metadata><trk>
+<name>TR-20140706-1300654</name>
+<trkseg>
+<trkpt lat='48.759255' lon='2.302553'>
+  <time>2014-07-06T11:03:57.958Z</time>
+  <hdop>25000</hdop>
+</trkpt>
+<trkpt lat='48.759255' lon='2.302553'>
+  <time>2014-07-06T11:04:02.967Z</time>
+  <hdop>25000</hdop>
+</trkpt>
+<trkpt lat='48.753763' lon='2.317386'>
+  <time>2014-07-06T11:04:03.033Z</time>
+  <hdop>59</hdop>
+</trkpt>
+<trkpt lat='48.759255' lon='2.302553'>
+  <time>2014-07-06T11:04:08.007Z</time>
+  <hdop>25000</hdop>
+</trkpt>
+<trkpt lat='48.753763' lon='2.317386'>
+  <time>2014-07-06T11:04:08.056Z</time>
+  <hdop>59</hdop>
+</trkpt>
+<trkpt lat='48.759255' lon='2.302553'>
+  <time>2014-07-06T11:04:13.027Z</time>
+  <hdop>25000</hdop>
+</trkpt>
+<trkpt lat='48.759255' lon='2.302553'>
+  <time>2014-07-06T11:04:18.031Z</time>
+  <hdop>25000</hdop>
+</trkpt>
+<trkpt lat='48.753763' lon='2.317386'>
+  <time>2014-07-06T11:04:18.104Z</time>
+  <hdop>59</hdop>
+</trkpt>
+<trkpt lat='48.759255' lon='2.302553'>
+  <time>2014-07-06T11:04:23.085Z</time>
+  <hdop>25000</hdop>
+</trkpt>
+<trkpt lat='48.759255' lon='2.302553'>
+  <time>2014-07-06T11:04:28.088Z</time>
+  <hdop>25000</hdop>
+</trkpt>
+<trkpt lat='48.753763' lon='2.317386'>
+  <time>2014-07-06T11:04:28.155Z</time>
+  <hdop>59</hdop>
+</trkpt>
+</trkseg>
+</trk>
+</gpx>

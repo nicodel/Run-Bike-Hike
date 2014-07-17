@@ -7,10 +7,14 @@ var ExportTrack = function() {
     var data = "";
     data += "<?xml version='1.0' encoding='UTF-8'?>\n";
     data += "<gpx version='1.1'\n";
-    data += "creator='MojoTracker - http://code.google.com/p/mojotracker/'\n";
+    data += "creator='Run, Bike, Hike - https://github.com/nicodel/Run-Bike-Hike'\n";
     data += "xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'\n";
     data += "xmlns='http://www.topografix.com/GPX/1/1'\n";
     data += "xsi:schemaLocation='http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd'>\n";
+    data += "<metadata>\n";
+    data += "<author><name>Nicolas Delebecque</name><link href='https://github.com/nicodel/'></link></author>";
+    data += "<name>" + name + "</name>"
+    data += "</metadata>";
     data += "<trk>\n<name>" + name + "</name>\n<trkseg>\n";
     for (var i = 0; i < inTrack.data.length; i++) {
       var row = inTrack.data[i];
