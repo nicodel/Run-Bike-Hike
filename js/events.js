@@ -207,3 +207,7 @@ document.querySelector("#btn-confirm-delete").addEventListener("click", function
 //   document.getElementById("views").showCard(5);
 //   Controller.displayTrack(testdata);
 // });
+
+document.querySelector("#dev-import").addEventListener("click", function () {
+  Controller.importForDev();
+});

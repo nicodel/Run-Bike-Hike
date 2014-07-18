@@ -301,22 +301,23 @@ var Controller = function() {
     } else if (inShare === "twitter") {
       console.log("sharing on twitter");
     } else if (inShare === "local") {
-      var n = displayed_track.name + ".gpx";
+      var n = displayed_track.id + ".gpx";
       console.log("sharing on local", n);
-      var blob = new Blob(gpx_track, {type: "text/xml"});
+      var blob = new Blob([gpx_track], {"type" : "text\/xml"});
       var a = document.createElement('a');
-      // a.download = n;
-      // a.href = window.URL.createObjectURL(blob);
-      // a.textContent = "Save exported track.";
-      // a.dispatchEvent(
-      //   new window.MouseEvent('click', 
-      //     { 'view': window, 'bubbles': true, 'cancelable': true }
-      //   )
-      // );
-      a.addEventListener("click", function(ev) {
-        a.href = window.URL.createObjectURL(blob);
-        a.download = n;
-      });
+      a.download = n;
+      a.href = window.URL.createObjectURL(blob);
+      a.textContent = "Save exported track.";
+      a.dispatchEvent(
+        new window.MouseEvent('click', 
+          { 'view': window, 'bubbles': true, 'cancelable': true }
+        )
+      );
+      // a.addEventListener("click", function(ev) {
+      //   console.log('n', n);
+      //   a.href = window.URL.createObjectURL(blob);
+      //   a.download = n;
+      // });
       a.click();
     } else {
       // ?? nothing selected ??
@@ -324,7 +325,12 @@ var Controller = function() {
     };
   }
 
+  function importForDev() {
+    DB.addTrack(__addTrackSuccess, __addTrackError, testdata);
+  }
+
   return {
+    importForDev: importForDev,
     init: init,
     toggleWatch: toggleWatch,
     stopWatch: stopWatch,
