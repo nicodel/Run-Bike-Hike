@@ -18,6 +18,9 @@
     },
     "storage": {
       "description": "Required to store both settings and tracks"
+    },
+    "device-storage:sdcard" :{
+      "description": "Required to export tracks to GPX format on the sdcard"
     }
   },
   "installs_allowed_from": [
