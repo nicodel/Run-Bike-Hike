@@ -117,7 +117,7 @@ document.querySelector("#btn-cancel-rename").addEventListener("click", function(
 });
 /* Rename Confirm button */
 document.querySelector("#btn-confirm-rename").addEventListener("click", function() {
-  // document.getElementById("views").showCard(4);
+  document.getElementById("views").showCard(4);
   var new_name = document.querySelector("#input-rename");
   Controller.renameTrack(new_name.value);
 });
@@ -125,6 +125,12 @@ document.querySelector("#btn-confirm-rename").addEventListener("click", function
 document.querySelector("#btn-share").addEventListener("click", function() {
   console.Log("exporting");
   document.getElementById("views").showCard(7);
+  // setting it to default
+  document.querySelector("#select-share").value = "local";
+  document.querySelector("#toggle-share-summary").disabled = true;
+  document.querySelector("#toggle-share-summary").checked = false;
+  document.querySelector("#toggle-share-file").disabled = true;
+  document.querySelector("#toggle-share-file").checked = true;
 });
 
 /*----------------- Track Share Form -----------------*/
@@ -159,15 +165,21 @@ document.querySelector("#btn-cancel-share").addEventListener("click", function()
 });
 /* Share Confirm button */
 document.querySelector("#btn-confirm-share").addEventListener("click", function() {
+  var file, summary = false;
   if (document.querySelector("#toggle-share-file").value) {
     // export file
-    Controller.exportTrack();
+    file = true;
   } else if (document.querySelector("#toggle-share-summary").value) {
     // create summary
+    summary = true;
   } else {
-    // no selction made ???
+    // no selection made ???
   };
-})
+  var share = document.querySelector("#select-share").value;
+  console.log("ready to share", share);
+  document.getElementById("views").showCard(4);
+  Controller.shareTrack(file, summary, share);
+});
 
 /*----------------- Track Delete Confirmation -----------------*/
 /* Delete Track Cancel button */

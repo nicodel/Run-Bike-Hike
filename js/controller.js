@@ -297,13 +297,30 @@ var Controller = function() {
       // ?? nothing selected ??
     };
     if (inShare === "email") {
-
+      console.log("sharing on email");
     } else if (inShare === "twitter") {
-
+      console.log("sharing on twitter");
     } else if (inShare === "local") {
-
+      var n = displayed_track.name + ".gpx";
+      console.log("sharing on local", n);
+      var blob = new Blob(gpx_track, {type: "text/xml"});
+      var a = document.createElement('a');
+      // a.download = n;
+      // a.href = window.URL.createObjectURL(blob);
+      // a.textContent = "Save exported track.";
+      // a.dispatchEvent(
+      //   new window.MouseEvent('click', 
+      //     { 'view': window, 'bubbles': true, 'cancelable': true }
+      //   )
+      // );
+      a.addEventListener("click", function(ev) {
+        a.href = window.URL.createObjectURL(blob);
+        a.download = n;
+      });
+      a.click();
     } else {
       // ?? nothing selected ??
+      console.log("nothind to be sharing on ??");
     };
   }
 

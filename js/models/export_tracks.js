@@ -28,7 +28,7 @@ var ExportTrack = function() {
     }
       data += "</trkseg>\n</trk>\n";
       data += "</gpx>\n";
-    // console.log("export done", data);
+    console.log("export done", data);
     return data;
   }
 
