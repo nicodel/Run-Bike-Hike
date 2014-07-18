@@ -3,7 +3,7 @@ var ExportTrack = function() {
 
   var toGPX = function(inTrack) {
     var name = inTrack.name.replace(/&/g,"&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-    console.log("exporting ", name);
+    // console.log("exporting ", name);
     var data = "";
     data += "<?xml version='1.0' encoding='UTF-8'?>\n";
     data += "<gpx version='1.1'\n";
@@ -26,9 +26,9 @@ var ExportTrack = function() {
       data += (row.vertAccuracy>0)?"\t<vdop>" + row.vertAccuracy + "</vdop>\n"    : "";
       data += "</trkpt>\n";
     }
-      data += "</trkseg>\n</trk>\n";
-      data += "</gpx>\n";
-    console.log("export done", data);
+    data += "</trkseg>\n</trk>\n";
+    data += "</gpx>\n";
+    // console.log("export done", data);
     return data;
   }
 

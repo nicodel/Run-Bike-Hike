@@ -303,22 +303,13 @@ var Controller = function() {
     } else if (inShare === "local") {
       var n = displayed_track.id + ".gpx";
       console.log("sharing on local", n);
-      var blob = new Blob([gpx_track], {"type" : "text\/xml"});
-      var a = document.createElement('a');
-      a.download = n;
-      a.href = window.URL.createObjectURL(blob);
-      a.textContent = "Save exported track.";
-      a.dispatchEvent(
-        new window.MouseEvent('click', 
-          { 'view': window, 'bubbles': true, 'cancelable': true }
-        )
-      );
+      Share.toLocal(gpx_track, n);
       // a.addEventListener("click", function(ev) {
       //   console.log('n', n);
       //   a.href = window.URL.createObjectURL(blob);
       //   a.download = n;
       // });
-      a.click();
+      // a.click();
     } else {
       // ?? nothing selected ??
       console.log("nothind to be sharing on ??");
