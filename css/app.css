@@ -30,7 +30,7 @@ button[disabled] {
   opacity: 0.5;
   pointer-events: none;
 }
-#home-compass, #infos-compass {
+/*#home-compass, #infos-compass {
   margin-left: 30px;
 }
 .infos-container {
@@ -41,14 +41,13 @@ button[disabled] {
 .infos-container > ul li {
   margin-top: 10px;
   font-size: 18px;
-}
+}*/
 #tracking-h1 {
   margin-left: 30px;
 }
 #msg {
   padding-top: 10px;
 }
-.compass-container {}
 /*
   Settings View specific styles
  */

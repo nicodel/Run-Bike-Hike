@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="css/fonts.css"/>
 
     <!--··························· My BB Skin ······························-->
-    <link rel="stylesheet" href="css/skin/bb/x.css"/>
+<!--     <link rel="stylesheet" href="css/skin/bb/x.css"/>
     <link rel="stylesheet" href="css/skin/bb/x-layout.css"/>
     <link rel="stylesheet" href="css/skin/bb/x-appbar.css"/>
     <link rel="stylesheet" href="css/skin/bb/x-toggle.css"/>
@@ -29,12 +29,19 @@
     <link rel="stylesheet" href="css/skin/bb/spinner.css"/>
     <link rel="stylesheet" href="css/skin/bb/status.css"/>
     <link rel="stylesheet" href="css/skin/bb/input_areas.css"/>
-    <link rel="stylesheet" href="css/skin/bb/select.css"/>
+    <link rel="stylesheet" href="css/skin/bb/select.css"/> -->
 
     <!--··························· My Flat Skin ····························-->
-    <!-- <link rel="stylesheet" href="css/skin/flat/x-appbar.css"/>
+    <link rel="stylesheet" href="css/skin/flat/x.css"/>
+    <link rel="stylesheet" href="css/skin/flat/x-layout.css"/>
+    <link rel="stylesheet" href="css/skin/flat/x-appbar.css"/>
+    <link rel="stylesheet" href="css/skin/flat/x-toggle.css"/>
+    <link rel="stylesheet" href="css/skin/flat/form.css"/>
+    <link rel="stylesheet" href="css/skin/flat/switches.css"/>
     <link rel="stylesheet" href="css/skin/flat/spinner.css"/>
-    <link rel="stylesheet" href="css/skin/flat/status.css"/> -->
+    <link rel="stylesheet" href="css/skin/flat/status.css"/>
+    <link rel="stylesheet" href="css/skin/flat/input_areas.css"/>
+    <link rel="stylesheet" href="css/skin/flat/select.css"/>
 
     <!--························ My common style ! ··························-->
     <link rel="stylesheet" href="css/app.css"/>
@@ -104,7 +111,7 @@
                 <!-- </div> -->
               </li>
               <li>
-                <p>Dev Mode</p>
+                <p>Dev Mode </p>
                 <button id="dev-import" class="danger">Import</button></li>
             </ul>
           </section>
@@ -121,57 +128,53 @@
             <button id="install"class="icon">Install me</button>
             <button id="btn-tracks" class="icon icon-list">Tracks</button>
           </x-appbar>
-          <section>
-            <div class="compass-container">
-              <img id="home-compass" src="img/compass_inactive.png" alt="Compass" />
-              <button data-l10n-id="btn-start" id="btn-start" class="align-right recommend big alternate">Start</button>
-              <!-- <button data-l10n-id="btn-start" id="btn-start" class="recommend align-right big alternate">Start</button> -->
-              
-            </div>
-            <div class="infos-container">
+          <section  data-type="home">
+            <!-- <div class="compass-container"> -->
               <ul>
                 <li>
-                  <div data-l10n-id="direction">Direction
+                  <!-- <x-flipbox direction="down"> -->
+                  <img id="home-compass" src="img/compass_inactive.png" alt="Compass" />
+                  <!-- <div data-l10n-id="direction">Direction
                     <span class="bold align-right" id="home-dir"></span>
-                  </div>
+                  </div> -->
+                <!-- </x-flipbox> -->
                 </li>
                 <li>
+                  <a data-l10n-id="btn-start" id="btn-start" class="recommend big alternate" href="#">Start</a>
                   <div data-l10n-id="elapsed-time">
                     Elapsed time
                     <span id="home-chrono" class="bold align-right">00:00:00</span>
                   </div>
                 </li>
+            <!-- </div> -->
+            <!-- <div class="infos-container"> -->
                 <li>
                   <div data-l10n-id="distance">
                     Distance
-                    <span id="home-dist" class="bold align-right"></span>
                   </div>
+                  <div id="home-dist" class="bold align-right"></div>
                 </li>
                 <li>
                   <div data-l10n-id="altitude">
                     Altitude
-                    <span class="bold align-right" id="home-alt"></span>
                   </div>
+                  <div class="bold align-right" id="home-alt"></div>
                 </li>
                 <li>
                   <div data-l10n-id="speed">
                     Speed
-                    <span id="home-speed" class="bold align-right"></span>
                   </div>
+                  <div id="home-speed" class="bold align-right"></div>
                 </li>
                 <li>
                   <div data-l10n-id="latitude">
                     Latitude
                     <span class="bold align-right" id="home-lat"></span>
                   </div>
-                </li>
-                <li>
                   <div data-l10n-id="longitude">
                     Longitude
                     <span class="bold align-right" id="home-lon"></span>
                   </div>
-                </li>
-                <li>
                   <div data-l10n-id="accuracy">
                     Accuracy
                     <span class="bold align-right" id="home-acc"></span>
@@ -184,7 +187,7 @@
                   </div>
                 </li>
               </ul>
-            </div>
+            <!-- </div> -->
           </section>
         </x-layout>
       </x-card>
