@@ -52,6 +52,11 @@ x-flipbox > section button.danger {
   background-color: #e51e1e;
   color: #fff;
 }
+x-layout > button[disabled],
+x-flipbox > button[disabled] {
+    opacity: 0.5;
+    pointer-events: none;
+}
 
 /*
   Lists

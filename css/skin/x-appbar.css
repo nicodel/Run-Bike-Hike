@@ -55,3 +55,7 @@ x-appbar > button.icon.icon-share {
 x-appbar > button.icon.icon-edit {
   background-image: url("images/icon-edit.png");
 }
+x-appbar > button.icon.icon-share[disabled] {
+  opacity: 0.5;
+  pointer-events: none;
+}

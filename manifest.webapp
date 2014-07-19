@@ -13,19 +13,28 @@
     "url": "http://www.github.com/nicodel"
   },
   "permissions": {
+    "device-storage:sdcard": {
+      "access": "createonly",
+      "description": "Required to store gpx files to sdcard" },
     "geolocation": {
-      "description": "Required to locate the user's device"
+      "description": "Required to geolocate the user's device"
     },
     "storage": {
       "description": "Required to store both settings and tracks"
-    },
-    "device-storage:sdcard" : {
-      "description": "Required to export tracks to GPX format on the sdcard",
-      "access": "readwrite"
     }
   },
   "installs_allowed_from": [
     "*"
   ],
+  "locales": {
+    "fr": {
+      "name": "Run, Bike, Hike ...",
+      "description": "to be defined"
+    },
+    "en": {
+      "name": "Run, Bike, Hike ...",
+      "description": "to be defined"
+    }
+  },
   "default_locale": "en"
 }

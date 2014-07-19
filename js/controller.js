@@ -303,7 +303,7 @@ var Controller = function() {
     } else if (inShare === "local") {
       var n = displayed_track.id + ".gpx";
       console.log("sharing on local", n);
-      Share.toLocal(gpx_track, n);
+      Share.toLocal(gpx_track, n, __shareSuccess, __shareError);
       // a.addEventListener("click", function(ev) {
       //   console.log('n', n);
       //   a.href = window.URL.createObjectURL(blob);
@@ -314,6 +314,12 @@ var Controller = function() {
       // ?? nothing selected ??
       console.log("nothind to be sharing on ??");
     };
+  }
+  function __shareSuccess(inMessage) {
+    utils.status.show(inMessage);
+  }
+  function __shareError(inMessage) {
+    utils.status.show(inMessage);
   }
 
   function importForDev() {
