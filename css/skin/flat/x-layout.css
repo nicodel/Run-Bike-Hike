@@ -34,7 +34,7 @@ x-flipbox > section a {
   white-space: nowrap;
   font-size: 1.5rem;
   color: #292929;
-  padding: 6px 18px;
+  /*padding: 6px 18px;*/
   overflow: hidden;
   /*border: 1px solid rgba(15, 15, 15, 0.2);*/
 /*  border: none;
@@ -212,7 +212,8 @@ x-layout > [data-type="home"] ul {
 x-layout > [data-type="home"] ul li {
   border: solid 0.1rem red;
   width: calc(50% - 2px);
-  height: 14rem;
+  height: calc(100% / 3 - 6px);
+  min-height: 14rem;
   float: left;
 /*  text-align: center;*/
 }

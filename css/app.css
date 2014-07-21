@@ -25,17 +25,28 @@ h1 {
   padding-top: 1rem;
  }
 .home-button {
-  display: block;
   color: #FFF;
   background-color: #1E824C;
-  padding-top: 2rem;
-  padding-bottom: 2rem;
+  /*display: block;*/
+/*  padding-top: 40px;
+  padding-bottom: 40px;*/
+  position: relative;
+  top: calc(100% / 6);
+  /*height: calc(100% / 2 - 3px);*/
+  padding-top: calc(100% / 6);
+  padding-bottom: calc(100% / 6);
 }
 .home-value {
-  margin-top: 4rem;
+  position: relative;
+  top: calc(100% / 3 - 20px);
 }
 .home-unit {
-  margin-top: 3rem;
+  position: relative;
+  top: calc(200% / 3 - 40px);
+}
+.home-chrono {
+  position: relative;
+  top: calc(50% / 2 - 20px);
 }
 .home-alt {
   display: block;
