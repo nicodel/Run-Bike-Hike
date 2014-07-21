@@ -21,7 +21,25 @@ h1 {
 /*
   Home View & Tracking View specific styles
  */
-
+ #home-compass {
+  padding-top: 1rem;
+ }
+.home-button {
+  display: block;
+  color: #FFF;
+  background-color: #1E824C;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+.home-value {
+  margin-top: 4rem;
+}
+.home-unit {
+  margin-top: 3rem;
+}
+.home-alt {
+  display: block;
+}
 button.alternate {
   margin-top: 35px;
   margin-right: 25px;

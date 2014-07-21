@@ -8,10 +8,22 @@ button.big {
   font-size: 0.9rem;
 }
 .text-small {
-  font-size: 1.1rem;
+  font-size: 1.5rem;
 }
 .text-big {
-  font-size: 1.5rem;
+  font-size: 2rem;
+}
+.text-bigger {
+  font-size: 3rem;
+}
+.text-biggger {
+  font-size: 4rem;
+}
+.text-huge {
+  font-size: 5rem;
+}
+.text-thinner {
+  font-weight: 100;
 }
 .align-left {
   float: left;

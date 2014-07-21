@@ -68,9 +68,6 @@
                   <input class="uninit" type="checkbox" id="screen" />
                   <span class="menu-item" data-l10n-id="keep-screen-alive">Keep screen alive?</span>
                 </label>
-<!--                 <p>
-                <x-toggle id="screen" focus active label="Keep screen alive?"></x-toggle>
-                </p> -->
               </li>
               <li>
                 <p data-l10n-id="language">Language</p>
@@ -129,56 +126,48 @@
             <button id="btn-tracks" class="icon icon-list">Tracks</button>
           </x-appbar>
           <section  data-type="home">
-            <!-- <div class="compass-container"> -->
               <ul>
                 <li>
-                  <!-- <x-flipbox direction="down"> -->
-                  <img id="home-compass" src="img/compass_inactive.png" alt="Compass" />
-                  <!-- <div data-l10n-id="direction">Direction
-                    <span class="bold align-right" id="home-dir"></span>
-                  </div> -->
-                <!-- </x-flipbox> -->
+                  <x-flipbox direction="down">
+                  <div class="align-center">
+                    <img id="home-compass" src="img/compass_inactive.png" alt="Compass" />
+                  </div>
+                    <div data-l10n-id="direction" class="align-left text-big text-thinner">Direction</div>
+                    <div class="home-value align-center text-huge text-thinner" id="home-dir"></div>
+                  </div>
+                </x-flipbox>
                 </li>
                 <li>
-                  <a data-l10n-id="btn-start" id="btn-start" class="recommend big alternate" href="#">Start</a>
-                  <div data-l10n-id="elapsed-time">
-                    Elapsed time
-                    <span id="home-chrono" class="bold align-right">00:00:00</span>
-                  </div>
-                </li>
-            <!-- </div> -->
-            <!-- <div class="infos-container"> -->
-                <li>
-                  <div data-l10n-id="distance">
-                    Distance
-                  </div>
-                  <div id="home-dist" class="bold align-right"></div>
+                  <div data-l10n-id="elapsed-time" class="align-left text-big text-thinner">Elapsed time</div>
+                  <div id="home-chrono" class="home-unit align-center text-bigger text-thinner">00:00:00</div>
+                  
+                  <a data-l10n-id="btn-start" id="btn-start" href="#" class="home-button text-biggger text-thinner">Start</a>
                 </li>
                 <li>
-                  <div data-l10n-id="altitude">
-                    Altitude
-                  </div>
-                  <div class="bold align-right" id="home-alt"></div>
+                  <div data-l10n-id="distance" class="align-left text-big text-thinner">Distance</div>
+                  <div id="home-dist" class="home-value align-center text-huge text-thinner">300</div>
+                  <div id="dist-unit" class="home-unit align-right bottom text-big text-thinner">m</div>
                 </li>
                 <li>
-                  <div data-l10n-id="speed">
-                    Speed
-                  </div>
-                  <div id="home-speed" class="bold align-right"></div>
+                  <div data-l10n-id="altitude"  class="align-left text-big text-thinner">Altitude</div>
+                  <div id="home-alt" class="home-value align-center text-huge text-thinner">300</div>
+                  <div id="alt-unit" class="home-unit align-right bottom text-big text-thinner">m</div>
                 </li>
                 <li>
-                  <div data-l10n-id="latitude">
-                    Latitude
-                    <span class="bold align-right" id="home-lat"></span>
-                  </div>
-                  <div data-l10n-id="longitude">
-                    Longitude
-                    <span class="bold align-right" id="home-lon"></span>
-                  </div>
-                  <div data-l10n-id="accuracy">
-                    Accuracy
-                    <span class="bold align-right" id="home-acc"></span>
-                  </div>
+                  <div data-l10n-id="speed" class="align-left text-big text-thinner">Speed</div>
+                  <div id="home-speed" class="home-value align-center text-huge text-thinner">300</div>
+                  <div id="speed-unit" class="home-unit align-right bottom text-big text-thinner">km/h</div>
+                </li>
+                <li>
+                  <div data-l10n-id="latitude" class="home-alt align-left text-small text-thinner">Latitude</div>
+                  <div id="home-lat" class="home-alt align-center text-small text-thinner"></div>
+                  
+                  <div data-l10n-id="longitude" class="home-alt align-left text-small text-thinner">Longitude</div>
+                  <div id="home-lon" class="home-alt align-center text-small text-thinner"></div>
+
+                  <div data-l10n-id="accuracy" class="home-alt align-left text-small text-thinner">Accuracy</div>
+                  <div id="home-acc" class="home-alt align-center text-small text-thinner"></div>
+
                 </li>
                 <li>
                   <div id="message-area" class="align-center">

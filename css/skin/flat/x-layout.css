@@ -1,7 +1,8 @@
 
 x-layout {
   overflow: scroll;
-  height: 95%;
+  /*height: 95%;*/
+  height: 100%;
 }
 x-layout > header {
   padding: 0;
@@ -213,7 +214,7 @@ x-layout > [data-type="home"] ul li {
   width: calc(50% - 2px);
   height: 14rem;
   float: left;
-  text-align: center;
+/*  text-align: center;*/
 }
 x-layout > [data-type="home"] ul li:nth-child(odd) {
 
