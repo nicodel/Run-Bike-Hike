@@ -18,7 +18,8 @@ x-layout > section {
 }
 x-layout > section[data-type="settings"],
 x-layout > section[data-type="home"],
-x-layout > section[data-type="list"] {
+x-layout > section[data-type="list"],
+x-layout > section[data-type="details"] {
   padding: 0;
 }
 
@@ -224,6 +225,8 @@ x-layout > [data-type="list"] ul li p span.align-right {
 
 
 
+
+
 x-layout > [data-type="home"] ul {
   min-width: 95%;
   display: inline-block;
@@ -242,4 +245,36 @@ x-layout > [data-type="home"] ul li:nth-child(odd) {
 }
 x-layout > [data-type="home"] ul li:nth-child(even) {
   border-bottom: solid 1px #1F3A93;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+x-layout > [data-type="details"] ul {
+  width: 100%;
+}
+x-layout > [data-type="details"] ul li div {
+  font-size: 2rem;
+  padding-right: 1rem;
+  padding-left: 1rem;
+  padding-top: 1rem;
+}
+x-layout > [data-type="details"] ul li.text div{
 }

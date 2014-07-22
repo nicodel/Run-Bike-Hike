@@ -240,7 +240,7 @@
           <button data-l10n-id="rename" class="icon icon-edit" id="btn-rename">Rename</button>
         </x-appbar>
         <x-layout>
-          <div class="infos-container">
+          <section data-type="details">
             <ul>
               <li>
                 <div data-l10n-id="date">
@@ -285,7 +285,7 @@
                 </div>
               </li>
               <li class="separateur-bottom">
-                <div data-l10n-id="map" id="trk-dt-map" class="bold">Map</div>
+                <div data-l10n-id="map" id="trk-dt-map">Map</div>
                 <div id="spinner-box" class="align-center">
                   <progress id="track-spinner"></progress>
                   <p data-l10-id="loading-map" id="map-text">Loading map ...</p>
@@ -293,15 +293,15 @@
                 <img src="" id="map-img" class="hidden" />
               </li>
               <li class="separateur-bottom">
-                <div data-l10n-id="speed" id="trk-dt-speed" class="bold">Speed</div>
+                <div data-l10n-id="speed" id="trk-dt-speed">Speed</div>
                 <canvas id="speed-canvas"></canvas>
               </li>
               <li class="separateur-bottom">
-                <div data-l10n-id="altitude" id="trk-dt-alt" class="bold">Altitude</div>
+                <div data-l10n-id="altitude" id="trk-dt-alt">Altitude</div>
                 <canvas id="alt-canvas"></canvas>
               </li>
             </ul>
-          </div>
+          </section>
         </x-layout>
       </x-card>
 

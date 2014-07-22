@@ -1,7 +1,8 @@
 "use strict;"
 var TrackView = function() {
 
-  var SCREEN_WIDTH = parseInt(window.innerWidth * 0.9,10);
+  // var SCREEN_WIDTH = parseInt(window.innerWidth * 0.9,10);
+  var SCREEN_WIDTH = parseInt(window.innerWidth,10);
   var SCREEN_HEIGHT = parseInt(SCREEN_WIDTH * 2 / 3,10);
   // Only getting a big size map, that will be stored in db
   var MAP_WIDTH = 648; // 720px * 0.9
@@ -30,8 +31,10 @@ var TrackView = function() {
     var tr = document.getElementById("tr-name");
     tr.innerHTML = inTrack.name;
 
-    document.getElementById("trk-date").innerHTML = Config.userDate(inTrack.date);
-    document.getElementById("trk-dist").innerHTML = Config.userDistance(inTrack.distance);
+    var a = Config.userDate(inTrack.date);
+    document.getElementById("trk-date").innerHTML = a.v + a.u;
+    var a = Config.userDistance(inTrack.distance);
+    document.getElementById("trk-dist").innerHTML = a.v + a.u;
     var d = inTrack.duration / 60000;
     document.getElementById("trk-dur").innerHTML = d.toFixed() +" min";
 
@@ -80,10 +83,14 @@ var TrackView = function() {
     console.log("t.max_speed",t.max_speed);
     // t.max_alt_speed = 15;
     // console.log("t.max_speed",t.max_speed);
-    document.getElementById("trk-max-speed").innerHTML = Config.userSpeed(t.max_speed);
-    document.getElementById("trk-av-speed").innerHTML = Config.userSpeed(t.av_speed);
-    document.getElementById("trk-max-alt").innerHTML = Config.userSmallDistance(t.max_alt);
-    document.getElementById("trk-min-alt").innerHTML = Config.userSmallDistance(t.min_alt);
+    var a = Config.userSpeed(t.max_speed);
+    document.getElementById("trk-max-speed").innerHTML = a.v + a.u;
+    var a = Config.userSpeed(t.av_speed);
+    document.getElementById("trk-av-speed").innerHTML = a.v + a.u;
+    var a = Config.userSmallDistance(t.max_alt);
+    document.getElementById("trk-max-alt").innerHTML = a.v + a.u;
+    var a = Config.userSmallDistance(t.min_alt);
+    document.getElementById("trk-min-alt").innerHTML = a.v + a.u;
 
     if (t.map) {
       console.log("map exist");
