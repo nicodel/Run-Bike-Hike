@@ -12,13 +12,13 @@ x-layout > header {
   text-align: center;
 }
 
-x-layout > section,
-x-layout > section[data-type="list"] {
+x-layout > section {
   font-size:1.5rem;
   padding: 10px;
 }
 x-layout > section[data-type="settings"],
-x-layout > section[data-type="home"] {
+x-layout > section[data-type="home"],
+x-layout > section[data-type="list"] {
   padding: 0;
 }
 
@@ -176,27 +176,37 @@ x-layout > [data-type="settings"] ul li  .button.icon-dialog {
 }*/
 
 
+
+
+
+
+
 x-layout > [data-type="list"] ul {
-  padding-right: 10px;
-  min-width: 95%;
+  width: 100%;
 }
 x-layout > [data-type="list"] ul li {
-  height: 5rem;
-  border-bottom: solid 0.1rem #C3C3C3;
-  padding-top:0.5rem;
+  height: 7rem;
+  border-bottom: solid 0.1rem #1F3A93; /* Jacksons Purple */
+  padding-right: 1rem;
+  padding-left: 1rem;
+  padding-top:2rem;
+  padding-bottom: 2rem;
 }
 x-layout > [data-type="list"] ul li:hover {
-  background-color: red;
+  /*background-color: #B0C4DE;*/ /* LightSteelBlue*/
+  background-color: #AFEEEE; /* PaleTurquoise */
 }
-x-layout > [data-type="list"] ul li:first-child {
+/*x-layout > [data-type="list"] ul li:first-child {
   padding-top:0;
-}
-x-layout > [data-type="list"] ul li:last-child {
+}*/
+/*x-layout > [data-type="list"] ul li:last-child {
   border: none;
+}*/
+x-layout > [data-type="list"] ul li p {
+  font-size: 2.5rem;
 }
-
 x-layout > [data-type="list"] ul li p.new-line {
-  padding-top: 1rem;
+  padding-top: 2rem;
 }
 x-layout > [data-type="list"] ul li p span.align-left {
   margin-left: 0;
@@ -204,6 +214,15 @@ x-layout > [data-type="list"] ul li p span.align-left {
 x-layout > [data-type="list"] ul li p span.align-right {
   margin-right: 0;
 }
+
+
+
+
+
+
+
+
+
 
 x-layout > [data-type="home"] ul {
   min-width: 95%;

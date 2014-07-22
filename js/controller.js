@@ -36,7 +36,7 @@ var Controller = function() {
   }
 
   function __locationChanged(inPosition){
-    // console.log("Position found");
+    console.log("Position found", inPosition);
     if (tracking) {
       // console.log("tracking");
       __addNewPoint(inPosition);
@@ -66,8 +66,10 @@ var Controller = function() {
       // Open new track
       current_track = Tracks.open();
       nb_point = 0;
-      document.querySelector("#btn-start").innerHTML = "Stop";
-      document.querySelector("#btn-start").className = "align-right danger big alternate";
+      // document.querySelector("#btn-start").innerHTML = "Stop";
+      // document.querySelector("#btn-start").className = "align-right danger big alternate";
+      document.getElementById("btn-start-stop").innerHTML = "Stop";
+      document.getElementById("home-button").style.backgroundColor = "#e51e1e";
     };
   }
   function stopWatch(){
@@ -89,8 +91,10 @@ var Controller = function() {
       // Save to DB
       DB.addTrack(__addTrackSuccess, __addTrackError, track);
     };
-    document.querySelector("#btn-start").innerHTML = "Start";
-    document.querySelector("#btn-start").className = "align-right recommend big alternate"
+    // document.querySelector("#btn-start").innerHTML = "Start";
+    // document.querySelector("#btn-start").className = "align-right recommend big alternate";
+    document.getElementById("btn-start-stop").innerHTML = "Start";
+    document.getElementById("home-button").style.backgroundColor = "#1E824C";
   }
 
   function __addNewPoint(inPosition){

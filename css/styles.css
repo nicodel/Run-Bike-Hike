@@ -22,8 +22,11 @@ button.big {
 .text-huge {
   font-size: 5rem;
 }
+.text-thin {
+  font-weight: 300;
+}
 .text-thinner {
-  font-weight: 200;
+  font-weight: 100;
 }
 .align-left {
   float: left;
@@ -50,8 +53,7 @@ button.big {
 }
 
 .clipped {
-  max-width: 80%; /* for Peak screen*/
-  width: 65%;  /*for Keon screen*/
+  max-width: 75%;
   overflow: hidden;
   text-overflow: ellipsis;
 }

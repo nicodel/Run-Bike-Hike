@@ -25,7 +25,7 @@ h1 {
  #home-compass {
   padding-top: 1rem;
  }
-.home-button {
+#home-button {
   color: #FFF;
   background-color: #1E824C;
   position: relative;
@@ -51,9 +51,7 @@ h1 {
 }
 .home-alt {
   position: relative;
-}
-.home-alt.first {
-  margin-top: 20px;
+  margin-top: 10px;
 }
 button.alternate {
   margin-top: 35px;

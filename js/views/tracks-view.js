@@ -71,11 +71,12 @@ var TracksView = function() {
     var lia = document.createElement("a");
     // lia.className = "it-track";
 
-    var div = '<p><span class="align-left bold clipped">' + inTrack.name + '</span>';
-    div = div + '<span class="align-right">' + Config.userDate(inTrack.date) + '</span></p>';
-    div = div + '<p class="new-line"><span class="align-left">' + Config.userDistance(inTrack.distance) + '</span>';
+    var div = '<p><span class="align-left clipped">' + inTrack.name + '</span>';
+    var a = Config.userDistance(inTrack.distance);
+    div = div + '<span class="align-right text-thin">' + a.v + a.u + '</span></p>';
+    div = div + '<p class="new-line"><span class="align-left text-thin">' + Config.userDate(inTrack.date) + '</span>';
     var d = inTrack.duration / 60000;
-    div = div + '<span class="align-right">' + d.toFixed() + 'min</span></p>';
+    div = div + '<span class="align-right text-thin">' + d.toFixed() + 'min</span></p>';
     lia.innerHTML = div;
     li.appendChild(lia);
     document.getElementById("tracks-list").appendChild(li);

@@ -12,13 +12,15 @@ var HomeView = function() {
       __hideSpinner();
     };
     // display accuracy using settings unit
-    document.getElementById("home-acc").innerHTML = "&#177;" + Config.userSmallDistance(inPosition.coords.accuracy);
+    var a = Config.userSmallDistance(inPosition.coords.accuracy);
+    // console.log("accuracy:", a);
+    document.getElementById("home-acc").innerHTML = "&#177;" + a.v + " " + a.u;
     // checking accuracy and display appropriate GPS status
     if (inPosition.coords.accuracy > 30) {
-      document.getElementById("home-acc").className = "align-right bold bad-signal";
+      document.getElementById("home-acc").className = "new-line home-alt align-right text-big text-thinner bad-signal";
       // document.getElementById("gps-status").setAttribute("src", "img/gps_red.png");
     } else {
-      document.getElementById("home-acc").className = "align-right bold";
+      document.getElementById("home-acc").className = "new-line home-alt align-right text-big text-thinner";
       // document.getElementById("gps-status").setAttribute("src", "img/gps_green.png");
     }
     // display latitude using Settings format
@@ -26,11 +28,17 @@ var HomeView = function() {
     // display longitude using Settings format
     document.getElementById("home-lon").innerHTML = Config.userLongitude(inPosition.coords.longitude);
     // display altitude using Settings format
-    document.getElementById("home-alt").innerHTML = Config.userSmallDistance(inPosition.coords.altitude)/* + "(&#177;" + Config.userSmallDistance(inPosition.coords.altitudeAccuracy) + ")"*/;
+    var a = Config.userSmallDistance(inPosition.coords.altitude);
+    document.getElementById("home-alt").innerHTML = a.v;
+    document.getElementById("alt-unit").innerHTML = a.u;
     // updating distance using Settings choosen unit
-    document.getElementById("home-dist").innerHTML = Config.userDistance(inDistance);
+    var a = Config.userDistance(inDistance);
+    document.getElementById("home-dist").innerHTML = a.v;
+    document.getElementById("dist-unit").innerHTML = a.u;
     // updating speed using Settings choosen unit
-    document.getElementById("home-speed").innerHTML = Config.userSpeed(inPosition.coords.speed);
+    var a = Config.userSpeed(inPosition.coords.speed);
+    document.getElementById("home-speed").innerHTML = a.v;
+    document.getElementById("speed-unit").innerHTML = a.u;
     // empty message area
     document.getElementById('msg').innerHTML = "";
     //display compass

@@ -56,18 +56,28 @@ var Config = function() {
   }
   function userSpeed(velocityMPS){
     // console.log("SPEED METRIC:", velocityMPS);
+    var a = {};
     if (velocityMPS === null || velocityMPS<0 || isNaN(velocityMPS)) {
       return "?";
     }
 
     if (USER_SPEED === IMPERIAL_UNITS){
       /* FIXME: I'am not sure that it is right */
-      return (velocityMPS * 2.237).toFixed(0)+" MPH";
+      // return (velocityMPS * 2.237).toFixed(0)+" MPH";
+       a.v = (velocityMPS * 2.237).toFixed(0);
+       a.u = "MPH"
+       return a;
     }
     if (USER_SPEED === METRIC_UNITS){
-      return (velocityMPS * 3.6).toFixed(0)+" km/h";
+      // return (velocityMPS * 3.6).toFixed(0)+" km/h";
+       a.v = (velocityMPS * 3.6).toFixed(0);
+       a.u = "km/h"
+       return a;
     }
-    return velocityMPS+ " m/s";
+    // return velocityMPS+ " m/s";
+     a.v = velocityMPS;
+     a.u = "m/s";
+     return a;
   }
   function userSpeedInteger(velocityMPS) {
     // console.log("SPEED METRIC:", velocityMPS);
@@ -110,42 +120,68 @@ var Config = function() {
   }
   function userSmallDistance(distanceM, canNegative){
     // console.log("distanceM", distanceM);
+    var a = {};
      if ((distanceM === null) || ((distanceM < 0) && (!canNegative)))
        return "?";
 
      if (USER_DISTANCE === IMPERIAL_UNITS){
        /* FIXME: I'am not sure that it is right */
-       return (distanceM * 3.2808).toFixed(0)+" ft";
+       // return (distanceM * 3.2808).toFixed(0)+" ft";
+       a.v = (distanceM * 3.2808).toFixed(0);
+       a.u = "ft";
+       return a;
      }
      if (USER_DISTANCE === METRIC_UNITS){
-       return (distanceM * 1.0).toFixed(0)+" m";
+       // return (distanceM * 1.0).toFixed(0)+" m";
+      a.v = (distanceM * 1.0).toFixed(0);
+      a.u = "m"
+      return a;
      }
-     return distanceM+" m";
+     // return distanceM+" m";
+     a.v = distanceM;
+     a.u = "m";
+     return a;
   }
   function userDistance (distanceM, canNegative){
     // console.log("USER_DISTANCE = ", USER_DISTANCE);
     // console.log("IMPERIAL_UNITS = ", IMPERIAL_UNITS);
+    var a = {};
     if (distanceM === undefined && USER_DISTANCE === METRIC_UNITS) {
       // distanceM = 0;
-      return "--"+" km";
+      // return "--"+" km";
+      a.v = "--";
+      a.u = "km";
+      return a;
     }
     if (distanceM === undefined && USER_DISTANCE === IMPERIAL_UNITS) {
       // distanceM = 0;
-      return "--"+" miles";
+      // return "--"+" miles";
+      a.v = "--";
+      a.u = "miles";
+      return a;
     }
     if ((distanceM === null) || ((distanceM < 0) && (!canNegative)))
       return "?";
 
     if (USER_DISTANCE === METRIC_UNITS){
       tmp = (distanceM / 1000);
-      return (tmp >= 10? tmp.toFixed(0): tmp.toFixed(1))+" km";
+      // return (tmp >= 10? tmp.toFixed(0): tmp.toFixed(1))+" km";
+      a.v = (tmp >= 10? tmp.toFixed(0): tmp.toFixed(1));
+      a.u = "km";
+      return a;
     }
     if (USER_DISTANCE === IMPERIAL_UNITS){
       /* FIXME: I'am not sure that it is right */
       tmp = (distanceM / 1609.344);
-      return (tmp >= 10? tmp.toFixed(0): tmp.toFixed(1))+" miles";
+      // return (tmp >= 10? tmp.toFixed(0): tmp.toFixed(1))+" miles";
+      a.v = (tmp >= 10? tmp.toFixed(0): tmp.toFixed(1));
+      a.u = "miles";
+      return a;
     }
-    return distanceM+" m";
+    // return distanceM+" m";
+     a.v = distanceM;
+     a.u = "m";
+     return a;
   }
   function userDate(inDate) {
     var d = new Date(inDate);

@@ -16,13 +16,13 @@ x-appbar > button.icon {
   position: relative;
   float: none;
   vertical-align: middle;
-/*
-  width: 3rem;
-  height: 5rem;
-*/
   background: transparent no-repeat center center;
   font-size: 0;
   overflow: hidden;
+}
+x-appbar > button.icon:hover,
+x-appbar > button.icon:active {
+  background-color: #00405D;
 }
 
 x-appbar > button.icon.icon-menu {
