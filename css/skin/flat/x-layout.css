@@ -210,14 +210,17 @@ x-layout > [data-type="home"] ul {
   display: inline-block;
 }
 x-layout > [data-type="home"] ul li {
-  border: solid 0.1rem red;
-  width: calc(50% - 2px);
-  height: calc(100% / 3 - 6px);
+  /*border: solid 0.1rem red;*/
+  width: calc(50% - 1px);
+  height: calc(100% / 3 - 1px);
   min-height: 14rem;
   float: left;
 /*  text-align: center;*/
 }
 x-layout > [data-type="home"] ul li:nth-child(odd) {
-
+  border-bottom: solid 1px #1F3A93;
+  border-right: solid 1px #1F3A93;
 }
-x-layout > [data-type="home"] ul li:nth-child(even) {}
+x-layout > [data-type="home"] ul li:nth-child(even) {
+  border-bottom: solid 1px #1F3A93;
+}

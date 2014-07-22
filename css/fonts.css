@@ -2,3 +2,83 @@
   font-family: 'MozTTLight';  
   src: url(fonts/MozTT Light.ttf) format("truetype");  
 }*/
+@font-face{
+    font-family: 'Fira Sans';
+    src: url('font/eot/FiraSans-Hair.eot');
+    src: local('Fira Sans Hair'),
+         url('eot/FiraSans-Hair.eot') format('embedded-opentype');
+    font-weight: 100;
+    font-style: normal;
+}
+
+@font-face{
+    font-family: 'Fira Sans';
+    src: url('font/eot/FiraSans-UltraLight.eot');
+    src: local('Fira Sans UltraLight'),
+         url('eot/FiraSans-UltraLight.eot') format('embedded-opentype');
+    font-weight: 200;
+    font-style: normal;
+}
+
+@font-face{
+    font-family: 'Fira Sans';
+    src: url('font/eot/FiraSans-Light.eot');
+    src: local('Fira Sans Light'),
+         url('eot/FiraSans-Light.eot') format('embedded-opentype');
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face{
+    font-family: 'Fira Sans';
+    src: url('font/eot/FiraSans-Regular.eot');
+    src: local('Fira Sans Regular'),
+         url('eot/FiraSans-Regular.eot') format('embedded-opentype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face{
+    font-family: 'Fira Sans';
+    src: url('font/eot/FiraSans-Medium.eot');
+    src: local('Fira Sans Medium'),
+         url('eot/FiraSans-Medium.eot') format('embedded-opentype');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face{
+    font-family: 'Fira Sans';
+    src: url('font/eot/FiraSans-SemiBold.eot');
+    src: local('Fira Sans SemiBold'),
+         url('eot/FiraSans-SemiBold.eot') format('embedded-opentype');
+    font-weight: 600;
+    font-style: normal;
+}
+
+@font-face{
+    font-family: 'Fira Sans';
+    src: url('font/eot/FiraSans-Bold.eot');
+    src: local('Fira Sans Bold'),
+         url('eot/FiraSans-Bold.eot') format('embedded-opentype');
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face{
+    font-family: 'Fira Sans';
+    src: url('font/eot/FiraSans-ExtraBold.eot');
+    src: local('Fira Sans ExtraBold'),
+         url('eot/FiraSans-ExtraBold.eot') format('embedded-opentype');
+    font-weight: 800;
+    font-style: normal;
+}
+
+@font-face{
+    font-family: 'Fira Sans';
+    src: url('font/eot/FiraSans-Heavy.eot');
+    src: local('Fira Sans Heavy'),
+         url('eot/FiraSans-Heavy.eot') format('embedded-opentype');
+    font-weight: 900;
+    font-style: normal;
+}

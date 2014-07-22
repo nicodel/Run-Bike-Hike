@@ -1,6 +1,6 @@
 x-deck > x-card {
-  background: #eee;
-  /*padding: 0.6em*/
+  /*background: #eee;*/
+  background: #F8F8FF;
 }
 
 x-flipbox {

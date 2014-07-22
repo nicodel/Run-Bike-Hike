@@ -5,11 +5,12 @@
 html, body {
   margin: 0;
   padding: 0;
-  font-family: "Fira Sans","Fira Sans","Segoe UI",Frutiger,"Frutiger Linotype","Dejavu Sans","Helvetica Neue",Arial,sans-serif;
+  font-family: "Fira Sans", "Segoe UI",Frutiger,"Frutiger Linotype","Dejavu Sans","Helvetica Neue",Arial,sans-serif;
   font-size: 10px;
   height: 100%;
   background-color: #fff;
 }
+div, p, a {}
 body {
   background: none;
 }
@@ -27,14 +28,14 @@ h1 {
 .home-button {
   color: #FFF;
   background-color: #1E824C;
-  /*display: block;*/
-/*  padding-top: 40px;
-  padding-bottom: 40px;*/
   position: relative;
   top: calc(100% / 6);
-  /*height: calc(100% / 2 - 3px);*/
-  padding-top: calc(100% / 6);
-  padding-bottom: calc(100% / 6);
+  height: calc(50% - 3px);
+  line-height: 67px;
+}
+.home-title {
+  position: relative;
+  top: 5px;
 }
 .home-value {
   position: relative;
@@ -42,14 +43,17 @@ h1 {
 }
 .home-unit {
   position: relative;
-  top: calc(200% / 3 - 40px);
+  top: calc(200% / 3 - 45px);
 }
 .home-chrono {
   position: relative;
   top: calc(50% / 2 - 20px);
 }
 .home-alt {
-  display: block;
+  position: relative;
+}
+.home-alt.first {
+  margin-top: 20px;
 }
 button.alternate {
   margin-top: 35px;
