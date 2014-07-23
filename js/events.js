@@ -13,7 +13,7 @@ document.querySelector("#btn-tracks").addEventListener ("click", function () {
 });
 
 /* Home View Start tracking button */
-document.querySelector("#btn-start").addEventListener ("click", function () {
+document.querySelector("#btn-start-stop").addEventListener ("click", function () {
   Controller.toggleWatch();
   // document.getElementById("views").showCard(1);
 });

@@ -148,8 +148,28 @@ var Controller = function() {
   function __getConfigSuccess(inSettings) {
     // console.log("__getConfigSuccess ", Object.keys(inSettings));
     settings = inSettings;
+    __setConfigValues(inSettings);
     __setConfigView(inSettings);
-    // __setConfigValues(inSettings);
+    
+    if (Config.SCREEN_KEEP_ALIVE) {
+    var lock = window.navigator.requestWakeLock('screen');
+     // Setting Event to unlock the screen
+    window.addEventListener('unload', function () {
+      lock.unlock();
+    });
+    var a = Config.userSmallDistance();
+    document.getElementById("home-acc").innerHTML = "&#177;" + a.v;
+    document.getElementById("acc-unit").innerHTML =  "(" + a.u + ")";
+    var a = Config.userSmallDistance(null);
+    document.getElementById("home-alt").innerHTML = a.v;
+    document.getElementById("alt-unit").innerHTML = "(" + a.u + ")";
+    var a = Config.userDistance(null);
+    document.getElementById("home-dist").innerHTML = a.v;
+    document.getElementById("dist-unit").innerHTML = "(" + a.u + ")";
+    var a = Config.userSpeed();
+    document.getElementById("home-speed").innerHTML = a.v;
+    document.getElementById("speed-unit").innerHTML = "(" + a.u + ")";
+  };
   }
   function __getConfigError(inEvent) { console.log("__getConfigError ", inEvent); }
 

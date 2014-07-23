@@ -37,6 +37,7 @@
     <link rel="stylesheet" href="css/skin/flat/x-appbar.css"/>
     <link rel="stylesheet" href="css/skin/flat/x-toggle.css"/>
     <link rel="stylesheet" href="css/skin/flat/form.css"/>
+    <link rel="stylesheet" href="css/skin/flat/buttons.css"/>
     <link rel="stylesheet" href="css/skin/flat/switches.css"/>
     <link rel="stylesheet" href="css/skin/flat/spinner.css"/>
     <link rel="stylesheet" href="css/skin/flat/status.css"/>
@@ -126,8 +127,10 @@
             <button id="btn-tracks" class="icon icon-list">Tracks</button>
           </x-appbar>
           <section data-type="home">
+            <x-flipbox>
+              <div>
               <ul>
-                <li>
+<!--                 <li>
                   <x-flipbox direction="down">
                   <div class="align-center">
                     <img id="home-compass" src="img/compass_inactive.png" alt="Compass" />
@@ -137,53 +140,80 @@
                     <div class="home-value align-center text-huge text-thin" id="home-dir"></div>
                   </div>
                 </x-flipbox>
-                </li>
+                </li> -->
                 <li>
                   <div data-l10n-id="elapsed-time" class="home-title align-left text-big text-thin">Elapsed time</div>
-                  <div id="home-chrono" class="home-chrono align-center text-bigger text-thin">00:00:00</div>
+                  <div id="home-chrono" class="home-value align-center text-huger text-thin">00:00:00</div>
 
-                  <a data-l10n-id="btn-start" id="btn-start" href="#">
+<!--                   <a data-l10n-id="btn-start" id="btn-start" href="#">
                     <div id="home-button">
                     <div id="btn-start-stop" class="text-biggger text-thin">
                       Start
                     </div>
                     </div>
-                  </a>
+                  </a> -->
                 </li>
                 <li>
-                  <div data-l10n-id="distance" class="home-title align-left text-big text-thin">Distance</div>
-                  <div id="home-dist" class="home-value align-center text-huge text-thin"></div>
-                  <div id="dist-unit" class="home-unit align-right bottom text-big text-thin">m</div>
+                  <div data-l10n-id="distance" class="home-title align-left text-big text-thin">Distance
+                  <span id="dist-unit"></span></div>
+                  <div id="home-dist" class="home-value align-center text-huge text-thin">1300</div>
                 </li>
                 <li>
-                  <div data-l10n-id="altitude"  class="home-title align-left text-big text-thin">Altitude</div>
-                  <div id="home-alt" class="home-value align-center text-huge text-thin"></div>
-                  <div id="alt-unit" class="home-unit align-right bottom text-big text-thin">m</div>
+                  <div data-l10n-id="speed" class="home-title align-left text-big text-thin">Speed
+                  <span id="speed-unit"></span></div>
+                  <div id="home-speed" class="home-value align-center text-huge text-thin">12.5</div>
                 </li>
                 <li>
-                  <div data-l10n-id="speed" class="home-title align-left text-big text-thin">Speed</div>
-                  <div id="home-speed" class="home-value align-center text-huge text-thin"></div>
-                  <div id="speed-unit" class="home-unit align-right bottom text-big text-thin">km/h</div>
+                  <div data-l10n-id="altitude"  class="new-line home-alt align-left text-small text-thin">Altitude
+                  <span id="alt-unit"></span></div>
+                  <div id="home-alt" class="new-line home-alt align-center text-big text-thin">?</div>
+                  <div data-l10n-id="accuracy" class="new-line home-alt align-left text-small text-thin">Accuracy
+                  <span id="acc-unit"></span></div>
+                  <div id="home-acc" class="new-line home-alt align-center text-big text-thin">?</div>
                 </li>
                 <li>
-                  <div data-l10n-id="latitude" class="new-line home-alt align-left text-small text-thin">Latitude</div>
-                  <div id="home-lat" class="new-line home-alt align-right text-big text-thin">?</div>
+                  <div>
+                    <div data-l10n-id="latitude" class="new-line home-alt align-left text-small text-thin">Latitude</div>
+                    <div id="home-lat" class="new-line home-alt align-center text-small text-thin">?</div>
 
-                  <div data-l10n-id="longitude" class="new-line home-alt align-left text-small text-thin">Longitude</div>
-                  <div id="home-lon" class="new-line home-alt align-right text-big text-thin">?</div>
+                    <div data-l10n-id="longitude" class="new-line home-alt align-left text-small text-thin">Longitude</div>
+                    <div id="home-lon" class="new-line home-alt align-center text-small text-thin">?</div>
 
-                  <div data-l10n-id="accuracy" class="new-line home-alt align-left text-small text-thin">Accuracy</div>
-                  <div id="home-acc" class="new-line home-alt align-right text-big text-thin">?</div>
+                    <div data-l10n-id="direction" class="new-line home-alt align-left text-small text-thin">Direction</div>
+                    <div id="home-dir" class="new-line home-alt align-center text-small text-thin">?</div>
+                  </div>
+
 
                 </li>
+                <li id="button">
+                <button id="btn-start-stop" class="recommend big">Start</button>
+<!--                   <a data-l10n-id="btn-start" id="btn-start" href="#">
+                    <div id="home-button">
+                    <div id="btn-start-stop" class="text-biggger text-thin">
+                      Start
+                    </div>
+                    </div>
+                  </a> -->
+                </li>
+
+
+
                 <li>
                   <div id="message-area" class="align-center">
                     <progress id="spinner"></progress>
                     <p id="msg" class="bold align-center">Retreiving GPS signal. It may take some time...</p>
                   </div>
                 </li>
+
+
+
+
               </ul>
-            <!-- </div> -->
+              </div>
+              <div>
+                <section data-type="map" class ="hidden"></section>
+              </div>
+            </x-flipbox>
           </section>
         </x-layout>
       </x-card>

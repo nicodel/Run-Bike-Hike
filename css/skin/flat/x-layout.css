@@ -229,22 +229,33 @@ x-layout > [data-type="list"] ul li p span.align-right {
 
 x-layout > [data-type="home"] ul {
   min-width: 95%;
+  height: 100%;
   display: inline-block;
 }
 x-layout > [data-type="home"] ul li {
-  /*border: solid 0.1rem red;*/
+  /*border: solid 1px red;*/
   width: calc(50% - 1px);
-  height: calc(100% / 3 - 1px);
-  min-height: 14rem;
+  height: 27%;
+  /*min-height: 14rem;*/
   float: left;
 /*  text-align: center;*/
 }
+x-layout > [data-type="home"] ul li:first-child,
+x-layout > [data-type="home"] ul li#button {
+  width: 100%;
+}
+x-layout > [data-type="home"] ul li#button {
+  text-align: center;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  height: 7rem;
+}
 x-layout > [data-type="home"] ul li:nth-child(odd) {
-  border-bottom: solid 1px #1F3A93;
-  border-right: solid 1px #1F3A93;
+/*  border-bottom: solid 1px #1F3A93;
+  border-right: solid 1px #1F3A93;*/
 }
 x-layout > [data-type="home"] ul li:nth-child(even) {
-  border-bottom: solid 1px #1F3A93;
+  /*border-bottom: solid 1px #1F3A93;*/
 }
 
 

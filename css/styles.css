@@ -22,6 +22,9 @@ button.big {
 .text-huge {
   font-size: 5rem;
 }
+.text-huger {
+  font-size: 6rem;
+}
 .text-thin {
   font-weight: 300;
 }

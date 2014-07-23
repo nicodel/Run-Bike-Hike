@@ -55,10 +55,17 @@ var Config = function() {
     // console.log(inKey+":"+inValue);
   }
   function userSpeed(velocityMPS){
-    // console.log("SPEED METRIC:", velocityMPS);
+    console.log("SPEED METRIC:", velocityMPS);
     var a = {};
     if (velocityMPS === null || velocityMPS<0 || isNaN(velocityMPS)) {
-      return "?";
+      if (USER_SPEED === IMPERIAL_UNITS) {
+        a.u = "mph"
+      }
+      if (USER_SPEED === METRIC_UNITS){
+        a.u = "km/h";
+      }
+      a.v = "--"
+      return a;
     }
 
     if (USER_SPEED === IMPERIAL_UNITS){
@@ -121,8 +128,18 @@ var Config = function() {
   function userSmallDistance(distanceM, canNegative){
     // console.log("distanceM", distanceM);
     var a = {};
-     if ((distanceM === null) || ((distanceM < 0) && (!canNegative)))
-       return "?";
+     if ((distanceM === null) || ((distanceM < 0) && (!canNegative))) {
+      if (USER_DISTANCE === IMPERIAL_UNITS){
+         a.u = "ft";
+         return a;
+       }
+      if (USER_DISTANCE === METRIC_UNITS){
+        a.u = "m"
+        return a;
+       }
+       a.v = "--"
+      return a;
+    }
 
      if (USER_DISTANCE === IMPERIAL_UNITS){
        /* FIXME: I'am not sure that it is right */
@@ -146,22 +163,18 @@ var Config = function() {
     // console.log("USER_DISTANCE = ", USER_DISTANCE);
     // console.log("IMPERIAL_UNITS = ", IMPERIAL_UNITS);
     var a = {};
-    if (distanceM === undefined && USER_DISTANCE === METRIC_UNITS) {
-      // distanceM = 0;
-      // return "--"+" km";
+
+
+    if ((distanceM === null) || ((distanceM < 0) && (!canNegative))) {
+      if (USER_DISTANCE === IMPERIAL_UNITS) {
+        a.u = "miles";
+      }
+      if (USER_DISTANCE === METRIC_UNITS) {
+        a.u = "km";
+      }
       a.v = "--";
-      a.u = "km";
       return a;
     }
-    if (distanceM === undefined && USER_DISTANCE === IMPERIAL_UNITS) {
-      // distanceM = 0;
-      // return "--"+" miles";
-      a.v = "--";
-      a.u = "miles";
-      return a;
-    }
-    if ((distanceM === null) || ((distanceM < 0) && (!canNegative)))
-      return "?";
 
     if (USER_DISTANCE === METRIC_UNITS){
       tmp = (distanceM / 1000);
