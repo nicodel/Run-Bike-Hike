@@ -1,6 +1,6 @@
 @font-face{
     font-family: 'Fira Sans';
-    src: url('fontFiraSans-Hair.eot') format('embedded-opentype');
+    src: url('font/FiraSans-Hair.eot') format('embedded-opentype');
     src: local('Fira Sans Hair'),
          url('font/FiraSans-Hair.eot') format('embedded-opentype'),
          url('font/FiraSans-Hair.ttf') format('truetype');

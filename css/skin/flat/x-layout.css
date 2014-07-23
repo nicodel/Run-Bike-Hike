@@ -276,5 +276,6 @@ x-layout > [data-type="details"] ul li div {
   padding-left: 1rem;
   padding-top: 1rem;
 }
-x-layout > [data-type="details"] ul li.text div{
+x-layout > [data-type="details"] ul li:last-child {
+  margin-bottom: 40px;
 }

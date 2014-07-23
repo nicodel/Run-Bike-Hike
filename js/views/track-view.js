@@ -9,16 +9,20 @@ var TrackView = function() {
   var MAP_HEIGHT = 432 // 720px * 3 / 2
   // console.log("width", SCREEN_WIDTH);
   // console.log("height", SCREEN_HEIGHT);
-  var xPadding = 30;
+  var xPadding = 35;
   var yPadding = 30;
 
   var SPACE_BTW_POINTS = 5;
   var LINE_WIDTH = 2;
-  var TEXT_STYLE = "8pt 'MozTTLight', 'Helvetica Neue','Nimbus Sans L',Arial,sans-serif";
+  var TEXT_STYLE = "8pt bold 'Fira Sans',sans-serif";
   var TEXT_COLOR = "#333";
-  var VALUE_COLOR = "#008000";
-  var ACCURACY_COLOR = "#805A5A";
-  var ACCURACY_FILL_COLOR = "#C89696";
+  // var VALUE_COLOR = "#008000";
+  // var ACCURACY_COLOR = "#805A5A";
+  // var ACCURACY_FILL_COLOR = "#C89696";
+  var ALT_LINE_COLOR = "#008000"; // Green
+  var ALT_FILL_COLOR = "rgba(0,128,0,0.3)"; // Green
+  var SP_LINE_COLOR = "#4169E1"; // RoyalBlue
+  var SP_FILL_COLOR = "rgba(65,105,225, 0.3)"; // RoyalBlue
 
   function display(inTrack, saveMapCallback) {
     console.log("inTrack in display", inTrack);
@@ -101,8 +105,9 @@ var TrackView = function() {
       mapToSave = __buildMap2(inTrack);
       saveMapCallback(mapToSave);
     }
-    __buildSpeedGraph(t);
-    __buildAltitudeGraph(t);
+    // __buildSpeedGraph(t);
+    // __buildAltitudeGraph(t);
+    __buildGraphs(t);
   }
 
   function updateName(inName) {
@@ -110,94 +115,50 @@ var TrackView = function() {
     document.getElementById("tr-name").innerHTML = inName;
   }
 
-  function __buildAltitudeGraph(inData) {
-    data = inData.data;
-    // console.log("data.length", data.length);
-    // console.log("data", data);
-
+  function __buildGraphs(inData) {
+    "use strict;"
+    var data = inData.data;
     // calculate the axis values in order to draw the canvas graph
-    // max_y: represents the highest altitude value
-    // min_y: represents the smallest altitude value
     // max_acc: represents the poorest accuracy on altitude
+    // alt_max_y: represents the highest altitude value
+    // alt_min_y: represents the smallest altitude value
     var max_acc = 0;
-    var max_y = 0;
-    var min_y = 0;
+    var alt_max_y = 0;
+    var alt_min_y = 0;
     for(i=0;i<data.length;i++) {
-      if(parseInt(data[i].altitude, 10) > max_y) {
-        max_y = parseInt(data[i].altitude, 10);
+      if(parseInt(data[i].altitude, 10) > alt_max_y) {
+        alt_max_y = parseInt(data[i].altitude, 10);
       }
-      if(parseInt(data[i].altitude, 10) < min_y) {
-        min_y = parseInt(data[i].altitude, 10);
+      if(parseInt(data[i].altitude, 10) < alt_min_y) {
+        alt_min_y = parseInt(data[i].altitude, 10);
       }
       if(parseInt(data[i].vertAccuracy, 10) > max_acc) {
         max_acc = parseInt(data[i].vertAccuracy, 10);
       }
-      // console.log("data[i].vertAccuracy", data[i].vertAccuracy);
       max_acc = max_acc / 2;
     }
+    // sp_max_y: represents the highest speed value
+    // sp_min_y: represents the smallest speed value
+    var sp_max_y = Config.userSpeedInteger(inData.max_speed);
+    var sp_min_y = Config.userSpeedInteger(inData.min_speed);
 
     // Write Y Axis text
-    var range = max_y - min_y;
-    range = range + (range / 3);
+    var alt_range = alt_max_y - alt_min_y;
+    alt_range = alt_range + (alt_range / 3);
+    var sp_range = sp_max_y - sp_min_y;
+    sp_range = sp_range * 2;
     // calculate
-    var yspace = parseInt(range / 4, 10);
-    var c = __createRectCanvas("alt-canvas", range, yspace);
+    var alt_yspace = parseInt(alt_range / 4, 10);
+    var sp_yspace = parseInt(sp_range / 4, 10);
+    var c = __createRectCanvas("graphs-canvas", alt_range, alt_yspace, sp_range, sp_yspace);
 
-    var espace = parseInt(data.length / (SCREEN_WIDTH - xPadding), 10);
+    var espace = parseInt(data.length / (SCREEN_WIDTH - xPadding - 5), 10);
     if (espace === 0) {
       espace = 1;
     } else {
       espace = espace * SPACE_BTW_POINTS; // increase spacing between points so that the chart looks smoother.
     };
-    // console.log("espace", espace);
 
-    // Draw vertAccuracy lines
-    c.strokeStyle = ACCURACY_COLOR;
-    c.fillStyle = ACCURACY_FILL_COLOR;
-    c.lineWidth = LINE_WIDTH;
-    c.beginPath();
-    //~ var z = parseInt(getXPixel(data[0].altitude) - parseInt(data[0].vertAccuracy));
-    var alt0 = parseInt(data[0].altitude, 10);
-    var acc0 = parseInt(data[0].vertAccuracy, 10);
-    var y1 = alt0 - acc0;
-    var y2 = alt0 + acc0;
-    if(y1<0) {y1=0;} // we don't want the lines to go under 0
-
-    for(i = 1 ; i<data.length ; i += espace) {
-      var value = parseInt(data[i].altitude, 10) + parseInt(data[i].vertAccuracy, 10);
-      if (i === 1) {
-        c.moveTo(__getXPixel(i,data), __getYPixel(value, range));
-      } else {
-        c.lineTo(__getXPixel(i,data), __getYPixel(value, range));
-      }
-    };
-    for(i = data.length - 1 ; i >= 1 ; i = i - espace) {
-      var value = parseInt(data[i].altitude, 10) - parseInt(data[i].vertAccuracy, 10);
-      if (value < 0) {value = 0;}
-      if (i === 1) {
-        var value = parseInt(data[i].altitude, 10) + parseInt(data[i].vertAccuracy, 10);
-        c.lineTo(__getXPixel(i,data), __getYPixel(value, range));
-      } else {
-        c.lineTo(__getXPixel(i,data), __getYPixel(value, range));
-      }
-    }
-    c.fill();
-    c.stroke();
-
-    // Draw Altitude points
-    c.strokeStyle = VALUE_COLOR;
-    c.lineWidth = LINE_WIDTH;
-    c.beginPath();
-    c.moveTo(__getXPixel(0,data), __getYPixel(data[0].altitude, range));
-    for(i=1;i<data.length;i+=espace) {
-      c.lineTo(__getXPixel(i,data), __getYPixel(data[i].altitude, range));
-    }
-    c.stroke();
-
-    c.lineWidth = 1;
-    c.fillStyle = TEXT_COLOR;
-    c.font = TEXT_STYLE;
-    c.textAlign = "center";
 
     // Write X Axis text and lines
     if (data.length <= SPACE_BTW_POINTS) {
@@ -209,81 +170,233 @@ var TrackView = function() {
     for (i=0;i<data.length;i+=xspace) {
       i = parseInt(i,10);
       var date = new Date(data[i].date).getHours() + ":" + new Date(data[i].date).getMinutes();
-      c.fillText(date, __getXPixel(i,data), SCREEN_HEIGHT - yPadding + 20);
+      c.textAlign = "center";
+      c.fillStyle = "gray";
+      c.fillText(date, __getXPixel(i,data), SCREEN_HEIGHT - yPadding + 27);
       // draw vertical lines
       c.beginPath();
-      c.strokeStyle  = "rgba(150,150,150, 0.5)";
-      c.lineWidth = 1;
-      c.moveTo(__getXPixel(i,data),0);
-      c.lineTo(__getXPixel(i,data),SCREEN_HEIGHT - xPadding);
+      // c.strokeStyle  = "rgba(150,150,150, 0.5)";
+      // c.lineWidth = 1;
+      // c.moveTo(__getXPixel(i,data),0);
+      // c.lineTo(__getXPixel(i,data),SCREEN_HEIGHT - xPadding);
+      c.moveTo(__getXPixel(i,data),SCREEN_HEIGHT - yPadding + 15);
+      c.lineTo(__getXPixel(i,data),SCREEN_HEIGHT - yPadding + 20);
       c.stroke();
     }
 
+
+    // Draw Altitude points
+    c.strokeStyle = ALT_LINE_COLOR;
+    c.lineWidth = LINE_WIDTH;
+    c.beginPath();
+    c.moveTo(__getXPixel(0,data), __getYPixel(data[0].altitude, alt_range));
+    for(i=1;i<data.length;i+=espace) {
+      var x = __getXPixel(i,data);
+      c.lineTo(x, __getYPixel(data[i].altitude, alt_range));
+    }
+    c.lineTo(x,SCREEN_HEIGHT - yPadding);
+    c.lineTo(__getXPixel(0,data),SCREEN_HEIGHT - yPadding);
+    c.lineTo(__getXPixel(0,data), __getYPixel(data[0].altitude, alt_range));
+    c.fillStyle = ALT_FILL_COLOR;
+    c.fill();
     c.stroke();
-    c.closePath();
-  }
-  function __buildSpeedGraph(inData) {
-    data = inData.data;
 
-    var max_y = Config.userSpeedInteger(inData.max_speed);
-    var min_y = Config.userSpeedInteger(inData.min_speed);
-    // console.log("max_y", max_y);
-    // console.log("min_y",min_y);
-
-    // Write Y Axis text
-    var range = max_y - min_y;
-    // range = range + (range * 0.2);
-    range = range * 2;
-    var yspace = parseInt(range / 4, 10);
-    // console.log("range ", range);
-    var c = __createRectCanvas("speed-canvas", range, yspace);
-
-    var espace = parseInt(data.length / (SCREEN_WIDTH - xPadding), 10);
-    if (espace === 0) {
-      espace = 1;
-    } else {
-      espace = espace * SPACE_BTW_POINTS; // increase spacing between points so that the chart looks smoother.
-    };
-    // Draw line
-    // c.strokeStyle = "#0560A6";
-    c.strokeStyle = VALUE_COLOR;
+    // Draw Speed points
+    c.strokeStyle = SP_LINE_COLOR;
+    c.globalAlpha = 1;
     c.lineWidth = LINE_WIDTH;
     c.beginPath();
     var value = Config.userSpeedInteger(data[0].speed);
-    c.moveTo(__getXPixel(0,data), __getYPixel(value, range));
+    c.moveTo(__getXPixel(0,data), __getYPixel(value, sp_range));
     for(i=1;i<data.length;i+=espace) {
       var value = Config.userSpeedInteger(data[i].speed);
-      c.lineTo(__getXPixel(i,data), __getYPixel(value, range));
-      c.stroke();
+      var x = __getXPixel(i,data);
+      c.lineTo(x, __getYPixel(value, sp_range));
     }
-
-    c.lineWidth = LINE_WIDTH;
-    c.fillStyle = TEXT_COLOR;
-    c.font = TEXT_STYLE;
-    c.textAlign = "center";
-
-    // Write X Axis text and lines
-    if (data.length <= SPACE_BTW_POINTS) {
-      var xspace = data.length;
-    } else{
-      var xspace = data.length / SPACE_BTW_POINTS;
-    };
-    //~ console.log("xspace",xspace);
-    for (i=0;i<data.length;i+=xspace) {
-      i = parseInt(i,10);
-      //~ console.log("i",i);
-      var date = new Date(data[i].date).getHours() + ":" + new Date(data[i].date).getMinutes();
-      c.fillText(date, __getXPixel(i,data), SCREEN_HEIGHT - yPadding + 20);
-      c.beginPath();
-      c.strokeStyle  = "rgba(150,150,150, 0.5)";
-      c.lineWidth = 1;
-      c.moveTo(__getXPixel(i,data),0);
-      c.lineTo(__getXPixel(i,data),SCREEN_HEIGHT - xPadding);
-      c.stroke();
-    }
+    c.lineTo(x,SCREEN_HEIGHT - yPadding);
+    c.lineTo(__getXPixel(0,data),SCREEN_HEIGHT - yPadding);
+    c.lineTo(__getXPixel(0,data), __getYPixel(Config.userSpeedInteger(data[0].speed), sp_range));
+    c.fillStyle = SP_FILL_COLOR;
+    c.fill();
     c.stroke();
+
     c.closePath();
   }
+
+  // function __buildAltitudeGraph(inData) {
+  //   data = inData.data;
+  //   // console.log("data.length", data.length);
+  //   // console.log("data", data);
+
+  //   // calculate the axis values in order to draw the canvas graph
+  //   // max_y: represents the highest altitude value
+  //   // min_y: represents the smallest altitude value
+  //   // max_acc: represents the poorest accuracy on altitude
+  //   var max_acc = 0;
+  //   var max_y = 0;
+  //   var min_y = 0;
+  //   for(i=0;i<data.length;i++) {
+  //     if(parseInt(data[i].altitude, 10) > max_y) {
+  //       max_y = parseInt(data[i].altitude, 10);
+  //     }
+  //     if(parseInt(data[i].altitude, 10) < min_y) {
+  //       min_y = parseInt(data[i].altitude, 10);
+  //     }
+  //     if(parseInt(data[i].vertAccuracy, 10) > max_acc) {
+  //       max_acc = parseInt(data[i].vertAccuracy, 10);
+  //     }
+  //     // console.log("data[i].vertAccuracy", data[i].vertAccuracy);
+  //     max_acc = max_acc / 2;
+  //   }
+
+  //   // Write Y Axis text
+  //   var range = max_y - min_y;
+  //   range = range + (range / 3);
+  //   // calculate
+  //   var yspace = parseInt(range / 4, 10);
+  //   var c = __createRectCanvas("alt-canvas", range, yspace);
+
+  //   var espace = parseInt(data.length / (SCREEN_WIDTH - xPadding), 10);
+  //   if (espace === 0) {
+  //     espace = 1;
+  //   } else {
+  //     espace = espace * SPACE_BTW_POINTS; // increase spacing between points so that the chart looks smoother.
+  //   };
+  //   // console.log("espace", espace);
+
+  //   // Draw vertAccuracy lines
+  //   c.strokeStyle = ACCURACY_COLOR;
+  //   c.fillStyle = ACCURACY_FILL_COLOR;
+  //   c.lineWidth = LINE_WIDTH;
+  //   c.beginPath();
+  //   //~ var z = parseInt(getXPixel(data[0].altitude) - parseInt(data[0].vertAccuracy));
+  //   var alt0 = parseInt(data[0].altitude, 10);
+  //   var acc0 = parseInt(data[0].vertAccuracy, 10);
+  //   var y1 = alt0 - acc0;
+  //   var y2 = alt0 + acc0;
+  //   if(y1<0) {y1=0;} // we don't want the lines to go under 0
+
+  //   for(i = 1 ; i<data.length ; i += espace) {
+  //     var value = parseInt(data[i].altitude, 10) + parseInt(data[i].vertAccuracy, 10);
+  //     if (i === 1) {
+  //       c.moveTo(__getXPixel(i,data), __getYPixel(value, range));
+  //     } else {
+  //       c.lineTo(__getXPixel(i,data), __getYPixel(value, range));
+  //     }
+  //   };
+  //   for(i = data.length - 1 ; i >= 1 ; i = i - espace) {
+  //     var value = parseInt(data[i].altitude, 10) - parseInt(data[i].vertAccuracy, 10);
+  //     if (value < 0) {value = 0;}
+  //     if (i === 1) {
+  //       var value = parseInt(data[i].altitude, 10) + parseInt(data[i].vertAccuracy, 10);
+  //       c.lineTo(__getXPixel(i,data), __getYPixel(value, range));
+  //     } else {
+  //       c.lineTo(__getXPixel(i,data), __getYPixel(value, range));
+  //     }
+  //   }
+  //   c.fill();
+  //   c.stroke();
+
+  //   // Draw Altitude points
+  //   c.strokeStyle = VALUE_COLOR;
+  //   c.lineWidth = LINE_WIDTH;
+  //   c.beginPath();
+  //   c.moveTo(__getXPixel(0,data), __getYPixel(data[0].altitude, range));
+  //   for(i=1;i<data.length;i+=espace) {
+  //     c.lineTo(__getXPixel(i,data), __getYPixel(data[i].altitude, range));
+  //   }
+  //   c.stroke();
+
+  //   c.lineWidth = 1;
+  //   c.fillStyle = TEXT_COLOR;
+  //   c.font = TEXT_STYLE;
+  //   c.textAlign = "center";
+
+  //   // Write X Axis text and lines
+  //   if (data.length <= SPACE_BTW_POINTS) {
+  //     var xspace = data.length;
+  //   } else{
+  //     var xspace = data.length / SPACE_BTW_POINTS;
+  //   };
+  //   // console.log("xspace",xspace);
+  //   for (i=0;i<data.length;i+=xspace) {
+  //     i = parseInt(i,10);
+  //     var date = new Date(data[i].date).getHours() + ":" + new Date(data[i].date).getMinutes();
+  //     c.fillText(date, __getXPixel(i,data), SCREEN_HEIGHT - yPadding + 20);
+  //     // draw vertical lines
+  //     c.beginPath();
+  //     c.strokeStyle  = "rgba(150,150,150, 0.5)";
+  //     c.lineWidth = 1;
+  //     c.moveTo(__getXPixel(i,data),0);
+  //     c.lineTo(__getXPixel(i,data),SCREEN_HEIGHT - xPadding);
+  //     c.stroke();
+  //   }
+
+  //   c.stroke();
+  //   c.closePath();
+  // }
+  // function __buildSpeedGraph(inData) {
+  //   data = inData.data;
+
+  //   var max_y = Config.userSpeedInteger(inData.max_speed);
+  //   var min_y = Config.userSpeedInteger(inData.min_speed);
+  //   // console.log("max_y", max_y);
+  //   // console.log("min_y",min_y);
+
+  //   // Write Y Axis text
+  //   var range = max_y - min_y;
+  //   // range = range + (range * 0.2);
+  //   range = range * 2;
+  //   var yspace = parseInt(range / 4, 10);
+  //   // console.log("range ", range);
+  //   var c = __createRectCanvas("speed-canvas", range, yspace);
+
+  //   var espace = parseInt(data.length / (SCREEN_WIDTH - xPadding), 10);
+  //   if (espace === 0) {
+  //     espace = 1;
+  //   } else {
+  //     espace = espace * SPACE_BTW_POINTS; // increase spacing between points so that the chart looks smoother.
+  //   };
+  //   // Draw line
+  //   // c.strokeStyle = "#0560A6";
+  //   c.strokeStyle = VALUE_COLOR;
+  //   c.lineWidth = LINE_WIDTH;
+  //   c.beginPath();
+  //   var value = Config.userSpeedInteger(data[0].speed);
+  //   c.moveTo(__getXPixel(0,data), __getYPixel(value, range));
+  //   for(i=1;i<data.length;i+=espace) {
+  //     var value = Config.userSpeedInteger(data[i].speed);
+  //     c.lineTo(__getXPixel(i,data), __getYPixel(value, range));
+  //     c.stroke();
+  //   }
+
+  //   c.lineWidth = LINE_WIDTH;
+  //   c.fillStyle = TEXT_COLOR;
+  //   c.font = TEXT_STYLE;
+  //   c.textAlign = "center";
+
+  //   // Write X Axis text and lines
+  //   if (data.length <= SPACE_BTW_POINTS) {
+  //     var xspace = data.length;
+  //   } else{
+  //     var xspace = data.length / SPACE_BTW_POINTS;
+  //   };
+  //   //~ console.log("xspace",xspace);
+  //   for (i=0;i<data.length;i+=xspace) {
+  //     i = parseInt(i,10);
+  //     //~ console.log("i",i);
+  //     var date = new Date(data[i].date).getHours() + ":" + new Date(data[i].date).getMinutes();
+  //     c.fillText(date, __getXPixel(i,data), SCREEN_HEIGHT - yPadding + 20);
+  //     c.beginPath();
+  //     c.strokeStyle  = "rgba(150,150,150, 0.5)";
+  //     c.lineWidth = 1;
+  //     c.moveTo(__getXPixel(i,data),0);
+  //     c.lineTo(__getXPixel(i,data),SCREEN_HEIGHT - xPadding);
+  //     c.stroke();
+  //   }
+  //   c.stroke();
+  //   c.closePath();
+  // }
   function __buildMap2(inTrack) {
     // get the min and max longitude/ latitude
     // and build the path
@@ -417,38 +530,86 @@ var TrackView = function() {
 
   }
 */
-  function __createRectCanvas(inElementId, inRange, inSpace) {
+  // function __createRectCanvas(inElementId, inRange, inSpace) {
+  //   var graph = document.getElementById(inElementId);
+  //   var c = graph.getContext("2d");
+  //   c.clearRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+  //   graph.setAttribute("width",SCREEN_WIDTH);
+  //   graph.setAttribute("height",SCREEN_HEIGHT);
+
+  //   c.fillStyle = TEXT_COLOR;
+  //   c.font = TEXT_STYLE;
+  //   c.textAlign = "right";
+  //   c.textBaseline = "middle";
+  //   var j = 0;
+  //   var i = 0;
+  //   for (t=0;t<4;t++) {
+  //     c.fillText(parseInt(i,10), xPadding - 10, __getYPixel(j, inRange));
+  //     c.beginPath();
+  //     c.moveTo(xPadding, __getYPixel(j, inRange));
+  //     c.lineTo(SCREEN_WIDTH, __getYPixel(j, inRange));
+  //     c.stroke();
+  //     j += inSpace;
+  //     i += inSpace;
+  //   }
+  //   c.beginPath();
+  //   c.moveTo(xPadding, 0);
+  //   c.lineTo(xPadding, SCREEN_HEIGHT - yPadding);
+  //   c.lineTo(SCREEN_WIDTH, SCREEN_HEIGHT - yPadding);
+  //   c.stroke();
+
+  //   return c;
+  // }
+
+  function __createRectCanvas(inElementId, inRange1, inSpace1, inRange2, inSpace2) {
     var graph = document.getElementById(inElementId);
     var c = graph.getContext("2d");
-    c.clearRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-    graph.setAttribute("width",SCREEN_WIDTH);
+    c.clearRect(0, 0, SCREEN_WIDTH - 5, SCREEN_HEIGHT);
+    graph.setAttribute("width",SCREEN_WIDTH - 5);
     graph.setAttribute("height",SCREEN_HEIGHT);
 
     c.fillStyle = TEXT_COLOR;
     c.font = TEXT_STYLE;
     c.textAlign = "right";
     c.textBaseline = "middle";
-    var j = 0;
-    var i = 0;
+    var j1 = 0;
+    var i1 = 0;
+    var j2 = 0;
+    var i2 = 0;
     for (t=0;t<4;t++) {
-      c.fillText(parseInt(i,10), xPadding - 10, __getYPixel(j, inRange));
+      c.fillStyle = ALT_LINE_COLOR;
+      c.fillText(parseInt(i1,10), xPadding - 10, __getYPixel(j1, inRange1) - 6);
+      c.fillStyle = SP_LINE_COLOR;
+      c.fillText(parseInt(i2,10), xPadding - 10, __getYPixel(j2, inRange2) + 6);
       c.beginPath();
-      c.moveTo(xPadding, __getYPixel(j, inRange));
-      c.lineTo(SCREEN_WIDTH, __getYPixel(j, inRange));
+      c.moveTo(xPadding, __getYPixel(j1, inRange1));
+      c.lineTo(SCREEN_WIDTH - 5, __getYPixel(j1, inRange1));
+      c.lineWidth = 0.2;
+      c.strokeStyle = "black";
       c.stroke();
-      j += inSpace;
-      i += inSpace;
+      j1 += inSpace1;
+      i1 += inSpace1;
+      j2 += inSpace2;
+      i2 += inSpace2;
     }
     c.beginPath();
-    c.moveTo(xPadding, 0);
-    c.lineTo(xPadding, SCREEN_HEIGHT - yPadding);
-    c.lineTo(SCREEN_WIDTH, SCREEN_HEIGHT - yPadding);
+    c.moveTo( xPadding,SCREEN_HEIGHT - yPadding + 15);
+    c.lineTo(SCREEN_WIDTH - 5,SCREEN_HEIGHT - yPadding + 15);
+    // c.moveTo(xPadding, 0);
+    // c.lineTo(xPadding, SCREEN_HEIGHT - yPadding);
+    // c.lineTo(SCREEN_WIDTH, SCREEN_HEIGHT - yPadding);
+    c.lineWidth = 0.1;
+    c.strokeStyle = "black";
     c.stroke();
 
     return c;
   }
+
+
+
+
   function __getXPixel(val,data) {
-    return ((SCREEN_WIDTH - xPadding) / data.length) * val + xPadding;
+    return ((SCREEN_WIDTH - xPadding - 5) / data.length) * val + xPadding;
   }
   function __getYPixel(val,range) {
     return SCREEN_HEIGHT - (((SCREEN_HEIGHT - yPadding) / range) * val) - yPadding;
