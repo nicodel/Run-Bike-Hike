@@ -42,7 +42,7 @@ var Controller = function() {
       __addNewPoint(inPosition);
     } else {
       // console.log("not tracking");
-      HomeView.updateInfos(inPosition);
+      HomeView.updateInfos(inPosition, null);
     };
   }
   function __locationError(inError){
@@ -69,7 +69,7 @@ var Controller = function() {
       // document.querySelector("#btn-start").innerHTML = "Stop";
       // document.querySelector("#btn-start").className = "align-right danger big alternate";
       document.getElementById("btn-start-stop").innerHTML = "Stop";
-      document.getElementById("home-button").style.backgroundColor = "#e51e1e";
+      // document.getElementById("btn-start-stop").style.backgroundColor = "#e51e1e";
     };
   }
   function stopWatch(){
@@ -94,7 +94,7 @@ var Controller = function() {
     // document.querySelector("#btn-start").innerHTML = "Start";
     // document.querySelector("#btn-start").className = "align-right recommend big alternate";
     document.getElementById("btn-start-stop").innerHTML = "Start";
-    document.getElementById("home-button").style.backgroundColor = "#1E824C";
+    // document.getElementById("btn-start-stop").style.backgroundColor = "#1E824C";
   }
 
   function __addNewPoint(inPosition){
@@ -153,23 +153,22 @@ var Controller = function() {
     
     if (Config.SCREEN_KEEP_ALIVE) {
     var lock = window.navigator.requestWakeLock('screen');
-     // Setting Event to unlock the screen
     window.addEventListener('unload', function () {
       lock.unlock();
     });
-    var a = Config.userSmallDistance();
-    document.getElementById("home-acc").innerHTML = "&#177;" + a.v;
-    document.getElementById("acc-unit").innerHTML =  "(" + a.u + ")";
-    var a = Config.userSmallDistance(null);
-    document.getElementById("home-alt").innerHTML = a.v;
-    document.getElementById("alt-unit").innerHTML = "(" + a.u + ")";
-    var a = Config.userDistance(null);
-    document.getElementById("home-dist").innerHTML = a.v;
-    document.getElementById("dist-unit").innerHTML = "(" + a.u + ")";
-    var a = Config.userSpeed();
-    document.getElementById("home-speed").innerHTML = a.v;
-    document.getElementById("speed-unit").innerHTML = "(" + a.u + ")";
   };
+  var a = Config.userSmallDistance();
+  document.getElementById("home-acc").innerHTML = "&#177;" + a.v;
+  document.getElementById("acc-unit").innerHTML =  "(" + a.u + ")";
+  var a = Config.userSmallDistance(null);
+  document.getElementById("home-alt").innerHTML = a.v;
+  document.getElementById("alt-unit").innerHTML = "(" + a.u + ")";
+  var a = Config.userDistance(null);
+  document.getElementById("home-dist").innerHTML = a.v;
+  document.getElementById("dist-unit").innerHTML = "(" + a.u + ")";
+  var a = Config.userSpeed();
+  document.getElementById("home-speed").innerHTML = a.v;
+  document.getElementById("speed-unit").innerHTML = "(" + a.u + ")";
   }
   function __getConfigError(inEvent) { console.log("__getConfigError ", inEvent); }
 

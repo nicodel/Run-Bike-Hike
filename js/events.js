@@ -99,6 +99,7 @@ document.querySelector("#btn-tracks-back").addEventListener ("click", function (
 /*----------------- Track Detail View -----------------*/
 /* Track View Back button */
 document.querySelector("#btn-track-back").addEventListener ("click", function () {
+  Controller.displayTracks();
   document.getElementById("views").showCard(3);
 });
 /* Track View Delete button */

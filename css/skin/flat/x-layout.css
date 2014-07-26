@@ -235,7 +235,7 @@ x-layout > [data-type="home"] ul {
 x-layout > [data-type="home"] ul li {
   /*border: solid 1px red;*/
   width: calc(50% - 1px);
-  height: 27%;
+  height: 23%; /*27%*/
   /*min-height: 14rem;*/
   float: left;
 /*  text-align: center;*/
@@ -249,6 +249,9 @@ x-layout > [data-type="home"] ul li#button {
   padding-top: 1rem;
   padding-bottom: 1rem;
   height: 7rem;
+}
+x-layout > [data-type="home"] ul li.bottom {
+  height: calc(50% - 7rem);
 }
 x-layout > [data-type="home"] ul li:nth-child(odd) {
 /*  border-bottom: solid 1px #1F3A93;

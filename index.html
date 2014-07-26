@@ -142,8 +142,8 @@
                 </x-flipbox>
                 </li> -->
                 <li>
-                  <div data-l10n-id="elapsed-time" class="home-title align-left text-big text-thin">Elapsed time</div>
-                  <div id="home-chrono" class="home-value align-center text-huger text-thin">00:00:00</div>
+                  <div data-l10n-id="elapsed-time" class="home-title text-big text-thin">Time</div>
+                  <div id="home-chrono" class="home-value align-center text-huger text-thin new-line">0:00:00</div>
 
 <!--                   <a data-l10n-id="btn-start" id="btn-start" href="#">
                     <div id="home-button">
@@ -154,36 +154,33 @@
                   </a> -->
                 </li>
                 <li>
-                  <div data-l10n-id="distance" class="home-title align-left text-big text-thin">Distance
-                  <span id="dist-unit"></span></div>
-                  <div id="home-dist" class="home-value align-center text-huge text-thin">1300</div>
+                  <div data-l10n-id="distance" class="home-title text-big text-thin">Distance
+                  <span id="dist-unit">(km)</span></div>
+                  <div id="home-dist" class="home-value align-center text-huge text-thin">--</div>
                 </li>
                 <li>
-                  <div data-l10n-id="speed" class="home-title align-left text-big text-thin">Speed
-                  <span id="speed-unit"></span></div>
-                  <div id="home-speed" class="home-value align-center text-huge text-thin">12.5</div>
+                  <div data-l10n-id="speed" class="home-title text-big text-thin">Speed
+                  <span id="speed-unit">(km/h)</span></div>
+                  <div id="home-speed" class="home-value align-center text-huge text-thin">--</div>
                 </li>
-                <li>
-                  <div data-l10n-id="altitude"  class="new-line home-alt align-left text-small text-thin">Altitude
+                <li class="bottom">
+                  <div data-l10n-id="altitude"  class="new-line home-title text-small text-thin">Altitude
                   <span id="alt-unit"></span></div>
-                  <div id="home-alt" class="new-line home-alt align-center text-big text-thin">?</div>
-                  <div data-l10n-id="accuracy" class="new-line home-alt align-left text-small text-thin">Accuracy
+                  <div id="home-alt" class="new-line home-value align-center text-big text-thin">?</div>
+                  
+                  <div data-l10n-id="accuracy" class="new-line home-title text-small text-thin">Accuracy
                   <span id="acc-unit"></span></div>
-                  <div id="home-acc" class="new-line home-alt align-center text-big text-thin">?</div>
+                  <div id="home-acc" class="new-line home-value align-center text-big text-thin">?</div>
                 </li>
-                <li>
-                  <div>
-                    <div data-l10n-id="latitude" class="new-line home-alt align-left text-small text-thin">Latitude</div>
-                    <div id="home-lat" class="new-line home-alt align-center text-small text-thin">?</div>
+                <li class="bottom">
+                  <div data-l10n-id="latitude" class="new-line home-title text-small text-thin">Latitude</div>
+                  <div id="home-lat" class="new-line home-value align-center text-small text-thin">?</div>
 
-                    <div data-l10n-id="longitude" class="new-line home-alt align-left text-small text-thin">Longitude</div>
-                    <div id="home-lon" class="new-line home-alt align-center text-small text-thin">?</div>
+                  <div data-l10n-id="longitude" class="new-line home-title text-small text-thin">Longitude</div>
+                  <div id="home-lon" class="new-line home-value align-center text-small text-thin">?</div>
 
-                    <div data-l10n-id="direction" class="new-line home-alt align-left text-small text-thin">Direction</div>
-                    <div id="home-dir" class="new-line home-alt align-center text-small text-thin">?</div>
-                  </div>
-
-
+                  <div data-l10n-id="direction" class="new-line home-title text-small text-thin">Direction</div>
+                  <div id="home-dir" class="new-line home-value align-center text-small text-thin">?</div>
                 </li>
                 <li id="button">
                 <button id="btn-start-stop" class="recommend big">Start</button>
@@ -315,7 +312,7 @@
                 </div>
               </li>
               <li class="separateur-bottom">
-                <div data-l10n-id="map" id="trk-dt-map">Map</div>
+                <!-- <div data-l10n-id="map" id="trk-dt-map">Map</div> -->
                 <div id="spinner-box" class="align-center">
                   <progress id="track-spinner"></progress>
                   <p data-l10-id="loading-map" id="map-text">Loading map ...</p>
@@ -331,7 +328,7 @@
                 <canvas id="alt-canvas"></canvas>
             </li> -->
             <li class="separateur-bottom">
-              <div data-l10n-id="graphs" id="trk-dt-graphs">Graphs</div>
+              <!-- <div data-l10n-id="graphs" id="trk-dt-graphs">Graphs</div> -->
               <canvas id="graphs-canvas"></canvas>
             </li>
             </ul>

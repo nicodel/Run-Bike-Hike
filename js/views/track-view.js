@@ -35,8 +35,7 @@ var TrackView = function() {
     var tr = document.getElementById("tr-name");
     tr.innerHTML = inTrack.name;
 
-    var a = Config.userDate(inTrack.date);
-    document.getElementById("trk-date").innerHTML = a.v + a.u;
+    document.getElementById("trk-date").innerHTML = Config.userDate(inTrack.date);
     var a = Config.userDistance(inTrack.distance);
     document.getElementById("trk-dist").innerHTML = a.v + a.u;
     var d = inTrack.duration / 60000;
@@ -100,6 +99,9 @@ var TrackView = function() {
       console.log("map exist");
       document.getElementById("map-img").width = SCREEN_WIDTH;
       document.getElementById("map-img").src = t.map;
+      document.querySelector("#map-text").classList.add("hidden");
+      document.querySelector("#track-spinner").classList.add("hidden");
+      document.querySelector("#map-img").classList.remove("hidden");
     } else {
       console.log("map does not exist");
       mapToSave = __buildMap2(inTrack);
@@ -158,6 +160,17 @@ var TrackView = function() {
     } else {
       espace = espace * SPACE_BTW_POINTS; // increase spacing between points so that the chart looks smoother.
     };
+
+    // Write the legends
+    // 1: Altitude
+    // 2: Speed
+    c.fillStyle = ALT_LINE_COLOR;
+    c.fillText("Altitude ?unit?", xPadding + 50, 10);
+    c.fillStyle = SP_LINE_COLOR;
+    c.fillText("Speed ?unit?", xPadding + 50, 20);
+    c.stroke();
+
+
 
 
     // Write X Axis text and lines

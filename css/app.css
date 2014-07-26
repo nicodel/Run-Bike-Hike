@@ -23,9 +23,9 @@ h1 {
 /*
   Home View & Tracking View specific styles
  */
- #home-compass {
+/* #home-compass {
   padding-top: 1rem;
- }
+ }*/
 #home-button {
   color: #FFF;
   background-color: #1E824C;
@@ -35,15 +35,17 @@ h1 {
   line-height: 67px;
 }
 .home-title {
-  position: relative;
-  top: 5px;
+  /*position: relative;
+  top: 5px;*/
+  margin-top: 1rem;
+  margin-left: 1rem;
 }
 .home-value {
-  position: relative;
-  top: calc(100% / 3 - 20px);
-  /*margin-top: 1rem;*/
+/*  position: relative;
+  top: calc(100% / 3 - 20px);*/
+  margin-top: 1rem;
 }
-.home-unit {
+/*.home-unit {
   position: relative;
   top: calc(200% / 3 - 45px);
 }
@@ -54,7 +56,7 @@ h1 {
 .home-alt {
   position: relative;
   margin-top: 10px;
-}
+}*/
 button.alternate {
   margin-top: 35px;
   margin-right: 25px;

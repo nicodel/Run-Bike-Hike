@@ -18,12 +18,12 @@ var HomeView = function() {
     document.getElementById("acc-unit").innerHTML =  "(" + a.u + ")";
     // checking accuracy and display appropriate GPS status
     if (inPosition.coords.accuracy > 30) {
-      document.getElementById("home-acc").className = "new-line home-alt align-right text-big text-thinner bad-signal";
-      document.getElementById("acc-unit").className = "bad-signal";
+      document.getElementById("home-acc").className = "new-line home-alt align-center text-big text-thinner bad-signal";
+      // document.getElementById("acc-unit").className = "bad-signal";
       // document.getElementById("gps-status").setAttribute("src", "img/gps_red.png");
     } else {
-      document.getElementById("home-acc").className = "new-line home-alt align-right text-big text-thinner";
-      document.getElementById("acc-unit").className = "";
+      document.getElementById("home-acc").className = "new-line home-alt align-center text-big text-thin";
+      // document.getElementById("acc-unit").className = "";
       // document.getElementById("gps-status").setAttribute("src", "img/gps_green.png");
     }
     // display latitude using Settings format
@@ -72,7 +72,7 @@ var HomeView = function() {
   }
 
   function __displayCompass(event) {
-    compass = document.getElementById("home-compass");
+    // compass = document.getElementById("home-compass");
     //~ console.log("heading:", event.heading);
     if (event.heading > 0 ){
       /** in case, when GPS is disabled (only if GSM fix is available),
@@ -80,18 +80,18 @@ var HomeView = function() {
        * but it isn't... So we use this strange condition that don't
        * work if we go _directly_ to north...
        */
-      opacity = 1; // 0.8
-      compass.src = 'img/compass.png';
+      // opacity = 1; // 0.8
+      // compass.src = 'img/compass.png';
       var rot = 360 - event.heading.toFixed(0);
       compass.style.transform = "rotate(" + rot + "deg)";
       // compass.style.webkitTransform = "rotate(" + rot + "deg)";
       document.getElementById('home-dir').innerHTML = event.heading;
     } else {
-      compass.src = 'img/compass_inactive.png';
-      opacity = 1; // 0.3
+      // compass.src = 'img/compass_inactive.png';
+      // opacity = 1; // 0.3
       document.getElementById('home-dir').innerHTML = "??";
     }
-    compass.style.opacity = opacity;
+    // compass.style.opacity = opacity;
   }
 
   return {
