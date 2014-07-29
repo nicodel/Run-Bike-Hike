@@ -1,5 +1,4 @@
 "use strict;"
-// define(function(){
 var Config = function() {
 
   /*
@@ -23,59 +22,60 @@ var Config = function() {
    *  geocaching: 1
    *  degrees: 2
    */
-  var CONFIG = {
+  // var CONFIG = {
     // new: true,
     // screen: false,
     // language: "en",
     // distance: "0",
     // speed: "0",
     // position: "0"
-  };
+  // };
 
-  var METRIC_UNITS = 0;
-  var IMPERIAL_UNITS = 1;
+  var METRIC_UNITS = "0";
+  var IMPERIAL_UNITS = "1";
 
   var DEFAULT_EXPORT_FORMAT = "gpx";
 
-  var DEFAULT_POS_FORMAT = 0;
-  var GEOCACHING_POS_FORMAT = 1;
-  var DEGREES_POS_FORMAT = 2;
+  var DEFAULT_POS_FORMAT = "0";
+  var GEOCACHING_POS_FORMAT = "1";
+  var DEGREES_POS_FORMAT = "2";
 
   var DEFAULT_DISCARD_VALUE = 500 * 1000;
 
 
   // Default config values
-  var SCREEN_KEEP_ALIVE = false;
-  var USER_DISTANCE = 0;
-  var USER_SPEED = 0;
-  var USER_POSITION_FORMAT = 0;
+  // var SCREEN_KEEP_ALIVE = false;
+  // var USER_DISTANCE = 0;
+  // var USER_SPEED = 0;
+  // var USER_POSITION_FORMAT = 0;
 
   function change(inKey, inValue) {
     inKey = inValue;
     // console.log(inKey+":"+inValue);
   }
   function userSpeed(velocityMPS){
-    console.log("SPEED METRIC:", velocityMPS);
+    // console.log("SPEED METRIC:", velocityMPS);
     var a = {};
     if (velocityMPS === null || velocityMPS<0 || isNaN(velocityMPS)) {
-      if (USER_SPEED === IMPERIAL_UNITS) {
+      // if (USER_SPEED === IMPERIAL_UNITS) {
+      if (Config.CONFIG["speed"] === IMPERIAL_UNITS) {
         a.u = "mph"
       }
-      if (USER_SPEED === METRIC_UNITS){
+      if (Config.CONFIG["speed"] === METRIC_UNITS){
         a.u = "km/h";
       }
       a.v = "--"
       return a;
     }
 
-    if (USER_SPEED === IMPERIAL_UNITS){
+    if (Config.CONFIG["speed"] === IMPERIAL_UNITS){
       /* FIXME: I'am not sure that it is right */
       // return (velocityMPS * 2.237).toFixed(0)+" MPH";
        a.v = (velocityMPS * 2.237).toFixed(0);
        a.u = "MPH"
        return a;
     }
-    if (USER_SPEED === METRIC_UNITS){
+    if (Config.CONFIG["speed"] === METRIC_UNITS){
       // return (velocityMPS * 3.6).toFixed(0)+" km/h";
        a.v = (velocityMPS * 3.6).toFixed(0);
        a.u = "km/h"
@@ -92,11 +92,11 @@ var Config = function() {
       return null;
     }
 
-    if (USER_SPEED === IMPERIAL_UNITS){
+    if (Config.CONFIG["speed"] === IMPERIAL_UNITS){
       /* FIXME: I'am not sure that it is right */
       return (velocityMPS * 2.237).toFixed(0);
     }
-    if (USER_SPEED === METRIC_UNITS){
+    if (Config.CONFIG["speed"] === METRIC_UNITS){
       return (velocityMPS * 3.6).toFixed(0);
     }
     return velocityMPS;
@@ -107,34 +107,33 @@ var Config = function() {
      return Math.floor(degree) + "°" + (minutes<10?"0":"") + Math.floor(minutes) + "'" + (seconds<10?"0":"") + seconds.toFixed(2) + "\"";
   }
   function userLatitude(degree){
-    // console.log("userLatitude - USER_POSITION_FORMAT: ", USER_POSITION_FORMAT);
-     if (USER_POSITION_FORMAT === DEGREES_POS_FORMAT)
+     if (Config.CONFIG["position"] === DEGREES_POS_FORMAT)
        return degree;
 
-     if (USER_POSITION_FORMAT === GEOCACHING_POS_FORMAT)
+     if (Config.CONFIG["position"] === GEOCACHING_POS_FORMAT)
       return (degree>0? "N":"S") +" "+ this.userDegreeLikeGeocaching( Math.abs(degree) );
 
      return this.userDegree( Math.abs(degree) ) + (degree>0? "N":"S");
   }
   function userLongitude(degree){
-     if (USER_POSITION_FORMAT === DEGREES_POS_FORMAT)
+     if (Config.CONFIG["position"] === DEGREES_POS_FORMAT)
        return degree;
 
-     if (USER_POSITION_FORMAT === GEOCACHING_POS_FORMAT)
+     if (Config.CONFIG["position"] === GEOCACHING_POS_FORMAT)
       return (degree>0? "E":"W") +" "+ this.userDegreeLikeGeocaching( Math.abs(degree) );
 
      return this.userDegree( Math.abs(degree) ) + (degree>0? "E":"W");
   }
   function userSmallDistance(distanceM, canNegative){
-    console.log('CONFIG["distance"]', CONFIG["distance"]);
+    console.log('Config.CONFIG["distance"]', Config.CONFIG["distance"]);
     var a = {};
     if ((distanceM === null) || ((distanceM < 0) && (!canNegative))) {
     // if (USER_DISTANCE === IMPERIAL_UNITS){
-      if (CONFIG["distance"] === IMPERIAL_UNITS){
+      if (Config.CONFIG["distance"] === IMPERIAL_UNITS){
          a.u = "ft";
          // return a;
        }
-      if (CONFIG["distance"] === METRIC_UNITS){
+      if (Config.CONFIG["distance"] === METRIC_UNITS){
         a.u = "m"
         // return a;
        }
@@ -142,14 +141,14 @@ var Config = function() {
       return a;
     }
 
-    if (CONFIG["distance"] === IMPERIAL_UNITS){
+    if (Config.CONFIG["distance"] === IMPERIAL_UNITS){
      /* FIXME: I'am not sure that it is right */
      // return (distanceM * 3.2808).toFixed(0)+" ft";
      a.v = (distanceM * 3.2808).toFixed(0);
      a.u = "ft";
      return a;
     }
-    if (CONFIG["distance"] === METRIC_UNITS){
+    if (Config.CONFIG["distance"] === METRIC_UNITS){
      // return (distanceM * 1.0).toFixed(0)+" m";
     a.v = (distanceM * 1.0).toFixed(0);
     a.u = "m"
@@ -161,30 +160,26 @@ var Config = function() {
     return a;
   }
   function userDistance (distanceM, canNegative){
-    // console.log("USER_DISTANCE = ", USER_DISTANCE);
-    // console.log("IMPERIAL_UNITS = ", IMPERIAL_UNITS);
     var a = {};
-
-
     if ((distanceM === null) || ((distanceM < 0) && (!canNegative))) {
-      if (USER_DISTANCE === IMPERIAL_UNITS) {
+      if (Config.CONFIG["distance"] === IMPERIAL_UNITS) {
         a.u = "miles";
       }
-      if (USER_DISTANCE === METRIC_UNITS) {
+      if (Config.CONFIG["distance"] === METRIC_UNITS) {
         a.u = "km";
       }
       a.v = "--";
       return a;
     }
 
-    if (USER_DISTANCE === METRIC_UNITS){
+    if (Config.CONFIG["distance"] === METRIC_UNITS){
       tmp = (distanceM / 1000);
       // return (tmp >= 10? tmp.toFixed(0): tmp.toFixed(1))+" km";
       a.v = (tmp >= 10? tmp.toFixed(0): tmp.toFixed(1));
       a.u = "km";
       return a;
     }
-    if (USER_DISTANCE === IMPERIAL_UNITS){
+    if (Config.CONFIG["distance"] === IMPERIAL_UNITS){
       /* FIXME: I'am not sure that it is right */
       tmp = (distanceM / 1609.344);
       // return (tmp >= 10? tmp.toFixed(0): tmp.toFixed(1))+" miles";
@@ -285,11 +280,6 @@ var Config = function() {
   };
 
   return {
-/*    SCREEN_KEEP_ALIVE: SCREEN_KEEP_ALIVE,
-    USER_SPEED: USER_SPEED,
-    USER_DISTANCE: USER_DISTANCE,
-    USER_POSITION_FORMAT: USER_POSITION_FORMAT,*/
-    CONFIG: CONFIG,
     change: change,
     userSpeed: userSpeed,
     userSpeedInteger: userSpeedInteger,
@@ -302,4 +292,3 @@ var Config = function() {
   };
 
 }();
-// });

@@ -173,9 +173,6 @@ var TrackView = function() {
     c.fillText("Speed" + " (" + q.u + ")", xPadding + 50, 20);
     c.stroke();
 
-
-
-
     // Write X Axis text and lines
     if (data.length <= SPACE_BTW_POINTS) {
       var xspace = data.length;
@@ -593,9 +590,11 @@ var TrackView = function() {
     var i2 = 0;
     for (t=0;t<4;t++) {
       c.fillStyle = ALT_LINE_COLOR;
-      c.fillText(parseInt(i1,10), xPadding - 10, __getYPixel(j1, inRange1) - 6);
+      var a = Config.userSmallDistance(parseInt(i1,10))
+      c.fillText(a.v, xPadding - 10, __getYPixel(j1, inRange1) - 6);
       c.fillStyle = SP_LINE_COLOR;
-      c.fillText(parseInt(i2,10), xPadding - 10, __getYPixel(j2, inRange2) + 6);
+      var a = Config.userSpeed(parseInt(i1,10))
+      c.fillText(a.v, xPadding - 10, __getYPixel(j2, inRange2) + 6);
       c.beginPath();
       c.moveTo(xPadding, __getYPixel(j1, inRange1));
       c.lineTo(SCREEN_WIDTH - 5, __getYPixel(j1, inRange1));

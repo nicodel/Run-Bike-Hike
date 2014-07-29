@@ -12,7 +12,7 @@ var HomeView = function() {
       __hideSpinner();
     };
     // display accuracy using settings unit
-    var a = Config.userSmallDistance(inPosition.coords.accuracy);
+    var a = Config.userSmallDistance(inPosition.coords.accuracy.toFixed(0));
     // console.log("accuracy:", a);
     document.getElementById("home-acc").innerHTML = "&#177; " + a.v;
     document.getElementById("acc-unit").innerHTML =  "(" + a.u + ")";
@@ -47,19 +47,19 @@ var HomeView = function() {
     //display compass
     // __displayCompass(inPosition.coords);
     if (inPosition.coords.heading > 0 ) {
-      document.getElementById('home-dir').innerHTML = inPosition.coords.heading;
+      document.getElementById('home-dir').innerHTML = inPosition.coords.heading.toFixed(0);
     } else {
-      document.getElementById('home-dir').innerHTML = "??";
+      document.getElementById('home-dir').innerHTML = "--";
     }
   }
 
-  function updateSettings(inSettings) {
-    document.querySelector("#screen-keep").checked = inSettings.screen;
-    document.querySelector("#language").value = inSettings.language;
-    document.querySelector("#distance").value = inSettings.distance;
-    document.querySelector("#speed").value = inSettings.speed;
-    document.querySelector("#position").value = inSettings.position;
-  }
+  // function updateSettings(inSettings) {
+  //   document.querySelector("#screen-keep").checked = inSettings.screen;
+  //   document.querySelector("#language").value = inSettings.language;
+  //   document.querySelector("#distance").value = inSettings.distance;
+  //   document.querySelector("#speed").value = inSettings.speed;
+  //   document.querySelector("#position").value = inSettings.position;
+  // }
 
   function displayError(inError){
     // console.log("error:", inError)
@@ -102,7 +102,7 @@ var HomeView = function() {
   return {
     // hideSpinner: hideSpinner,
     updateInfos: updateInfos,
-    updateSettings: updateSettings,
+    // updateSettings: updateSettings,
     displayError: displayError
   };
 
