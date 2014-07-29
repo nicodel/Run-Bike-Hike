@@ -23,14 +23,14 @@ var Config = function() {
    *  geocaching: 1
    *  degrees: 2
    */
-  // var CONFIG = {
-  //   new: true,
-  //   screen:false,
-  //   language: "en",
-  //   distance: "0",
-  //   speed: "0",
-  //   position: "0"
-  // };
+  var CONFIG = {
+    // new: true,
+    // screen: false,
+    // language: "en",
+    // distance: "0",
+    // speed: "0",
+    // position: "0"
+  };
 
   var METRIC_UNITS = 0;
   var IMPERIAL_UNITS = 1;
@@ -126,38 +126,39 @@ var Config = function() {
      return this.userDegree( Math.abs(degree) ) + (degree>0? "E":"W");
   }
   function userSmallDistance(distanceM, canNegative){
-    // console.log("distanceM", distanceM);
+    console.log('CONFIG["distance"]', CONFIG["distance"]);
     var a = {};
-     if ((distanceM === null) || ((distanceM < 0) && (!canNegative))) {
-      if (USER_DISTANCE === IMPERIAL_UNITS){
+    if ((distanceM === null) || ((distanceM < 0) && (!canNegative))) {
+    // if (USER_DISTANCE === IMPERIAL_UNITS){
+      if (CONFIG["distance"] === IMPERIAL_UNITS){
          a.u = "ft";
-         return a;
+         // return a;
        }
-      if (USER_DISTANCE === METRIC_UNITS){
+      if (CONFIG["distance"] === METRIC_UNITS){
         a.u = "m"
-        return a;
+        // return a;
        }
        a.v = "--"
       return a;
     }
 
-     if (USER_DISTANCE === IMPERIAL_UNITS){
-       /* FIXME: I'am not sure that it is right */
-       // return (distanceM * 3.2808).toFixed(0)+" ft";
-       a.v = (distanceM * 3.2808).toFixed(0);
-       a.u = "ft";
-       return a;
-     }
-     if (USER_DISTANCE === METRIC_UNITS){
-       // return (distanceM * 1.0).toFixed(0)+" m";
-      a.v = (distanceM * 1.0).toFixed(0);
-      a.u = "m"
-      return a;
-     }
-     // return distanceM+" m";
-     a.v = distanceM;
-     a.u = "m";
+    if (CONFIG["distance"] === IMPERIAL_UNITS){
+     /* FIXME: I'am not sure that it is right */
+     // return (distanceM * 3.2808).toFixed(0)+" ft";
+     a.v = (distanceM * 3.2808).toFixed(0);
+     a.u = "ft";
      return a;
+    }
+    if (CONFIG["distance"] === METRIC_UNITS){
+     // return (distanceM * 1.0).toFixed(0)+" m";
+    a.v = (distanceM * 1.0).toFixed(0);
+    a.u = "m"
+    return a;
+    }
+    // return distanceM+" m";
+    a.v = distanceM;
+    a.u = "m";
+    return a;
   }
   function userDistance (distanceM, canNegative){
     // console.log("USER_DISTANCE = ", USER_DISTANCE);
@@ -288,6 +289,7 @@ var Config = function() {
     USER_SPEED: USER_SPEED,
     USER_DISTANCE: USER_DISTANCE,
     USER_POSITION_FORMAT: USER_POSITION_FORMAT,*/
+    CONFIG: CONFIG,
     change: change,
     userSpeed: userSpeed,
     userSpeedInteger: userSpeedInteger,

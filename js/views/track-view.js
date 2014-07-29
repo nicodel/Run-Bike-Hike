@@ -104,8 +104,9 @@ var TrackView = function() {
       document.querySelector("#map-img").classList.remove("hidden");
     } else {
       console.log("map does not exist");
-      mapToSave = __buildMap2(inTrack);
-      saveMapCallback(mapToSave);
+      var mapToSave = __buildMap2(inTrack, saveMapCallback);
+      // console.log("mapToSave.map", mapToSave.map);
+      // saveMapCallback(mapToSave);
     }
     // __buildSpeedGraph(t);
     // __buildAltitudeGraph(t);
@@ -165,9 +166,11 @@ var TrackView = function() {
     // 1: Altitude
     // 2: Speed
     c.fillStyle = ALT_LINE_COLOR;
-    c.fillText("Altitude ?unit?", xPadding + 50, 10);
+    var q = Config.userSmallDistance(null);
+    c.fillText("Altitude" + " (" + q.u + ")", xPadding + 50, 8);
     c.fillStyle = SP_LINE_COLOR;
-    c.fillText("Speed ?unit?", xPadding + 50, 20);
+    var q = Config.userSpeed(null);
+    c.fillText("Speed" + " (" + q.u + ")", xPadding + 50, 20);
     c.stroke();
 
 
@@ -410,7 +413,7 @@ var TrackView = function() {
   //   c.stroke();
   //   c.closePath();
   // }
-  function __buildMap2(inTrack) {
+  function __buildMap2(inTrack, saveMapCallback) {
     // get the min and max longitude/ latitude
     // and build the path
     var minLat, minLon, maxLat, maxLon;
@@ -513,11 +516,10 @@ var TrackView = function() {
         document.getElementById("map-img").src = imgURL;
         inTrack.map = imgURL;
         // Controller.saveMap(inTrack);
+        saveMapCallback(inTrack);
       }
     }, false);
     xhr.send();
-    console.log('inTrack after load', inTrack);
-    return inTrack;
   }
 /*
   function __buildMap(inTrack) {

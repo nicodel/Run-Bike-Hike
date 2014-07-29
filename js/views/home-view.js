@@ -14,7 +14,7 @@ var HomeView = function() {
     // display accuracy using settings unit
     var a = Config.userSmallDistance(inPosition.coords.accuracy);
     // console.log("accuracy:", a);
-    document.getElementById("home-acc").innerHTML = "&#177;" + a.v;
+    document.getElementById("home-acc").innerHTML = "&#177; " + a.v;
     document.getElementById("acc-unit").innerHTML =  "(" + a.u + ")";
     // checking accuracy and display appropriate GPS status
     if (inPosition.coords.accuracy > 30) {
@@ -45,7 +45,12 @@ var HomeView = function() {
     // empty message area
     document.getElementById('msg').innerHTML = "";
     //display compass
-    __displayCompass(inPosition.coords);
+    // __displayCompass(inPosition.coords);
+    if (inPosition.coords.heading > 0 ) {
+      document.getElementById('home-dir').innerHTML = inPosition.coords.heading;
+    } else {
+      document.getElementById('home-dir').innerHTML = "??";
+    }
   }
 
   function updateSettings(inSettings) {

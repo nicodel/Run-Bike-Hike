@@ -128,7 +128,7 @@ var Controller = function() {
     // if (display_map) {
     //   MapView.updateMap(inPosition)
     // } else {
-    //   HomeView.updateInfos(inPosition, distance)
+      HomeView.updateInfos(inPosition, distance)
     // }
 
     // appending gps point
@@ -146,29 +146,19 @@ var Controller = function() {
   function __positionError(inError) {}
 
   function __getConfigSuccess(inSettings) {
-    // console.log("__getConfigSuccess ", Object.keys(inSettings));
+    console.log("__getConfigSuccess ", Object.keys(inSettings));
     settings = inSettings;
-    __setConfigValues(inSettings);
-    __setConfigView(inSettings);
+    __updateConfigValues(inSettings);
+    // __setConfigView(inSettings);
+    // __setHomeView(inSettings);
     
     if (Config.SCREEN_KEEP_ALIVE) {
-    var lock = window.navigator.requestWakeLock('screen');
-    window.addEventListener('unload', function () {
-      lock.unlock();
-    });
-  };
-  var a = Config.userSmallDistance();
-  document.getElementById("home-acc").innerHTML = "&#177;" + a.v;
-  document.getElementById("acc-unit").innerHTML =  "(" + a.u + ")";
-  var a = Config.userSmallDistance(null);
-  document.getElementById("home-alt").innerHTML = a.v;
-  document.getElementById("alt-unit").innerHTML = "(" + a.u + ")";
-  var a = Config.userDistance(null);
-  document.getElementById("home-dist").innerHTML = a.v;
-  document.getElementById("dist-unit").innerHTML = "(" + a.u + ")";
-  var a = Config.userSpeed();
-  document.getElementById("home-speed").innerHTML = a.v;
-  document.getElementById("speed-unit").innerHTML = "(" + a.u + ")";
+      var lock = window.navigator.requestWakeLock('screen');
+      window.addEventListener('unload', function () {
+        lock.unlock();
+      });
+    };
+
   }
   function __getConfigError(inEvent) { console.log("__getConfigError ", inEvent); }
 
@@ -181,6 +171,7 @@ var Controller = function() {
 
   function __savingSettingsSuccess() {
     console.log("YES !");
+    DB.getConfig(__getConfigSuccess, __getConfigError);
   }
 
   function __savingSettingsError(inError) {
@@ -212,30 +203,72 @@ var Controller = function() {
     settings.position = inSetting;
   }
 
-  function __setConfigView(inSettings) {
-    // console.log("updating the settings DOM elements");
+  // function __setConfigView(inSettings) {
+  //   // console.log("updating the settings DOM elements");
+  //   document.getElementById("screen").checked = inSettings.screen;
+  //   document.getElementById("language").value = inSettings.language;
+  //   document.getElementById("distance").value = inSettings.distance;
+  //   document.getElementById("speed").value = inSettings.speed;
+  //   document.getElementById("position").value = inSettings.position;
+  // }
+  function __updateConfigValues(inSettings) {
+    console.log("setting settings :)", inSettings);
+    for (var i = 0; i < Object.keys(inSettings).length; i++) {
+      var param = Object.keys(inSettings)[i];
+      // console.log("param", param);
+      // console.log("inSettings[param]", inSettings[param]);
+      if (param === "screen") {
+        Config.change("SCREEN_KEEP_ALIVE", inSettings[param]);
+      } else if (param === "language") {
+        // Config.change("")
+      } else if (param === "distance") {
+        Config.change("USER_DISTANCE", inSettings[param]);
+      } else if (param === "speed") {
+        Config.change("USER_SPEED", inSettings[param]);
+      } else if (param === "position") {
+        Config.change("USER_POSITION_FORMAT", inSettings[param]);
+      }
+    };
+    // console.log("USER_DISTANCE", Config.USER_DISTANCE);
+    Config.CONFIG = inSettings;
+    console.log("Config.CONFIG", Config.CONFIG);
+
+    var a = Config.userSmallDistance(null);
+    document.getElementById("home-acc").innerHTML = "&#177; " + a.v;
+    document.getElementById("acc-unit").innerHTML =  "(" + a.u + ")";
+    var a = Config.userSmallDistance(null);
+    document.getElementById("home-alt").innerHTML = a.v;
+    document.getElementById("alt-unit").innerHTML = "(" + a.u + ")";
+    var a = Config.userSmallDistance(null);
+    document.getElementById("home-dist").innerHTML = a.v;
+    document.getElementById("dist-unit").innerHTML = "(" + a.u + ")";
+    var a = Config.userSpeed(null);
+    document.getElementById("home-speed").innerHTML = a.v;
+    document.getElementById("speed-unit").innerHTML = "(" + a.u + ")";
+
+
     document.getElementById("screen").checked = inSettings.screen;
     document.getElementById("language").value = inSettings.language;
     document.getElementById("distance").value = inSettings.distance;
     document.getElementById("speed").value = inSettings.speed;
     document.getElementById("position").value = inSettings.position;
+
   }
-  function __setConfigValues(inSettings) {
-    for (var i = 0; i < inSettings.length; i++) {
-      var param = inSettings[i];
-      if (param.key === "screen") {
-        Config.change("SCREEN_KEEP_ALIVE", param.value);
-      } else if (param.key === "language") {
-        // Config.change("")
-      } else if (param.key === "distance") {
-        Config.change("USER_DISTANCE", param.value);
-      } else if (param.key === "speed") {
-        Config.change("USER_SPEED", param.value);
-      } else if (param.key === "position") {
-        Config.change("USER_POSITION_FORMAT", param.value);
-      }
-    };
-  }
+
+  // function __setHomeView(inSettings) {
+  //   var a = Config.userSmallDistance(null);
+  //   document.getElementById("home-acc").innerHTML = "&#177; " + a.v;
+  //   document.getElementById("acc-unit").innerHTML =  "(" + a.u + ")";
+  //   var a = Config.userSmallDistance(null);
+  //   document.getElementById("home-alt").innerHTML = a.v;
+  //   document.getElementById("alt-unit").innerHTML = "(" + a.u + ")";
+  //   var a = Config.userSmallDistance(null);
+  //   document.getElementById("home-dist").innerHTML = a.v;
+  //   document.getElementById("dist-unit").innerHTML = "(" + a.u + ")";
+  //   var a = Config.userSpeed(null);
+  //   document.getElementById("home-speed").innerHTML = a.v;
+  //   document.getElementById("speed-unit").innerHTML = "(" + a.u + ")";
+  // }
 
   function __addTrackSuccess(inEvent) {
     utils.status.show("Track " + inEvent + " sucessfully saved.");
@@ -265,11 +298,11 @@ var Controller = function() {
     TrackView.display(inTrack, __saveMap);
   }
 
-  function displayTrack(inTrack) {
+/*  function displayTrack(inTrack) {
     // console.log("inTrack display: ", inTrack);
     displayed_track = inTrack;
     TrackView.display(inTrack);
-  }
+  }*/
 
   function deleteTrack() {
     DB.deleteTrack(__deleteTrackSuccess, __deleteTrackError, displayed_track);
@@ -355,7 +388,7 @@ var Controller = function() {
     toggleWatch: toggleWatch,
     stopWatch: stopWatch,
     displayTracks: displayTracks,
-    displayTrack: displayTrack,
+    // displayTrack: displayTrack,
     deleteTrack: deleteTrack,
     savingSettings: savingSettings,
     toogleScreen: toogleScreen,
