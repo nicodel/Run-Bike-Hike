@@ -6,7 +6,11 @@ var InfosView = function() {
   var updateInfos = function(inPosition, inDistance) {
     console.log("showing: ", inDistance);
     // updating distance using Settings choosen unit
-    document.getElementById("infos-dist").innerHTML = Controller.userDistance(inDistance);
+    if (inDistance < 1000) {
+      document.getElementById("infos-dist").innerHTML = Controller.userSmallDistance(inDistance);
+    } else { 
+      document.getElementById("infos-dist").innerHTML = Controller.userDistance(inDistance);
+    };
     // updating speed using Settings choosen unit
     document.getElementById("infos-speed").innerHTML = Controller.userSpeed(inPosition.coords.speed);
     // updating altitude using Settings choosen unit

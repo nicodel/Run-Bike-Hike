@@ -153,6 +153,7 @@ var TrackView = function() {
     // calculate
     var alt_yspace = parseInt(alt_range / 4, 10);
     var sp_yspace = parseInt(sp_range / 4, 10);
+    console.log("speed", sp_range + "-" + sp_yspace);
     var c = __createRectCanvas("graphs-canvas", alt_range, alt_yspace, sp_range, sp_yspace);
 
     var espace = parseInt(data.length / (SCREEN_WIDTH - xPadding - 5), 10);
@@ -573,7 +574,7 @@ var TrackView = function() {
   //   return c;
   // }
 
-  function __createRectCanvas(inElementId, inRange1, inSpace1, inRange2, inSpace2) {
+  function __createRectCanvas(inElementId, inRangeAlt, inSpaceAlt, inRangeSp, inSpaceSp) {
     var graph = document.getElementById(inElementId);
     var c = graph.getContext("2d");
     c.clearRect(0, 0, SCREEN_WIDTH - 5, SCREEN_HEIGHT);
@@ -584,27 +585,27 @@ var TrackView = function() {
     c.font = TEXT_STYLE;
     c.textAlign = "right";
     c.textBaseline = "middle";
-    var j1 = 0;
-    var i1 = 0;
-    var j2 = 0;
-    var i2 = 0;
+    var alt_y = 0;
+    var alt_x = 0;
+    var speed_y = 0;
+    var speed_x = 0;
     for (t=0;t<4;t++) {
+      var alt = Config.userSmallDistance(parseInt(alt_x,10))
+      var speed = Config.userSpeed(parseInt(speed_x,10))
       c.fillStyle = ALT_LINE_COLOR;
-      var a = Config.userSmallDistance(parseInt(i1,10))
-      c.fillText(a.v, xPadding - 10, __getYPixel(j1, inRange1) - 6);
+      c.fillText(alt.v, xPadding - 10, __getYPixel(alt_y, inRangeAlt) - 6);
       c.fillStyle = SP_LINE_COLOR;
-      var a = Config.userSpeed(parseInt(i1,10))
-      c.fillText(a.v, xPadding - 10, __getYPixel(j2, inRange2) + 6);
+      c.fillText(speed.v, xPadding - 10, __getYPixel(speed_y, inRangeSp) + 6);
       c.beginPath();
-      c.moveTo(xPadding, __getYPixel(j1, inRange1));
-      c.lineTo(SCREEN_WIDTH - 5, __getYPixel(j1, inRange1));
+      c.moveTo(xPadding, __getYPixel(alt_y, inRangeAlt));
+      c.lineTo(SCREEN_WIDTH - 5, __getYPixel(alt_y, inRangeAlt));
       c.lineWidth = 0.2;
       c.strokeStyle = "black";
       c.stroke();
-      j1 += inSpace1;
-      i1 += inSpace1;
-      j2 += inSpace2;
-      i2 += inSpace2;
+      alt_y += inSpaceAlt;
+      alt_x += inSpaceAlt;
+      speed_y += inSpaceSp;
+      speed_x += inSpaceSp;
     }
     c.beginPath();
     c.moveTo( xPadding,SCREEN_HEIGHT - yPadding + 15);

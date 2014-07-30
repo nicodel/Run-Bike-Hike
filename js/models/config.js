@@ -54,14 +54,17 @@ var Config = function() {
     // console.log(inKey+":"+inValue);
   }
   function userSpeed(velocityMPS){
-    // console.log("SPEED METRIC:", velocityMPS);
+    console.log("SPEED METRIC:", velocityMPS);
+    console.log("Config.CONFIG['speed']", Config.CONFIG['speed']);
     var a = {};
     if (velocityMPS === null || velocityMPS<0 || isNaN(velocityMPS)) {
       // if (USER_SPEED === IMPERIAL_UNITS) {
       if (Config.CONFIG["speed"] === IMPERIAL_UNITS) {
+        console.log("null - IMPERIAL_UNITS");
         a.u = "mph"
       }
       if (Config.CONFIG["speed"] === METRIC_UNITS){
+        console.log("null - METRIC_UNITS");
         a.u = "km/h";
       }
       a.v = "--"
@@ -71,17 +74,20 @@ var Config = function() {
     if (Config.CONFIG["speed"] === IMPERIAL_UNITS){
       /* FIXME: I'am not sure that it is right */
       // return (velocityMPS * 2.237).toFixed(0)+" MPH";
+      console.log("value - IMPERIAL_UNITS");
        a.v = (velocityMPS * 2.237).toFixed(0);
        a.u = "MPH"
        return a;
     }
     if (Config.CONFIG["speed"] === METRIC_UNITS){
+      console.log("value - METRIC_UNITS");
       // return (velocityMPS * 3.6).toFixed(0)+" km/h";
        a.v = (velocityMPS * 3.6).toFixed(0);
        a.u = "km/h"
        return a;
     }
     // return velocityMPS+ " m/s";
+    console.log("speed nothing identified");
      a.v = velocityMPS;
      a.u = "m/s";
      return a;
@@ -125,7 +131,7 @@ var Config = function() {
      return this.userDegree( Math.abs(degree) ) + (degree>0? "E":"W");
   }
   function userSmallDistance(distanceM, canNegative){
-    console.log('Config.CONFIG["distance"]', Config.CONFIG["distance"]);
+    // console.log('Config.CONFIG["distance"]', Config.CONFIG["distance"]);
     var a = {};
     if ((distanceM === null) || ((distanceM < 0) && (!canNegative))) {
     // if (USER_DISTANCE === IMPERIAL_UNITS){

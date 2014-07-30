@@ -84,3 +84,10 @@ button.big {
   transition: transform 0.4s;
   z-index: 200;
 }
+
+.front {
+  z-index: 10;
+}
+.behind {
+  z-index: -10;
+}

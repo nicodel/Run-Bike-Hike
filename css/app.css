@@ -103,5 +103,11 @@ ul li > label.pack-switch {
   font-size: 2.2rem;
   padding-top: 40%;
   padding-bottom: 20px;
+  margin-left: 2rem;
+  margin-right: 2rem;
   border-bottom: 0.1rem solid #686868;
+}
+
+#message-area {
+  margin-top: 40%;
 }

@@ -37,6 +37,7 @@ var Controller = function() {
 
   function __locationChanged(inPosition){
     console.log("Position found", inPosition);
+    document.getElementById("message").className = "behind";
     if (tracking) {
       // console.log("tracking");
       __addNewPoint(inPosition);

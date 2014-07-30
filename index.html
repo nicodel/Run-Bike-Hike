@@ -127,8 +127,8 @@
             <button id="btn-tracks" class="icon icon-list">Tracks</button>
           </x-appbar>
           <section data-type="home">
-            <x-flipbox>
-              <div>
+<!--             <x-flipbox>
+              <div> -->
               <ul>
 <!--                 <li>
                   <x-flipbox direction="down">
@@ -195,10 +195,10 @@
 
 
 
-                <li>
+                <li id="message" class="front">
                   <div id="message-area" class="align-center">
                     <progress id="spinner"></progress>
-                    <p id="msg" class="bold align-center">Retreiving GPS signal. It may take some time...</p>
+                    <p id="msg" class="text-big align-center">Retreiving GPS signal. It may take some time...</p>
                   </div>
                 </li>
 
@@ -206,11 +206,11 @@
 
 
               </ul>
-              </div>
+<!--               </div>
               <div>
                 <section data-type="map" class ="hidden"></section>
               </div>
-            </x-flipbox>
+            </x-flipbox> -->
           </section>
         </x-layout>
       </x-card>

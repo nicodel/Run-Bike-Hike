@@ -253,6 +253,13 @@ x-layout > [data-type="home"] ul li#button {
 x-layout > [data-type="home"] ul li.bottom {
   height: calc(50% - 7rem);
 }
+x-layout > [data-type="home"] ul li:last-child {
+  position: fixed;
+  /*z-index: 10;*/
+  width: 100%;
+  height: 100%;
+  background: rgba(248, 248, 255, 0.7);
+}
 x-layout > [data-type="home"] ul li:nth-child(odd) {
 /*  border-bottom: solid 1px #1F3A93;
   border-right: solid 1px #1F3A93;*/
