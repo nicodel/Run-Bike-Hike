@@ -186,12 +186,14 @@ x-layout > [data-type="list"] ul {
   width: 100%;
 }
 x-layout > [data-type="list"] ul li {
-  height: 7rem;
+  /*height: 7rem;*/
   border-bottom: solid 0.1rem #1F3A93; /* Jacksons Purple */
-  padding-right: 1rem;
+  /*padding-right: 1rem;
   padding-left: 1rem;
-  padding-top:2rem;
-  padding-bottom: 2rem;
+  padding-top:1rem;
+  padding-bottom: 1rem;*/
+  height: 5.5rem;
+  padding: 1rem;
 }
 x-layout > [data-type="list"] ul li:hover {
   /*background-color: #B0C4DE;*/ /* LightSteelBlue*/
@@ -204,7 +206,7 @@ x-layout > [data-type="list"] ul li:hover {
   border: none;
 }*/
 x-layout > [data-type="list"] ul li p {
-  font-size: 2.5rem;
+  font-size: 2rem;
 }
 x-layout > [data-type="list"] ul li p.new-line {
   padding-top: 2rem;
