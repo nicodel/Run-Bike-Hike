@@ -195,7 +195,8 @@ x-layout > [data-type="list"] ul li {
   height: 5.5rem;
   padding: 1rem;
 }
-x-layout > [data-type="list"] ul li:hover {
+x-layout > [data-type="list"] ul li:hover,
+x-layout > [data-type="list"] ul li:active {
   /*background-color: #B0C4DE;*/ /* LightSteelBlue*/
   background-color: #AFEEEE; /* PaleTurquoise */
 }
