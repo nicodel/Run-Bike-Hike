@@ -23,6 +23,7 @@
       "description": "Required to store both settings and tracks"
     }
   },
+  "orientation": ["portrait"],
   "installs_allowed_from": [
     "*"
   ],
