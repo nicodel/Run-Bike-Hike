@@ -7,17 +7,20 @@ var HomeView = function() {
   }
 
   function updateInfos(inPosition, inDistance){
+
+    document.getElementById("message").className = "behind hidden";
     // hide spinner
-    if (document.getElementById("spinner")) {
-      __hideSpinner();
-    };
+    // if (document.getElementById("spinner")) {
+      // __hideSpinner();
+    // };
+
     // display accuracy using settings unit
     var a = Config.userSmallDistance(inPosition.coords.accuracy.toFixed(0));
     // console.log("accuracy:", a);
     document.getElementById("home-acc").innerHTML = "&#177; " + a.v;
     document.getElementById("acc-unit").innerHTML =  "(" + a.u + ")";
     // checking accuracy and display appropriate GPS status
-    if (inPosition.coords.accuracy > 30) {
+    if (inPosition.coords.accuracy > 25) {
       document.getElementById("home-acc").className = "new-line home-alt align-center text-big text-thinner bad-signal";
       // document.getElementById("acc-unit").className = "bad-signal";
       // document.getElementById("gps-status").setAttribute("src", "img/gps_red.png");

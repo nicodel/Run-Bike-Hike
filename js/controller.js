@@ -36,14 +36,15 @@ var Controller = function() {
   }
 
   function __locationChanged(inPosition){
-    console.log("Position found", inPosition);
-    document.getElementById("message").className = "behind";
-    if (tracking) {
-      // console.log("tracking");
-      __addNewPoint(inPosition);
-    } else {
-      // console.log("not tracking");
-      HomeView.updateInfos(inPosition, null);
+    // console.log("Position found", inPosition);
+    if (inPosition.coords.accuracy < 50) {
+      if (tracking) {
+        // console.log("tracking");
+        __addNewPoint(inPosition);
+      } else {
+        // console.log("not tracking");
+        HomeView.updateInfos(inPosition, null);
+      };
     };
   }
   function __locationError(inError){
@@ -152,7 +153,7 @@ var Controller = function() {
     __updateConfigValues(inSettings);
     // __setConfigView(inSettings);
     // __setHomeView(inSettings);
-    
+
     if (Config.SCREEN_KEEP_ALIVE) {
       var lock = window.navigator.requestWakeLock('screen');
       window.addEventListener('unload', function () {
