@@ -62,7 +62,7 @@ Mojotracker.prototype.createGPXContent = function(controller, result, waypoints,
       data += " xmlns:atom=\"http://www.w3.org/2005/Atom\">\n";
       data += "<Document><name>"+safeDisplayName+"</name><open>1</open><Style id=\"path0Style\"><LineStyle><color>ffff4040</color><width>6</width></LineStyle></Style>\n";
       data += "  <StyleMap id=\"waypoint\"><IconStyle><scale>1.2</scale><Icon><href>http://maps.google.com/mapfiles/kml/pal4/icon61.png</href></Icon></IconStyle></StyleMap>\n";
-      
+
       Mojo.Log.error("waypoints...");
       data += "<Folder><name>Waypoints</name><visibility>1</visibility><open>1</open>\n";
       for (var i = 0; i < waypoints.length; i++) {
@@ -79,13 +79,13 @@ Mojotracker.prototype.createGPXContent = function(controller, result, waypoints,
         }
       }
       data += "</Folder>\n";
-      
+
       data += "<Folder><name>Tracks</name><Placemark><name>"+name+"</name><visibility>1</visibility><styleUrl>#path0Style</styleUrl><MultiGeometry><LineString><coordinates>\n";
-      
-      Mojo.Log.error("track...");     
+
+      Mojo.Log.error("track...");
       setTimeout(this.appendContent.bind(this), 10,
              type,controller, name, data, result, 0,
-             callback, 0);      
+             callback, 0);
 
     }else{
       // gpx
@@ -95,16 +95,16 @@ Mojotracker.prototype.createGPXContent = function(controller, result, waypoints,
       data += "xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'\n";
       data += "xmlns='http://www.topografix.com/GPX/1/1'\n";
       data += "xsi:schemaLocation='http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd'>\n";
-      
+
       Mojo.Log.error("waypoints...");
       for (var i = 0; i < waypoints.length; i++) {
         try{
           var row = waypoints.item(i);
-            
+
           data += "<wpt lat=\""+row.lat+"\" lon=\""+row.lon+"\">\n";
           if ((row.alt) && (row.alt != "null"))
             data += "\t<ele>"+row.alt+"</ele>\n";
-          
+
           description = row.description.replace(/&/g,"&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
           data += "\t<name>"+ row.title.replace(/&/g,"&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;") +"</name>\n";
           data += "\t<cmt>"+description+"</cmt>\n";
@@ -116,10 +116,10 @@ Mojotracker.prototype.createGPXContent = function(controller, result, waypoints,
           Mojo.Log.error("Error 1.2: "+e);
         }
       }
-      
+
       Mojo.Log.error("track...");
       data += "<trk>\n<name>" + safeDisplayName + "</name>\n<trkseg>\n";
-      
+
       setTimeout(this.appendContent.bind(this), 10,
              type, controller, name, data, result, 0,
              callback, 0);
@@ -167,7 +167,7 @@ Mojotracker.prototype.appendContent = function(type, controller, name, data, res
     }
     counter ++;
   }
-  
+
   Mojo.Log.error(type+" points... ("+i+"/"+result.rows.length+")");
   var suffix = ".gpx";
   if (i == result.rows.length){
@@ -180,7 +180,7 @@ Mojotracker.prototype.appendContent = function(type, controller, name, data, res
       suffix = ".gpx";
     }
     callback.progress(1,1, $L("xml data built..."), name);
-    
+
     Mojo.Log.error("content is done... ("+data.length+")");
     setTimeout(this.writeGPXFile.bind(this), 100,
            controller, name, data,

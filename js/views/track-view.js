@@ -590,11 +590,13 @@ var TrackView = function() {
     var speed_y = 0;
     var speed_x = 0;
     for (t=0;t<4;t++) {
-      var alt = Config.userSmallDistance(parseInt(alt_x,10))
-      var speed = Config.userSpeed(parseInt(speed_x,10))
+      var alt = Config.userSmallDistance(parseInt(alt_x,10));
+      // var speed = Config.userSpeed(parseInt(speed_x,10));
+      var speed = Config.userSpeed(speed_x);
       c.fillStyle = ALT_LINE_COLOR;
       c.fillText(alt.v, xPadding - 10, __getYPixel(alt_y, inRangeAlt) - 6);
       c.fillStyle = SP_LINE_COLOR;
+      console.log("1-speed.v", speed.v);
       c.fillText(speed.v, xPadding - 10, __getYPixel(speed_y, inRangeSp) + 6);
       c.beginPath();
       c.moveTo(xPadding, __getYPixel(alt_y, inRangeAlt));
@@ -606,6 +608,7 @@ var TrackView = function() {
       alt_x += inSpaceAlt;
       speed_y += inSpaceSp;
       speed_x += inSpaceSp;
+      console.log("2-speed.v", speed.v);
     }
     c.beginPath();
     c.moveTo( xPadding,SCREEN_HEIGHT - yPadding + 15);

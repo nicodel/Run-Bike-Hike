@@ -14,13 +14,14 @@
   },
   "permissions": {
     "device-storage:sdcard": {
-      "access": "createonly",
-      "description": "Required to store gpx files to sdcard" },
+      "access": "readwrite",
+      "description": "Required to save exported tracks to gpx files"
+    },
     "geolocation": {
       "description": "Required to geolocate the user's device"
     },
     "storage": {
-      "description": "Required to store both settings and tracks"
+      "description": "Required to store both settings and tracks using Indexed DB"
     }
   },
   "orientation": ["portrait"],

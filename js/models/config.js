@@ -54,17 +54,17 @@ var Config = function() {
     // console.log(inKey+":"+inValue);
   }
   function userSpeed(velocityMPS){
-    console.log("SPEED METRIC:", velocityMPS);
-    console.log("Config.CONFIG['speed']", Config.CONFIG['speed']);
+    // console.log("SPEED METRIC:", velocityMPS);
+    // console.log("Config.CONFIG['speed']", Config.CONFIG['speed']);
     var a = {};
     if (velocityMPS === null || velocityMPS<0 || isNaN(velocityMPS)) {
       // if (USER_SPEED === IMPERIAL_UNITS) {
       if (Config.CONFIG["speed"] === IMPERIAL_UNITS) {
-        console.log("null - IMPERIAL_UNITS");
+        // console.log("null - IMPERIAL_UNITS");
         a.u = "mph"
       }
       if (Config.CONFIG["speed"] === METRIC_UNITS){
-        console.log("null - METRIC_UNITS");
+        // console.log("null - METRIC_UNITS");
         a.u = "km/h";
       }
       a.v = "--"
@@ -74,20 +74,20 @@ var Config = function() {
     if (Config.CONFIG["speed"] === IMPERIAL_UNITS){
       /* FIXME: I'am not sure that it is right */
       // return (velocityMPS * 2.237).toFixed(0)+" MPH";
-      console.log("value - IMPERIAL_UNITS");
+      // console.log("value - IMPERIAL_UNITS");
        a.v = (velocityMPS * 2.237).toFixed(0);
        a.u = "MPH"
        return a;
     }
     if (Config.CONFIG["speed"] === METRIC_UNITS){
-      console.log("value - METRIC_UNITS");
+      // console.log("value - METRIC_UNITS");
       // return (velocityMPS * 3.6).toFixed(0)+" km/h";
        a.v = (velocityMPS * 3.6).toFixed(0);
        a.u = "km/h"
        return a;
     }
     // return velocityMPS+ " m/s";
-    console.log("speed nothing identified");
+    // console.log("speed nothing identified");
      a.v = velocityMPS;
      a.u = "m/s";
      return a;
@@ -113,7 +113,7 @@ var Config = function() {
      return Math.floor(degree) + "°" + (minutes<10?"0":"") + Math.floor(minutes) + "'" + (seconds<10?"0":"") + seconds.toFixed(2) + "\"";
   }
   function userLatitude(degree){
-    console.log("degree", degree);
+    // console.log("degree", degree);
      if (Config.CONFIG["position"] === DEGREES_POS_FORMAT)
        return degree;
 
