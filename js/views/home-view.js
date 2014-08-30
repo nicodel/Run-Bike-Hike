@@ -14,6 +14,15 @@ var HomeView = function() {
       // __hideSpinner();
     // };
 
+    // display latitude using Settings format
+    document.getElementById("home-lat").innerHTML = Config.userLatitude(inPosition.coords.latitude);
+    // display longitude using Settings format
+    document.getElementById("home-lon").innerHTML = Config.userLongitude(inPosition.coords.longitude);
+    // display altitude using Settings format
+    var a = Config.userSmallDistance(inPosition.coords.altitude);
+    document.getElementById("home-alt").innerHTML = a.v;
+    document.getElementById("alt-unit").innerHTML = "(" + a.u + ")";
+
     // display accuracy using settings unit
     var a = Config.userSmallDistance(inPosition.coords.accuracy.toFixed(0));
     // console.log("accuracy:", a);
@@ -29,14 +38,6 @@ var HomeView = function() {
       // document.getElementById("acc-unit").className = "";
       // document.getElementById("gps-status").setAttribute("src", "img/gps_green.png");
     }
-    // display latitude using Settings format
-    document.getElementById("home-lat").innerHTML = Config.userLatitude(inPosition.coords.latitude);
-    // display longitude using Settings format
-    document.getElementById("home-lon").innerHTML = Config.userLongitude(inPosition.coords.longitude);
-    // display altitude using Settings format
-    var a = Config.userSmallDistance(inPosition.coords.altitude);
-    document.getElementById("home-alt").innerHTML = a.v;
-    document.getElementById("alt-unit").innerHTML = "(" + a.u + ")";
     // updating distance using Settings choosen unit
     var a = Config.userDistance(inDistance);
     document.getElementById("home-dist").innerHTML = a.v;

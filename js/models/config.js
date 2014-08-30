@@ -113,12 +113,12 @@ var Config = function() {
      return Math.floor(degree) + "°" + (minutes<10?"0":"") + Math.floor(minutes) + "'" + (seconds<10?"0":"") + seconds.toFixed(2) + "\"";
   }
   function userLatitude(degree){
-    // console.log("degree", degree);
+    console.log("degree", degree);
      if (Config.CONFIG["position"] === DEGREES_POS_FORMAT)
        return degree;
 
      if (Config.CONFIG["position"] === GEOCACHING_POS_FORMAT)
-      return (degree>0? "N":"S") +" "+ this.userDegreeLikeGeocaching( Math.abs(degree) );
+      return (degree>0? "N":"S") +" "+ __userDegreeLikeGeocaching( Math.abs(degree) );
 
      return this.userDegree( Math.abs(degree) ) + (degree>0? "N":"S");
   }
@@ -127,9 +127,13 @@ var Config = function() {
        return degree;
 
      if (Config.CONFIG["position"] === GEOCACHING_POS_FORMAT)
-      return (degree>0? "E":"W") +" "+ this.userDegreeLikeGeocaching( Math.abs(degree) );
+      return (degree>0? "E":"W") +" "+ __userDegreeLikeGeocaching( Math.abs(degree) );
 
      return this.userDegree( Math.abs(degree) ) + (degree>0? "E":"W");
+  }
+  function __userDegreeLikeGeocaching (degree){
+    minutes = (degree - Math.floor(degree)) * 60;
+    return Math.floor(degree) + "°" + (minutes<10?"0":"") + minutes.toFixed(3) + "'"
   }
   function userSmallDistance(distanceM, canNegative){
     // console.log('Config.CONFIG["distance"]', Config.CONFIG["distance"]);
