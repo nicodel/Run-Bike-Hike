@@ -122,6 +122,15 @@ document.querySelector("#btn-confirm-rename").addEventListener("click", function
   var new_name = document.querySelector("#input-rename");
   Controller.renameTrack(new_name.value);
 });
+/* Rename Clear button */
+document.querySelector("#btn-clear-rename").addEventListener("click", function() {
+  document.querySelector("#input-rename").value = "";
+});
+/* Don't take focus from the input field */
+document.querySelector("#btn-clear-rename").addEventListener('mousedown', function(e) {
+  e.preventDefault();
+});
+
 /* Track View Share button */
 document.querySelector("#btn-share").addEventListener("click", function() {
   console.Log("exporting");

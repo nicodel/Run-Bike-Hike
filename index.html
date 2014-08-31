@@ -359,8 +359,11 @@
             <h1 data-l10n-id="rename-track">Rename a track</h1>
             <p>
               <span data-l10n-id="enter-new-track-name">Enter below the new track name</span>
-            </p>
-            <input type="text" placeholder="" id="input-rename">
+	    </p>
+	    <p>
+	      <input type="text" placeholder="" id="input-rename">
+	      <button type="reset" data-l10n-id="clear" id="btn-clear-rename">Clear</button>
+	    </p>
           </section>
           <menu>
             <button id="btn-cancel-rename" class="cancel" data-l10n-id="cancel">Cancel</button>
@@ -431,7 +434,7 @@
     <script type="text/javascript">
       document.addEventListener('DOMComponentsLoaded', function(){
         var deck = document.getElementById("views");
-        deck.showCard(1);
+        deck.showCard(6);
       });
     </script>
 

@@ -71,21 +71,29 @@ form p input + button[type="reset"],
 form p textarea + button[type="reset"] {
   position: absolute;
   top: 0;
-  right: -0.3rem;
-  width: 4rem;
+  right: 1.5rem;
+  width: 3rem;
   height: 4rem;
   padding: 0;
   border: none;
   font-size: 0;
   opacity: 0;
   pointer-events: none;
-  background: url(images/input_areas/clear.png) no-repeat 50% 50% / 2.4rem auto;
+  background: url(images/clear.png) no-repeat 50% 50% / auto auto;
 }
 
 /* To avoid colission with BB butons */
 li input + button[type="reset"]:after,
 li textarea + button[type="reset"]:after {
   background: none;
+}
+
+form p input + button[type="reset"],
+form p textarea + button[type="reset"],
+form p input + button.reset,
+form p textarea + button.reset {
+  top: 1rem;
+  margin: 0px;
 }
 
 textarea {
