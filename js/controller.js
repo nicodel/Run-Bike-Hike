@@ -150,6 +150,7 @@ var Controller = function() {
   function __getConfigSuccess(inSettings) {
     console.log("__getConfigSuccess ", Object.keys(inSettings));
     settings = inSettings;
+    document.webL10n.setLanguage(inSettings.language);
     __updateConfigValues(inSettings);
     // __setConfigView(inSettings);
     // __setHomeView(inSettings);

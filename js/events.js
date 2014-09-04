@@ -62,7 +62,7 @@ document.querySelector("#language").onchange = function() {
   var id = this.selectedIndex;
   Controller.savingSettings("language", dom[id].value);
   Controller.changeLanguage(dom[id].value);
-  document.webL10n.setLanguage("fr");
+  document.webL10n.setLanguage(dom[id].value);
 
 
 
