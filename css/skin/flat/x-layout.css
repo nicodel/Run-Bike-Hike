@@ -257,7 +257,8 @@ x-layout > [data-type="home"] ul li#button {
 x-layout > [data-type="home"] ul li.bottom {
   height: calc(50% - 7rem);
 }
-x-layout > [data-type="home"] ul li:last-child {
+x-layout > [data-type="home"] ul li:last-child,
+x-layout > [data-type="list"] ul li:first-child {
   position: fixed;
   /*z-index: 10;*/
   width: 100%;

@@ -3,12 +3,15 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-    <title data-l10n-id="title">Bike Run Hike</title>
+    <title data-l10n-id="title">Run Bike Hike</title>
     <link rel="shortcut icon" sizes="128x128" href="img/icons/icon128.png" type="image/png" />
 
     <meta name="mobile-web-app-capable" content="yes"/>
     <meta name="apple-mobile-web-app-capable" content="yes"/>
     <link rel="apple-touch-icon" href="img/icons/128.png"/>
+    <!-- Localization -->
+    <link rel="prefetch" type="application/l10n" href="locales/locales.ini" />
+    <script type="text/javascript" src="lib/webL10n/l10n.js"></script>
 
     <!--······························ Reset ································-->
     <link rel="stylesheet" type="text/css" href="css/reset.css"/>
@@ -60,7 +63,7 @@
         <x-layout>
           <x-appbar>
             <h1 data-l10n-id="settings" id="settings-tittle">Settings</h1>
-            <button id="btn-settings-back" class="icon icon-forward">Back</button>
+            <button data-l10n-id="back" id="btn-settings-back" class="icon icon-forward">Back</button>
           </x-appbar>
           <section data-type="settings">
             <ul>
@@ -73,7 +76,7 @@
               <li>
                 <p data-l10n-id="language">Language</p>
                 <!-- <div class="styled-select" > -->
-                <select id="language" disabled>
+                <select id="language">
                   <option value="en" data-l10n-id="english">English</option>
                   <option value="es" data-l10n-id="spanish">Español</option>
                   <option value="fr" data-l10n-id="french">Français</option>
@@ -81,7 +84,7 @@
                 <!-- </div> -->
               </li>
               <li>
-                <p data-l10n-id="distance-unit">Unit</p>
+                <p data-l10n-id="distance-unit">Distance unit</p>
                 <!-- <div class="styled-select"> -->
                   <select id="distance">
                     <option value="0" data-l10n-id="metric">Metric</option>
@@ -118,13 +121,13 @@
 
 
       <!-- Card 1 :  Home View -->
-      <x-card>
+      <x-card
         <x-layout>
           <x-appbar>
             <button id="btn-settings" class="icon icon-settings">Settings</button>
             <h1>Run, Bike, Hike...</h1>
-            <button id="install"class="icon">Install me</button>
-            <button id="btn-tracks" class="icon icon-list">Tracks</button>
+            <button data-l10n-id="install" id="install"class="icon">Install</button>
+            <button data-l10n-id="tracks" id="btn-tracks" class="icon icon-list">Tracks</button>
           </x-appbar>
           <section data-type="home">
 <!--             <x-flipbox>
@@ -142,7 +145,7 @@
                 </x-flipbox>
                 </li> -->
                 <li>
-                  <div data-l10n-id="elapsed-time" class="home-title text-big text-thin">Time</div>
+                  <div data-l10n-id="time" class="home-title text-big text-thin">Time</div>
                   <div id="home-chrono" class="home-value align-center text-huger text-thin new-line">0:00:00</div>
 
 <!--                   <a data-l10n-id="btn-start" id="btn-start" href="#">
@@ -198,7 +201,7 @@
                 <li id="message" class="front">
                   <div id="message-area" class="align-center">
                     <progress id="spinner"></progress>
-                    <p id="msg" class="text-big align-center">Retreiving GPS signal. It may take some time...</p>
+                    <p data-l10n-id="retreiving" id="msg" class="text-big align-center">Retreiving GPS signal. It may take some time...</p>
                   </div>
                 </li>
 
@@ -234,7 +237,7 @@
       <!-- Card 3 :  Tracks View -->
       <x-card>
         <x-appbar>
-          <button id="btn-tracks-back" class="icon icon-back">Back</button>
+          <button data-l10n-id="back" id="btn-tracks-back" class="icon icon-back">Back</button>
           <h1 data-l10n-id="recorded-tracks">Recorded tracks</h1>
         </x-appbar>
         <x-layout>
@@ -261,7 +264,7 @@
       <x-card>
         <x-appbar>
           <button id="btn-track-back" class="icon icon-back">Back</button>
-          <h1 data-l10n-id="track" id="tr-name"></h1>
+          <h1 id="tr-name"></h1>
           <button data-l10n-id="delete" class="icon icon-delete" id="btn-delete">Delete</button>
           <button data-l10n-id="share" class="icon icon-share" id="btn-share">Share</button>
           <button data-l10n-id="rename" class="icon icon-edit" id="btn-rename">Rename</button>
@@ -315,7 +318,7 @@
                 <!-- <div data-l10n-id="map" id="trk-dt-map">Map</div> -->
                 <div id="spinner-box" class="align-center">
                   <progress id="track-spinner"></progress>
-                  <p data-l10-id="loading-map" id="map-text">Loading map ...</p>
+                  <p data-l10-id="loading-map" id="map-text">Loading map...</p>
                 </div>
                 <img src="" id="map-img" class="hidden" />
               </li>
@@ -384,7 +387,7 @@
             <select id="select-share">
               <option value="email" data-l10n-id="email">Email</option>
               <option value="twitter" data-l10n-id="twitter">Twitter</option>
-              <option value="local" data-l10n-id="local-storage">Local storage</option>
+              <option value="local" data-l10n-id="on-device">On device</option>
             </select>
             <!-- </div> -->
             <label class="pack-checkbox">
@@ -409,10 +412,10 @@
 
   </body>
     <!-- Localization -->
-    <script type="text/javascript" src="test/data.js"></script>
-    <!-- <link rel="prefetch" type="application/l10n" href="locales/data.ini" />
-    <script type="text/javascript" src="lib/webL10n/l10n.js"></script> -->
+    <link rel="prefetch" type="application/l10n" href="locales/locales.ini" />
+    <script type="text/javascript" src="lib/webL10n/l10n.js"></script>
     <!-- <script type="text/javascript" src="lib/FileSaver/FileSaver.js"></script> -->
+    <script type="text/javascript" src="test/data.js"></script>
     <script type="text/javascript" src="lib/brick/brick-1.0.1.byob.min.js"></script>
     <script type="text/javascript" src="lib/OSM/OpenLayers.js"></script>
     <script type="text/javascript" src="js/base.js"></script>
