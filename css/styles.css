@@ -91,3 +91,6 @@ button.big {
 .behind {
   z-index: -10;
 }
+.top40 {
+  margin-top: 40%;
+}

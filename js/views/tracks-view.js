@@ -25,8 +25,9 @@ var TracksView = function() {
       tracks = inTracks;
       for (var i = tracks.length - 1; i >= 0; i--) {
         __buildList(tracks[i], displayTrackCallback);
-
+        //console.log("buildList i ", i);
       }
+      document.getElementById("list-spinner").className = "behind hidden";
     }
 
     /*
@@ -54,6 +55,12 @@ var TracksView = function() {
   function reset() {
     if (document.getElementById("tracks-list").hasChildNodes()) {
       __remove_childs("tracks-list");
+      var li = document.createElement("li");
+      li.className = "ontop";
+      li.id = "list-spinner"
+      var div = '<div class="align-center top40"><progress id="spinner"></progress></div>';
+      li.innerHTML = div;
+      document.getElementById("tracks-list").appendChild(li);
     };
   }
 
