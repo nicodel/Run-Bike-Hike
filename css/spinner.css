@@ -1,0 +1,27 @@
+/* Spinner */
+progress:not([value]) {
+  background: url(../img/spinner/default.png) no-repeat center center / 100% auto;
+  animation: 0.9s rotate infinite steps(30);
+  width: 2.9rem;
+  height: 2.9rem;
+  border: none;
+  display: inline-block;
+  vertical-align: middle;
+}
+progress:not([value])::-moz-progress-bar {
+ background: none;
+}
+progress:not([value]).hidden {
+  display: none;
+}
+
+/* Animations */
+@keyframes rotate {
+  from { transform: rotate(1deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes move {
+  from { background-position: 0 0; }
+  to { background-position: 1rem 0; }
+}
