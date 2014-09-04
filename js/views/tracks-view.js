@@ -27,8 +27,8 @@ var TracksView = function() {
         __buildList(tracks[i], displayTrackCallback);
         //console.log("buildList i ", i);
       }
-      document.getElementById("list-spinner").className = "behind hidden";
     }
+    document.getElementById("list-spinner").className = "behind hidden";
 
     /*
      * TESTING !!!
