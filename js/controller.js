@@ -315,9 +315,15 @@ var Controller = function() {
   function __deleteTrackSuccess() {
     TracksView.reset();
     displayTracks();
+    var name = displayed_track.name;
+    utils.status.show(_("track-delete-success", {name}));
+
   }
 
-  function __deleteTrackError() {}
+  function __deleteTrackError() {
+    var name = displayed_track.name;
+    utils.status.show(_("track-delete-failure", {name}));
+  }
 
   function __saveMap(inTrack) {
     console.log("saving inTrack in Controller", inTrack);
@@ -341,8 +347,12 @@ var Controller = function() {
   function __updateTrackSuccess() {
     TrackView.updateName(displayed_track.name);
     document.getElementById("views").showCard(4);
+    var name = displayed_track.name;
+    utils.status.show(_("track-rename-success", {name}));
   }
-  function __updateTrackError() {}
+  function __updateTrackError() {
+    utils.status.show(_("track-rename-failure"));
+  }
 
   function shareTrack(inFile, inSummary, inShare) {
     if (inFile || inSummary) {
