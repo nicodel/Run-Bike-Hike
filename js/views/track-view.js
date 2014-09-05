@@ -169,10 +169,10 @@ var TrackView = function() {
     // 2: Speed
     c.fillStyle = ALT_LINE_COLOR;
     var q = Config.userSmallDistance(null);
-    c.fillText("Altitude" + " (" + q.u + ")", xPadding + 50, 8);
+    c.fillText(_("altitude") + " (" + q.u + ")", xPadding + 50, 8);
     c.fillStyle = SP_LINE_COLOR;
     var q = Config.userSpeed(null);
-    c.fillText("Speed" + " (" + q.u + ")", xPadding + 50, 20);
+    c.fillText(_("speed") + " (" + q.u + ")", xPadding + 50, 20);
     c.stroke();
 
     // Write X Axis text and lines

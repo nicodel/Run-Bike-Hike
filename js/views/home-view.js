@@ -73,7 +73,7 @@ var HomeView = function() {
     document.getElementById("home-alt").innerHTML = "??";
     document.getElementById("home-dist").innerHTML = "??";
     document.getElementById("home-speed").innerHTML = "??";
-    document.getElementById('msg').innerHTML = "Error: " + inError.message;
+    document.getElementById('msg').innerHTML = _("error-positon", {Error}); // "Error: " + inError.message;
     // hide spinner
     if (document.getElementById("spinner")) {
       __hideSpinner();

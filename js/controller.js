@@ -70,7 +70,7 @@ var Controller = function() {
       nb_point = 0;
       // document.querySelector("#btn-start").innerHTML = "Stop";
       // document.querySelector("#btn-start").className = "align-right danger big alternate";
-      document.getElementById("btn-start-stop").innerHTML = "Stop";
+      document.getElementById("btn-start-stop").innerHTML = _("stop");
       // document.getElementById("btn-start-stop").style.backgroundColor = "#e51e1e";
     };
   }
@@ -87,15 +87,15 @@ var Controller = function() {
     // if no gps point were retreive we don't save the track
     if (track.data.length === 0) {
       // we notify that we do nothing (cause that's good)
-      console.log("Track empty. Not saving");
-      utils.status.show("Track empty. Not saving");
+      // console.log("Track empty. Not saving");
+      utils.status.show(_("track-empty-not-saving")); //"Track empty. Not saving");
     } else {
       // Save to DB
       DB.addTrack(__addTrackSuccess, __addTrackError, track);
     };
     // document.querySelector("#btn-start").innerHTML = "Start";
     // document.querySelector("#btn-start").className = "align-right recommend big alternate";
-    document.getElementById("btn-start-stop").innerHTML = "Start";
+    document.getElementById("btn-start-stop").innerHTML = _("start");
     // document.getElementById("btn-start-stop").style.backgroundColor = "#1E824C";
   }
 
@@ -148,7 +148,7 @@ var Controller = function() {
   function __positionError(inError) {}
 
   function __getConfigSuccess(inSettings) {
-    console.log("__getConfigSuccess ", Object.keys(inSettings));
+    //console.log("__getConfigSuccess ", Object.keys(inSettings));
     settings = inSettings;
     document.webL10n.setLanguage(inSettings.language);
     __updateConfigValues(inSettings);
@@ -167,8 +167,8 @@ var Controller = function() {
 
   function savingSettings(inKey, inValue) {
     settings[inKey] = inValue;
-    console.log("saving:", inKey + " " + inValue);
-    console.log("now settings:", settings);
+    //console.log("saving:", inKey + " " + inValue);
+    //console.log("now settings:", settings);
     DB.updateConfig(__savingSettingsSuccess, __savingSettingsError, inKey, inValue);
   }
 
@@ -215,7 +215,7 @@ var Controller = function() {
   //   document.getElementById("position").value = inSettings.position;
   // }
   function __updateConfigValues(inSettings) {
-    console.log("setting settings :)", inSettings);
+    //console.log("setting settings :)", inSettings);
     for (var i = 0; i < Object.keys(inSettings).length; i++) {
       var param = Object.keys(inSettings)[i];
       // console.log("param", param);
@@ -274,7 +274,7 @@ var Controller = function() {
   // }
 
   function __addTrackSuccess(inEvent) {
-    utils.status.show("Track " + inEvent + " sucessfully saved.");
+    utils.status.show(_("track-saved", {inEvent})); //"Track " + inEvent + " sucessfully saved.");
   }
 
   function __addTrackError(inEvent) {

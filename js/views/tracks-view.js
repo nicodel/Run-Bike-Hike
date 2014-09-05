@@ -67,7 +67,7 @@ var TracksView = function() {
   function __showEmpty() {
     var el = document.createElement("p");
     el.className = "empty-tracks";
-    el.innerHTML = "Empty tracks list.";
+    el.innerHTML = _("empty-list"); // "Empty tracks list.";
     document.getElementById("tracks-list").appendChild(el);
   }
 

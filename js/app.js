@@ -1,6 +1,7 @@
 "use strict;"
 var RunBikeHike = function() {
-	Controller.init();
+  var _ = document.webL10n.get;
+  Controller.init();
 
   if (typeof String.prototype.startsWith != 'function') {
     String.prototype.startsWith = function (str){

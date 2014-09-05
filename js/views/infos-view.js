@@ -1,3 +1,4 @@
+"use strict"
 var InfosView = function() {
 /*define(["controller",
         "models/config"
