@@ -89,7 +89,9 @@ var Share = function() {
     }
   };
 
-  function toEmail() {}
+  function toEmail(inTrack) {
+    
+  }
 
   function toTwitter() {}
 

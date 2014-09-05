@@ -315,14 +315,12 @@ var Controller = function() {
   function __deleteTrackSuccess() {
     TracksView.reset();
     displayTracks();
-    var name = displayed_track.name;
-    utils.status.show(_("track-delete-success", {name}));
+    utils.status.show(_("track-delete-success", {name:displayed_track.name}));
 
   }
 
   function __deleteTrackError() {
-    var name = displayed_track.name;
-    utils.status.show(_("track-delete-failure", {name}));
+    utils.status.show(_("track-delete-failure", {name:displayed_track.name}));
   }
 
   function __saveMap(inTrack) {
@@ -347,8 +345,7 @@ var Controller = function() {
   function __updateTrackSuccess() {
     TrackView.updateName(displayed_track.name);
     document.getElementById("views").showCard(4);
-    var name = displayed_track.name;
-    utils.status.show(_("track-rename-success", {name}));
+    utils.status.show(_("track-rename-success", {name:displayed_track.name}));
   }
   function __updateTrackError() {
     utils.status.show(_("track-rename-failure"));
@@ -367,6 +364,7 @@ var Controller = function() {
     };
     if (inShare === "email") {
       console.log("sharing on email");
+      Share.toEmail(displayed_track);
     } else if (inShare === "twitter") {
       console.log("sharing on twitter");
     } else if (inShare === "local") {
