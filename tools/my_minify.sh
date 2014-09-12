@@ -1,4 +1,5 @@
 #!/bin/bash
+
 # Web app building script
 
 # Identify JS files from inside index.html
@@ -9,7 +10,7 @@ cat ../index.html |grep 'text/javascript'
 # using uglifyjs
 # sudo npm install -g uglifyjs
 #uglifyjs ../js/controller.js -mc -o controller_mc.js
-
+#node my_minify.js
 
 # Concatenate CSS files
 

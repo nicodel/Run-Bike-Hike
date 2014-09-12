@@ -191,8 +191,8 @@ document.querySelector("#btn-confirm-share").addEventListener("click", function(
   };
   var share = document.querySelector("#select-share").value;
   console.log("ready to share", share);
-  document.getElementById("views").showCard(4);
-  Controller.shareTrack(file, summary, share);
+  // document.getElementById("views").showCard(4);
+  // Controller.shareTrack(file, summary, share);
 });
 
 /*----------------- Track Delete Confirmation -----------------*/

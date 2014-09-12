@@ -1,7 +1,17 @@
 "use strict;"
 var RunBikeHike = function() {
-  var _ = document.webL10n.get;
-  Controller.init();
+
+  document.addEventListener('DOMComponentsLoaded', function(){
+    var deck = document.getElementById("views");
+    deck.showCard(1);
+
+    // var _ = document.webL10n.get;
+    Controller.init()
+  });
+
+
+  // var _ = document.webL10n.get;
+  // Controller.init();
  
   if (typeof String.prototype.startsWith != 'function') {
     String.prototype.startsWith = function (str){
