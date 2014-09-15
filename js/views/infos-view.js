@@ -1,3 +1,4 @@
+"use strict"
 var InfosView = function() {
 /*define(["controller",
         "models/config"
@@ -6,7 +7,11 @@ var InfosView = function() {
   var updateInfos = function(inPosition, inDistance) {
     console.log("showing: ", inDistance);
     // updating distance using Settings choosen unit
-    document.getElementById("infos-dist").innerHTML = Controller.userDistance(inDistance);
+    if (inDistance < 1000) {
+      document.getElementById("infos-dist").innerHTML = Controller.userSmallDistance(inDistance);
+    } else { 
+      document.getElementById("infos-dist").innerHTML = Controller.userDistance(inDistance);
+    };
     // updating speed using Settings choosen unit
     document.getElementById("infos-speed").innerHTML = Controller.userSpeed(inPosition.coords.speed);
     // updating altitude using Settings choosen unit
@@ -24,7 +29,7 @@ var InfosView = function() {
   }
 
   var __displayCompass = function(event) {
-    
+
     compass = document.getElementById("infos-compass");
     //~ console.log("heading:", event.heading);
     if (event.heading > 0 ){

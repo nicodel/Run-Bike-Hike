@@ -1,11 +1,35 @@
 button.small {
 	max-width: 25%;
 }
+button.big {
+  font-size: 3rem;
+}
+.text-smaller {
+  font-size: 0.9rem;
+}
 .text-small {
   font-size: 1.5rem;
 }
 .text-big {
-  font-size: normal;
+  font-size: 2rem;
+}
+.text-bigger {
+  font-size: 3rem;
+}
+.text-biggger {
+  font-size: 4rem;
+}
+.text-huge {
+  font-size: 5rem;
+}
+.text-huger {
+  font-size: 6rem;
+}
+.text-thin {
+  font-weight: 300;
+}
+.text-thinner {
+  font-weight: 100;
 }
 .align-left {
   float: left;
@@ -32,20 +56,23 @@ button.small {
 }
 
 .clipped {
-  max-width: 80%; /* for Peak screen*/
-  width: 65%;  /*for Keon screen*/
+  max-width: 75%;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .separateur-bottom {
-  border-bottom: 0.1rem solid #E7E7E7;
+  border-bottom: 0.1rem solid #C3C3C3;
+  padding-bottom: 2rem;
 }
 
 .absolute {
   position: absolute;
 }
 
+.hidden {
+  display: none;
+}
 
 .move-right {
   transform: translateX(100%);
@@ -56,4 +83,14 @@ button.small {
   transform: translateX(0);
   transition: transform 0.4s;
   z-index: 200;
+}
+
+.front {
+  z-index: 10;
+}
+.behind {
+  z-index: -10;
+}
+.top40 {
+  margin-top: 40%;
 }

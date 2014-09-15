@@ -1,3 +1,4 @@
+"use strict;"
 /*
  * From  robnyman / Firefox-OS-Boilerplate-App
  */
@@ -15,6 +16,7 @@ if (navigator.mozApps) {
         else {
             var install = document.querySelector("#install"),
                 manifestURL = location.href.substring(0, location.href.lastIndexOf("/")) + "/manifest.webapp";
+            console.log("manifestURL", manifestURL);
             install.className = "show-install";
             install.onclick = function () {
                 var installApp = navigator.mozApps.install(manifestURL);
