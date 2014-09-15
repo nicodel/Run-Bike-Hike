@@ -2,20 +2,16 @@ var Share = function() {
   function toLocal(inFile, inName, successCallback, errorCallback) {
     console.log("saving to local :-(");
     var sdcard = navigator.getDeviceStorage("sdcard");
-    var blob = new Blob (["this is a new file."], {"type":"plain/text"});
-    
-    var req = sdcard.addNamed(blob, "/sdcard/rbh/newfile.txt");
+    // var blob = new Blob (["this is a new file."], {"type":"plain/text"});
+    var blob = new Blob ([inFile], {"type":"plain/text"});
+
+    var req = sdcard.addNamed(blob, "/sdcard/rbh/" + inName);
 
     req.onsuccess = function() {
       successCallback("success on saving file ", this.result);
     };
 
     req.onerror = function() {
-      errorCallback("Error:", this.error.name);
-    };
-
-    // An error typically occur if a file with the same name already exist
-    /*request.onerror = function () {
       if (this.error.name === "NoModificationAllowedError") {
         console.warn('Unable to write the file: ', 'File already exists');
         errorCallback('Unable to write the file: ' + 'File already exists');
@@ -26,7 +22,7 @@ var Share = function() {
         console.warn('Unable to write the file: ', this.error.name);
         errorCallback('Unable to write the file: ' + this.error.name);
       };
-    }*/
+    };
   }
 
   function toEmail(inTrack, inFile) {

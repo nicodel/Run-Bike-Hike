@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <!-- <meta name="viewport" content="width=device&#45;width, initial&#45;scale=1.0, maximum&#45;scale=1.0, user&#45;scalable=no"/> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
     <title data-l10n-id="title">Run Bike Hike</title>
     <link rel="shortcut icon" sizes="128x128" href="img/icon128.png" type="image/png" />
 
@@ -10,8 +10,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes"/>
     <link rel="apple-touch-icon" href="img/icons/128.png"/>
     <!-- Localization -->
-    <!-- <link rel="prefetch" type="application/l10n" href="locales/locales.ini" /> -->
-    <!-- <script type="text/javascript" src="lib/webL10n/l10n.js"></script> -->
+    <link rel="prefetch" type="application/l10n" href="locales/locales.ini" />
 
     <!--······························ Brick ································-->
     <link rel="stylesheet" href="lib/brick/brick-1.0.1.byob.min.css"/>
@@ -63,41 +62,33 @@
               </li>
               <li>
                 <p data-l10n-id="language">Language</p>
-                <!-- <div class="styled-select" > -->
                 <select id="language">
                   <option value="en" data-l10n-id="english">English</option>
                   <option value="es" data-l10n-id="spanish">Español</option>
                   <option value="fr" data-l10n-id="french">Français</option>
                 </select>
-                <!-- </div> -->
               </li>
               <li>
                 <p data-l10n-id="distance-unit">Distance unit</p>
-                <!-- <div class="styled-select"> -->
                   <select id="distance">
                     <option value="0" data-l10n-id="metric">Metric</option>
                     <option value="1" data-l10n-id="imperial">Imperial</option>
                   </select>
-                <!-- </div> -->
               </li>
               <li>
                 <p data-l10n-id="speed-unit">Speed unit</p>
-                <!-- <div class="styled-select"> -->
                 <select id="speed">
                   <option value="0">km/h</option>
                   <option value="1">mph</option>
                 </select>
-                <!-- </div> -->
               </li>
               <li>
                 <p data-l10n-id="position-format">Position format</p>
-                <!-- <div class="styled-select"> -->
                 <select id="position">
                   <option value="0">49°08'06.22</option>
                   <option value="1">49°08.104'</option>
                   <option value="2">49.135060</option>
                 </select>
-                <!-- </div> -->
               </li>
               <li>
                 <p>Dev Mode </p>
@@ -118,31 +109,11 @@
             <button data-l10n-id="tracks" id="btn-tracks" class="icon icon-list">Tracks</button>
           </x-appbar>
           <section data-type="home">
-<!--             <x-flipbox>
-              <div> -->
               <ul>
-<!--                 <li>
-                  <x-flipbox direction="down">
-                  <div class="align-center">
-                    <img id="home-compass" src="img/compass_inactive.png" alt="Compass" />
-                  </div>
-                  <div>
-                    <div data-l10n-id="direction" class="align-left text-big text-thin">Direction</div>
-                    <div class="home-value align-center text-huge text-thin" id="home-dir"></div>
-                  </div>
-                </x-flipbox>
-                </li> -->
                 <li>
-                  <div data-l10n-id="time" class="home-title text-big text-thin">Time</div>
+                  <div data-l10n-id="elapsed-time" class="home-title text-big text-thin">Elapsed time</div>
                   <div id="home-chrono" class="home-value align-center text-huger text-thin new-line">0:00:00</div>
 
-<!--                   <a data-l10n-id="btn-start" id="btn-start" href="#">
-                    <div id="home-button">
-                    <div id="btn-start-stop" class="text-biggger text-thin">
-                      Start
-                    </div>
-                    </div>
-                  </a> -->
                 </li>
                 <li>
                   <div data-l10n-id="distance" class="home-title text-big text-thin">Distance
@@ -165,23 +136,16 @@
                 </li>
                 <li class="bottom">
                   <div data-l10n-id="latitude" class="new-line home-title text-small text-thin">Latitude</div>
-                  <div id="home-lat" class="new-line home-value align-center text-small text-thin">?</div>
+                  <div id="home-lat" class="new-line home-value-right text-small text-thin">?</div>
 
                   <div data-l10n-id="longitude" class="new-line home-title text-small text-thin">Longitude</div>
-                  <div id="home-lon" class="new-line home-value align-center text-small text-thin">?</div>
+                  <div id="home-lon" class="new-line home-value-right text-small text-thin">?</div>
 
                   <div data-l10n-id="direction" class="new-line home-title text-small text-thin">Direction</div>
-                  <div id="home-dir" class="new-line home-value align-center text-small text-thin">?</div>
+                  <div id="home-dir" class="new-line home-value-right text-small text-thin">?</div>
                 </li>
                 <li id="button">
-                <button data-l10n-id="start" id="btn-start-stop" class="recommend big">Start</button>
-<!--                   <a data-l10n-id="btn-start" id="btn-start" href="#">
-                    <div id="home-button">
-                    <div id="btn-start-stop" class="text-biggger text-thin">
-                      Start
-                    </div>
-                    </div>
-                  </a> -->
+                  <button data-l10n-id="start" id="btn-start-stop" class="recommend big">Start</button>
                 </li>
 
 
@@ -192,23 +156,14 @@
                     <p data-l10n-id="retreiving" id="msg" class="text-big align-center">Retreiving GPS signal. It may take some time...</p>
                   </div>
                 </li>
-
-
-
-
               </ul>
-<!--               </div>
-              <div>
-                <section data-type="map" class ="hidden"></section>
-              </div>
-            </x-flipbox> -->
           </section>
         </x-layout>
       </x-card>
 
       <!-- Card 2 :  Stop tracking confirmation form -->
       <x-card transition-type="fade-scale">
-        <form id="stop-form-confirm" role="dialog" data-type="confirm" onsubmit="return false;">
+        <form id="stop-form-confirm" role="dialog" data-type="confirm">
           <section>
             <h1 data-l10n-id="confirmation">Confirmation</h1>
             <p>
@@ -303,23 +258,13 @@
                 </div>
               </li>
               <li>
-                <!-- <div data-l10n-id="map" id="trk-dt-map">Map</div> -->
                 <div id="spinner-box" class="align-center">
                   <progress id="track-spinner"></progress>
                   <p data-l10n-id="loading-map" id="map-text">Loading map...</p>
                 </div>
                 <img src="" id="map-img" class="hidden" />
               </li>
-<!--               <li class="separateur-bottom">
-                <div data-l10n-id="speed" id="trk-dt-speed">Speed</div>
-                <canvas id="speed-canvas"></canvas>
-              </li>
-              <li class="separateur-bottom">
-                <div data-l10n-id="altitude" id="trk-dt-alt">Altitude</div>
-                <canvas id="alt-canvas"></canvas>
-            </li> -->
             <li class="separateur-bottom">
-              <!-- <div data-l10n-id="graphs" id="trk-dt-graphs">Graphs</div> -->
               <canvas id="graphs-canvas"></canvas>
             </li>
             </ul>
@@ -329,7 +274,7 @@
 
       <!--  Card 5 : Delete track confirmation form -->
       <x-card  transition-type="fade-scale">
-        <form id="del-form-confirm" role="dialog" data-type="confirm" onsubmit="return false;">
+        <form id="del-form-confirm" role="dialog" data-type="confirm">
           <section>
             <h1 data-l10n-id="confirmation">Confirmation</h1>
             <p>
@@ -345,12 +290,12 @@
 
       <!--  Card 6 : Rename a track form -->
       <x-card  transition-type="fade-scale">
-        <form id="rename-form" role="dialog" data-type="entry" onsubmit="return false;" class="light">
+        <form id="rename-form" role="dialog" data-type="entry" class="light">
           <section>
             <h1 data-l10n-id="rename-track">Rename a track</h1>
-            <p>
-              <span data-l10n-id="enter-new-track-name">Enter below the new track name</span>
-	    </p>
+            <!-- <p> -->
+              <!-- <span data&#45;l10n&#45;id="enter&#45;new&#45;track&#45;name">Enter below the new track name</span> -->
+	    <!-- </p> -->
 	    <p>
 	      <input type="text" placeholder="" id="input-rename">
 	      <button type="reset" data-l10n-id="clear" id="btn-clear-rename">Clear</button>
@@ -365,29 +310,25 @@
 
       <!--  Card 7 : Share a track form -->
       <x-card  transition-type="fade-scale">
-        <form id="share-form" role="dialog" data-type="entry" onsubmit="return false;" class="light">
+        <form id="share-form" role="dialog" data-type="entry" class="light">
           <section>
             <h1 data-l10n-id="share-track">Share a track</h1>
             <p>
               <span data-l10n-id="choose-how-share-track">Choose how you want to share your track</span>
             </p>
-            <!-- <div class="styled-select"> -->
             <select id="select-share">
               <option value="email" data-l10n-id="email">Email</option>
-              <option value="twitter" data-l10n-id="twitter">Twitter</option>
+              <!-- <option value="twitter" data&#45;l10n&#45;id="twitter">Twitter</option> -->
               <option value="local" data-l10n-id="on-device">On device</option>
             </select>
-            <!-- </div> -->
-            <label class="pack-checkbox">
-              <input class="uninit" type="checkbox" id="toggle-share-summary" />
-              <span class="menu-item" data-l10n-id="track-summary">Track summary</span>
-            </label>
-<!--             <div><x-toggle id="toggle-share-summary" focus active label="Track summary"></x-toggle></div>
-            <div><x-toggle id="toggle-share-file" focus active label="GPX file"></x-toggle></div> -->
-            <label class="pack-checkbox">
-              <input class="uninit" type="checkbox" id="toggle-share-file" />
-              <span class="menu-item" data-l10n-id="gpx-file">GPX file</span>
-            </label>
+            <!-- <label class="pack&#45;checkbox"> -->
+              <!-- <input class="uninit" type="checkbox" id="toggle&#45;share&#45;summary" /> -->
+              <!-- <span class="menu&#45;item" data&#45;l10n&#45;id="track&#45;summary">Track summary</span> -->
+            <!-- </label> -->
+            <!-- <label class="pack&#45;checkbox"> -->
+              <!-- <input class="uninit" type="checkbox" id="toggle&#45;share&#45;file" /> -->
+              <!-- <span class="menu&#45;item" data&#45;l10n&#45;id="gpx&#45;file">GPX file</span> -->
+            <!-- </label> -->
           </section>
           <menu>
             <button id="btn-cancel-share" class="cancel" data-l10n-id="cancel">Cancel</button>
@@ -400,9 +341,7 @@
 
   </body>
     <!-- Localization -->
-    <!-- <link rel="prefetch" type="application/l10n" href="locales/locales.ini" /> -->
-    <!-- <script type="text/javascript" src="lib/webL10n/l10n.js"></script> -->
-    <!-- <script type="text/javascript" src="lib/FileSaver/FileSaver.js"></script> -->
+    <script type="text/javascript" src="lib/webL10n/l10n.js"></script>
     <script type="text/javascript" src="test/data.js"></script>
     <script type="text/javascript" src="lib/brick/brick-1.0.1.byob.min.js"></script>
     <!-- <script type="text/javascript" src="lib/OSM/OpenLayers.js"></script> -->
@@ -422,11 +361,5 @@
     <script type="text/javascript" src="js/events.js"></script>
     <script type="text/javascript" src="js/controller.js"></script>
     <script type="text/javascript" src="js/app.js"></script>
-    <!-- <script type="text/javascript"> 
-      document.addEventListener('DOMComponentsLoaded', function(){
-       var deck = document.getElementById("views");
-       deck.showCard(1);
-      });
-    </script> -->
 
 </html>

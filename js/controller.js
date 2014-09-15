@@ -70,7 +70,7 @@ var Controller = function() {
       nb_point = 0;
       // document.querySelector("#btn-start").innerHTML = "Stop";
       // document.querySelector("#btn-start").className = "align-right danger big alternate";
-      document.getElementById("btn-start-stop").innerHTML = /*_(*/"stop"/*)*/;
+      document.getElementById("btn-start-stop").innerHTML = _("stop");
       // document.getElementById("btn-start-stop").style.backgroundColor = "#e51e1e";
     };
   }
@@ -88,14 +88,14 @@ var Controller = function() {
     if (track.data.length === 0) {
       // we notify that we do nothing (cause that's good)
       // console.log("Track empty. Not saving");
-      utils.status.show(/*_("track-empty-not-saving")); //*/"Track empty. Not saving");
+      utils.status.show(_("track-empty-not-saving")); //"Track empty. Not saving");
     } else {
       // Save to DB
       DB.addTrack(__addTrackSuccess, __addTrackError, track);
     };
     // document.querySelector("#btn-start").innerHTML = "Start";
     // document.querySelector("#btn-start").className = "align-right recommend big alternate";
-    document.getElementById("btn-start-stop").innerHTML = /*_(*/"start"/*)*/;
+    document.getElementById("btn-start-stop").innerHTML = _("start");
     // document.getElementById("btn-start-stop").style.backgroundColor = "#1E824C";
   }
 
@@ -274,7 +274,7 @@ var Controller = function() {
   // }
 
   function __addTrackSuccess(inEvent) {
-    utils.status.show(/*_("track-saved", {inEvent})); //*/"Track " + inEvent + " sucessfully saved.");
+    utils.status.show(_("track-saved", {inEvent})); //"Track " + inEvent + " sucessfully saved.");
   }
 
   function __addTrackError(inEvent) {
@@ -315,12 +315,12 @@ var Controller = function() {
   function __deleteTrackSuccess() {
     TracksView.reset();
     displayTracks();
-    utils.status.show(/*_("track-delete-success", {name:displayed_track.name})*/"successfully deleted");
+    utils.status.show(_("track-delete-success", {name:displayed_track.name}));
 
   }
 
   function __deleteTrackError() {
-    utils.status.show(/*_("track-delete-failure", {name:displayed_track.name})*/"delete failure");
+    utils.status.show(_("track-delete-failure", {name:displayed_track.name}));
   }
 
   function __saveMap(inTrack) {
@@ -345,10 +345,10 @@ var Controller = function() {
   function __updateTrackSuccess() {
     TrackView.updateName(displayed_track.name);
     document.getElementById("views").showCard(4);
-    utils.status.show(/*_("track-rename-success", {name:displayed_track.name})*/"rename success");
+    utils.status.show(_("track-rename-success", {name:displayed_track.name}));
   }
   function __updateTrackError() {
-    utils.status.show(/*_("track-rename-failure")*/"rename failure");
+    utils.status.show(_("track-rename-failure"));
   }
 
   function shareTrack(inFile, inSummary, inShare) {
@@ -368,28 +368,9 @@ var Controller = function() {
     } else if (inShare === "twitter") {
       console.log("sharing on twitter");
     } else if (inShare === "local") {
-      var n = displayed_track.id.replace(/[:.-]/g,"") + ".gpx";
+      var n = displayed_track.name.replace(/[:.-]/g,"") + ".gpx";
       console.log("sharing on local", n);
-      // Share.toLocal(gpx_track, n, __shareSuccess, __shareError);
-/*      
-      var sdcard = navigator.getDeviceStorage("sdcard");
-      var blob = new Blob (["this is a new file."], {"type":"plain/text"});
-    
-      var req = sdcard.addNamed(blob, "/sdcard/rbh/newfile.txt");
-
-      req.onsuccess = function() {
-        utils.status.show("success on saving file ", this.result);
-      };
-      req.onerror = function() {
-        utils.status.show("Error:", this.error.name);
-      };
-*/
-      // a.addEventListener("click", function(ev) {
-      //   console.log('n', n);
-      //   a.href = window.URL.createObjectURL(blob);
-      //   a.download = n;
-      // });
-      // a.click();
+      Share.toLocal(gpx_track, n, __shareSuccess, __shareError);
     } else {
       // ?? nothing selected ??
       console.log("nothind to be sharing on ??");

@@ -48,6 +48,7 @@ document.querySelector("#btn-confirm-stop").addEventListener ("click", function 
 document.querySelector("#btn-cancel-stop").addEventListener ("click", function () {
   document.getElementById("views").showCard(1);
 });
+document.getElementById("stop-form-confirm").onsubmit = function() {return false;};
 
 /*----------------- Settings View -----------------*/
 /* Settings View Screen keep alive radio button */
@@ -130,6 +131,8 @@ document.querySelector("#btn-confirm-rename").addEventListener("click", function
 document.querySelector("#btn-clear-rename").addEventListener("click", function() {
   document.querySelector("#input-rename").value = "";
 });
+document.getElementById("rename-form").onsubmit = function() {return false;};
+
 /* Don't take focus from the input field */
 document.querySelector("#btn-clear-rename").addEventListener('mousedown', function(e) {
   e.preventDefault();
@@ -141,15 +144,15 @@ document.querySelector("#btn-share").addEventListener("click", function() {
   document.getElementById("views").showCard(7);
   // setting it to default
   document.querySelector("#select-share").value = "local";
-  document.querySelector("#toggle-share-summary").disabled = true;
+  /*document.querySelector("#toggle-share-summary").disabled = true;
   document.querySelector("#toggle-share-summary").checked = false;
   document.querySelector("#toggle-share-file").disabled = true;
-  document.querySelector("#toggle-share-file").checked = true;
+  document.querySelector("#toggle-share-file").checked = true;*/
 });
 
 /*----------------- Track Share Form -----------------*/
 /* Way to share a track selection */
-document.querySelector("#select-share").onchange = function() {
+/*document.querySelector("#select-share").onchange = function() {
   var dom = document.querySelector("#select-share");
   var id = this.selectedIndex;
   if (dom[id].value === "email") {
@@ -171,7 +174,7 @@ document.querySelector("#select-share").onchange = function() {
     document.querySelector("#toggle-share-file").disabled = true;
     document.querySelector("#toggle-share-file").checked = true;
   };
-};
+};*/
 
 /* Share Cancel button */
 document.querySelector("#btn-cancel-share").addEventListener("click", function() {
@@ -191,9 +194,10 @@ document.querySelector("#btn-confirm-share").addEventListener("click", function(
   };
   var share = document.querySelector("#select-share").value;
   console.log("ready to share", share);
-  // document.getElementById("views").showCard(4);
-  // Controller.shareTrack(file, summary, share);
+  document.getElementById("views").showCard(4);
+  Controller.shareTrack(file, summary, share);
 });
+document.getElementById("share-form").onsubmit = function() {return false;};
 
 /*----------------- Track Delete Confirmation -----------------*/
 /* Delete Track Cancel button */
@@ -205,7 +209,7 @@ document.querySelector("#btn-confirm-delete").addEventListener("click", function
   document.getElementById("views").showCard(3);
   Controller.deleteTrack();
 });
-
+document.getElementById("del-form-confirm").onsubmit = function() {return false;};
 
 
 
