@@ -1,21 +1,31 @@
+"use strict;"
 var TrackView = function() {
 
-  var SCREEN_WIDTH = parseInt(window.innerWidth * 0.9,10);
+  // var SCREEN_WIDTH = parseInt(window.innerWidth * 0.9,10);
+  var SCREEN_WIDTH = parseInt(window.innerWidth,10);
   var SCREEN_HEIGHT = parseInt(SCREEN_WIDTH * 2 / 3,10);
+  // Only getting a big size map, that will be stored in db
+  var MAP_WIDTH = 648; // 720px * 0.9
+  var MAP_HEIGHT = 432 // 720px * 3 / 2
   // console.log("width", SCREEN_WIDTH);
   // console.log("height", SCREEN_HEIGHT);
-  var xPadding = 30;
+  var xPadding = 35;
   var yPadding = 30;
 
   var SPACE_BTW_POINTS = 5;
   var LINE_WIDTH = 2;
-  var TEXT_STYLE = "8pt 'MozTTLight', 'Helvetica Neue','Nimbus Sans L',Arial,sans-serif";
+  var TEXT_STYLE = "8pt bold 'Fira Sans',sans-serif";
   var TEXT_COLOR = "#333";
-  var VALUE_COLOR = "#008000";
-  var ACCURACY_COLOR = "#805A5A";
-  var ACCURACY_FILL_COLOR = "#C89696";
+  // var VALUE_COLOR = "#008000";
+  // var ACCURACY_COLOR = "#805A5A";
+  // var ACCURACY_FILL_COLOR = "#C89696";
+  var ALT_LINE_COLOR = "#008000"; // Green
+  var ALT_FILL_COLOR = "rgba(0,128,0,0.3)"; // Green
+  var SP_LINE_COLOR = "#4169E1"; // RoyalBlue
+  var SP_FILL_COLOR = "rgba(65,105,225, 0.3)"; // RoyalBlue
 
-  function display(inTrack) {
+  function display(inTrack, saveMapCallback) {
+    console.log("inTrack in display", inTrack);
     //reset old ressources
     document.getElementById("trk-date").innerHTML = "";
     document.getElementById("trk-dist").innerHTML = "";
@@ -24,14 +34,16 @@ var TrackView = function() {
 
     var tr = document.getElementById("tr-name");
     tr.innerHTML = inTrack.name;
-    // console.log("show track: ", inTrack);
 
-    document.getElementById("trk-date").innerHTML = Controller.userDate(inTrack.date);
-    document.getElementById("trk-dist").innerHTML = Controller.userDistance(inTrack.distance);
+    document.getElementById("trk-date").innerHTML = Config.userDate(inTrack.date);
+    var a = Config.userDistance(inTrack.distance);
+    document.getElementById("trk-dist").innerHTML = a.v + a.u;
     var d = inTrack.duration / 60000;
     document.getElementById("trk-dur").innerHTML = d.toFixed() +" min";
-    
+
     var t = inTrack;
+    console.log("t", t);
+    // console.log("t.map", t.map);
     t.min_alt = 0;
     t.max_alt = 0;
     t.max_speed = 0;
@@ -41,8 +53,8 @@ var TrackView = function() {
     t.end = null;
 
     //~ get min, max altitude, max speed, start and end time
-    for (i=0; i<inTrack.data.length; i++) {
-      var row = inTrack.data[i];
+    for (i=0; i<t.data.length; i++) {
+      var row = t.data[i];
       var alt_int = parseInt(row.altitude, 10);
       var speed_int = parseInt(row.speed, 10);
       // console.log("speed_int ", speed_int);
@@ -56,10 +68,10 @@ var TrackView = function() {
       if (t.max_speed === 0 || speed_int > t.max_speed) {
         t.max_speed = speed_int;
       }
-      if (t.min_speed === 0 || speed_int < t.min_speed) {
-        t.min_speed = speed_int;
-      }
-      var dt = new Date(inTrack.data[i].date).getTime();
+      // if (t.min_speed === 0 || speed_int < t.min_speed) {
+      //   t.min_speed = speed_int;
+      // }
+      var dt = new Date(t.data[i].date).getTime();
       // console.log("dt ", dt);
       if (t.start === null || dt < t.start) {
         t.start = dt;
@@ -70,336 +82,326 @@ var TrackView = function() {
       t.av_speed = t.av_speed + speed_int;
     }
     console.log("t.av_speed",t.av_speed);
-    t.av_speed = t.av_speed / inTrack.data.length;
-    console.log("t.av_speed",t.av_speed);
-    document.getElementById("trk-max-speed").innerHTML = Controller.userSpeed(t.max_speed);
-    document.getElementById("trk-av-speed").innerHTML = Controller.userSpeed(t.av_speed);
-    document.getElementById("trk-max-alt").innerHTML = Controller.userSmallDistance(t.max_alt);
-    document.getElementById("trk-min-alt").innerHTML = Controller.userSmallDistance(t.min_alt);
+    t.av_speed = t.av_speed / t.data.length;
+    console.log("t.max_speed",t.max_speed);
+    // t.max_alt_speed = 15;
+    // console.log("t.max_speed",t.max_speed);
+    var a = Config.userSpeed(t.max_speed);
+    document.getElementById("trk-max-speed").innerHTML = a.v + a.u;
+    var a = Config.userSpeed(t.av_speed);
+    document.getElementById("trk-av-speed").innerHTML = a.v + a.u;
+    var a = Config.userSmallDistance(t.max_alt);
+    document.getElementById("trk-max-alt").innerHTML = a.v + a.u;
+    var a = Config.userSmallDistance(t.min_alt);
+    document.getElementById("trk-min-alt").innerHTML = a.v + a.u;
 
-
-
-    // console.log("t.start", t.start);
-    // console.log("t.end", t.end);
-    __buildAltitudeGraph(t);
-    __buildSpeedGraph(t);
-    __buildMap2(inTrack);
+    if (t.map) {
+      console.log("map exist");
+      document.getElementById("map-img").width = SCREEN_WIDTH;
+      document.getElementById("map-img").src = t.map;
+      document.querySelector("#map-text").classList.add("hidden");
+      document.querySelector("#track-spinner").classList.add("hidden");
+      document.querySelector("#map-img").classList.remove("hidden");
+    } else {
+      console.log("map does not exist");
+      var mapToSave = __buildMap2(inTrack, saveMapCallback);
+      // console.log("mapToSave.map", mapToSave.map);
+      // saveMapCallback(mapToSave);
+    }
+    // __buildSpeedGraph(t);
+    // __buildAltitudeGraph(t);
+    __buildGraphs(t);
   }
 
-  function __buildAltitudeGraph(inData) {
-    data = inData.data;
-    // console.log("data.length", data.length);
-    // console.log("data", data);
+  function updateName(inName) {
+    console.log("updating");
+    document.getElementById("tr-name").innerHTML = inName;
+  }
 
+  function __buildGraphs(inData) {
+    "use strict;"
+    var data = inData.data;
     // calculate the axis values in order to draw the canvas graph
-    // max_y: represents the highest altitude value
-    // min_y: represents the smallest altitude value
     // max_acc: represents the poorest accuracy on altitude
+    // alt_max_y: represents the highest altitude value
+    // alt_min_y: represents the smallest altitude value
     var max_acc = 0;
-    var max_y = 0;
-    var min_y = 0;
+    var alt_max_y = 0;
+    var alt_min_y = 0;
     for(i=0;i<data.length;i++) {
-      if(parseInt(data[i].altitude, 10) > max_y) {
-        max_y = parseInt(data[i].altitude, 10);
+      if(parseInt(data[i].altitude, 10) > alt_max_y) {
+        alt_max_y = parseInt(data[i].altitude, 10);
       }
-      if(parseInt(data[i].altitude, 10) < min_y) {
-        min_y = parseInt(data[i].altitude, 10);
+      if(parseInt(data[i].altitude, 10) < alt_min_y) {
+        alt_min_y = parseInt(data[i].altitude, 10);
       }
       if(parseInt(data[i].vertAccuracy, 10) > max_acc) {
         max_acc = parseInt(data[i].vertAccuracy, 10);
       }
-      // console.log("data[i].vertAccuracy", data[i].vertAccuracy);
       max_acc = max_acc / 2;
     }
-    
+    // sp_max_y: represents the highest speed value
+    // sp_min_y: represents the smallest speed value
+    var sp_max_y = Config.userSpeedInteger(inData.max_speed);
+    var sp_min_y = Config.userSpeedInteger(inData.min_speed);
+
     // Write Y Axis text
-    var range = max_y - min_y;
-    range = range + (range / 3);
+    var alt_range = alt_max_y - alt_min_y;
+    alt_range = alt_range + (alt_range / 3);
+    var sp_range = sp_max_y - sp_min_y;
+    sp_range = sp_range * 2;
     // calculate
-    var yspace = parseInt(range / 4, 10);
-    var c = __createRectCanvas("alt-canvas", range, yspace);
-    
-    var espace = parseInt(data.length / (SCREEN_WIDTH - xPadding), 10);
+    var alt_yspace = parseInt(alt_range / 4, 10);
+    var sp_yspace = parseInt(sp_range / 4, 10);
+    console.log("speed", sp_range + "-" + sp_yspace);
+    console.log("alt", alt_range + "-" + alt_yspace);
+    var c = __createRectCanvas("graphs-canvas", alt_range, alt_yspace, sp_range, sp_yspace);
+
+    var espace = parseInt(data.length / (SCREEN_WIDTH - xPadding - 5), 10);
     if (espace === 0) {
       espace = 1;
     } else {
       espace = espace * SPACE_BTW_POINTS; // increase spacing between points so that the chart looks smoother.
     };
-    // console.log("espace", espace);
 
-    // Draw vertAccuracy lines
-    c.strokeStyle = ACCURACY_COLOR;
-    c.fillStyle = ACCURACY_FILL_COLOR;
-    c.lineWidth = LINE_WIDTH;
-    c.beginPath();
-    //~ var z = parseInt(getXPixel(data[0].altitude) - parseInt(data[0].vertAccuracy));
-    var alt0 = parseInt(data[0].altitude, 10);
-    var acc0 = parseInt(data[0].vertAccuracy, 10);
-    var y1 = alt0 - acc0;
-    var y2 = alt0 + acc0;
-    if(y1<0) {y1=0;} // we don't want the lines to go under 0
-
-    for(i = 1 ; i<data.length ; i += espace) {
-      var value = parseInt(data[i].altitude, 10) + parseInt(data[i].vertAccuracy, 10);
-      if (i === 1) {
-        c.moveTo(__getXPixel(i,data), __getYPixel(value, range));
-      } else {
-        c.lineTo(__getXPixel(i,data), __getYPixel(value, range));
-      }
-    };
-    for(i = data.length - 1 ; i >= 1 ; i = i - espace) {
-      var value = parseInt(data[i].altitude, 10) - parseInt(data[i].vertAccuracy, 10);
-      if (value < 0) {value = 0;}
-      if (i === 1) {
-        var value = parseInt(data[i].altitude, 10) + parseInt(data[i].vertAccuracy, 10);
-        c.lineTo(__getXPixel(i,data), __getYPixel(value, range));
-      } else {
-        c.lineTo(__getXPixel(i,data), __getYPixel(value, range));
-      }
-    }
-    c.fill();
-    c.stroke();
-    
-    // Draw Altitude points
-    c.strokeStyle = VALUE_COLOR;
-    c.lineWidth = LINE_WIDTH;
-    c.beginPath();
-    c.moveTo(__getXPixel(0,data), __getYPixel(data[0].altitude, range));
-    for(i=1;i<data.length;i+=espace) {
-      c.lineTo(__getXPixel(i,data), __getYPixel(data[i].altitude, range));
-    }
+    // Write the legends
+    // 1: Altitude
+    // 2: Speed
+    c.fillStyle = ALT_LINE_COLOR;
+    var q = Config.userSmallDistance(null);
+    c.fillText(_("altitude") + " (" + q.u + ")", xPadding + 50, 8);
+    c.fillStyle = SP_LINE_COLOR;
+    var q = Config.userSpeed(null);
+    c.fillText(_("speed") + " (" + q.u + ")", xPadding + 50, 20);
     c.stroke();
 
-    c.lineWidth = 1;
-    c.fillStyle = TEXT_COLOR;
-    c.font = TEXT_STYLE;
-    c.textAlign = "center";
-    
     // Write X Axis text and lines
-    var xspace = data.length / 5;
+    if (data.length <= SPACE_BTW_POINTS) {
+      var xspace = data.length;
+    } else{
+      var xspace = data.length / SPACE_BTW_POINTS;
+    };
     // console.log("xspace",xspace);
     for (i=0;i<data.length;i+=xspace) {
       i = parseInt(i,10);
-      //~ console.log("i",i);
       var date = new Date(data[i].date).getHours() + ":" + new Date(data[i].date).getMinutes();
-      c.fillText(date, __getXPixel(i,data), SCREEN_HEIGHT - yPadding + 20);
+      c.textAlign = "center";
+      c.fillStyle = "gray";
+      c.fillText(date, __getXPixel(i,data), SCREEN_HEIGHT - yPadding + 27);
       // draw vertical lines
       c.beginPath();
-      c.strokeStyle  = "rgba(150,150,150, 0.5)";
-      c.lineWidth = 1;
-      c.moveTo(__getXPixel(i,data),0);
-      c.lineTo(__getXPixel(i,data),SCREEN_HEIGHT - xPadding);
+      // c.strokeStyle  = "rgba(150,150,150, 0.5)";
+      // c.lineWidth = 1;
+      // c.moveTo(__getXPixel(i,data),0);
+      // c.lineTo(__getXPixel(i,data),SCREEN_HEIGHT - xPadding);
+      c.moveTo(__getXPixel(i,data),SCREEN_HEIGHT - yPadding + 15);
+      c.lineTo(__getXPixel(i,data),SCREEN_HEIGHT - yPadding + 20);
       c.stroke();
     }
 
-    c.stroke();
-    c.closePath();
-  }
 
-  function __buildSpeedGraph(inData) {
-    data = inData.data;
-
-    var max_y = Controller.userSpeedInteger(inData.max_speed);
-    var min_y = Controller.userSpeedInteger(inData.min_speed);
-    // console.log("max_y", max_y);
-    // console.log("min_y",min_y);
-    
-    // Write Y Axis text
-    var range = max_y - min_y;
-    // range = range + (range * 0.2);
-    range = range * 2;
-    var yspace = parseInt(range / 4, 10);
-    // console.log("range ", range);
-    var c = __createRectCanvas("speed-canvas", range, yspace);
-    
-    var espace = parseInt(data.length / (SCREEN_WIDTH - xPadding), 10);
-    if (espace === 0) {
-      espace = 1;
-    } else {
-      espace = espace * SPACE_BTW_POINTS; // increase spacing between points so that the chart looks smoother.
-    };
-    // Draw line
-    // c.strokeStyle = "#0560A6";
-    c.strokeStyle = VALUE_COLOR;
+    // Draw Altitude points
+    c.strokeStyle = ALT_LINE_COLOR;
     c.lineWidth = LINE_WIDTH;
     c.beginPath();
-    var value = Controller.userSpeedInteger(data[0].speed);
-    c.moveTo(__getXPixel(0,data), __getYPixel(value, range));
+    c.moveTo(__getXPixel(0,data), __getYPixel(data[0].altitude, alt_range));
     for(i=1;i<data.length;i+=espace) {
-      var value = Controller.userSpeedInteger(data[i].speed);
-      c.lineTo(__getXPixel(i,data), __getYPixel(value, range));
-      c.stroke();
+      var x = __getXPixel(i,data);
+      c.lineTo(x, __getYPixel(data[i].altitude, alt_range));
     }
-
-    c.lineWidth = LINE_WIDTH;
-    c.fillStyle = TEXT_COLOR;
-    c.font = TEXT_STYLE;
-    c.textAlign = "center";
-    
-    // Write X Axis text and lines
-    var xspace = data.length / 5;
-    //~ console.log("xspace",xspace);
-    for (i=0;i<data.length;i+=xspace) {
-      i = parseInt(i,10);
-      //~ console.log("i",i);
-      var date = new Date(data[i].date).getHours() + ":" + new Date(data[i].date).getMinutes();
-      c.fillText(date, __getXPixel(i,data), SCREEN_HEIGHT - yPadding + 20);
-      c.beginPath();
-      c.strokeStyle  = "rgba(150,150,150, 0.5)";
-      c.lineWidth = 1;
-      c.moveTo(__getXPixel(i,data),0);
-      c.lineTo(__getXPixel(i,data),SCREEN_HEIGHT - xPadding);
-      c.stroke();
-    }
+    c.lineTo(x,SCREEN_HEIGHT - yPadding);
+    c.lineTo(__getXPixel(0,data),SCREEN_HEIGHT - yPadding);
+    c.lineTo(__getXPixel(0,data), __getYPixel(data[0].altitude, alt_range));
+    c.fillStyle = ALT_FILL_COLOR;
+    c.fill();
     c.stroke();
+
+    // Draw Speed points
+    c.strokeStyle = SP_LINE_COLOR;
+    c.globalAlpha = 1;
+    c.lineWidth = LINE_WIDTH;
+    c.beginPath();
+    var value = Config.userSpeedInteger(data[0].speed);
+    c.moveTo(__getXPixel(0,data), __getYPixel(value, sp_range));
+    for(i=1;i<data.length;i+=espace) {
+      var value = Config.userSpeedInteger(data[i].speed);
+      var x = __getXPixel(i,data);
+      c.lineTo(x, __getYPixel(value, sp_range));
+    }
+    c.lineTo(x,SCREEN_HEIGHT - yPadding);
+    c.lineTo(__getXPixel(0,data),SCREEN_HEIGHT - yPadding);
+    c.lineTo(__getXPixel(0,data), __getYPixel(Config.userSpeedInteger(data[0].speed), sp_range));
+    c.fillStyle = SP_FILL_COLOR;
+    c.fill();
+    c.stroke();
+
     c.closePath();
   }
 
-  function __buildMap2(inTrack) {
-      // get the min and max longitude/ latitude
-      // and build the path
-      var minLat, minLon, maxLat, maxLon;
-      for (i = 0; i< inTrack.data.length; i++){
-        var point = {
-          lat: inTrack.data[i].latitude / 1,
-          lon: inTrack.data[i].longitude / 1
-          };
-        if (minLat === undefined || minLat > point.lat) {
-          minLat = point.lat;
+  function __buildMap2(inTrack, saveMapCallback) {
+    // get the min and max longitude/ latitude
+    // and build the path
+    var minLat, minLon, maxLat, maxLon;
+    for (i = 0; i< inTrack.data.length; i++){
+      var point = {
+        lat: inTrack.data[i].latitude / 1,
+        lon: inTrack.data[i].longitude / 1
         };
-        if (maxLat === undefined || maxLat < point.lat) {
-          maxLat = point.lat;
-        };
-        if (minLon === undefined || minLon > point.lon) {
-          minLon = point.lon;
-        };
-        if (maxLon === undefined || maxLon < point.lon) {
-          maxLon = point.lon;
-        };
+      if (minLat === undefined || minLat > point.lat) {
+        minLat = point.lat;
       };
-      // Calculate the Bouncing Box
-      var p1 = {lon: minLon, lat: maxLat};
-      var p2 = {lon: maxLon, lat: minLat};
-      var realHeight = __getDistance(p1.lat, p1.lon, p2.lat, p1.lon);
-      var realWidth = __getDistance(p1.lat, p1.lon, p1.lat, p2.lon);
-      var larger = realWidth > realHeight ? realWidth : realHeight;
-      // we limit the number of points on the map to 200
-      if (larger < 200) {
-        larger = 200;
+      if (maxLat === undefined || maxLat < point.lat) {
+        maxLat = point.lat;
       };
-      // add some borders
-      p1 = __movePoint(p1, larger * -0.1, larger * -0.1);
-      p2 = __movePoint(p2, larger * 0.1, larger * 0.1);
-      // make map width always larger
-      if (realWidth < realHeight) {
-        p1 = __movePoint(p1, (realHeight - realWidth) / -2, 0);
-        p2 = __movePoint(p2, (realHeight - realWidth) / +2, 0);
-        realHeight = __getDistance(p1.lat, p1.lon, p2.lat, p1.lon);
-        realWidth = __getDistance(p1.lat, p1.lon, p1.lat, p2.lon);
-        larger = realWidth > realHeight ? realWidth : realHeight;
+      if (minLon === undefined || minLon > point.lon) {
+        minLon = point.lon;
       };
-      if (larger === 0) {
-        return;
+      if (maxLon === undefined || maxLon < point.lon) {
+        maxLon = point.lon;
       };
+    };
+    // Calculate the Bouncing Box
+    var p1 = {lon: minLon, lat: maxLat};
+    var p2 = {lon: maxLon, lat: minLat};
+    var realHeight = __getDistance(p1.lat, p1.lon, p2.lat, p1.lon);
+    var realWidth = __getDistance(p1.lat, p1.lon, p1.lat, p2.lon);
+    var larger = realWidth > realHeight ? realWidth : realHeight;
+    // we limit the number of points on the map to 200
+    if (larger < 200) {
+      larger = 200;
+    };
+    // add some borders
+    p1 = __movePoint(p1, larger * -0.1, larger * -0.1);
+    p2 = __movePoint(p2, larger * 0.1, larger * 0.1);
+    // make map width always larger
+    if (realWidth < realHeight) {
+      p1 = __movePoint(p1, (realHeight - realWidth) / -2, 0);
+      p2 = __movePoint(p2, (realHeight - realWidth) / +2, 0);
+      realHeight = __getDistance(p1.lat, p1.lon, p2.lat, p1.lon);
+      realWidth = __getDistance(p1.lat, p1.lon, p1.lat, p2.lon);
+      larger = realWidth > realHeight ? realWidth : realHeight;
+    };
+    if (larger === 0) {
+      return;
+    };
 
-      var MAX_POINTS = 100;
-      var BLACK = "0x000000";
-      var BLUE = "0x0AFF00";
-      var RED = "0xFF0000";
-      var GREEN = "0x0027FF";
-      var PATH = "&polyline=color:" + BLUE + "|width:3|";
-      var j = 0;
-      if (inTrack.data.length > MAX_POINTS) {
-        var y = parseInt(inTrack.data.length / MAX_POINTS, 10);
-        // console.log("y: ", y);
-        if (y * inTrack.data.length > MAX_POINTS) {
-          y = y + 1;
-        };
-      } else {
-        var y = 1;
-      };
-      for (var i = 0; i < inTrack.data.length; i = i + y) {
-        if (i === inTrack.data.length - 1) {
-          PATH = PATH + inTrack.data[i].latitude + "," + inTrack.data[i].longitude;
-        } else {
-          PATH = PATH + inTrack.data[i].latitude + "," + inTrack.data[i].longitude + ",";
-        }
-        j++
-      };
-      // console.log("PATH: ", PATH);
-      var BESTFIT = "&bestfit=" + p1.lat + ","+ p1.lon + ","+ p2.lat + "," + p2.lon;
-      var SIZE = "&size=" + SCREEN_WIDTH + "," + SCREEN_WIDTH;
-      var TYPE = "&type=map&imagetype=jpeg";
-      var BASE_URL = "http://www.mapquestapi.com/staticmap/v4/getmap?key=Fmjtd%7Cluur21u720%2Cr5%3Do5-90tx9a&";
-
-
-      var loc = BASE_URL + SIZE + TYPE + BESTFIT + PATH;
-
-      document.getElementById("map-img").width = SCREEN_WIDTH;
-      document.getElementById("map-img").onload = function () {
-        document.querySelector("#map-text").classList.add("hidden");
-        document.querySelector("#map-img").classList.remove("hidden");
-        document.querySelector("#map-img").classList.remove("absolute");
-      };
-      document.getElementById("map-img").src = loc;
-      // console.log("loc:", loc);
-  }
-
-  function __buildMap(inTrack) {
-    // var lat = inTrack.data[0].latitude;
-    // var lon = inTrack.data[0].longitude;
-
-    var center = __getCenter(inTrack);
+    var MAX_POINTS = 100;
+    var BLACK = "0x000000";
+    var BLUE = "0x0AFF00";
+    var RED = "0xFF0000";
+    var GREEN = "0x0027FF";
+    var PATH = "&polyline=color:" + BLUE + "|width:3|";
     var j = 0;
-    var MAX = parseInt(inTrack.data.length / 14, 10);
-    // console.log("MAX", MAX);
-    var dw = "&d0_colour=00F";
-    for (i = 0; i< inTrack.data.length; i = i + MAX) {
-      lt = "&d0p"+ j + "lat=" + inTrack.data[i].latitude;
-      ln = "&d0p"+ j + "lon=" + inTrack.data[i].longitude;
-      dw = dw + ln + lt;
-      j++;
-    }
-    // loc = "http://ojw.dev.openstreetmap.org/StaticMap/?lat="+ lat +"&lon="+ lon +"&mlat0="+ lat +"&mlon0="+ lon + dw + "&z=15&mode=Export&show=1";
-    loc = "http://ojw.dev.openstreetmap.org/StaticMap/?lat="+ center.lat +"&lon="+ center.lon + dw + "&z=10&mode=Export&show=1";
-    document.getElementById("map-img").onload = alert("removing infos spinner");
+    if (inTrack.data.length > MAX_POINTS) {
+      var y = parseInt(inTrack.data.length / MAX_POINTS, 10);
+      // console.log("y: ", y);
+      if (y * inTrack.data.length > MAX_POINTS) {
+        y = y + 1;
+      };
+    } else {
+      var y = 1;
+    };
+    for (var i = 0; i < inTrack.data.length; i = i + y) {
+      if (i === inTrack.data.length - 1) {
+        PATH = PATH + inTrack.data[i].latitude + "," + inTrack.data[i].longitude;
+      } else {
+        PATH = PATH + inTrack.data[i].latitude + "," + inTrack.data[i].longitude + ",";
+      }
+      j++
+    };
+    // console.log("PATH: ", PATH);
+    var BESTFIT = "&bestfit=" + p1.lat + ","+ p1.lon + ","+ p2.lat + "," + p2.lon;
+    var SIZE = "&size=" + MAP_WIDTH + "," + MAP_HEIGHT;
+    var TYPE = "&type=map&imagetype=jpeg";
+    var BASE_URL = "http://www.mapquestapi.com/staticmap/v4/getmap?key=Fmjtd%7Cluur21u720%2Cr5%3Do5-90tx9a&";
+
+
+    var loc = BASE_URL + SIZE + TYPE + BESTFIT + PATH;
+
     document.getElementById("map-img").width = SCREEN_WIDTH;
-    document.getElementById("map-img").src = loc;
+    document.getElementById("map-img").onload = function () {
+      document.querySelector("#map-text").classList.add("hidden");
+      // document.getElementById("spinner-box").removeChild(document.getElementById("track-spinner"));
+      document.querySelector("#track-spinner").classList.add("hidden");
+      document.querySelector("#map-img").classList.remove("hidden");
+      // document.querySelector("#map-img").classList.remove("absolute");
+    };
+    // document.getElementById("map-img").src = loc;
     // console.log("loc:", loc);
+
+    // Following based on @robertnyman article on hacks.mozilla.org https://hacks.mozilla.org/2012/02/storing-images-and-files-in-indexeddb/
+    var xhr = new XMLHttpRequest(), blob;
+    xhr.open('GET', loc, true);
+    xhr.responseType = "blob";
+    xhr.addEventListener("load", function() {
+      if (xhr.status === 200) {
+        blob = xhr.response;
+        var URL = window.URL || window.webkitURL;
+        var imgURL = URL.createObjectURL(blob);
+        document.getElementById("map-img").src = imgURL;
+        inTrack.map = imgURL;
+        // Controller.saveMap(inTrack);
+        saveMapCallback(inTrack);
+      }
+    }, false);
+    xhr.send();
   }
 
-  function __createRectCanvas(inElementId, inRange, inSpace) {
+  function __createRectCanvas(inElementId, inRangeAlt, inSpaceAlt, inRangeSp, inSpaceSp) {
     var graph = document.getElementById(inElementId);
     var c = graph.getContext("2d");
-    c.clearRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-    graph.setAttribute("width",SCREEN_WIDTH);
+    c.clearRect(0, 0, SCREEN_WIDTH - 5, SCREEN_HEIGHT);
+    graph.setAttribute("width",SCREEN_WIDTH - 5);
     graph.setAttribute("height",SCREEN_HEIGHT);
 
     c.fillStyle = TEXT_COLOR;
     c.font = TEXT_STYLE;
     c.textAlign = "right";
     c.textBaseline = "middle";
-    var j = 0;
-    var i = 0;
+    var alt_y = 0;
+    var alt_x = 0;
+    var speed_y = 0;
+    var speed_x = 0;
     for (t=0;t<4;t++) {
-      c.fillText(parseInt(i,10), xPadding - 10, __getYPixel(j, inRange));
+      var alt = Config.userSmallDistance(parseInt(alt_x,10));
+      // var speed = Config.userSpeed(parseInt(speed_x,10));
+      // var speed = Config.userSpeed(speed_x);
+      c.fillStyle = ALT_LINE_COLOR;
+      c.fillText(alt.v, xPadding - 10, __getYPixel(alt_y, inRangeAlt) - 6);
+      c.fillStyle = SP_LINE_COLOR;
+      // console.log("1-speed.v", speed.v);
+      // c.fillText(speed.v, xPadding - 10, __getYPixel(speed_y, inRangeSp) + 6);
+      c.fillText(speed_x, xPadding - 10, __getYPixel(speed_y, inRangeSp) + 6);
       c.beginPath();
-      c.moveTo(xPadding, __getYPixel(j, inRange));
-      c.lineTo(SCREEN_WIDTH, __getYPixel(j, inRange));
+      c.moveTo(xPadding, __getYPixel(alt_y, inRangeAlt));
+      c.lineTo(SCREEN_WIDTH - 5, __getYPixel(alt_y, inRangeAlt));
+      c.lineWidth = 0.2;
+      c.strokeStyle = "black";
       c.stroke();
-      j += inSpace;
-      i += inSpace;
+      alt_y += inSpaceAlt;
+      alt_x += inSpaceAlt;
+      speed_y += inSpaceSp;
+      speed_x += inSpaceSp;
+      console.log("2-speed.v", speed.v);
     }
     c.beginPath();
-    c.moveTo(xPadding, 0);
-    c.lineTo(xPadding, SCREEN_HEIGHT - yPadding);
-    c.lineTo(SCREEN_WIDTH, SCREEN_HEIGHT - yPadding);
+    c.moveTo( xPadding,SCREEN_HEIGHT - yPadding + 15);
+    c.lineTo(SCREEN_WIDTH - 5,SCREEN_HEIGHT - yPadding + 15);
+    // c.moveTo(xPadding, 0);
+    // c.lineTo(xPadding, SCREEN_HEIGHT - yPadding);
+    // c.lineTo(SCREEN_WIDTH, SCREEN_HEIGHT - yPadding);
+    c.lineWidth = 0.1;
+    c.strokeStyle = "black";
     c.stroke();
 
     return c;
   }
+
+
+
+
   function __getXPixel(val,data) {
-    return ((SCREEN_WIDTH - xPadding) / data.length) * val + xPadding;
+    return ((SCREEN_WIDTH - xPadding - 5) / data.length) * val + xPadding;
   }
   function __getYPixel(val,range) {
     return SCREEN_HEIGHT - (((SCREEN_HEIGHT - yPadding) / range) * val) - yPadding;
@@ -437,35 +439,35 @@ var TrackView = function() {
   }
   function __getDistance (lat1, lon1, lat2, lon2) {
     var radius = 6371 * 1000; // Earth radius (mean) in metres {6371, 6367}
-    
+
     var lat1Rad = lat1*( Math.PI / 180);
     var lon1Rad = lon1*( Math.PI / 180);
     var lat2Rad = lat2*( Math.PI / 180);
     var lon2Rad = lon2*( Math.PI / 180);
-    
+
     var dLat = lat2Rad - lat1Rad;
     var dLon = lon2Rad - lon1Rad;
 
     var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
-        Math.cos(lat1Rad) * Math.cos(lat2Rad) * 
-        Math.sin(dLon/2) * Math.sin(dLon/2); 
-    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+        Math.cos(lat1Rad) * Math.cos(lat2Rad) *
+        Math.sin(dLon/2) * Math.sin(dLon/2);
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
     return radius * c;
   }
 
   function __movePoint(p, horizontal, vertical) {
     var radius = 6371 * 1000; // Earth radius (mean) in metres {6371, 6367}
-    
+
     var latRad = p.lat*( Math.PI / 180);
     var lonRad = p.lon*( Math.PI / 180);
 
     var latCircleR = Math.sin( Math.PI/2 - latRad) * radius;
     var horizRad = latCircleR == 0? 0: horizontal / latCircleR;
     var vertRad = vertical / radius;
-    
+
     latRad -= vertRad;
     lonRad += horizRad;
-    
+
     return {
       lat : (latRad / (Math.PI / 180)),
       lon : (lonRad / (Math.PI / 180))
@@ -473,7 +475,8 @@ var TrackView = function() {
   }
 
   return {
-    display: display
+    display: display,
+    updateName: updateName
   };
 
 }();

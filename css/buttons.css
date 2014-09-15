@@ -1,0 +1,68 @@
+/*
+ * from firefox os building blocks
+ */
+
+
+section button {
+  font-family: sans-serif;
+  font-style: italic;
+  width: 90%;
+  height: 4rem;
+  margin: 0 0 1rem;
+  padding: 0 1.2rem;
+  -moz-box-sizing: border-box;
+  display: inline-block;
+  vertical-align: middle;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  background: #d8d8d8;
+  border: none;
+  border-radius: 0.5rem;
+  font-weight: normal;
+  font-size: 1.6rem;
+  line-height: 4rem;
+  color: #333;
+  text-align: center;
+  text-shadow: none;
+  text-decoration: none;
+  outline: none;
+}
+section button.big {
+  height:6rem;
+  font-size: 4rem;
+  line-height: 6rem;
+}
+
+/* Recommend */
+section button.recommend {
+  background-color: #00caf2;
+  color: #fff;
+}
+
+/* Danger */
+section button.danger {
+  background-color: #e51e1e;
+  color: #fff;
+}
+
+/* Pressed */
+section button:active {
+  background: #00aacc;
+  color: #fff;
+}
+
+/* Disabled */
+section button[disabled] {
+  background-color: #565656;
+  color: rgba(255,255,255,0.4);
+  pointer-events: none;
+}
+
+section button[disabled].recommend {
+  background-color: #006579;
+}
+
+section button[disabled].danger {
+  background-color: #730f0f;
+}

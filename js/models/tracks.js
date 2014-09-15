@@ -1,3 +1,4 @@
+"use strict;"
 // define(function(){
 var Tracks = function() {
 
@@ -42,14 +43,16 @@ var Tracks = function() {
     // Initiate the rest
     current_track.duration = 0;
     current_track.distance = 0;
+    current_track.map = "";
     current_track.data = [];
     // Set the number of gps point
     nb_point = 0;
-
+    console.log("current_track", current_track);
     return current_track;
   }
 
   function addNode(inNode, inDistance, inDuration) {
+    // console.log("inNode", inNode);
     current_track.data.push(inNode);
     current_track.distance = inDistance;
     current_track.duration = inDuration;
@@ -57,9 +60,9 @@ var Tracks = function() {
   }
 
   function getDistance(lat, lon) {
-    if (olat != null) {      
+    if (olat != null) {
       distance += __distanceFromPrev(olat, olon, lat, lon);
-      console.log("distance: ", distance);
+      // console.log("distance: ", distance);
     };
     olat = lat;
     olon = lon;
@@ -76,7 +79,6 @@ var Tracks = function() {
 
   function reset() {
     distance = 0;
-    
   }
 
   function __distanceFromPrev(lat1, lon1, lat2, lon2) {
