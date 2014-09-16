@@ -37,7 +37,7 @@ var Controller = function() {
 
   function __locationChanged(inPosition){
     // console.log("Position found", inPosition);
-    if (inPosition.coords.accuracy < 50) {
+    // if (inPosition.coords.accuracy < 50) {
       if (tracking) {
         // console.log("tracking");
         __addNewPoint(inPosition);
@@ -45,7 +45,7 @@ var Controller = function() {
         // console.log("not tracking");
         HomeView.updateInfos(inPosition, null);
       };
-    };
+    // };
   }
   function __locationError(inError){
     console.log("error:",inError);
