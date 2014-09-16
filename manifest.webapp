@@ -5,7 +5,6 @@
   "type": "privileged",
   "launch_path": "/index.html",
   "icons": {
-    "48": "/img/icon48.png",
     "60": "/img/icon60.png",
     "128": "/img/icon128.png"
   },
