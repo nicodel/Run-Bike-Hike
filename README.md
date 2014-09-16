@@ -16,6 +16,10 @@ Un outil d'enregistrement GPS pour les sportifs qui aiment suivre leurs évoluti
 * Enregistrer les parcours.
 * Visualiser les parcours enregistrés, particulièrement la courbe de vitesse, d'altitude et la visualisation du parcours sur une carte.
 
+## Installation
+* Version stable : Le [marketplace de Firefox](http://)
+* Version en développement : [http://nicodel.github.io/Run-Bike-Hike](http://nicodel.github.io/Run-Bike-Hike)
+
 ## Release notes
 
 ### v0.1.4
