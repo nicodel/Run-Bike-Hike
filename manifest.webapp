@@ -1,7 +1,7 @@
 {
   "version": "0.1.4",
-  "name": "Run-Bike-Hike",
-  "description": "Run, Bike, Hike... allow you to record your running or biking sessions, so you can follow your sporting progress."
+  "name": "Run, Bike, Hike...",
+  "description": "RunBikeHike allow you to record your running or biking sessions, so you can follow your sporting progress.",
   "type": "privileged",
   "launch_path": "/index.html",
   "icons": {
@@ -32,12 +32,12 @@
   ],
   "locales": {
     "fr": {
-      "name": "Run, Bike, Hike ...",
-      "description": "Run, Bike, Hike... vous permet d'enregistrer vos sessions de footing, de vélo, et ainsi de suivre l'évolution de vos performances."
+      "name": "RunBikeHike",
+      "description": "RunBikeHike vous permet d'enregistrer vos sessions de footing, de vélo, et ainsi de suivre l'évolution de vos performances."
     },
     "en": {
-      "name": "Run, Bike, Hike ...",
-      "description": "Run, Bike, Hike... allow you to record your running or biking sessions, so you can follow your sporting progress."
+      "name": "RunBikeHike",
+      "description": "RunBikeHike allow you to record your running or biking sessions, so you can follow your sporting progress."
     }
   },
   "default_locale": "en"
