@@ -42,8 +42,8 @@ var Chrono = function() {
 
 	// active la mise a jour dynamique du temps mesure pour le champ specifie
 	function chargerChronoDyna(champ) {
-		if (champ)
-			chrono_champ=eval(champ);
+		// if (champ)
+			// chrono_champ=eval(champ);
 		// chrono_champ.value=tempsChrono();
 		// console.log("chrono_champ: ", chrono_champ);
 		chrono_champ.innerHTML = tempsChrono();

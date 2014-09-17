@@ -69,8 +69,9 @@ var Controller = function() {
       current_track = Tracks.open();
       nb_point = 0;
       // document.querySelector("#btn-start").innerHTML = "Stop";
-      // document.querySelector("#btn-start").className = "align-right danger big alternate";
-      document.getElementById("btn-start-stop").innerHTML = _("stop");
+      document.getElementById("btn-start-stop").className = "danger big";
+      document.getElementById("btn-start-stop").textContent = _("stop");
+
       // document.getElementById("btn-start-stop").style.backgroundColor = "#e51e1e";
     };
   }
@@ -94,8 +95,8 @@ var Controller = function() {
       DB.addTrack(__addTrackSuccess, __addTrackError, track);
     };
     // document.querySelector("#btn-start").innerHTML = "Start";
-    // document.querySelector("#btn-start").className = "align-right recommend big alternate";
-    document.getElementById("btn-start-stop").innerHTML = _("start");
+    document.getElementById("btn-start-stop").className = "recommend big";
+    document.getElementById("btn-start-stop").textContent = _("start");
     // document.getElementById("btn-start-stop").style.backgroundColor = "#1E824C";
   }
 

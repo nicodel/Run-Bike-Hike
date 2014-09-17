@@ -1,0 +1,15 @@
+../js/base.js
+../js/views/home-view.js
+../js/views/infos-view.js
+../js/views/tracks-view.js
+../js/views/track-view.js
+../js/views/status.js
+../js/models/chrono.js
+../js/models/config.js
+../js/models/share.js
+../js/models/db.js
+../js/models/tracks.js
+../js/models/export_tracks.js
+../js/events.js
+../js/controller.js
+../js/app.js
