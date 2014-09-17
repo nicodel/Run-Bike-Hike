@@ -42,11 +42,12 @@ var Chrono = function() {
 
 	// active la mise a jour dynamique du temps mesure pour le champ specifie
 	function chargerChronoDyna(champ) {
-		// if (champ)
-			// chrono_champ=eval(champ);
-		// chrono_champ.value=tempsChrono();
+		if (champ) {
+			chrono_champ = champ;
+    }
+    // chrono_champ.value=tempsChrono();
 		// console.log("chrono_champ: ", chrono_champ);
-		chrono_champ.innerHTML = tempsChrono();
+		chrono_champ.textContent = tempsChrono();
 		// chrono_timeout=window.setTimeout("chargerChronoDyna()", 10);
 		chrono_timeout=window.setTimeout(chargerChronoDyna, 10);
 		return true;
