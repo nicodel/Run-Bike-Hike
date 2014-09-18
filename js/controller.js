@@ -156,7 +156,7 @@ var Controller = function() {
     // __setConfigView(inSettings);
     // __setHomeView(inSettings);
 
-    if (Config.SCREEN_KEEP_ALIVE) {
+    if (inSettings.screen) {
       var lock = window.navigator.requestWakeLock('screen');
       window.addEventListener('unload', function () {
         lock.unlock();
@@ -182,7 +182,7 @@ var Controller = function() {
     console.log("NO !", inError);
   }
 
-  function toogleScreen(inChecked) {
+  function toggleScreen(inChecked) {
     console.log("inChecked", inChecked);
     if (inChecked) {
       lock = window.navigator.requestWakeLock('screen');
@@ -236,7 +236,7 @@ var Controller = function() {
     // console.log("USER_DISTANCE", Config.USER_DISTANCE);
     Config.CONFIG = inSettings;
     console.log("Config.CONFIG", Config.CONFIG);
-
+    
     var a = Config.userSmallDistance(null);
     document.getElementById("home-acc").innerHTML = "&#177; " + a.v;
     document.getElementById("acc-unit").innerHTML =  "(" + a.u + ")";
@@ -398,7 +398,7 @@ var Controller = function() {
     // displayTrack: displayTrack,
     deleteTrack: deleteTrack,
     savingSettings: savingSettings,
-    toogleScreen: toogleScreen,
+    toggleScreen: toggleScreen,
     changeLanguage: changeLanguage,
     changeDistance: changeDistance,
     changeSpeed: changeSpeed,

@@ -340,7 +340,6 @@ var TrackView = function() {
         var imgURL = URL.createObjectURL(blob);
         document.getElementById("map-img").src = imgURL;
         inTrack.map = imgURL;
-        // Controller.saveMap(inTrack);
         saveMapCallback(inTrack);
       }
     }, false);
