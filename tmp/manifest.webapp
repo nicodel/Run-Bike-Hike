@@ -1,0 +1,44 @@
+{
+  "version": "0.1.4",
+  "name": "Run, Bike, Hike...",
+  "description": "RunBikeHike allow you to record your running or biking sessions, so you can follow your sporting progress.",
+  "type": "privileged",
+  "launch_path": "/index.html",
+  "icons": {
+    "60": "/img/icon60.png",
+    "128": "/img/icon128.png"
+  },
+  "developer": {
+    "name": "Nicolas Delebecque",
+    "url": "http://www.github.com/nicodel"
+  },
+  "permissions": {
+    "device-storage:sdcard": {
+      "access": "createonly",
+      "description": "Required to save exported tracks to gpx files"
+    },
+    "geolocation": {
+      "description": "Required to geolocate the user's device"
+    },
+    "storage": {
+      "description": "Required to store both settings and tracks using Indexed DB"
+    }
+  },
+  "orientation": [
+    "portrait"
+  ],
+  "installs_allowed_from": [
+    "*"
+  ],
+  "locales": {
+    "fr": {
+      "name": "RunBikeHike",
+      "description": "RunBikeHike vous permet d'enregistrer vos sessions de footing, de vélo, et ainsi de suivre l'évolution de vos performances."
+    },
+    "en": {
+      "name": "RunBikeHike",
+      "description": "RunBikeHike allow you to record your running or biking sessions, so you can follow your sporting progress."
+    }
+  },
+  "default_locale": "en"
+}
