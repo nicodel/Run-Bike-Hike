@@ -97,11 +97,15 @@ var TrackView = function() {
 
     if (t.map) {
       console.log("map exist");
-      document.getElementById("map-img").width = SCREEN_WIDTH;
-      document.getElementById("map-img").src = t.map;
+      var img = document.getElementById("map-img");
+      img.width = SCREEN_WIDTH;
+      img.src = window.URL.createObjectURL(t.map);
+      img.onload = function(e) {
+        window.URL.revokeObjectURL(this.src);
+      }
       document.querySelector("#map-text").classList.add("hidden");
       document.querySelector("#track-spinner").classList.add("hidden");
-      document.querySelector("#map-img").classList.remove("hidden");
+      img.classList.remove("hidden");
     } else {
       console.log("map does not exist");
       var mapToSave = __buildMap2(inTrack, saveMapCallback);
@@ -339,7 +343,7 @@ var TrackView = function() {
         var URL = window.URL || window.webkitURL;
         var imgURL = URL.createObjectURL(blob);
         document.getElementById("map-img").src = imgURL;
-        inTrack.map = imgURL;
+        inTrack.map = blob;
         saveMapCallback(inTrack);
       }
     }, false);
