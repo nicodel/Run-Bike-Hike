@@ -54,7 +54,7 @@ document.getElementById("stop-form-confirm").onsubmit = function() {return false
 /* Settings View Screen keep alive radio button */
 document.querySelector("#screen").onchange = function () {
   Controller.savingSettings("screen", this.checked);
-  Controller.toogleScreen(this.checked);
+  Controller.toggleScreen(this.checked);
   console.log("this.checked", this.checked);
 };
 /* Settings View Language selection */

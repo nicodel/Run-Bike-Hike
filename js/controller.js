@@ -69,8 +69,9 @@ var Controller = function() {
       current_track = Tracks.open();
       nb_point = 0;
       // document.querySelector("#btn-start").innerHTML = "Stop";
-      // document.querySelector("#btn-start").className = "align-right danger big alternate";
-      document.getElementById("btn-start-stop").innerHTML = _("stop");
+      document.getElementById("btn-start-stop").className = "danger big";
+      document.getElementById("btn-start-stop").textContent = _("stop");
+
       // document.getElementById("btn-start-stop").style.backgroundColor = "#e51e1e";
     };
   }
@@ -94,8 +95,8 @@ var Controller = function() {
       DB.addTrack(__addTrackSuccess, __addTrackError, track);
     };
     // document.querySelector("#btn-start").innerHTML = "Start";
-    // document.querySelector("#btn-start").className = "align-right recommend big alternate";
-    document.getElementById("btn-start-stop").innerHTML = _("start");
+    document.getElementById("btn-start-stop").className = "recommend big";
+    document.getElementById("btn-start-stop").textContent = _("start");
     // document.getElementById("btn-start-stop").style.backgroundColor = "#1E824C";
   }
 
@@ -155,7 +156,7 @@ var Controller = function() {
     // __setConfigView(inSettings);
     // __setHomeView(inSettings);
 
-    if (Config.SCREEN_KEEP_ALIVE) {
+    if (inSettings.screen) {
       var lock = window.navigator.requestWakeLock('screen');
       window.addEventListener('unload', function () {
         lock.unlock();
@@ -181,7 +182,7 @@ var Controller = function() {
     console.log("NO !", inError);
   }
 
-  function toogleScreen(inChecked) {
+  function toggleScreen(inChecked) {
     console.log("inChecked", inChecked);
     if (inChecked) {
       lock = window.navigator.requestWakeLock('screen');
@@ -235,7 +236,7 @@ var Controller = function() {
     // console.log("USER_DISTANCE", Config.USER_DISTANCE);
     Config.CONFIG = inSettings;
     console.log("Config.CONFIG", Config.CONFIG);
-
+    
     var a = Config.userSmallDistance(null);
     document.getElementById("home-acc").innerHTML = "&#177; " + a.v;
     document.getElementById("acc-unit").innerHTML =  "(" + a.u + ")";
@@ -397,7 +398,7 @@ var Controller = function() {
     // displayTrack: displayTrack,
     deleteTrack: deleteTrack,
     savingSettings: savingSettings,
-    toogleScreen: toogleScreen,
+    toggleScreen: toggleScreen,
     changeLanguage: changeLanguage,
     changeDistance: changeDistance,
     changeSpeed: changeSpeed,
