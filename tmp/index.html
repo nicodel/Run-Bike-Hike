@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <title data-l10n-id="title">Run, Bike, Hike...</title>
+    <link rel="shortcut icon" sizes="128x128" href="img/icon128.png" type="image/png" />
+
+    <meta name="mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <link rel="apple-touch-icon" href="img/icons/128.png"/>
+    <!-- Localization -->
+    <link rel="prefetch" type="application/l10n" href="locales/locales.ini" />
+
+    <!--······························ Brick ································-->
+    <link rel="stylesheet" href="lib/brick/brick-1.0.1.byob.min.css"/>
+
+    <!--··························· My Flat Skin ····························-->
+    <link rel="stylesheet" href="css/app.css"/>
+
+
+  </head>
+  <body id="app">
+
+    <x-deck transition-type="none" id="views">
+
+      <!-- Card 0 :  Settings View -->
+      <x-card>
+        <x-layout>
+          <x-appbar>
+            <h1 data-l10n-id="settings" id="settings-tittle">Settings</h1>
+            <button data-l10n-id="back" id="btn-settings-back" class="icon icon-forward">Back</button>
+          </x-appbar>
+          <section data-type="settings">
+            <ul>
+              <li>
+                <label class="pack-switch">
+                  <input class="uninit" type="checkbox" id="screen" />
+                  <span class="menu-item" data-l10n-id="keep-screen-alive">Keep screen alive?</span>
+                </label>
+              </li>
+              <li>
+                <p data-l10n-id="language">Language</p>
+                <select id="language">
+                  <option value="en" data-l10n-id="english">English</option>
+                  <!-- <option value="es" data&#45;l10n&#45;id="spanish">Español</option> -->
+                  <option value="fr" data-l10n-id="french">Français</option>
+                </select>
+              </li>
+              <li>
+                <p data-l10n-id="distance-unit">Distance unit</p>
+                  <select id="distance">
+                    <option value="0" data-l10n-id="metric">Metric</option>
+                    <option value="1" data-l10n-id="imperial">Imperial</option>
+                  </select>
+              </li>
+              <li>
+                <p data-l10n-id="speed-unit">Speed unit</p>
+                <select id="speed">
+                  <option value="0">km/h</option>
+                  <option value="1">mph</option>
+                </select>
+              </li>
+              <li>
+                <p data-l10n-id="position-format">Position format</p>
+                <select id="position">
+                  <option value="0">49°08'06.22</option>
+                  <option value="1">49°08.104'</option>
+                  <option value="2">49.135060</option>
+                </select>
+              </li>
+              <li>
+                <p>Dev Mode </p>
+                <button id="dev-import" class="danger">Import</button></li>
+            </ul>
+          </section>
+        </x-layout>
+      </x-card>
+
+
+      <!-- Card 1 :  Home View -->
+      <x-card>
+        <x-layout>
+          <x-appbar>
+            <button id="btn-settings" class="icon icon-settings">Settings</button>
+            <h1>Run, Bike, Hike...</h1>
+            <button data-l10n-id="install" id="install"class="icon">Install</button>
+            <button data-l10n-id="tracks" id="btn-tracks" class="icon icon-list">Tracks</button>
+          </x-appbar>
+          <section data-type="home">
+              <ul>
+                <li>
+                  <div data-l10n-id="elapsed-time" class="home-title text-big text-thin">Elapsed time</div>
+                  <div id="home-chrono" class="home-value align-center text-huger text-thin new-line">0:00:00</div>
+
+                </li>
+                <li>
+                  <div data-l10n-id="distance" class="home-title text-big text-thin">Distance
+                  <span id="dist-unit"></span></div>
+                  <div id="home-dist" class="home-value align-center text-huge text-thin">--</div>
+                </li>
+                <li>
+                  <div data-l10n-id="speed" class="home-title text-big text-thin">Speed
+                  <span id="speed-unit"></span></div>
+                  <div id="home-speed" class="home-value align-center text-huge text-thin">--</div>
+                </li>
+                <li class="bottom">
+                  <div data-l10n-id="altitude"  class="new-line home-title text-small text-thin">Altitude
+                  <span id="alt-unit"></span></div>
+                  <div id="home-alt" class="new-line home-value align-center text-big text-thin">?</div>
+
+                  <div data-l10n-id="accuracy" class="new-line home-title text-small text-thin">Accuracy
+                  <span id="acc-unit"></span></div>
+                  <div id="home-acc" class="new-line home-value align-center text-big text-thin">?</div>
+                </li>
+                <li class="bottom">
+                  <div data-l10n-id="latitude" class="new-line home-title text-small text-thin">Latitude</div>
+                  <div id="home-lat" class="new-line home-value-right text-small text-thin">?</div>
+
+                  <div data-l10n-id="longitude" class="new-line home-title text-small text-thin">Longitude</div>
+                  <div id="home-lon" class="new-line home-value-right text-small text-thin">?</div>
+
+                  <div data-l10n-id="direction" class="new-line home-title text-small text-thin">Direction</div>
+                  <div id="home-dir" class="new-line home-value-right text-small text-thin">?</div>
+                </li>
+                <li id="button">
+                  <button data-l10n-id="start" id="btn-start-stop" class="recommend big">Start</button>
+                </li>
+
+
+
+                <li id="message" class="front">
+                  <div id="message-area" class="align-center">
+                    <progress id="spinner"></progress>
+                    <p data-l10n-id="retreiving" id="msg" class="text-big align-center">Retreiving GPS signal. It may take some time...</p>
+                  </div>
+                </li>
+              </ul>
+          </section>
+        </x-layout>
+      </x-card>
+
+      <!-- Card 2 :  Stop tracking confirmation form -->
+      <x-card transition-type="fade-scale">
+        <form id="stop-form-confirm" role="dialog" data-type="confirm">
+          <section>
+            <h1 data-l10n-id="confirmation">Confirmation</h1>
+            <p>
+              <span data-l10n-id="stop-track-desc">Are you sure you want to stop recording this track?</span>
+            </p>
+          </section>
+          <menu>
+            <button id="btn-cancel-stop" class="cancel" data-l10n-id="cancel">Cancel</button>
+            <button id="btn-confirm-stop" role="button" class="danger" data-l10n-id="confirm">Confirm</button>
+          </menu>
+        </form>
+      </x-card>
+
+      <!-- Card 3 :  Tracks View -->
+      <x-card>
+        <x-appbar>
+          <button data-l10n-id="back" id="btn-tracks-back" class="icon icon-back">Back</button>
+          <h1 data-l10n-id="recorded-tracks">Recorded tracks</h1>
+        </x-appbar>
+        <x-layout>
+        <section data-type="list">
+          <ul id="tracks-list">
+          </ul>
+          <!-- Testing : Start -->
+<!--           <li>
+          <a id="TR-2014421-15195"><p>
+            <span class="align-left bold clipped">TR-SAMPLE</span>
+            <span class="align-right">21/05/2014</span>
+          </p>
+          <p class="new-line">
+            <span class="align-left">15km</span>
+            <span class="align-right">50min</span>
+          </p></a>
+          </li> -->
+          <!-- Testing : Stop  -->
+        </section>
+        </x-layout>
+      </x-card>
+
+      <!-- Card 4 :  Track View -->
+      <x-card>
+        <x-appbar>
+          <button id="btn-track-back" class="icon icon-back">Back</button>
+          <h1 id="tr-name"></h1>
+          <button data-l10n-id="delete" class="icon icon-delete" id="btn-delete">Delete</button>
+          <button data-l10n-id="share" class="icon icon-share" id="btn-share">Share</button>
+          <button data-l10n-id="rename" class="icon icon-edit" id="btn-rename">Rename</button>
+        </x-appbar>
+        <x-layout>
+          <section data-type="details">
+            <ul>
+              <li>
+                <div data-l10n-id="date">
+                  Date
+                  <span id="trk-date" class="bold align-right"></span>
+                </div>
+              </li>
+              <li>
+                <div data-l10n-id="distance">
+                  Distance
+                  <span id="trk-dist" class="bold align-right"></span>
+                </div>
+              </li>
+              <li>
+                <div data-l10n-id="duration">
+                  Duration
+                  <span id="trk-dur" class="bold align-right"></span>
+                </div>
+              </li>
+              <li>
+                <div data-l10n-id="max-speed">
+                  Max speed
+                  <span id="trk-max-speed" class="bold align-right"></span>
+                </div>
+              </li>
+              <li>
+                <div data-l10n-id="av-speed">
+                  Average speed
+                  <span id="trk-av-speed" class="bold align-right"></span>
+                </div>
+              </li>
+              <li>
+                <div data-l10n-id="max-alt">
+                  Max altitude
+                  <span id="trk-max-alt" class="bold align-right"></span>
+                </div>
+              </li>
+              <li class="separateur-bottom">
+                <div data-l10n-id="min-alt">
+                  Min altitude
+                  <span id="trk-min-alt" class="bold align-right"></span>
+                </div>
+              </li>
+              <li>
+                <div id="spinner-box" class="align-center">
+                  <progress id="track-spinner"></progress>
+                  <p data-l10n-id="loading-map" id="map-text">Loading map...</p>
+                </div>
+                <img src="" id="map-img" class="hidden" />
+              </li>
+            <li class="separateur-bottom">
+              <canvas id="graphs-canvas"></canvas>
+            </li>
+            </ul>
+          </section>
+        </x-layout>
+      </x-card>
+
+      <!--  Card 5 : Delete track confirmation form -->
+      <x-card  transition-type="fade-scale">
+        <form id="del-form-confirm" role="dialog" data-type="confirm">
+          <section>
+            <h1 data-l10n-id="confirmation">Confirmation</h1>
+            <p>
+              <span data-l10n-id="delete-track-desc">Are you sure you want to delete this track?</span>
+            </p>
+          </section>
+          <menu>
+            <button id="btn-cancel-delete" class="cancel" data-l10n-id="cancel">Cancel</button>
+            <button id="btn-confirm-delete" role="button" class="danger" data-l10n-id="confirm">Confirm</button>
+          </menu>
+        </form>
+      </x-card>
+
+      <!--  Card 6 : Rename a track form -->
+      <x-card  transition-type="fade-scale">
+        <form id="rename-form" role="dialog" data-type="entry" class="light">
+          <section>
+            <h1 data-l10n-id="rename-track">Rename a track</h1>
+            <!-- <p> -->
+              <!-- <span data&#45;l10n&#45;id="enter&#45;new&#45;track&#45;name">Enter below the new track name</span> -->
+	    <!-- </p> -->
+	    <p>
+	      <input type="text" placeholder="" id="input-rename">
+	      <button type="reset" data-l10n-id="clear" id="btn-clear-rename">Clear</button>
+	    </p>
+          </section>
+          <menu>
+            <button id="btn-cancel-rename" class="cancel" data-l10n-id="cancel">Cancel</button>
+            <button id="btn-confirm-rename" role="button" class="danger" data-l10n-id="confirm">Confirm</button>
+          </menu>
+        </form>
+      </x-card>
+
+      <!--  Card 7 : Share a track form -->
+      <x-card  transition-type="fade-scale">
+        <form id="share-form" role="dialog" data-type="entry" class="light">
+          <section>
+            <h1 data-l10n-id="share-track">Share a track</h1>
+            <p>
+              <span data-l10n-id="choose-how-share-track">Choose how you want to share your track</span>
+            </p>
+            <select id="select-share">
+              <option value="email" data-l10n-id="email">Email</option>
+              <!-- <option value="twitter" data&#45;l10n&#45;id="twitter">Twitter</option> -->
+              <option value="local" data-l10n-id="on-device">On device</option>
+            </select>
+            <!-- <label class="pack&#45;checkbox"> -->
+              <!-- <input class="uninit" type="checkbox" id="toggle&#45;share&#45;summary" /> -->
+              <!-- <span class="menu&#45;item" data&#45;l10n&#45;id="track&#45;summary">Track summary</span> -->
+            <!-- </label> -->
+            <!-- <label class="pack&#45;checkbox"> -->
+              <!-- <input class="uninit" type="checkbox" id="toggle&#45;share&#45;file" /> -->
+              <!-- <span class="menu&#45;item" data&#45;l10n&#45;id="gpx&#45;file">GPX file</span> -->
+            <!-- </label> -->
+          </section>
+          <menu>
+            <button id="btn-cancel-share" class="cancel" data-l10n-id="cancel">Cancel</button>
+            <button id="btn-confirm-share" role="button" class="danger" data-l10n-id="confirm">Confirm</button>
+          </menu>
+        </form>
+      </x-card>
+
+    </x-deck>
+
+  </body>
+    <!-- Localization -->
+    <script type="text/javascript" src="lib/webL10n/l10n.js"></script>
+    <script type="text/javascript" src="lib/brick/brick-1.0.1.byob.min.js"></script>
+    <script type="text/javascript" src="js/app.js"></script>
+
+</html>
