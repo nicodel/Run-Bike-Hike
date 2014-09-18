@@ -156,12 +156,12 @@ var Controller = function() {
     // __setConfigView(inSettings);
     // __setHomeView(inSettings);
 
-    /*if (inSettings.screen) {
+    if (inSettings.screen) {
       var lock = window.navigator.requestWakeLock('screen');
       window.addEventListener('unload', function () {
         lock.unlock();
       });
-    };*/
+    };
 
   }
   function __getConfigError(inEvent) { console.log("__getConfigError ", inEvent); }
