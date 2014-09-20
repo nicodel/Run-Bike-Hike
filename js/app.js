@@ -9,7 +9,7 @@ var RunBikeHike = function() {
     Controller.init()
   });
   
-  /*if (typeof String.prototype.startsWith != 'function') {
+  if (typeof String.prototype.startsWith != 'function') {
     String.prototype.startsWith = function (str){
       return this.slice(0, str.length) == str;
     };
@@ -18,5 +18,5 @@ var RunBikeHike = function() {
     String.prototype.endsWith = function (str){
       return this.slice(-str.length) == str;
     };
-  };*/
+  };
 }();
