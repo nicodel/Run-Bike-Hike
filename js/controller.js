@@ -275,7 +275,7 @@ var Controller = function() {
   // }
 
   function __addTrackSuccess(inEvent) {
-    utils.status.show(_("track-saved", {inEvent})); //"Track " + inEvent + " sucessfully saved.");
+    utils.status.show(_("track-saved", {inEvent:inEvent})); //"Track " + inEvent + " sucessfully saved.");
   }
 
   function __addTrackError(inEvent) {
