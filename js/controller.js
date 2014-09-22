@@ -275,11 +275,7 @@ var Controller = function() {
   // }
 
   function __addTrackSuccess(inEvent) {
-<<<<<<< HEAD
-    utils.status.show(_("track-saved", {inEvent}));
-=======
     utils.status.show(_("track-saved", {inEvent:inEvent})); //"Track " + inEvent + " sucessfully saved.");
->>>>>>> develop
   }
 
   function __addTrackError(inEvent) {
