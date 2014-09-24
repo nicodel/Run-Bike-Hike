@@ -113,7 +113,7 @@ var Config = function() {
      return Math.floor(degree) + "°" + (minutes<10?"0":"") + Math.floor(minutes) + "'" + (seconds<10?"0":"") + seconds.toFixed(2) + "\"";
   }
   function userLatitude(degree){
-    console.log("degree", degree);
+    // console.log("degree", degree);
      if (Config.CONFIG["position"] === DEGREES_POS_FORMAT)
        return degree;
 
