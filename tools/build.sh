@@ -1,5 +1,7 @@
 #!/bin/bash
 
+var VERSION=$1
+
 # Web app building script
 # files are being cmodify in ../tmp/, before being packaged in builds
 
@@ -24,7 +26,7 @@ sed -i "s/.*/\.\.\/&/" ../tmp/js_files.txt
 # Concatenate all JS files
 for i in $(cat ../tmp/js_files.txt) ; do cat $i >> ../tmp/files_concat.js; done
 # strim left, strim right, delete empty lines
-sed -i 's/^ *//; s/ *$//; /^$/d' ../tmp/files_concat.js
+#sed -i 's/^ *//; s/ *$//; /^$/d' ../tmp/files_concat.js
 # replacing eof by
 #sed -i ':a;N;$!ba;s/\n/\t/g' ../tmp/files_concat.js
 
