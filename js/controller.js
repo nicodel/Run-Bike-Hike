@@ -160,7 +160,7 @@ var Controller = function() {
       var lock = window.navigator.requestWakeLock('screen');
       window.addEventListener('unload', function () {
         lock.unlock();
-      });
+      });/
     };
 
   }
@@ -168,8 +168,8 @@ var Controller = function() {
 
   function savingSettings(inKey, inValue) {
     settings[inKey] = inValue;
-    //console.log("saving:", inKey + " " + inValue);
-    //console.log("now settings:", settings);
+    console.log("saving:", inKey + " " + inValue);
+    console.log("now settings:", settings);
     DB.updateConfig(__savingSettingsSuccess, __savingSettingsError, inKey, inValue);
   }
 
@@ -214,7 +214,7 @@ var Controller = function() {
   //   document.getElementById("distance").value = inSettings.distance;
   //   document.getElementById("speed").value = inSettings.speed;
   //   document.getElementById("position").value = inSettings.position;
-  // }
+  // 
   function __updateConfigValues(inSettings) {
     //console.log("setting settings :)", inSettings);
     for (var i = 0; i < Object.keys(inSettings).length; i++) {
@@ -224,7 +224,11 @@ var Controller = function() {
       if (param === "screen") {
         Config.change("SCREEN_KEEP_ALIVE", inSettings[param]);
       } else if (param === "language") {
-        // Config.change("")
+        if (inSettings[param] === "none") {
+          inSettings[param] = document.webL10n.getLanguage();
+        } else {
+          document.webL10n.setLanguage(inSettings[param]);
+        }
       } else if (param === "distance") {
         Config.change("USER_DISTANCE", inSettings[param]);
       } else if (param === "speed") {
@@ -252,11 +256,10 @@ var Controller = function() {
 
 
     document.getElementById("screen").checked = inSettings.screen;
-    document.getElementById("language").value = inSettings.language;
     document.getElementById("distance").value = inSettings.distance;
     document.getElementById("speed").value = inSettings.speed;
     document.getElementById("position").value = inSettings.position;
-
+    document.getElementById("language").value = inSettings.language;
   }
 
   // function __setHomeView(inSettings) {
