@@ -66,18 +66,38 @@ var HomeView = function() {
   // }
 
   function displayError(inError){
-    // console.log("error:", inError)
+    console.log("error:", inError);
     document.getElementById("home-acc").innerHTML = "??";
     document.getElementById("home-lat").innerHTML = "??";
     document.getElementById("home-lon").innerHTML = "??";
     document.getElementById("home-alt").innerHTML = "??";
     document.getElementById("home-dist").innerHTML = "??";
     document.getElementById("home-speed").innerHTML = "??";
-    document.getElementById('msg').innerHTML = _("error-positon", {Error:Error}); // "Error: " + inError.message;
-    // hide spinner
+    document.getElementById("errmsg").className = "text-big align-center";
+    if (inError.code === 1) {
+      var m = _("position-user");
+    } else if (inError.code === 2) {
+      var m = _("position-unavailable");
+    } else if (inError.code === 3) {
+      var m = _("position-timeout");
+    } else {
+      var m = _("position-unknown");
+    }
+
+    // document.getElementById("errmsg").innerHTML = _("error-position", {Error:inError}); // "Error: " + inError.message;
+    document.getElementById("errmsg").innerHTML = m;
+    // hide spinner && message
+    document.getElementById("msg").className = "hidden";
     if (document.getElementById("spinner")) {
       __hideSpinner();
     };
+  }
+
+  function displayAccuracy(inPosition) {
+    var a = Config.userSmallDistance(inPosition.coords.accuracy.toFixed(0));
+
+    document.getElementById("accmsg").innerHTML = _("accmsg", {Accuracy: a.v, Unit: a.u});
+    document.getElementById("accmsg").className = "text-big align-center";
   }
 
   function __displayCompass(event) {
@@ -107,7 +127,8 @@ var HomeView = function() {
     // hideSpinner: hideSpinner,
     updateInfos: updateInfos,
     // updateSettings: updateSettings,
-    displayError: displayError
+    displayError: displayError,
+    displayAccuracy: displayAccuracy
   };
 
 }();
