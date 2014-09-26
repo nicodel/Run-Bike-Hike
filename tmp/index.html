@@ -76,9 +76,10 @@
                   <option value="2">49.135060</option>
                 </select>
               </li>
-              <li>
-                <p>Dev Mode </p>
-                <button id="dev-import" class="danger">Import</button></li>
+              <!-- <li> -->
+                <!-- <p>Dev Mode </p> -->
+                <!-- <button id="dev&#45;import" class="danger">Import</button> -->
+              <!-- </li> -->
             </ul>
           </section>
         </x-layout>
@@ -140,6 +141,8 @@
                   <div id="message-area" class="align-center">
                     <progress id="spinner"></progress>
                     <p data-l10n-id="retreiving" id="msg" class="text-big align-center">Retreiving GPS signal. It may take some time...</p>
+                    <p data-l10n-id="accmsg" id="accmsg" class="hidden text-big align-center"></p>
+                    <p data-l10n-id="error-position" id="errmsg" class="hidden text-big align-center"></p>
                   </div>
                 </li>
               </ul>
