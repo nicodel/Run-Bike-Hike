@@ -44,9 +44,12 @@ var Controller = function() {
       } else {
         // console.log("not tracking");
         HomeView.updateInfos(inPosition, null);
-      };
+      } 
+    } else {
+        HomeView.displayAccuracy(inPosition);
     };
   }
+
   function __locationError(inError){
     console.log("error:",inError);
     if (tracking) {

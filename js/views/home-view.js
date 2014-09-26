@@ -93,6 +93,13 @@ var HomeView = function() {
     };
   }
 
+  function displayAccuracy(inPosition) {
+    var a = Config.userSmallDistance(inPosition.coords.accuracy.toFixed(0));
+
+    document.getElementById("accmsg").innerHTML = _("accmsg", {Accuracy: a.v, Unit: a.u});
+    document.getElementById("accmsg").className = "text-big align-center";
+  }
+
   function __displayCompass(event) {
     // compass = document.getElementById("home-compass");
     //~ console.log("heading:", event.heading);
@@ -120,7 +127,8 @@ var HomeView = function() {
     // hideSpinner: hideSpinner,
     updateInfos: updateInfos,
     // updateSettings: updateSettings,
-    displayError: displayError
+    displayError: displayError,
+    displayAccuracy: displayAccuracy
   };
 
 }();
