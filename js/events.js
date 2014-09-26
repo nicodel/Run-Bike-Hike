@@ -226,6 +226,6 @@ document.getElementById("del-form-confirm").onsubmit = function() {return false;
 //   Controller.displayTrack(testdata);
 // });
 
-document.querySelector("#dev-import").addEventListener("click", function () {
+/*document.querySelector("#dev-import").addEventListener("click", function () {
   Controller.importForDev();
-});
+});*/
