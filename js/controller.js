@@ -160,7 +160,7 @@ var Controller = function() {
       var lock = window.navigator.requestWakeLock('screen');
       window.addEventListener('unload', function () {
         lock.unlock();
-      });/
+      });
     };
 
   }
