@@ -1,0 +1,97 @@
+CACHE MANIFEST
+# v 0.1.4
+
+CACHE
+
+# Main files
+index.html
+
+# css/
+css/app.css
+css/buttons.css
+css/fonts.css
+css/form.css
+css/input_areas.css
+css/reset.css
+css/select.css
+css/spinner.css
+css/status.css
+css/styles.css
+css/switches.css
+css/x-appbar.css
+css/x.css
+css/x-layout.css
+css/x-toggle.css
+
+# css/font/
+css/font/FiraSans-Light.eot
+css/font/FiraSans-Light.ttf
+css/font/FiraSans-Regular.eot
+css/font/FiraSans-Regular.ttf
+
+# img/
+img/clear.png
+img/gradient-confirm.png
+img/icon128.png
+img/icon60.png
+img/icon-back.png
+img/icon-delete.png
+img/icon-edit.png
+img/icon-forward.png
+img/icon-list.png
+img/icon-menu.png
+img/icon-settings.png
+img/icon-share.png
+img/pattern-comfirm.png
+img/spinner/default@1.5x.png
+img/spinner/default@2x.png
+img/spinner/default.png
+background@1.5x.png
+background@2x.png
+background_off@1.5x.png
+background_off@2.25x.png
+background_off@2x.png
+background_off.png
+background_on@2.25x.png
+background.png
+background_rtl@1.5x.png
+background_rtl.png
+img/switch/default@1.5x.png
+img/switch/default@2.25x.png
+img/switch/default@2x.png
+img/switch/default.png
+
+
+# js/
+
+js/app.js
+js/controller.js
+js/events.js
+js/models
+js/views
+js/models/chrono.js
+js/models/config.js
+js/models/db.js
+js/models/db_proto.js
+js/models/export_tracks.js
+js/models/geolocation.js
+js/models/map.js
+js/models/share.js
+js/models/tracks.js
+js/views/home-view.js
+js/views/js/views/infos-view.js
+js/views/map-view.js
+js/views/status.js
+js/views/tracks-view.js
+js/views/track-view.js
+
+# lib/
+lib/brick/brick-1.0.1.byob.min.css
+lib/brick/brick-1.0.1.byob.min.js
+lib/webL10n/l10n.js
+
+# locales/
+locales/data.en.properties
+locales/data.fr.properties
+locales/locales.ini
+
