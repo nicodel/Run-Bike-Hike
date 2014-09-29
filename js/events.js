@@ -183,7 +183,7 @@ document.querySelector("#btn-cancel-share").addEventListener("click", function()
 /* Share Confirm button */
 document.querySelector("#btn-confirm-share").addEventListener("click", function() {
   var file, summary = false;
-  if (document.querySelector("#toggle-share-file").value) {
+  /*if (document.querySelector("#toggle-share-file").value) {
     // export file
     file = true;
   } else if (document.querySelector("#toggle-share-summary").value) {
@@ -191,7 +191,7 @@ document.querySelector("#btn-confirm-share").addEventListener("click", function(
     summary = true;
   } else {
     // no selection made ???
-  };
+  };*/
   var share = document.querySelector("#select-share").value;
   console.log("ready to share", share);
   document.getElementById("views").showCard(4);
