@@ -22,7 +22,7 @@ Un outil d'enregistrement GPS pour les sportifs qui aiment suivre leurs évoluti
 
 ## Release notes
 
-### v0.1.4
+### v0.1.4 - 29/09/2014
 * Device position is shown, along with altitude and direction (if moving).
 * Informations shown during tracking are speed, altitude, accuracy and elapsed time.
 * Movements can be recorded. Informations recorded are longitude, latitude, altitude, direction, speed and accuracy.
@@ -35,9 +35,9 @@ Un outil d'enregistrement GPS pour les sportifs qui aiment suivre leurs évoluti
 * Available language : English, French.
 
 
-### v0.5
-* New available languages.
-* Tracks list can be sorted by name, date or distance.
+### v0.1.5 - 30/09/2014
+* sharing through emails and sd-card bugs corrected.
+
 
 ## Licence
 
