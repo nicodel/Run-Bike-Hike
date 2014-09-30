@@ -359,7 +359,7 @@ var Controller = function() {
   }
 
   function shareTrack(inFile, inSummary, inShare) {
-    if (inFile || inSummary) {
+    /*if (inFile || inSummary) {
       if (inFile) {
         var gpx_track = ExportTrack.toGPX(displayed_track);
       };
@@ -368,12 +368,13 @@ var Controller = function() {
       }
     } else {
       // ?? nothing selected ??
-    };
+    };*/
+    var gpx_track = ExportTrack.toGPX(displayed_track);
     if (inShare === "email") {
       console.log("sharing on email");
       Share.toEmail(displayed_track, gpx_track);
-    } else if (inShare === "twitter") {
-      console.log("sharing on twitter");
+    /*} else if (inShare === "twitter") {
+      console.log("sharing on twitter");*/
     } else if (inShare === "local") {
       var n = displayed_track.name.replace(/[:.-]/g,"") + ".gpx";
       console.log("sharing on local", n);
