@@ -28,13 +28,15 @@ var Share = function() {
   function toEmail(inTrack, inFile) {
     var blob = new Blob([inFile], {type: "text/plain"});
     var name = inTrack.name + ".gpx";
-
+    var subject = "Track: " + name;
+    
     var activity = new MozActivity({
       name: "new",
       data: {
         type: "mail",
-        filenames: [name],
-        blobs: [blob]
+        url: "mailto:?subject=" + subject,
+        filenames: [name, inTrack.name + ".jpg"],
+        blobs: [blob, inTrack.map]
       }
     });
 
