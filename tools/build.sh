@@ -1,6 +1,6 @@
 #!/bin/bash
 
-var VERSION=$1
+#var VERSION=$1
 
 # Web app building script
 # files are being cmodify in ../tmp/, before being packaged in builds
@@ -73,4 +73,4 @@ rm ../tmp/css_files.txt
 rm ../tmp/files_concat.css
 # Create the zip package
 cd ../tmp
-zip -r ../builds/runbikehike_v0.1.4.zip *
+zip -r ../builds/runbikehike_v0.1.5.zip *
