@@ -2,27 +2,23 @@
 
 ## Description
 
-Un outil d'enregistrement GPS pour les sportifs qui aiment suivre leurs évolutions.
-
-## Cas d'utilisation :
-
-* Coureur souhaitant enregistrer ses parcours pour suivre son évolution. Il aura son téléphone dans sa poche, et pourra écouter de la musique pendant toute la course. Il ne reviendra sur l'application qu'une fois sa course terminée.
-* Cycliste souhaitant avoir une visibilité de sa route pendant son parcours. Il pourra avoir son téléphone accroché sur son velo,&nbsp; visible, pourra ainsi suivre en temps réel sa direction, vitesse, distance...
-* Marcheur nécessitant une visibilité sur sa position. Le téléphone ne sera consulté&nbsp; qu'en cas de doute sur la route à suivre,&nbsp; pour vérifier la position, l'altitude...
-
-## Fonctionnalités :
-* Exporter les parcours enregistrés aux formats standards afin qu'ils puissent être réutiliser par la suite avec d'autres applications.
-* Suivre sa position, altitude, vitesse, direction, distance parcourue et temps passé.
-* Enregistrer les parcours.
-* Visualiser les parcours enregistrés, particulièrement la courbe de vitesse, d'altitude et la visualisation du parcours sur une carte.
+A GPS recording web app.
 
 ## Installation
-* Version stable : Le [marketplace de Firefox](http://)
-* Version en développement : [http://nicodel.github.io/Run-Bike-Hike](http://nicodel.github.io/Run-Bike-Hike)
+* Stable : [Firefox marketplace](https://marketplace.firefox.com/app/run-bike-hike)
+* Under development : [Github](http://nicodel.github.io/Run-Bike-Hike)
 
 ## Release notes
 
+### v0.1.6 - 01/10/2014
+* correcting sharing bug... again and finally.
+* adding map picture to email sharing.
+
+### v0.1.5 - 30/09/2014
+* sharing through emails and sd-card bugs corrected.
+
 ### v0.1.4 - 29/09/2014
+* initial market place version.
 * Device position is shown, along with altitude and direction (if moving).
 * Informations shown during tracking are speed, altitude, accuracy and elapsed time.
 * Movements can be recorded. Informations recorded are longitude, latitude, altitude, direction, speed and accuracy.
@@ -34,28 +30,5 @@ Un outil d'enregistrement GPS pour les sportifs qui aiment suivre leurs évoluti
 * Stored tracks can be exported to GPX or HTML format, and saved locally or sent through email.
 * Available language : English, French.
 
-
-### v0.1.5 - 30/09/2014
-* sharing through emails and sd-card bugs corrected.
-
-
 ## Licence
-
 Run, Bike, Hike... is distributed under the [MPL2.0 licence](http://www.mozilla.org/MPL/2.0/)
-
-
-
-
-## Misc
-
-### App Icons
-* 2 formats: 128px (Marketplace) et 60px (Appareil)
-* Representing a map with a compass, along with a bike a running and hiking shoes
-### App Description
-* One phrase short description ( catch phrase).
-* Two to three phrases long description.
-### App Screenshots
-* Portrait & Landscape
-* Sizes:
-** 320x480
-** 720x1280
