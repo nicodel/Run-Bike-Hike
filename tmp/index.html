@@ -15,8 +15,15 @@
     <!--······························ Brick ································-->
     <link rel="stylesheet" href="lib/brick/brick-1.0.1.byob.min.css"/>
 
+    <!--······························ Reset ································-->
+
+    <!--······························ Fonts ································-->
+
     <!--··························· My Flat Skin ····························-->
-    <link rel="stylesheet" href="css/app.css"/>
+
+    <!--························ My common style ! ··························-->
+    <link rel="stylesheet" href="app.css"/>
+
 
 
   </head>
@@ -69,9 +76,10 @@
                   <option value="2">49.135060</option>
                 </select>
               </li>
-              <li>
-                <p>Dev Mode </p>
-                <button id="dev-import" class="danger">Import</button></li>
+              <!-- <li> -->
+                <!-- <p>Dev Mode </p> -->
+                <!-- <button id="dev&#45;import" class="danger">Import</button> -->
+              <!-- </li> -->
             </ul>
           </section>
         </x-layout>
@@ -133,6 +141,8 @@
                   <div id="message-area" class="align-center">
                     <progress id="spinner"></progress>
                     <p data-l10n-id="retreiving" id="msg" class="text-big align-center">Retreiving GPS signal. It may take some time...</p>
+                    <p data-l10n-id="accmsg" id="accmsg" class="hidden text-big align-center"></p>
+                    <p data-l10n-id="error-position" id="errmsg" class="hidden text-big align-center"></p>
                   </div>
                 </li>
               </ul>
@@ -322,6 +332,7 @@
     <!-- Localization -->
     <script type="text/javascript" src="lib/webL10n/l10n.js"></script>
     <script type="text/javascript" src="lib/brick/brick-1.0.1.byob.min.js"></script>
-    <script type="text/javascript" src="js/app.js"></script>
+    <!-- <script type="text/javascript" src="test/data.js"></script> -->
+    <script type="text/javascript" src="app.js"></script>
 
 </html>

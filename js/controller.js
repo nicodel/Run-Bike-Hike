@@ -37,16 +37,19 @@ var Controller = function() {
 
   function __locationChanged(inPosition){
     // console.log("Position found", inPosition);
-    // if (inPosition.coords.accuracy < 50) {
+    if (inPosition.coords.accuracy < 50) {
       if (tracking) {
         // console.log("tracking");
         __addNewPoint(inPosition);
       } else {
         // console.log("not tracking");
         HomeView.updateInfos(inPosition, null);
-      };
-    // };
+      } 
+    } else {
+        HomeView.displayAccuracy(inPosition);
+    };
   }
+
   function __locationError(inError){
     console.log("error:",inError);
     if (tracking) {
@@ -168,8 +171,8 @@ var Controller = function() {
 
   function savingSettings(inKey, inValue) {
     settings[inKey] = inValue;
-    //console.log("saving:", inKey + " " + inValue);
-    //console.log("now settings:", settings);
+    console.log("saving:", inKey + " " + inValue);
+    console.log("now settings:", settings);
     DB.updateConfig(__savingSettingsSuccess, __savingSettingsError, inKey, inValue);
   }
 
@@ -214,7 +217,7 @@ var Controller = function() {
   //   document.getElementById("distance").value = inSettings.distance;
   //   document.getElementById("speed").value = inSettings.speed;
   //   document.getElementById("position").value = inSettings.position;
-  // }
+  // 
   function __updateConfigValues(inSettings) {
     //console.log("setting settings :)", inSettings);
     for (var i = 0; i < Object.keys(inSettings).length; i++) {
@@ -224,7 +227,11 @@ var Controller = function() {
       if (param === "screen") {
         Config.change("SCREEN_KEEP_ALIVE", inSettings[param]);
       } else if (param === "language") {
-        // Config.change("")
+        if (inSettings[param] === "none") {
+          inSettings[param] = document.webL10n.getLanguage();
+        } else {
+          document.webL10n.setLanguage(inSettings[param]);
+        }
       } else if (param === "distance") {
         Config.change("USER_DISTANCE", inSettings[param]);
       } else if (param === "speed") {
@@ -252,11 +259,10 @@ var Controller = function() {
 
 
     document.getElementById("screen").checked = inSettings.screen;
-    document.getElementById("language").value = inSettings.language;
     document.getElementById("distance").value = inSettings.distance;
     document.getElementById("speed").value = inSettings.speed;
     document.getElementById("position").value = inSettings.position;
-
+    document.getElementById("language").value = inSettings.language;
   }
 
   // function __setHomeView(inSettings) {

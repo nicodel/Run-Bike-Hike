@@ -10,7 +10,7 @@ var DB = function() {
 
   var DEFAULT_CONFIG = [
     {"key":"screen", "value":false},
-    {"key":"language", "value":"en"},
+    {"key":"language", "value":"none"},
     {"key":"distance", "value":"0"},
     {"key":"speed", "value":"0"},
     {"key":"position", "value":"0"}

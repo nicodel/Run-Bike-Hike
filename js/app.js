@@ -4,7 +4,7 @@ var RunBikeHike = function() {
   document.addEventListener('DOMComponentsLoaded', function(){
     var deck = document.getElementById("views");
     deck.showCard(1);
-
+    console.log("document.webL10n.getLanguage()", document.webL10n.getLanguage());
     var _ = document.webL10n.get;
     Controller.init()
   });
