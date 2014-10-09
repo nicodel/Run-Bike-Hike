@@ -188,10 +188,15 @@ var TrackView = function() {
     // console.log("xspace",xspace);
     for (i=0;i<data.length;i+=xspace) {
       i = parseInt(i,10);
-      var date = new Date(data[i].date).getHours() + ":" + new Date(data[i].date).getMinutes();
+      var d = new Date(data[i].date);
+      var date = ("0" + d.getHours()).slice(-2) + ":" + ("0" + d.getMinutes()).slice(-2);
       c.textAlign = "center";
       c.fillStyle = "gray";
-      c.fillText(date, __getXPixel(i,data), SCREEN_HEIGHT - yPadding + 27);
+      if (i+xspace > data.length) {
+        c.fillText(date, __getXPixel(i,data) - 15, SCREEN_HEIGHT - yPadding + 27);
+      } else {
+        c.fillText(date, __getXPixel(i,data), SCREEN_HEIGHT - yPadding + 27);
+      }
       // draw vertical lines
       c.beginPath();
       // c.strokeStyle  = "rgba(150,150,150, 0.5)";
