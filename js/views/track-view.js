@@ -79,11 +79,12 @@ var TrackView = function() {
       if (t.end === null || dt > t.end) {
         t.end = dt;
       }
-      t.av_speed = t.av_speed + speed_int;
+      // t.av_speed = t.av_speed + speed_int;
     }
-    console.log("t.av_speed",t.av_speed);
-    t.av_speed = t.av_speed / t.data.length;
-    console.log("t.max_speed",t.max_speed);
+    t.av_speed = inTrack.Distance / inTrack.duration;
+    // console.log("t.av_speed",t.av_speed);
+    // t.av_speed = t.av_speed / t.data.length;
+    // console.log("t.max_speed",t.max_speed);
     // t.max_alt_speed = 15;
     // console.log("t.max_speed",t.max_speed);
     var a = Config.userSpeed(t.max_speed);
