@@ -37,9 +37,9 @@ var TrackView = function() {
 
     document.getElementById("trk-date").innerHTML = Config.userDate(inTrack.date);
     var a = Config.userDistance(inTrack.distance);
-    document.getElementById("trk-dist").innerHTML = a.v + a.u;
+    document.getElementById("trk-dist").innerHTML = a.v + " " + a.u;
     var d = inTrack.duration / 60000;
-    document.getElementById("trk-dur").innerHTML = d.toFixed() +" min";
+    document.getElementById("trk-dur").innerHTML = d.toFixed() + " min";
 
     var t = inTrack;
     console.log("t", t);
@@ -88,13 +88,13 @@ var TrackView = function() {
     // t.max_alt_speed = 15;
     // console.log("t.max_speed",t.max_speed);
     var a = Config.userSpeed(t.max_speed);
-    document.getElementById("trk-max-speed").innerHTML = a.v + a.u;
+    document.getElementById("trk-max-speed").innerHTML = a.v + " " + a.u;
     var a = Config.userSpeed(t.av_speed);
-    document.getElementById("trk-av-speed").innerHTML = a.v + a.u;
+    document.getElementById("trk-av-speed").innerHTML = a.v + " " + a.u;
     var a = Config.userSmallDistance(t.max_alt);
-    document.getElementById("trk-max-alt").innerHTML = a.v + a.u;
+    document.getElementById("trk-max-alt").innerHTML = a.v + " " + a.u;
     var a = Config.userSmallDistance(t.min_alt);
-    document.getElementById("trk-min-alt").innerHTML = a.v + a.u;
+    document.getElementById("trk-min-alt").innerHTML = a.v + " " + a.u;
 
     if (t.map) {
       console.log("map exist");

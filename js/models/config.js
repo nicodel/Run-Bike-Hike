@@ -76,7 +76,7 @@ var Config = function() {
       // return (velocityMPS * 2.237).toFixed(0)+" MPH";
       // console.log("value - IMPERIAL_UNITS");
        a.v = (velocityMPS * 2.237).toFixed(0);
-       a.u = "MPH"
+       a.u = "mph"
        return a;
     }
     if (Config.CONFIG["speed"] === METRIC_UNITS){
