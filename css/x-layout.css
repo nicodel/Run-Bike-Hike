@@ -150,64 +150,28 @@ x-layout > [data-type="settings"] ul li .button.icon-dialog:before {
   top: 100%;
   margin-top: -2.4rem;
 }
-/*x-layout > [data-type="settings"] ul li .button:after {
-  content: "";
-  top: 100%;
-  left: 0px;
-  right: 0px;
-  height: 0.2rem;
-  background: url('buttons/images/ui/shadow.png') repeat-x scroll left bottom / auto 100% transparent;
-}*/
-/*x-layout > [data-type="settings"] ul li .button.icon:before {
-  content: "";
-  width: 3rem;
-  height: 3rem;
-  position: absolute;
-  top: 50%;
-  right: 0px;
-  margin-top: -1.5rem;
-  background: none no-repeat scroll center center / 100% auto transparent;
-  pointer-events: none;
-}*/
 x-layout > [data-type="settings"] ul li  .button.icon-dialog {
   font-size: 1.7rem;
 }
-/*x-layout > [data-type="settings"] ul li  .button.icon {
-  padding-right: 3rem;
-}*/
-x-layout > [data-type="settings"] ul li .title {
-    font-size: 2rem;
-    font-weight: 400:
-    line-height: 5rem;
-    padding: 1.5rem 1.5rem 1rem;
+x-layout > [data-type="settings"] ul li p.about a {
+  text-decoration: underline;
+  line-height: normal;
 }
-
-x-layout > [data-type="settings"] ul li .licence,
-x-layout > [data-type="settings"] ul li .version {
-  font-weight: 100;
+x-layout > [data-type="settings"] ul li p.about {
+  font-size: 1.5rem;
+  line-height: normal;
+  padding: 0.5rem 0 0 0;
   white-space: normal;
-  text-decoration: none;
 }
-x-layout > [data-type="settings"] ul li .licence {
-  font-size: 1.4rem;
-  line-height: 0.1rem;
+x-layout > [data-type="settings"] ul li p.about > * {
+  margin: 0;
 }
-x-layout > [data-type="settings"] ul li .version {
-  font-size: 1.6rem;
-  padding: 0;
+x-layout > [data-type="settings"] ul li h2.about {
+  font-size: 1.9rem;
+  background-color: grey;
+  padding: 1.5rem 1.5rem 1rem;
   margin-bottom: 1rem;
 }
-x-layout > [data-type="settings"] ul li .buttons {
-  text-align: center;
-  white-space: normal;
-}
-x-layout > [data-type="settings"] ul li .buttons button {
-  width: 100%;
-  font-weight: 800;
-  font-style: normal;
-  text-align: left; 
-}
-
 
 
 

@@ -1,0 +1,3 @@
+update version [develop ee38025] updating version to 0.1.7
+average speed [develop 546b9d3] bug#26: correcting average speed calculation
+space value unit [develop 3d0e22a] bug#26: adding a space between values and unit
