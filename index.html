@@ -332,18 +332,35 @@
               <!-- <option value="twitter" data&#45;l10n&#45;id="twitter">Twitter</option> -->
               <option value="local" data-l10n-id="on-device">On device</option>
             </select>
-            <!-- <label class="pack&#45;checkbox"> -->
-              <!-- <input class="uninit" type="checkbox" id="toggle&#45;share&#45;summary" /> -->
-              <!-- <span class="menu&#45;item" data&#45;l10n&#45;id="track&#45;summary">Track summary</span> -->
-            <!-- </label> -->
-            <!-- <label class="pack&#45;checkbox"> -->
-              <!-- <input class="uninit" type="checkbox" id="toggle&#45;share&#45;file" /> -->
-              <!-- <span class="menu&#45;item" data&#45;l10n&#45;id="gpx&#45;file">GPX file</span> -->
-            <!-- </label> -->
           </section>
           <menu>
             <button id="btn-cancel-share" class="cancel" data-l10n-id="cancel">Cancel</button>
             <button id="btn-confirm-share" role="button" class="danger" data-l10n-id="confirm">Confirm</button>
+          </menu>
+        </form>
+      </x-card>
+
+      <!-- Card 8 : Import a track form form -->
+      <x-card transition-type="fade-scale">
+        <form id="import-form" role="dialog" data-type="entry" class="light">
+          <section data-type="file-selector">
+            <h1 data-l10n-id="import-track">Import a GPX file</h1>
+            <p>
+              <span data-l10n-id="import-track-path">SD-CARD: rbh/import</span>
+            </p>
+            <select id="select-file">
+              <option value="empty">--</option>
+              <option value="track-1">TRACK-1.gpx</option>
+              <option value="track-2">TRACK-2.gpx</option>
+              <option value="track-3">TRACK-3.gpx</option>
+              <option value="track-4">TRACK-4.gpx</option>
+              <option value="track-5">TRACK-5.gpx</option>
+              <option value="track-6">TRACK-6.gpx</option>
+            </select>
+          </section>
+          <menu>
+            <button id="btn-cancel-import" class="cancel" data-l10n-id="cancel">Cancel</button>
+            <button id="btn-confirm-import" role="button" class="danger" data-l10n-id="import" disabled="disabled">Import</button>
           </menu>
         </form>
       </x-card>

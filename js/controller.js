@@ -392,6 +392,10 @@ var Controller = function() {
     // console.log(inMessage);
   }
 
+  function importFile(inPath) {
+    console.log("import file", inPath);
+  }
+
   function importForDev() {
     DB.addTrack(__addTrackSuccess, __addTrackError, testdata);
   }
@@ -413,7 +417,8 @@ var Controller = function() {
     flippingTrack: flippingTrack,
     getTrackName: getTrackName,
     renameTrack: renameTrack,
-    shareTrack: shareTrack
+    shareTrack: shareTrack,
+    importFile: importFile
   };
 }();
 // })
