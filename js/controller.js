@@ -394,7 +394,44 @@ var Controller = function() {
 
   function importFile(inPath) {
     console.log("import file", inPath);
+    GPX.load(inPath, __GPXloadSuccess, __GPXloadError);
   }
+  function __GPXloadSuccess(inTrack) {
+    // console.log("success load track", inTrack);
+    current_track = Tracks.importFromFile(inTrack);
+    var data = current_track.data;
+    for (var i = 0; i < data.length; i++) {
+      data[i]
+      // calculate distance
+      distance = Tracks.getDistance(data[i].latitude, data[i].longitude);
+      // calculating duration
+      if (data.date) {
+        duration = Tracks.getDuration(data.date);
+      }
+    };
+    if (isNaN(duration)) {
+      duration = "--";
+    }
+    current_track.duration = duration;
+    current_track.distance = distance;
+    Tracks.reset();
+    // Tracks.close();
+    var track = Tracks.close();
+    DB.addTrack(__addTrackonImportSuccess, __addTrackonImportError, track);
+  }
+
+  function __GPXloadError(inMessage) {}
+  
+  function __addTrackonImportSuccess(inEvent) {
+    utils.status.show(_("track-saved", {inEvent:inEvent})); //"Track " + inEvent + " sucessfully saved.");
+    document.getElementById("views").showCard(4);
+    __displayTrack(current_track);
+  }
+
+  function __addTrackonImportError(inEvent) {
+    utils.status.show(inEvent);
+  }
+
 
   function importForDev() {
     DB.addTrack(__addTrackSuccess, __addTrackError, testdata);

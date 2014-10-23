@@ -115,7 +115,7 @@ document.querySelector("#btn-confirm-import").addEventListener("click", function
 document.querySelector("#select-file").onchange = function() {
   var dom = document.querySelector("#select-file");
   var id = this.selectedIndex;
-  console.log("import select changed", dom[id].value);
+  // console.log("import select changed", dom[id].value);
   if (dom[id].value === "empty") {
     document.getElementById("btn-confirm-import").setAttribute("disabled", "disabled");
   } else {

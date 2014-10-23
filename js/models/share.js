@@ -37,7 +37,7 @@ var Share = function() {
         url: "mailto:?subject=" + subject,
         filenames: [name, inTrack.name + ".jpg"],
         blobs: [blob, inTrack.map]
-      }
+     }
     });
 
     activity.onsuccess = function() {
