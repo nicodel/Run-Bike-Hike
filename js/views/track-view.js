@@ -38,9 +38,13 @@ var TrackView = function() {
     document.getElementById("trk-date").innerHTML = Config.userDate(inTrack.date);
     var a = Config.userDistance(inTrack.distance);
     document.getElementById("trk-dist").innerHTML = a.v + " " + a.u;
-    var d = inTrack.duration / 60000;
-    document.getElementById("trk-dur").innerHTML = d.toFixed() + " min";
-
+    if (isNaN(inTrack.duration)) {
+      document.getElementById("trk-dur").innerHTML = "-- min";
+    } else {
+      var d = inTrack.duration / 60000;
+      document.getElementById("trk-dur").innerHTML = d.toFixed() + " min";
+    }
+ 
     var t = inTrack;
     console.log("t", t);
     // console.log("t.map", t.map);

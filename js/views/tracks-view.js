@@ -82,8 +82,12 @@ var TracksView = function() {
     var a = Config.userDistance(inTrack.distance);
     div = div + '<span class="align-right text-thin">' + a.v + " "+ a.u + '</span></p>';
     div = div + '<p class="new-line"><span class="align-left text-thin">' + Config.userDate(inTrack.date) + '</span>';
-    var d = inTrack.duration / 60000;
-    div = div + '<span class="align-right text-thin">' + d.toFixed() + ' min</span></p>';
+    if (isNaN(inTrack.duration)) {
+      div = div + '<span class="align-right text-thin">-- min</span></p>';
+    } else {
+      var d = inTrack.duration / 60000;
+      div = div + '<span class="align-right text-thin">' + d.toFixed() + ' min</span></p>';
+    }
     lia.innerHTML = div;
     li.appendChild(lia);
     document.getElementById("tracks-list").appendChild(li);
