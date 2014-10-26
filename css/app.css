@@ -88,6 +88,19 @@ button[disabled] {
   padding-top: 10px;
   line-height: 3rem;
 }
+
+/*
+  Rename a track form specific styles
+*/
+p#icons-list > img {
+  border-radius: 0.5rem;
+  width: 38px;
+  /* width: calc(100% / 6); not working */
+}
+p#icons-list > img.active {
+  background-color: #0AC;
+}
+
 /*
   Settings View specific styles
  */

@@ -221,7 +221,7 @@
           <h1 id="tr-name"></h1>
           <button data-l10n-id="delete" class="icon icon-delete" id="btn-delete">Delete</button>
           <button data-l10n-id="share" class="icon icon-share" id="btn-share">Share</button>
-          <button data-l10n-id="rename" class="icon icon-edit" id="btn-rename">Rename</button>
+          <button data-l10n-id="edit" class="icon icon-edit" id="btn-edit">Edit</button>
         </x-appbar>
         <x-layout>
           <section data-type="details">
@@ -299,22 +299,35 @@
         </form>
       </x-card>
 
-      <!--  Card 6 : Rename a track form -->
+      <!--  Card 6 : Edit a track form -->
       <x-card  transition-type="fade-scale">
-        <form id="rename-form" role="dialog" data-type="entry" class="light">
+        <form id="edit-form" role="dialog" data-type="entry" class="light">
           <section>
             <h1 data-l10n-id="rename-track">Rename a track</h1>
-            <!-- <p> -->
-              <!-- <span data&#45;l10n&#45;id="enter&#45;new&#45;track&#45;name">Enter below the new track name</span> -->
-	    <!-- </p> -->
-	    <p>
-	      <input type="text" placeholder="" id="input-rename">
-	      <button type="reset" data-l10n-id="clear" id="btn-clear-rename">Clear</button>
-	    </p>
+            <p>
+              <input type="text" placeholder="" id="input-rename">
+              <button type="reset" data-l10n-id="clear" id="btn-clear-rename">Clear</button>
+            </p>
+            <h1 data-l10n-id="change-track-icon">Change the track's icon</h1>
+            <p id="icons-list">
+              <img id="icon-walking" src="../img/activities/walking.svg"/>
+              <img id="icon-running" src="../img/activities/running.svg"/>
+              <img id="icon-racing" src="../img/activities/racing.svg"/>
+              <img id="icon-trekking" src="../img/activities/trekking.svg"/>
+              <img id="icon-climbing" src="../img/activities/climbing.svg"/>
+              <img id="icon-swimming" src="../img/activities/swimming.svg"/>
+              <img id="icon-paddling" src="../img/activities/paddling.svg"/>
+              <img id="icon-regular_biking" src="../img/activities/regular_biking.svg"/>
+              <img id="icon-time_trial_biking" src="../img/activities/time_trial_biking.svg"/>
+              <img id="icon-mountain_biking" src="../img/activities/mountain_biking.svg"/>
+              <img id="icon-horse_riding" src="../img/activities/horse_riding.svg"/>
+              <img id="icon-skiing" src="../img/activities/skiing.svg"/>
+              <!-- <button type="reset" data-l10n-id="clear" id="btn-clear-icon">Clear</button> -->
+            </p>
           </section>
           <menu>
-            <button id="btn-cancel-rename" class="cancel" data-l10n-id="cancel">Cancel</button>
-            <button id="btn-confirm-rename" role="button" class="danger" data-l10n-id="confirm">Confirm</button>
+            <button id="btn-cancel-edit" class="cancel" data-l10n-id="cancel">Cancel</button>
+            <button id="btn-confirm-edit" role="button" class="danger" data-l10n-id="confirm">Confirm</button>
           </menu>
         </form>
       </x-card>
