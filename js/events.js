@@ -144,7 +144,9 @@ document.querySelector("#btn-edit").addEventListener("click", function() {
   [].forEach.call(document.querySelectorAll("#icons-list img"), function(el) {
     el.classList.remove("active");
   });
-  document.getElementById("icon-" + info.icon).classList.add("active");
+  if(typeof info.icon !== undefined && document.getElementById("icon-" + info.icon) != null) {
+    document.getElementById("icon-" + info.icon).classList.add("active");
+  }
 });
 
 /*----------------- Track Edit View -------------------*/
@@ -155,9 +157,10 @@ document.querySelector("#btn-cancel-edit").addEventListener("click", function() 
 /* Edit Confirm button */
 document.querySelector("#btn-confirm-edit").addEventListener("click", function() {
   document.getElementById("views").showCard(4);
+  var icon = document.querySelector("#icons-list img.active");
   Controller.editTrack(
     document.querySelector("#input-rename").value,
-    document.querySelector("#icons-list img.active").id.slice(5)
+    (icon != null) ? icon.id.slice(5) : null
   );
 });
 /* Rename Clear button */

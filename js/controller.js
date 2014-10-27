@@ -348,8 +348,8 @@ var Controller = function() {
     };
   }
   function editTrack(inName, inIcon) {
-    displayed_track.name = inName
-    displayed_track.icon = inIcon
+    displayed_track.name = inName;
+    displayed_track.icon = inIcon;
     console.log("track name is now ", displayed_track.name);
     DB.updateTrack(__updateTrackSuccess, __updateTrackError, displayed_track);
   }
