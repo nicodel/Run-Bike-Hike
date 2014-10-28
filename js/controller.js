@@ -341,21 +341,25 @@ var Controller = function() {
     // console.log("inFlipped", inFlipped);
     display_map = inFlipped;
   }
-  function getTrackName() {
-    return displayed_track.name;
+  function getTrackInfo() {
+    return {
+      name: displayed_track.name,
+      icon: displayed_track.icon
+    };
   }
-  function renameTrack(inName) {
-    displayed_track.name = inName
+  function editTrack(inName, inIcon) {
+    displayed_track.name = inName;
+    displayed_track.icon = inIcon;
     console.log("track name is now ", displayed_track.name);
     DB.updateTrack(__updateTrackSuccess, __updateTrackError, displayed_track);
   }
   function __updateTrackSuccess() {
     TrackView.updateName(displayed_track.name);
     document.getElementById("views").showCard(4);
-    utils.status.show(_("track-rename-success", {name:displayed_track.name}));
+    utils.status.show(_("track-edit-success", {name:displayed_track.name}));
   }
   function __updateTrackError() {
-    utils.status.show(_("track-rename-failure"));
+    utils.status.show(_("track-edit-failure"));
   }
 
   function shareTrack(inFile, inSummary, inShare) {
@@ -452,8 +456,8 @@ var Controller = function() {
     changeSpeed: changeSpeed,
     changePosition: changePosition,
     flippingTrack: flippingTrack,
-    getTrackName: getTrackName,
-    renameTrack: renameTrack,
+    getTrackInfo: getTrackInfo,
+    editTrack: editTrack,
     shareTrack: shareTrack,
     importFile: importFile
   };

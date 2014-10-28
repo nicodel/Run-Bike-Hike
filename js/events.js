@@ -135,31 +135,51 @@ document.querySelector("#btn-track-back").addEventListener ("click", function ()
 document.querySelector("#btn-delete").addEventListener ("click", function () {
   document.getElementById("views").showCard(5);
 });
-/* Track View Rename button */
-document.querySelector("#btn-rename").addEventListener("click", function() {
-  console.log("renaming");
-  document.querySelector("#input-rename").value = Controller.getTrackName();
+/* Track View Edit button */
+document.querySelector("#btn-edit").addEventListener("click", function() {
+  var info = Controller.getTrackInfo();
+  console.log("editing track", info);
+  document.querySelector("#input-rename").value = info.name;
   document.getElementById("views").showCard(6);
+  [].forEach.call(document.querySelectorAll("#icons-list img"), function(el) {
+    el.classList.remove("active");
+  });
+  if(typeof info.icon !== undefined && document.getElementById("icon-" + info.icon) != null) {
+    document.getElementById("icon-" + info.icon).classList.add("active");
+  }
 });
-/* Rename Cancel button */
-document.querySelector("#btn-cancel-rename").addEventListener("click", function() {
+
+/*----------------- Track Edit View -------------------*/
+/* Edit Cancel button */
+document.querySelector("#btn-cancel-edit").addEventListener("click", function() {
   document.getElementById("views").showCard(4);
 });
-/* Rename Confirm button */
-document.querySelector("#btn-confirm-rename").addEventListener("click", function() {
+/* Edit Confirm button */
+document.querySelector("#btn-confirm-edit").addEventListener("click", function() {
   document.getElementById("views").showCard(4);
-  var new_name = document.querySelector("#input-rename");
-  Controller.renameTrack(new_name.value);
+  var icon = document.querySelector("#icons-list img.active");
+  Controller.editTrack(
+    document.querySelector("#input-rename").value,
+    (icon != null) ? icon.id.slice(5) : null
+  );
 });
 /* Rename Clear button */
 document.querySelector("#btn-clear-rename").addEventListener("click", function() {
   document.querySelector("#input-rename").value = "";
 });
-document.getElementById("rename-form").onsubmit = function() {return false;};
-
+document.getElementById("edit-form").onsubmit = function() {return false;};
 /* Don't take focus from the input field */
 document.querySelector("#btn-clear-rename").addEventListener('mousedown', function(e) {
   e.preventDefault();
+});
+/* Select track icon on click */
+[].forEach.call(document.querySelectorAll("#icons-list img"), function(el) {
+  el.addEventListener("click", function() {
+    [].forEach.call(document.querySelectorAll("#icons-list img"), function(el) {
+      el.classList.remove("active");
+    });
+    this.classList.add("active");
+  });
 });
 
 /* Track View Share button */
