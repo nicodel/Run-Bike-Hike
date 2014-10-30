@@ -76,18 +76,17 @@ var TracksView = function() {
     var li = document.createElement("li");
     li.className = "it-track";
     var lia = document.createElement("a");
-    // lia.className = "it-track";
-
-    var div = '<p><span class="align-left clipped">' + inTrack.name + '</span>';
     var a = Config.userDistance(inTrack.distance);
-    div = div + '<span class="align-right text-thin">' + a.v + " "+ a.u + '</span></p>';
-    div = div + '<p class="new-line"><span class="align-left text-thin">' + Config.userDate(inTrack.date) + '</span>';
-    if (isNaN(inTrack.duration)) {
-      div = div + '<span class="align-right text-thin">-- min</span></p>';
-    } else {
-      var d = inTrack.duration / 60000;
-      div = div + '<span class="align-right text-thin">' + d.toFixed() + ' min</span></p>';
+    var div = '<p class="track-title">';
+    if (inTrack.icon != null) { //typeof inTrack.icon !== undefined & 
+      div = div + '<img class="track-icon" src="img/activities/' + inTrack.icon + '.svg" />';
     }
+    div = div + '<span class="track-name">' + inTrack.name + '</span>';
+    div = div + '</p><p class="track-description">';
+    div = div + '<span class="track-date">' + Config.userDate(inTrack.date) + '</span>';
+    div = div + '<span class="track-length">' + a.v + " " + a.u + '</span>';
+    div = div + '<span class="track-duration">' + (isNaN(inTrack.duration) ? '--' : (inTrack.duration / 60000).toFixed()) + ' min</span>';
+    div = div + '</p>';
     lia.innerHTML = div;
     li.appendChild(lia);
     document.getElementById("tracks-list").appendChild(li);

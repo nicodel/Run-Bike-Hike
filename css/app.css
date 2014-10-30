@@ -90,6 +90,53 @@ button[disabled] {
 }
 
 /*
+  Tacks list specific styles
+*/
+#tracks-list li.it-track {
+  padding: 4px 3px 8px;
+}
+#tracks-list a {
+  text-align: left;
+}
+#tracks-list p {
+  margin: 0 3px;
+}
+#tracks-list p.track-title {
+  height: 32px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-top: 5px;
+}
+#tracks-list img.track-icon {
+  height: inherit;
+  vertical-align: middle;
+  margin-top: -5px;
+}
+#tracks-list span.track-name {
+  margin-left: 35px;
+  max-width: calc(100% - 32px);
+  font-size: 22px;
+}
+#tracks-list img.track-icon + span.track-name {
+  /* if there is an icon before, 3px will be enough */
+  margin-left: 3px;
+}
+#tracks-list p.track-description span {
+  float: left;
+  width: 30%;
+  font-weight: 300;
+}
+#tracks-list p.track-description span.track-date {
+  width: 40%;
+}
+#tracks-list span.track-length {
+  text-align: center;
+}
+#tracks-list span.track-duration {
+  text-align: right;
+}
+
+/*
   Rename a track form specific styles
 */
 p#icons-list > img {
