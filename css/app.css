@@ -96,9 +96,13 @@ p#icons-list > img {
   border-radius: 0.5rem;
   width: 38px;
   /* width: calc(100% / 6); not working */
+  padding: 10px;
 }
-p#icons-list > img.active {
-  background-color: #0AC;
+p#icons-list > img:hover {
+  background-color: #AFEEEE;
+}
+p#icons-list > img:active {
+  background-color: #00CAF2;
 }
 
 /*
