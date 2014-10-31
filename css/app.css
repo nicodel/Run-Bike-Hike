@@ -93,33 +93,27 @@ button[disabled] {
   Tacks list specific styles
 */
 #tracks-list li.it-track {
-  padding: 4px 3px 8px;
+  height: 6rem;
+  padding: 0;
 }
 #tracks-list a {
   text-align: left;
 }
 #tracks-list p {
-  margin: 0 3px;
+  margin: 5px;
 }
 #tracks-list p.track-title {
   height: 32px;
   overflow: hidden;
   text-overflow: ellipsis;
-  padding-top: 5px;
 }
 #tracks-list img.track-icon {
   height: inherit;
   vertical-align: middle;
-  margin-top: -5px;
 }
 #tracks-list span.track-name {
-  margin-left: 35px;
-  max-width: calc(100% - 32px);
-  font-size: 22px;
-}
-#tracks-list img.track-icon + span.track-name {
-  /* if there is an icon before, 3px will be enough */
   margin-left: 3px;
+  font-size: 22px;
 }
 #tracks-list p.track-description span {
   float: left;
@@ -148,7 +142,7 @@ p#icons-list > img {
 p#icons-list > img:hover {
   background-color: #AFEEEE;
 }
-p#icons-list > img:active {
+p#icons-list > img.active {
   background-color: #00CAF2;
 }
 

@@ -78,9 +78,10 @@ var TracksView = function() {
     var lia = document.createElement("a");
     var a = Config.userDistance(inTrack.distance);
     var div = '<p class="track-title">';
-    if (inTrack.icon != null) { //typeof inTrack.icon !== undefined & 
-      div = div + '<img class="track-icon" src="img/activities/' + inTrack.icon + '.svg" />';
+    if (inTrack.icon == null) {
+       inTrack.icon = "default";
     }
+    div = div + '<img class="track-icon" src="img/activities/' + inTrack.icon + '.svg" />';
     div = div + '<span class="track-name">' + inTrack.name + '</span>';
     div = div + '</p><p class="track-description">';
     div = div + '<span class="track-date">' + Config.userDate(inTrack.date) + '</span>';
