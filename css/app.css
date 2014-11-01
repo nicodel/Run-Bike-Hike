@@ -112,7 +112,7 @@ button[disabled] {
   vertical-align: middle;
 }
 #tracks-list span.track-name {
-  margin-left: 3px;
+  margin-left: 5px;
   font-size: 22px;
 }
 #tracks-list p.track-description span {
