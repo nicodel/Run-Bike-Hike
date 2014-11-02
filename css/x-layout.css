@@ -243,7 +243,7 @@ x-layout > [data-type="home"] ul li#button {
 x-layout > [data-type="home"] ul li#button {
   text-align: center;
   padding-top: 1rem;
-  padding-bottom: 1rem;
+  padding-bottom: 0.5rem;
   height: 7rem;
 }
 x-layout > [data-type="home"] ul li.bottom {
