@@ -1,9 +1,7 @@
 
 x-layout {
   overflow: scroll;
-  /*height: 95%;*/
-  /*height: 100%;*/
-  height: calc(100% - 45px);
+  height: 100%;
 }
 x-layout > header {
   padding: 0;
