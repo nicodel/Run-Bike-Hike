@@ -16,6 +16,9 @@ A GPS recording web app.
 * Add feature #27: Adding version, contributors, credits and licence informations to Setting View.
 * Add feature #33: Identify the type of sport done while recording track.
 * Fix issue #36: Clean up git repository.
+* Pull request #49: Make "Retreiving GPS signal" more readable.
+* Pull request #50: Use full page height.
+* Pull request #51: Avoid having scrollbar on main view with 320x480 display (eg: Keon).
 
 ### v0.1.6 - 01/10/2014
 * correcting sharing bug... again and finally.
