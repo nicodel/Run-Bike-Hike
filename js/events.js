@@ -64,9 +64,6 @@ document.querySelector("#language").onchange = function() {
   Controller.savingSettings("language", dom[id].value);
   Controller.changeLanguage(dom[id].value);
   document.webL10n.setLanguage(dom[id].value);
-
-
-
 };
 /* Settings View Distance unit selection */
 document.querySelector("#distance").onchange = function() {
@@ -144,9 +141,10 @@ document.querySelector("#btn-edit").addEventListener("click", function() {
   [].forEach.call(document.querySelectorAll("#icons-list img"), function(el) {
     el.classList.remove("active");
   });
-  if(typeof info.icon !== undefined && document.getElementById("icon-" + info.icon) != null) {
-    document.getElementById("icon-" + info.icon).classList.add("active");
+  if(typeof info.icon === undefined || document.getElementById("icon-" + info.icon) == null) {
+    info.icon = "default";
   }
+  document.getElementById("icon-" + info.icon).classList.add("active");
 });
 
 /*----------------- Track Edit View -------------------*/
@@ -160,7 +158,7 @@ document.querySelector("#btn-confirm-edit").addEventListener("click", function()
   var icon = document.querySelector("#icons-list img.active");
   Controller.editTrack(
     document.querySelector("#input-rename").value,
-    (icon != null) ? icon.id.slice(5) : null
+    (icon != null) ? icon.id.slice(5) : "default"
   );
 });
 /* Rename Clear button */
