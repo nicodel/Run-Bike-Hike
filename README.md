@@ -19,6 +19,7 @@ A GPS recording web app.
 * Pull request #49: Make "Retreiving GPS signal" more readable.
 * Pull request #50: Use full page height.
 * Pull request #51: Avoid having scrollbar on main view with 320x480 display (eg: Keon).
+* Issue #33 & Pull requests #35, #38: Identify the type of sport used during a recorded track.
 
 ### v0.1.6 - 01/10/2014
 * correcting sharing bug... again and finally.
