@@ -341,21 +341,25 @@ var Controller = function() {
     // console.log("inFlipped", inFlipped);
     display_map = inFlipped;
   }
-  function getTrackName() {
-    return displayed_track.name;
+  function getTrackInfo() {
+    return {
+      name: displayed_track.name,
+      icon: displayed_track.icon
+    };
   }
-  function renameTrack(inName) {
-    displayed_track.name = inName
+  function editTrack(inName, inIcon) {
+    displayed_track.name = inName;
+    displayed_track.icon = inIcon;
     console.log("track name is now ", displayed_track.name);
     DB.updateTrack(__updateTrackSuccess, __updateTrackError, displayed_track);
   }
   function __updateTrackSuccess() {
     TrackView.updateName(displayed_track.name);
     document.getElementById("views").showCard(4);
-    utils.status.show(_("track-rename-success", {name:displayed_track.name}));
+    utils.status.show(_("track-edit-success", {name:displayed_track.name}));
   }
   function __updateTrackError() {
-    utils.status.show(_("track-rename-failure"));
+    utils.status.show(_("track-edit-failure"));
   }
 
   function shareTrack(inFile, inSummary, inShare) {
@@ -392,6 +396,47 @@ var Controller = function() {
     // console.log(inMessage);
   }
 
+  function importFile(inPath) {
+    console.log("import file", inPath);
+    GPX.load(inPath, __GPXloadSuccess, __GPXloadError);
+  }
+  function __GPXloadSuccess(inTrack) {
+    // console.log("success load track", inTrack);
+    current_track = Tracks.importFromFile(inTrack);
+    var data = current_track.data;
+    for (var i = 0; i < data.length; i++) {
+      data[i]
+      // calculate distance
+      distance = Tracks.getDistance(data[i].latitude, data[i].longitude);
+      // calculating duration
+      if (data.date) {
+        duration = Tracks.getDuration(data.date);
+      }
+    };
+    if (isNaN(duration)) {
+      duration = "--";
+    }
+    current_track.duration = duration;
+    current_track.distance = distance;
+    Tracks.reset();
+    // Tracks.close();
+    var track = Tracks.close();
+    DB.addTrack(__addTrackonImportSuccess, __addTrackonImportError, track);
+  }
+
+  function __GPXloadError(inMessage) {}
+  
+  function __addTrackonImportSuccess(inEvent) {
+    utils.status.show(_("track-saved", {inEvent:inEvent})); //"Track " + inEvent + " sucessfully saved.");
+    document.getElementById("views").showCard(4);
+    __displayTrack(current_track);
+  }
+
+  function __addTrackonImportError(inEvent) {
+    utils.status.show(inEvent);
+  }
+
+
   function importForDev() {
     DB.addTrack(__addTrackSuccess, __addTrackError, testdata);
   }
@@ -411,9 +456,10 @@ var Controller = function() {
     changeSpeed: changeSpeed,
     changePosition: changePosition,
     flippingTrack: flippingTrack,
-    getTrackName: getTrackName,
-    renameTrack: renameTrack,
-    shareTrack: shareTrack
+    getTrackInfo: getTrackInfo,
+    editTrack: editTrack,
+    shareTrack: shareTrack,
+    importFile: importFile
   };
 }();
 // })

@@ -88,6 +88,64 @@ button[disabled] {
   padding-top: 10px;
   line-height: 3rem;
 }
+
+/*
+  Tacks list specific styles
+*/
+/*#tracks-list li.it-track {
+  height: 6rem;
+  padding: 0;
+}*/
+#tracks-list a {
+  text-align: left;
+}
+#tracks-list p {
+  margin: 5px;
+}
+#tracks-list p.track-title {
+  height: 32px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+#tracks-list img.track-icon {
+  height: inherit;
+  vertical-align: middle;
+}
+#tracks-list span.track-name {
+  margin-left: 5px;
+  font-size: 22px;
+}
+#tracks-list p.track-description span {
+  float: left;
+  width: 30%;
+  font-weight: 300;
+}
+#tracks-list p.track-description span.track-date {
+  width: 40%;
+}
+#tracks-list span.track-length {
+  text-align: center;
+}
+#tracks-list span.track-duration {
+  text-align: right;
+}
+
+/*
+  Rename a track form specific styles
+*/
+p#icons-list > img {
+  border-radius: 0.5rem;
+  width: 38px;
+  /* width: calc(100% / 6); not working */
+  padding: 10px;
+}
+p#icons-list > img:hover {
+  background-color: #AFEEEE;
+}
+p#icons-list > img.active {
+  background-color: #00CAF2;
+}
+
 /*
   Settings View specific styles
  */
@@ -114,5 +172,10 @@ ul li > label.pack-switch {
 }
 
 #message-area {
-  margin-top: 40%;
+  margin-top: 30%;
+  padding: 10% 0;
+  background: white;
+}
+#message {
+  background: rgba(248, 248, 255, 0.9);
 }

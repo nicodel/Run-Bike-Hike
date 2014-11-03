@@ -90,6 +90,16 @@
                   <option value="2">49.135060</option>
                 </select>
               </li>
+              <li>
+                <h2 data-l10n-id="informations" class="about">Informations</h2>
+                <p data-l10n-id="version" class="about version"><span class="align-left">Run, Bike, Hike...</span><span class="align-right">version 0.1.7</span></p>
+                <p data-l10n-id="contribute" class="about">You can <a href="https://github.com/nicodel/Run-Bike-Hike">contibute</a> to the project.</p>
+                <p data-l10n-id="translate" class="about">You can help <a href="http://beta.babelzilla.org/projects/p/run-bike-hike/">localize it</a> in your language.</p>
+                <p data-l10n-id="bug" class="about">You can also report a <a href="https://github.com/nicodel/Run-Bike-Hike/issues">bug</a>.</p>
+                <p data-l10n-id="contributors" class="about">The contributors to this project are <a href="https://github.com/nicodel">nicodel</a>, Bonbadil, <a href="https://mathieu.rochette.cc/">mathroc</a>.</p>
+                <p data-l10n-id="credits" class="about">The sports icons are under CC BY, and made by<a href="http://icons8.com/">icons8.com</a>.</p>
+                <p data-l10n-id="licence" class="about">This application source code is licenced under the <a href="http://www.mozilla.org/MPL/2.0/">MPL2.0</a> licence.</p>
+              </li>
               <!-- <li> -->
                 <!-- <p>Dev Mode </p> -->
                 <!-- <button id="dev&#45;import" class="danger">Import</button> -->
@@ -181,27 +191,28 @@
 
       <!-- Card 3 :  Tracks View -->
       <x-card>
-        <x-appbar>
-          <button data-l10n-id="back" id="btn-tracks-back" class="icon icon-back">Back</button>
-          <h1 data-l10n-id="recorded-tracks">Recorded tracks</h1>
-        </x-appbar>
         <x-layout>
-        <section data-type="list">
-          <ul id="tracks-list">
-          </ul>
-          <!-- Testing : Start -->
-<!--           <li>
-          <a id="TR-2014421-15195"><p>
-            <span class="align-left bold clipped">TR-SAMPLE</span>
-            <span class="align-right">21/05/2014</span>
-          </p>
-          <p class="new-line">
-            <span class="align-left">15km</span>
-            <span class="align-right">50min</span>
-          </p></a>
-          </li> -->
-          <!-- Testing : Stop  -->
-        </section>
+          <x-appbar>
+            <button data-l10n-id="back" id="btn-tracks-back" class="icon icon-back">Back</button>
+            <h1 data-l10n-id="recorded-tracks">Recorded tracks</h1>
+            <button data-l10n-id="import" id="btn-import" class="icon icon-import">Import</button>
+          </x-appbar>
+          <section data-type="list">
+            <ul id="tracks-list">
+            </ul>
+            <!-- Testing : Start -->
+            <!-- <li>
+            <a id="TR-2014421-15195"><p>
+              <span class="align-left bold clipped">TR-SAMPLE</span>
+              <span class="align-right">21/05/2014</span>
+            </p>
+            <p class="new-line">
+              <span class="align-left">15km</span>
+              <span class="align-right">50min</span>
+            </p></a>
+            </li> -->
+            <!-- Testing : Stop  -->
+          </section>
         </x-layout>
       </x-card>
 
@@ -212,7 +223,7 @@
           <h1 id="tr-name"></h1>
           <button data-l10n-id="delete" class="icon icon-delete" id="btn-delete">Delete</button>
           <button data-l10n-id="share" class="icon icon-share" id="btn-share">Share</button>
-          <button data-l10n-id="rename" class="icon icon-edit" id="btn-rename">Rename</button>
+          <button data-l10n-id="edit" class="icon icon-edit" id="btn-edit">Edit</button>
         </x-appbar>
         <x-layout>
           <section data-type="details">
@@ -290,22 +301,36 @@
         </form>
       </x-card>
 
-      <!--  Card 6 : Rename a track form -->
+      <!--  Card 6 : Edit a track form -->
       <x-card  transition-type="fade-scale">
-        <form id="rename-form" role="dialog" data-type="entry" class="light">
+        <form id="edit-form" role="dialog" data-type="entry" class="light">
           <section>
             <h1 data-l10n-id="rename-track">Rename a track</h1>
-            <!-- <p> -->
-              <!-- <span data&#45;l10n&#45;id="enter&#45;new&#45;track&#45;name">Enter below the new track name</span> -->
-	    <!-- </p> -->
-	    <p>
-	      <input type="text" placeholder="" id="input-rename">
-	      <button type="reset" data-l10n-id="clear" id="btn-clear-rename">Clear</button>
-	    </p>
+            <p>
+              <input type="text" placeholder="" id="input-rename">
+              <button type="reset" data-l10n-id="clear" id="btn-clear-rename">Clear</button>
+            </p>
+            <h1 data-l10n-id="change-track-icon">Change the track's icon</h1>
+            <p id="icons-list">
+              <img id="icon-default" src="img/activities/default.svg"/>
+              <img id="icon-walking" src="img/activities/walking.svg"/>
+              <img id="icon-running" src="img/activities/running.svg"/>
+              <img id="icon-racing" src="img/activities/racing.svg"/>
+              <img id="icon-trekking" src="img/activities/trekking.svg"/>
+              <img id="icon-climbing" src="img/activities/climbing.svg"/>
+              <img id="icon-swimming" src="img/activities/swimming.svg"/>
+              <img id="icon-paddling" src="img/activities/paddling.svg"/>
+              <img id="icon-regular_biking" src="img/activities/regular_biking.svg"/>
+              <img id="icon-time_trial_biking" src="img/activities/time_trial_biking.svg"/>
+              <img id="icon-mountain_biking" src="img/activities/mountain_biking.svg"/>
+              <img id="icon-horse_riding" src="img/activities/horse_riding.svg"/>
+              <img id="icon-skiing" src="img/activities/skiing.svg"/>
+              <!-- <button type="reset" data-l10n-id="clear" id="btn-clear-icon">Clear</button> -->
+            </p>
           </section>
           <menu>
-            <button id="btn-cancel-rename" class="cancel" data-l10n-id="cancel">Cancel</button>
-            <button id="btn-confirm-rename" role="button" class="danger" data-l10n-id="confirm">Confirm</button>
+            <button id="btn-cancel-edit" class="cancel" data-l10n-id="cancel">Cancel</button>
+            <button id="btn-confirm-edit" role="button" class="danger" data-l10n-id="confirm">Confirm</button>
           </menu>
         </form>
       </x-card>
@@ -323,18 +348,34 @@
               <!-- <option value="twitter" data&#45;l10n&#45;id="twitter">Twitter</option> -->
               <option value="local" data-l10n-id="on-device">On device</option>
             </select>
-            <!-- <label class="pack&#45;checkbox"> -->
-              <!-- <input class="uninit" type="checkbox" id="toggle&#45;share&#45;summary" /> -->
-              <!-- <span class="menu&#45;item" data&#45;l10n&#45;id="track&#45;summary">Track summary</span> -->
-            <!-- </label> -->
-            <!-- <label class="pack&#45;checkbox"> -->
-              <!-- <input class="uninit" type="checkbox" id="toggle&#45;share&#45;file" /> -->
-              <!-- <span class="menu&#45;item" data&#45;l10n&#45;id="gpx&#45;file">GPX file</span> -->
-            <!-- </label> -->
           </section>
           <menu>
             <button id="btn-cancel-share" class="cancel" data-l10n-id="cancel">Cancel</button>
             <button id="btn-confirm-share" role="button" class="danger" data-l10n-id="confirm">Confirm</button>
+          </menu>
+        </form>
+      </x-card>
+
+      <!-- Card 8 : Import a track form form -->
+      <x-card transition-type="fade-scale">
+        <form id="import-form" role="dialog" data-type="entry" class="light">
+          <section data-type="file-selector">
+            <h1 data-l10n-id="import-track">Import a GPX file</h1>
+            <p>
+              <span data-l10n-id="import-track-path">SD-CARD: rbh/import</span>
+            </p>
+            <select id="select-file">
+              <option value="empty">--</option>
+              <!--- EXAMPLES -->
+              <option value="test/16181.gpx">TRACK-1.gpx</option>
+              <option value="test/17936.gpx">TRACK-2.gpx</option>
+              <option value="test/TR201410011900145.gpx">TRACK-3.gpx</option>
+              <!-- -->
+            </select>
+          </section>
+          <menu>
+            <button id="btn-cancel-import" class="cancel" data-l10n-id="cancel">Cancel</button>
+            <button id="btn-confirm-import" role="button" class="danger" data-l10n-id="import" disabled="disabled">Import</button>
           </menu>
         </form>
       </x-card>
@@ -354,6 +395,7 @@
     <script type="text/javascript" src="js/models/chrono.js"></script>
     <script type="text/javascript" src="js/models/config.js"></script>
     <script type="text/javascript" src="js/models/share.js"></script>
+    <script type="text/javascript" src="js/models/gpx.js"></script>
     <script type="text/javascript" src="js/models/db.js"></script>
     <script type="text/javascript" src="js/models/tracks.js"></script>
     <script type="text/javascript" src="js/models/export_tracks.js"></script>

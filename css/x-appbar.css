@@ -33,6 +33,10 @@ x-appbar > button.icon.icon-list {
   background-image: url("../img/icon-list.png");
 }
 
+x-appbar > button.icon.icon-import {
+  background-image: url("../img/icon-import.png");
+}
+
 x-appbar > button.icon.icon-back {
   background-image: url("../img/icon-back.png");
 }

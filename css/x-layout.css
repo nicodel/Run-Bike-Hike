@@ -1,9 +1,7 @@
 
 x-layout {
   overflow: scroll;
-  /*height: 95%;*/
-  /*height: 100%;*/
-  height: calc(100% - 45px);
+  height: 100%;
 }
 x-layout > header {
   padding: 0;
@@ -150,35 +148,28 @@ x-layout > [data-type="settings"] ul li .button.icon-dialog:before {
   top: 100%;
   margin-top: -2.4rem;
 }
-/*x-layout > [data-type="settings"] ul li .button:after {
-  content: "";
-  top: 100%;
-  left: 0px;
-  right: 0px;
-  height: 0.2rem;
-  background: url('buttons/images/ui/shadow.png') repeat-x scroll left bottom / auto 100% transparent;
-}*/
-/*x-layout > [data-type="settings"] ul li .button.icon:before {
-  content: "";
-  width: 3rem;
-  height: 3rem;
-  position: absolute;
-  top: 50%;
-  right: 0px;
-  margin-top: -1.5rem;
-  background: none no-repeat scroll center center / 100% auto transparent;
-  pointer-events: none;
-}*/
 x-layout > [data-type="settings"] ul li  .button.icon-dialog {
   font-size: 1.7rem;
 }
-/*x-layout > [data-type="settings"] ul li  .button.icon {
-  padding-right: 3rem;
-}*/
-
-
-
-
+x-layout > [data-type="settings"] ul li p.about a {
+  text-decoration: underline;
+  line-height: normal;
+}
+x-layout > [data-type="settings"] ul li p.about {
+  font-size: 1.5rem;
+  line-height: normal;
+  padding: 0.5rem 0 0 0;
+  white-space: normal;
+}
+x-layout > [data-type="settings"] ul li p.about > * {
+  margin: 0;
+}
+x-layout > [data-type="settings"] ul li h2.about {
+  font-size: 1.9rem;
+  background-color: grey;
+  padding: 1.5rem 1.5rem 1rem;
+  margin-bottom: 1rem;
+}
 
 
 
@@ -189,11 +180,11 @@ x-layout > [data-type="list"] ul li {
   /*height: 7rem;*/
   border-bottom: solid 0.1rem #1F3A93; /* Jacksons Purple */
   /*padding-right: 1rem;
-  padding-left: 1rem;
-  padding-top:1rem;
-  padding-bottom: 1rem;*/
+  padding-left: 1rem;*/
+  padding-top:0.1rem;
+  padding-bottom: 1rem;
   height: 5.5rem;
-  padding: 1rem;
+  /* padding: 1rem; */
 }
 x-layout > [data-type="list"] ul li:hover,
 x-layout > [data-type="list"] ul li:active {
@@ -250,7 +241,7 @@ x-layout > [data-type="home"] ul li#button {
 x-layout > [data-type="home"] ul li#button {
   text-align: center;
   padding-top: 1rem;
-  padding-bottom: 1rem;
+  padding-bottom: 0.5rem;
   height: 7rem;
 }
 x-layout > [data-type="home"] ul li.bottom {
@@ -271,24 +262,6 @@ x-layout > [data-type="home"] ul li:nth-child(odd) {
 x-layout > [data-type="home"] ul li:nth-child(even) {
   /*border-bottom: solid 1px #1F3A93;*/
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

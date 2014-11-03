@@ -64,9 +64,6 @@ document.querySelector("#language").onchange = function() {
   Controller.savingSettings("language", dom[id].value);
   Controller.changeLanguage(dom[id].value);
   document.webL10n.setLanguage(dom[id].value);
-
-
-
 };
 /* Settings View Distance unit selection */
 document.querySelector("#distance").onchange = function() {
@@ -100,6 +97,30 @@ document.querySelector("#btn-settings-back").addEventListener ("click", function
 document.querySelector("#btn-tracks-back").addEventListener ("click", function () {
   document.getElementById("views").showCard(1);
 });
+/* Tracks View Import button */
+document.querySelector("#btn-import").addEventListener ("click", function () {
+  document.getElementById("views").showCard(8);
+});
+/* Import Cancel button */
+document.querySelector("#btn-cancel-import").addEventListener("click", function() {
+  document.getElementById("views").showCard(3);
+});
+/* Import Confirm button */
+document.querySelector("#btn-confirm-import").addEventListener("click", function() {
+  Controller.importFile(document.querySelector("#select-file").value);
+});
+document.querySelector("#select-file").onchange = function() {
+  var dom = document.querySelector("#select-file");
+  var id = this.selectedIndex;
+  // console.log("import select changed", dom[id].value);
+  if (dom[id].value === "empty") {
+    document.getElementById("btn-confirm-import").setAttribute("disabled", "disabled");
+  } else {
+    document.getElementById("btn-confirm-import").removeAttribute("disabled");
+  };
+};
+document.getElementById("import-form").onsubmit = function() {return false;};
+
 
 /*----------------- Track Detail View -----------------*/
 /* Track View Back button */
@@ -111,31 +132,52 @@ document.querySelector("#btn-track-back").addEventListener ("click", function ()
 document.querySelector("#btn-delete").addEventListener ("click", function () {
   document.getElementById("views").showCard(5);
 });
-/* Track View Rename button */
-document.querySelector("#btn-rename").addEventListener("click", function() {
-  console.log("renaming");
-  document.querySelector("#input-rename").value = Controller.getTrackName();
+/* Track View Edit button */
+document.querySelector("#btn-edit").addEventListener("click", function() {
+  var info = Controller.getTrackInfo();
+  console.log("editing track", info);
+  document.querySelector("#input-rename").value = info.name;
   document.getElementById("views").showCard(6);
+  [].forEach.call(document.querySelectorAll("#icons-list img"), function(el) {
+    el.classList.remove("active");
+  });
+  if(typeof info.icon === undefined || document.getElementById("icon-" + info.icon) == null) {
+    info.icon = "default";
+  }
+  document.getElementById("icon-" + info.icon).classList.add("active");
 });
-/* Rename Cancel button */
-document.querySelector("#btn-cancel-rename").addEventListener("click", function() {
+
+/*----------------- Track Edit View -------------------*/
+/* Edit Cancel button */
+document.querySelector("#btn-cancel-edit").addEventListener("click", function() {
   document.getElementById("views").showCard(4);
 });
-/* Rename Confirm button */
-document.querySelector("#btn-confirm-rename").addEventListener("click", function() {
+/* Edit Confirm button */
+document.querySelector("#btn-confirm-edit").addEventListener("click", function() {
   document.getElementById("views").showCard(4);
-  var new_name = document.querySelector("#input-rename");
-  Controller.renameTrack(new_name.value);
+  var icon = document.querySelector("#icons-list img.active");
+  Controller.editTrack(
+    document.querySelector("#input-rename").value,
+    (icon != null) ? icon.id.slice(5) : "default"
+  );
 });
 /* Rename Clear button */
 document.querySelector("#btn-clear-rename").addEventListener("click", function() {
   document.querySelector("#input-rename").value = "";
 });
-document.getElementById("rename-form").onsubmit = function() {return false;};
-
+document.getElementById("edit-form").onsubmit = function() {return false;};
 /* Don't take focus from the input field */
 document.querySelector("#btn-clear-rename").addEventListener('mousedown', function(e) {
   e.preventDefault();
+});
+/* Select track icon on click */
+[].forEach.call(document.querySelectorAll("#icons-list img"), function(el) {
+  el.addEventListener("click", function() {
+    [].forEach.call(document.querySelectorAll("#icons-list img"), function(el) {
+      el.classList.remove("active");
+    });
+    this.classList.add("active");
+  });
 });
 
 /* Track View Share button */

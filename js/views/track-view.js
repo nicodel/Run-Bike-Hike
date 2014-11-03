@@ -37,10 +37,14 @@ var TrackView = function() {
 
     document.getElementById("trk-date").innerHTML = Config.userDate(inTrack.date);
     var a = Config.userDistance(inTrack.distance);
-    document.getElementById("trk-dist").innerHTML = a.v + a.u;
-    var d = inTrack.duration / 60000;
-    document.getElementById("trk-dur").innerHTML = d.toFixed() +" min";
-
+    document.getElementById("trk-dist").innerHTML = a.v + " " + a.u;
+    if (isNaN(inTrack.duration)) {
+      document.getElementById("trk-dur").innerHTML = "-- min";
+    } else {
+      var d = inTrack.duration / 60000;
+      document.getElementById("trk-dur").innerHTML = d.toFixed() + " min";
+    }
+ 
     var t = inTrack;
     console.log("t", t);
     // console.log("t.map", t.map);
@@ -79,21 +83,22 @@ var TrackView = function() {
       if (t.end === null || dt > t.end) {
         t.end = dt;
       }
-      t.av_speed = t.av_speed + speed_int;
+      // t.av_speed = t.av_speed + speed_int;
     }
-    console.log("t.av_speed",t.av_speed);
-    t.av_speed = t.av_speed / t.data.length;
-    console.log("t.max_speed",t.max_speed);
+    t.av_speed = inTrack.Distance / inTrack.duration;
+    // console.log("t.av_speed",t.av_speed);
+    // t.av_speed = t.av_speed / t.data.length;
+    // console.log("t.max_speed",t.max_speed);
     // t.max_alt_speed = 15;
     // console.log("t.max_speed",t.max_speed);
     var a = Config.userSpeed(t.max_speed);
-    document.getElementById("trk-max-speed").innerHTML = a.v + a.u;
+    document.getElementById("trk-max-speed").innerHTML = a.v + " " + a.u;
     var a = Config.userSpeed(t.av_speed);
-    document.getElementById("trk-av-speed").innerHTML = a.v + a.u;
+    document.getElementById("trk-av-speed").innerHTML = a.v + " " + a.u;
     var a = Config.userSmallDistance(t.max_alt);
-    document.getElementById("trk-max-alt").innerHTML = a.v + a.u;
+    document.getElementById("trk-max-alt").innerHTML = a.v + " " + a.u;
     var a = Config.userSmallDistance(t.min_alt);
-    document.getElementById("trk-min-alt").innerHTML = a.v + a.u;
+    document.getElementById("trk-min-alt").innerHTML = a.v + " " + a.u;
 
     if (t.map) {
       console.log("map exist");
@@ -188,10 +193,15 @@ var TrackView = function() {
     // console.log("xspace",xspace);
     for (i=0;i<data.length;i+=xspace) {
       i = parseInt(i,10);
-      var date = new Date(data[i].date).getHours() + ":" + new Date(data[i].date).getMinutes();
+      var d = new Date(data[i].date);
+      var date = ("0" + d.getHours()).slice(-2) + ":" + ("0" + d.getMinutes()).slice(-2);
       c.textAlign = "center";
       c.fillStyle = "gray";
-      c.fillText(date, __getXPixel(i,data), SCREEN_HEIGHT - yPadding + 27);
+      if (i+xspace > data.length) {
+        c.fillText(date, __getXPixel(i,data) - 15, SCREEN_HEIGHT - yPadding + 27);
+      } else {
+        c.fillText(date, __getXPixel(i,data), SCREEN_HEIGHT - yPadding + 27);
+      }
       // draw vertical lines
       c.beginPath();
       // c.strokeStyle  = "rgba(150,150,150, 0.5)";

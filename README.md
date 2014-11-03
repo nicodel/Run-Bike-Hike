@@ -10,6 +10,16 @@ A GPS recording web app.
 
 ## Release notes
 
+### v0.1.7 - xx/10/2014
+* Fix issue #25: Hours on stats graph are sometime cut.
+* Fix issue #26: Average speed calculation error.
+* Add feature #27: Adding version, contributors, credits and licence informations to Setting View.
+* Add feature #33: Identify the type of sport done while recording track.
+* Fix issue #36: Clean up git repository.
+* Pull request #49: Make "Retreiving GPS signal" more readable.
+* Pull request #50: Use full page height.
+* Pull request #51: Avoid having scrollbar on main view with 320x480 display (eg: Keon).
+
 ### v0.1.6 - 01/10/2014
 * correcting sharing bug... again and finally.
 * adding map picture to email sharing.

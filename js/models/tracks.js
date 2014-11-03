@@ -62,7 +62,7 @@ var Tracks = function() {
   function getDistance(lat, lon) {
     if (olat != null) {
       distance += __distanceFromPrev(olat, olon, lat, lon);
-      // console.log("distance: ", distance);
+      console.log("distance: ", distance);
     };
     olat = lat;
     olon = lon;
@@ -99,13 +99,26 @@ var Tracks = function() {
     return R * c;
   }
 
+  function importFromFile(inTrack) {
+    console.log("unload inTrack", inTrack);
+    current_track = inTrack;
+
+    start_date = current_track.data[0].date;
+
+    // Set the number of gps point
+    nb_point = 0;
+    return current_track;
+  }
+
+
   return {
     open: open,
     addNode: addNode,
     getDuration: getDuration,
     getDistance: getDistance,
     reset: reset,
-    close: close
+    close: close,
+    importFromFile: importFromFile
   };
 }();
 // });
