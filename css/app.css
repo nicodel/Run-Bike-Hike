@@ -92,10 +92,10 @@ button[disabled] {
 /*
   Tacks list specific styles
 */
-#tracks-list li.it-track {
+/*#tracks-list li.it-track {
   height: 6rem;
   padding: 0;
-}
+}*/
 #tracks-list a {
   text-align: left;
 }
