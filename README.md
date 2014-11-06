@@ -10,7 +10,7 @@ A GPS recording web app.
 
 ## Release notes
 
-### v0.1.7 - xx/10/2014
+### v0.1.7 - 06/11/2014
 * Fix issue #25: Hours on stats graph are sometime cut.
 * Fix issue #26: Average speed calculation error.
 * Add feature #27: Adding version, contributors, credits and licence informations to Setting View.

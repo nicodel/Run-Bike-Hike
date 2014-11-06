@@ -7,19 +7,36 @@ echo -e "\n####################\nBuilding version v" $VERSION " - " `date`
 # Web app building script
 # files are being cmodify in ../tmp/, before being packaged in builds
 
+# Tag the files
+echo -e "\n## Tag the files"
+git tag -am $VERSION $VERSION
 # Create new branch
-#echo Create a release branch
-#git checkout -b release-0.1.4 master
+echo -e "\n## Create release branch"
+if [ `git branch | grep release-$VERSION` ]
+then
+  git checkout release-$VERSION
+else
+  git checkout -b release-$VERSION
+fi
 
 # Delete any previous files in ../tmp/
-echo -e "\n## Delete any old temporary files\n../tmp/*"
-rm -R ../tmp/*
+if [ -d ../tmp ]
+then
+	echo -e "\n## Removing the old temporary folder\n../tmp"
+	rm -R ../tmp
+fi
 
 # Create the structure
-echo -e "\n## Create package structure\n../tmp/lib\n../tmp/img\n../tmp/locales\n../tmp/font"
+echo -e "\n## Create package structure"
+echo -e "../tmp"
+mkdir ../tmp
+echo -e "../tmp/lib"
 mkdir ../tmp/lib
+echo -e "../tmp/img"
 mkdir ../tmp/img
+echo -e "../tmp/locales"
 mkdir ../tmp/locales
+echo -e "../tmp/font"
 mkdir ../tmp/font
 
 # Identify JS files from inside index.html
@@ -94,6 +111,14 @@ rm ../tmp/js_files.txt
 rm ../tmp/files_concat.js
 rm ../tmp/css_files.txt
 rm ../tmp/files_concat.css
+
+# Create the builds folder ../builds
+if [ ! -d ../builds ]
+then
+	echo -e "\n## Create the builds folder ../builds"
+	mkdir ../builds
+fi
+
 # Create the zip package
 echo -e "\n## Creating zip package"
 cd ../tmp
