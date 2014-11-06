@@ -7,11 +7,17 @@ echo -e "\n####################\nBuilding version v" $VERSION " - " `date`
 # Web app building script
 # files are being cmodify in ../tmp/, before being packaged in builds
 
+# Tag the files
+echo -e "\n## Tag the files"
+git tag -am $VERSION $VERSION
 # Create new branch
-#echo Create a release branch
-#git checkout -b release-0.1.4 master
-#echo Create a release tag
-#git tag $VERSION
+echo -e "\n## Create release branch"
+if [ `git branch | grep release-$VERSION` ]
+then
+  git checkout release-$VERSION
+else
+  git checkout -b release-$VERSION
+fi
 
 # Delete any previous files in ../tmp/
 if [ -d ../tmp ]
