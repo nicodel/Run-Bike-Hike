@@ -80,7 +80,6 @@ x-layout > [data-type="settings"] ul li {
 x-layout > [data-type="settings"] ul li a {
   font-size: 1.5rem;
   line-height: 5rem;
-  vertical-align: middle;
 }
 x-layout > [data-type="settings"] ul li > label.pack-switch > span {
   padding-right: 9rem;
