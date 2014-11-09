@@ -44,7 +44,7 @@ var Controller = function() {
       } else {
         // console.log("not tracking");
         HomeView.updateInfos(inPosition, null);
-      } 
+      }
     } else {
         HomeView.displayAccuracy(inPosition);
     };
@@ -217,7 +217,7 @@ var Controller = function() {
   //   document.getElementById("distance").value = inSettings.distance;
   //   document.getElementById("speed").value = inSettings.speed;
   //   document.getElementById("position").value = inSettings.position;
-  // 
+
   function __updateConfigValues(inSettings) {
     //console.log("setting settings :)", inSettings);
     for (var i = 0; i < Object.keys(inSettings).length; i++) {
@@ -243,7 +243,7 @@ var Controller = function() {
     // console.log("USER_DISTANCE", Config.USER_DISTANCE);
     Config.CONFIG = inSettings;
     console.log("Config.CONFIG", Config.CONFIG);
-    
+
     var a = Config.userSmallDistance(null);
     document.getElementById("home-acc").innerHTML = "&#177; " + a.v;
     document.getElementById("acc-unit").innerHTML =  "(" + a.u + ")";
@@ -396,6 +396,71 @@ var Controller = function() {
     // console.log(inMessage);
   }
 
+  function searchFiles() {
+    SDCard.search(__searchFilesSuccess, __searchFilesError);
+  }
+  function __searchFilesSuccess(inFile) {
+    GPX.verify(inFile, __verifySuccess, __verifyError);
+    console.log("inFile");
+    // document.getElementById("list-files").innerHTML = inFiles;
+  }
+
+  function __verifySuccess(inFile) {
+    importView.addFile(inFile);
+  }
+
+  function __verifyError() {}
+
+  function __searchFilesError(inError) {
+    document.getElementById("list-files").innerHTML = inError;
+    console.log("inError", inError);
+  }
+
+  function importFile(inPath) {
+    console.log("import file", inPath);
+    GPX.load(inPath, __GPXloadSuccess, __GPXloadError);
+  }
+  function __GPXloadSuccess(inTrack) {
+    // console.log("success load track", inTrack);
+    current_track = Tracks.importFromFile(inTrack);
+    var data = current_track.data;
+    for (var i = 0; i < data.length; i++) {
+      data[i]
+      // calculate distance
+      distance = Tracks.getDistance(data[i].latitude, data[i].longitude);
+      // calculating duration
+      if (data.date) {
+        duration = Tracks.getDuration(data.date);
+      }
+    };
+    if (isNaN(duration)) {
+      duration = "--";
+    }
+    current_track.duration = duration;
+    current_track.distance = distance;
+    Tracks.reset();
+    // Tracks.close();
+    var track = Tracks.close();
+    DB.addTrack(__addTrackonImportSuccess, __addTrackonImportError, track);
+  }
+
+  function __GPXloadError(inMessage) {}
+
+  function __addTrackonImportSuccess(inEvent) {
+    utils.status.show(_("track-saved", {inEvent:inEvent})); //"Track " + inEvent + " sucessfully saved.");
+    document.getElementById("views").showCard(4);
+    __displayTrack(current_track);
+  }
+
+  function __addTrackonImportError(inEvent) {
+    utils.status.show(inEvent);
+  }
+
+
+  function importForDev() {
+    DB.addTrack(__addTrackSuccess, __addTrackError, testdata);
+  }
+
   return {
     init: init,
     toggleWatch: toggleWatch,
@@ -413,6 +478,9 @@ var Controller = function() {
     getTrackInfo: getTrackInfo,
     editTrack: editTrack,
     shareTrack: shareTrack
+    shareTrack: shareTrack,
+    searchFiles: searchFiles,
+    importFile: importFile
   };
 }();
 // })

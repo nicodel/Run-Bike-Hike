@@ -11,7 +11,6 @@ var GPX = function() {
 
 
   var load = function(inUrl, successCallback, failureCallback) {
-
     var req = new XMLHttpRequest();
     req.onprogress = function(e) {
       var percentComplete = (e.position /e.totalSize)*100
@@ -28,6 +27,43 @@ var GPX = function() {
     }
     req.send(null);
   }
+
+  var verify = function(inFile, successCallback, failureCallback) {
+    console.log("get name for", inFile.name);
+    var req = new XMLHttpRequest();
+    req.open("GET", inFile.name, true);
+    req.onload = function(e) {
+      var xml = e.target.responseXML;
+      __getName(xml, __getNameSuccess, __getNameFailure);
+    }
+    req.onerror = function(e) {
+      failureCallback(e.target.status);
+    }
+    req.send(null);
+  }
+
+  var __getName = function(x, successCallback, failureCallback) {
+    var metadata = x.getElementsByTagName("metadata");
+    var time = metadata[0].getElementsByTagName("time");
+    if (time.length > 0) {
+      track.date = time[0].textContent;
+    }
+    var t;
+    var trk = x.getElementsByTagName("trk");
+    
+    if (trk.length > 0) {
+      t = trk[0];
+    } else {
+      failureCallback("no track found in loaded file");
+    }
+
+    var name = t.getElementsByTagName("name");
+    if (name.length > 0) {
+      successCallback(name[0].textContent);
+    } else {
+      successCallback(__named());
+    }
+}
 
   var __parse = function(x, successCallback, failureCallback) {
     var track = {
@@ -144,7 +180,8 @@ var GPX = function() {
    }
 
   return {
-    load: load
+    load: load,
+    verify: verify
   }
 
 
