@@ -1,18 +1,24 @@
 var SDCard = function(){
 
+  var sdcard = navigator.getDeviceStorage("sdcard");
+
   function search(successCallback, errorCallback) {
-    var sdcard = navigator.getDeviceStorage("sdcard");
+   if (typeof(successCallback) === "function") {
     // var files = [];
 
-    var cursor = sdcard.enumerate("rbh/import");
+    // var path = "/" + sdcard.storageName + "/rbh/import";
+    var path = "rbh/import";
+    console.log("path:", path);
+    var cursor = sdcard.enumerate(path);
 
     cursor.onsuccess = function () {
 
       if (this.result) {
         var file = this.result;
-        console.log("File updated on:" + file.name.match(/\.[0-9a-z]+$/i));
+        // console.log("File updated on:" + file.name.match(/\.[0-9a-z]+$/i));
 
         if (file.name.match(/\.[0-9a-z]+$/i) == ".gpx") {
+          console.log("just got file:", file);
           successCallback(file);
         }
         this.continue();
@@ -25,8 +31,37 @@ var SDCard = function(){
         errorCallback(_("import-missing"));
       }
     }
+    } else  {
+      errorCallback("initiate() successCallback should be a function");
+    }
+
+ }
+
+
+  function get(inPath, successCallback, errorCallback) {
+    if (typeof(successCallback) === "function") {
+      console.log("inPath", inPath);
+      var req = sdcard.get(inPath.name);
+
+      req.onsuccess = function () {
+        var file = this.result;
+        console.log("Get the file: " + file.name);
+        successCallback(file);
+      }
+
+      req.onerror = function () {
+        console.log("Unable to get the file: " + this.error);
+        errorCallback("Unable to get the file: " + this.error);
+      }
+    } else  {
+      errorCallback("initiate() successCallback should be a function");
+    }
+
+
   }
+
   return {
-    search: search
+    search: search,
+    get: get
   }
 }();

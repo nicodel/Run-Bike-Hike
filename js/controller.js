@@ -8,6 +8,7 @@ var Controller = function() {
   var display_map = false;
   var duration;
   var displayed_track;
+  var track_to_import = {};
 
   function init() {
     DB.initiate(__initiateSuccess, __initiateError);
@@ -400,25 +401,30 @@ var Controller = function() {
     SDCard.search(__searchFilesSuccess, __searchFilesError);
   }
   function __searchFilesSuccess(inFile) {
-    GPX.verify(inFile, __verifySuccess, __verifyError);
-    console.log("inFile");
+    SDCard.get(inFile, __getFileSuccess, __getFileError);
+    console.log("inFile", inFile);
     // document.getElementById("list-files").innerHTML = inFiles;
   }
-
-  function __verifySuccess(inFile) {
-    importView.addFile(inFile);
-  }
-
-  function __verifyError() {}
-
   function __searchFilesError(inError) {
     document.getElementById("list-files").innerHTML = inError;
     console.log("inError", inError);
   }
+  
+  function __getFileSuccess(inFile) {
+    // importView.addFile(inFile);
+    GPX.verify(inFile, __verifySuccess, __verifyError);
+  }
+  function __getFileError() {}
+
+  function __verifySuccess(inFile) {
+    track_to_import[inFile.name] = inFile;
+    importView.addFile(inFile);
+  }
+  function __verifyError() {}
 
   function importFile(inPath) {
     console.log("import file", inPath);
-    GPX.load(inPath, __GPXloadSuccess, __GPXloadError);
+    GPX.load(track_to_import[inPath], __GPXloadSuccess, __GPXloadError);
   }
   function __GPXloadSuccess(inTrack) {
     // console.log("success load track", inTrack);

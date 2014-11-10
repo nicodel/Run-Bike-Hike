@@ -10,8 +10,21 @@ var GPX = function() {
   };
 
 
-  var load = function(inUrl, successCallback, failureCallback) {
-    var req = new XMLHttpRequest();
+  var load = function(inFile, successCallback, failureCallback) {
+    console.log("load inFile:", inFile);
+    var n = "rbh/import/" + inFile.name.match(/[-_\w]+[.][\w]+$/i)[0];
+    var reader = new FileReader(); 
+    reader.onloadend = function(e) {
+      var p = new DOMParser();
+      __parse(p.parseFromString(reader.result, "text/xml"), successCallback, failureCallback);
+    }
+    reader.onerror = function(e) {
+      console.log("reader error:", e);
+      failureCallback(e);
+    }
+    reader.readAsText(inFile);
+
+/*    var req = new XMLHttpRequest();
     req.onprogress = function(e) {
       var percentComplete = (e.position /e.totalSize)*100
     };
@@ -25,21 +38,34 @@ var GPX = function() {
     req.onerror = function(e) {
       failureCallback(e.target.status);
     }
-    req.send(null);
+    req.send(null);*/
   }
 
   var verify = function(inFile, successCallback, failureCallback) {
-    console.log("get name for", inFile.name);
-    var req = new XMLHttpRequest();
-    req.open("GET", inFile.name, true);
-    req.onload = function(e) {
-      var xml = e.target.responseXML;
-      __getName(xml, __getNameSuccess, __getNameFailure);
+    // console.log("get name for", inFile.name.match(/[-_\w]+[.][\w]+$/i)[0]);
+    var n = "rbh/import/" + inFile.name.match(/[-_\w]+[.][\w]+$/i)[0];
+    // console.log("loading file", n);
+    var reader = new FileReader(); 
+    reader.onloadend = function(e) {
+      // console.log("reader success", reader.result);
+      var p = new DOMParser();
+      var x = p.parseFromString(reader.result, "text/xml");
+
+      var metadata = x.getElementsByTagName("metadata");
+      var time = metadata[0].getElementsByTagName("time");
+      var trk = x.getElementsByTagName("trk");
+      if (trk.length > 0) {
+        successCallback(inFile);
+        t = trk[0];
+      } else {
+        failureCallback("no track found in loaded file");
+      }
     }
-    req.onerror = function(e) {
-      failureCallback(e.target.status);
+    reader.onerror = function(e) {
+      console.log("reader error:", e);
+      failureCallback(e);
     }
-    req.send(null);
+    reader.readAsText(inFile);
   }
 
   var __getName = function(x, successCallback, failureCallback) {
@@ -63,7 +89,7 @@ var GPX = function() {
     } else {
       successCallback(__named());
     }
-}
+  }
 
   var __parse = function(x, successCallback, failureCallback) {
     var track = {

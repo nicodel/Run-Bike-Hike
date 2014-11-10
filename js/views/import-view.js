@@ -4,11 +4,11 @@ var importView = function() {
     
     var s = document.getElementById("select-file");
 
-    console.log("adding file to DOM", inFile);
+    console.log("adding file to DOM", inFile.name.match(/[-_\w]+[.][\w]+$/i)[0]);
     
     var o = document.createElement("option");
     o.value = inFile.name;
-    o.innerHTML = inFile.name;
+    o.innerHTML = inFile.name.match(/[-_\w]+[.][\w]+$/i)[0];
     s.appendChild(o);
   }
   return {
