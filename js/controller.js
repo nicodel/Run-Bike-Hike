@@ -409,7 +409,7 @@ var Controller = function() {
     document.getElementById("list-files").innerHTML = inError;
     console.log("inError", inError);
   }
-  
+
   function __getFileSuccess(inFile) {
     // importView.addFile(inFile);
     GPX.verify(inFile, __verifySuccess, __verifyError);
@@ -483,7 +483,6 @@ var Controller = function() {
     flippingTrack: flippingTrack,
     getTrackInfo: getTrackInfo,
     editTrack: editTrack,
-    shareTrack: shareTrack
     shareTrack: shareTrack,
     searchFiles: searchFiles,
     importFile: importFile
