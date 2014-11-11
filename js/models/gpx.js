@@ -20,7 +20,7 @@ var GPX = function() {
     }
     reader.onerror = function(e) {
       console.log("reader error:", e);
-      failureCallback(_("error-reading-file", {file:inFile.name.match(/[-_\w]+[.][\w]+$/i)[0], error:e.target.result});
+      failureCallback(_("error-reading-file", {file:inFile.name.match(/[-_\w]+[.][\w]+$/i)[0], error:e.target.result}));
     }
     reader.readAsText(inFile);
 
@@ -63,7 +63,7 @@ var GPX = function() {
     }
     reader.onerror = function(e) {
       console.log("reader error:", e);
-      failureCallback(_("error-reading-file", {file:inFile.name.match(/[-_\w]+[.][\w]+$/i)[0], error:e.target.result});
+      failureCallback(_("error-reading-file", {file:inFile.name.match(/[-_\w]+[.][\w]+$/i)[0], error:e.target.result}));
     }
     reader.readAsText(inFile);
   }
