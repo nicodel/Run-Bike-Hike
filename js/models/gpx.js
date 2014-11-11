@@ -20,7 +20,7 @@ var GPX = function() {
     }
     reader.onerror = function(e) {
       console.log("reader error:", e);
-      failureCallback(e);
+      failureCallback(_("error-reading-file", {file:inFile.name.match(/[-_\w]+[.][\w]+$/i)[0], error:e.target.result});
     }
     reader.readAsText(inFile);
 
@@ -58,37 +58,14 @@ var GPX = function() {
         successCallback(inFile);
         t = trk[0];
       } else {
-        failureCallback("no track found in loaded file");
+        failureCallback(_("no-track-in-file", {file:inFile.name.match(/[-_\w]+[.][\w]+$/i)[0]}));
       }
     }
     reader.onerror = function(e) {
       console.log("reader error:", e);
-      failureCallback(e);
+      failureCallback(_("error-reading-file", {file:inFile.name.match(/[-_\w]+[.][\w]+$/i)[0], error:e.target.result});
     }
     reader.readAsText(inFile);
-  }
-
-  var __getName = function(x, successCallback, failureCallback) {
-    var metadata = x.getElementsByTagName("metadata");
-    var time = metadata[0].getElementsByTagName("time");
-    if (time.length > 0) {
-      track.date = time[0].textContent;
-    }
-    var t;
-    var trk = x.getElementsByTagName("trk");
-    
-    if (trk.length > 0) {
-      t = trk[0];
-    } else {
-      failureCallback("no track found in loaded file");
-    }
-
-    var name = t.getElementsByTagName("name");
-    if (name.length > 0) {
-      successCallback(name[0].textContent);
-    } else {
-      successCallback(__named());
-    }
   }
 
   var __parse = function(x, successCallback, failureCallback) {

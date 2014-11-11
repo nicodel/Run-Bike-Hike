@@ -406,7 +406,7 @@ var Controller = function() {
     // document.getElementById("list-files").innerHTML = inFiles;
   }
   function __searchFilesError(inError) {
-    document.getElementById("list-files").innerHTML = inError;
+    document.getElementById("import-msg-area").innerHTML = inError;
     console.log("inError", inError);
   }
 
@@ -414,13 +414,17 @@ var Controller = function() {
     // importView.addFile(inFile);
     GPX.verify(inFile, __verifySuccess, __verifyError);
   }
-  function __getFileError() {}
+  function __getFileError(inError) {
+    utils.status.show(inError);
+  }
 
   function __verifySuccess(inFile) {
     track_to_import[inFile.name] = inFile;
     importView.addFile(inFile);
   }
-  function __verifyError() {}
+  function __verifyError(inError) {
+    utils.status.show(inError);
+  }
 
   function importFile(inPath) {
     console.log("import file", inPath);

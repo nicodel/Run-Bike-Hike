@@ -51,7 +51,7 @@ var SDCard = function(){
 
       req.onerror = function () {
         console.log("Unable to get the file: " + this.error);
-        errorCallback("Unable to get the file: " + this.error);
+        errorCallback(_("unable-get-file", {file:inPath, error:this.error}));
       }
     } else  {
       errorCallback("initiate() successCallback should be a function");
