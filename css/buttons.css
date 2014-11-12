@@ -85,3 +85,6 @@ section button.icon {
 section button.icon.icon-pause {
   background-image: url("../img/icon-pause.png");
 }
+section button.icon.icon-play {
+  background-image: url("../img/icon-play.png");
+}

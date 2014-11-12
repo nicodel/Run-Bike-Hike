@@ -74,6 +74,7 @@ var Controller = function() {
       // document.querySelector("#btn-start").innerHTML = "Stop";
       document.getElementById("btn-start-stop").className = "danger big";
       document.getElementById("btn-start-stop").textContent = _("stop");
+      document.getElementById("btn-pause").className="recommend small icon icon-pause";
 
       // document.getElementById("btn-start-stop").style.backgroundColor = "#e51e1e";
     };
@@ -97,10 +98,18 @@ var Controller = function() {
       // Save to DB
       DB.addTrack(__addTrackSuccess, __addTrackError, track);
     };
-    // document.querySelector("#btn-start").innerHTML = "Start";
     document.getElementById("btn-start-stop").className = "recommend big";
     document.getElementById("btn-start-stop").textContent = _("start");
-    // document.getElementById("btn-start-stop").style.backgroundColor = "#1E824C";
+    document.getElementById("btn-pause").className="hidden recommend small icon icon-pause";
+  }
+  function pauseRecording() {
+    if (tracking) {
+      tracking = false;
+      document.getElementById("btn-pause").className="recommend small icon icon-play";
+   } else {
+      tracking = true;
+      document.getElementById("btn-pause").className="recommend small icon icon-pause";
+   }
   }
 
   function __addNewPoint(inPosition){
@@ -400,6 +409,7 @@ var Controller = function() {
     init: init,
     toggleWatch: toggleWatch,
     stopWatch: stopWatch,
+    pauseRecording: pauseRecording,
     displayTracks: displayTracks,
     // displayTrack: displayTrack,
     deleteTrack: deleteTrack,

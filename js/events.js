@@ -22,6 +22,11 @@ document.querySelector("#btn-start-stop").addEventListener ("click", function ()
 document.querySelector("#btn-settings").addEventListener ("click", function () {
   document.getElementById("views").showCard(0);
 });
+/* Home View Pause/Play tracking button */
+document.querySelector("#btn-pause").addEventListener ("click", function () {
+  Controller.pauseRecording();
+});
+
 
 /*----------------- Infos View -----------------*/
 /* Infos View Stop button */
