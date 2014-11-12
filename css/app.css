@@ -88,6 +88,11 @@ button[disabled] {
   padding-top: 10px;
   line-height: 3rem;
 }
+button#btn-pause {
+  position:fixed;
+  top: 1rem;
+  right: 1rem;
+}
 
 /*
   Tacks list specific styles
@@ -113,7 +118,7 @@ button[disabled] {
 }
 #tracks-list span.track-name {
   margin-left: 5px;
-  font-size: 22px;
+  font-size: 21px;
 }
 #tracks-list p.track-description span {
   float: left;

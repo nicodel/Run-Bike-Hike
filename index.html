@@ -123,7 +123,7 @@
                 <li>
                   <div data-l10n-id="elapsed-time" class="home-title text-big text-thin">Elapsed time</div>
                   <div id="home-chrono" class="home-value align-center text-huger text-thin new-line">0:00:00</div>
-
+                  <button data-l10n-id="pause" id="btn-pause" class="hidden recommend small icon icon-pause"></button>
                 </li>
                 <li>
                   <div data-l10n-id="distance" class="home-title text-big text-thin">Distance
@@ -154,13 +154,13 @@
                   <div data-l10n-id="direction" class="new-line home-title text-small text-thin">Direction</div>
                   <div id="home-dir" class="new-line home-value-right text-small text-thin">?</div>
                 </li>
-                <li id="button">
-                  <button data-l10n-id="start" id="btn-start-stop" class="recommend big">Start</button>
+                <li class="button">
+                  <button data-l10n-id="start" id="btn-start-stop" class="positive big">Start</button>
                 </li>
 
 
-
-                <li id="message" class="front">
+                <!-- <li id="message" class="front"> -->
+                <li id="message" class="behind hidden">
                   <div id="message-area" class="align-center">
                     <progress id="spinner"></progress>
                     <p data-l10n-id="retreiving" id="msg" class="text-big align-center">Retreiving GPS signal. It may take some time...</p>

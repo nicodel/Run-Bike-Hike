@@ -33,6 +33,16 @@ section button.big {
   font-size: 4rem;
   line-height: 6rem;
 }
+section button.small {
+  width: auto;
+  font-size: 2rem;
+}
+
+/*  */
+section button.positive {
+  background-color: #00FF7F;
+  color : #fff;
+}
 
 /* Recommend */
 section button.recommend {
@@ -65,4 +75,13 @@ section button[disabled].recommend {
 
 section button[disabled].danger {
   background-color: #730f0f;
+}
+section button.icon {
+  background-repeat: no-repeat;
+  background-position: center center;
+  font-size: 0px;
+  min-width: 45px;
+}
+section button.icon.icon-pause {
+  background-image: url("../img/icon-pause.png");
 }
