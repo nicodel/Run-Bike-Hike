@@ -85,7 +85,15 @@ document.querySelector("#position").onchange = function() {
   var id = this.selectedIndex;
   Controller.savingSettings("position", dom[id].value);
   Controller.changePosition(dom[id].value);
+}
+/* Settings View Geoposition frequency selection */
+document.querySelector("#frequency").onchange = function() {
+  var dom = document.querySelector("#frequency");
+  var id = this.selectedIndex;
+  Controller.savingSettings("frequency", dom[id].value);
+  Controller.changeFrequency(dom[id].value);
 };
+;
 /* Settings View Back button */
 document.querySelector("#btn-settings-back").addEventListener ("click", function () {
   document.getElementById("views").showCard(1);

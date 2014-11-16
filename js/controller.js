@@ -59,6 +59,23 @@ var Controller = function() {
     };
   }
 
+  function __changeFrequency(inFreq) {
+    navigator.geolocation.clearWatch(watchID);
+    watchID = navigator.geolocation.watchPosition(
+      function(inPosition){
+        __locationChanged(inPosition);
+      },
+      function (inError){
+        __locationError(inError);
+      },
+      {
+        enableHighAccuracy: true,
+        timeout: Infinity,
+        maximumAge: inFreq
+      }
+    );
+  }
+
   function toggleWatch() {
     if (tracking) {
       document.getElementById("views").showCard(2);
@@ -165,6 +182,15 @@ var Controller = function() {
         lock.unlock();
       });
     };
+    console.log("frequency:", inSettings.frequency);
+    if (!inSettings.frequency) {
+      console.log("frequency not present in Settings, so we put it !");
+      savingSettings("frequency", "auto");
+    }
+    if (inSettings.frequency != "auto") {
+      console.log("frequency value is not default!");
+      __changeFrequency(inSettings.frequency);
+    }
 
   }
   function __getConfigError(inEvent) { console.log("__getConfigError ", inEvent); }
@@ -209,6 +235,10 @@ var Controller = function() {
   function changePosition(inSetting) {
     settings.position = inSetting;
   }
+  function changeFrequency(inSetting) {
+    settings.frequency = inSetting;
+  }
+
 
   // function __setConfigView(inSettings) {
   //   // console.log("updating the settings DOM elements");
@@ -263,6 +293,7 @@ var Controller = function() {
     document.getElementById("speed").value = inSettings.speed;
     document.getElementById("position").value = inSettings.position;
     document.getElementById("language").value = inSettings.language;
+    document.getElementById("frequency").value = inSettings.frequency;
   }
 
   // function __setHomeView(inSettings) {
@@ -409,6 +440,7 @@ var Controller = function() {
     changeDistance: changeDistance,
     changeSpeed: changeSpeed,
     changePosition: changePosition,
+    changeFrequency: changeFrequency,
     flippingTrack: flippingTrack,
     getTrackInfo: getTrackInfo,
     editTrack: editTrack,
