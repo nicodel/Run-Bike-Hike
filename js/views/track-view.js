@@ -85,7 +85,7 @@ var TrackView = function() {
       }
       // t.av_speed = t.av_speed + speed_int;
     }
-    t.av_speed = inTrack.Distance / inTrack.duration;
+    t.av_speed = inTrack.distance / inTrack.duration;
     // console.log("t.av_speed",t.av_speed);
     // t.av_speed = t.av_speed / t.data.length;
     // console.log("t.max_speed",t.max_speed);
