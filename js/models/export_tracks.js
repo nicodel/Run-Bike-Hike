@@ -13,7 +13,8 @@ var ExportTrack = function() {
     data += "xsi:schemaLocation='http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd'>\n";
     data += "<metadata>\n";
     data += "<author><name>Nicolas Delebecque</name><link href='https://github.com/nicodel/'></link></author>";
-    data += "<name>" + name + "</name>"
+    data += "<name>" + name + "</name>";
+    data += "<time>" + new Date().toISOString() + "</time>";
     data += "</metadata>";
     data += "<trk>\n<name>" + name + "</name>\n<trkseg>\n";
     for (var i = 0; i < inTrack.data.length; i++) {
