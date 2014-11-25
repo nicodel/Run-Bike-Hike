@@ -428,6 +428,7 @@ var Controller = function() {
 
   function importFile(inPath) {
     console.log("import file", inPath);
+    importView.resetList();
     GPX.load(track_to_import[inPath], __GPXloadSuccess, __GPXloadError);
   }
   function __GPXloadSuccess(inTrack) {
@@ -466,6 +467,9 @@ var Controller = function() {
     utils.status.show(inEvent);
   }
 
+  function resetImportList() {
+    importView.resetList();
+  }
 
   function importForDev() {
     DB.addTrack(__addTrackSuccess, __addTrackError, testdata);
@@ -489,7 +493,8 @@ var Controller = function() {
     editTrack: editTrack,
     shareTrack: shareTrack,
     searchFiles: searchFiles,
-    importFile: importFile
+    importFile: importFile,
+    resetImportList: resetImportList
   };
 }();
 // })

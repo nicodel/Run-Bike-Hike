@@ -11,7 +11,18 @@ var importView = function() {
     o.innerHTML = inFile.name.match(/[-_\w]+[.][\w]+$/i)[0];
     s.appendChild(o);
   }
+  function resetList() {
+    var sel = document.getElementById("select-file");
+    var nb = sel.length;
+    if (nb > 1) {
+      for (var i = 0; i < nb; i++) {
+        sel.remove(1);
+      };
+    };
+  }
+
   return {
-    addFile: addFile
+    addFile: addFile,
+    resetList: resetList
   }
 }();

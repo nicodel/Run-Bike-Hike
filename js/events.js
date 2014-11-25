@@ -106,6 +106,7 @@ document.querySelector("#btn-import").addEventListener ("click", function () {
 /* Import Cancel button */
 document.querySelector("#btn-cancel-import").addEventListener("click", function() {
   document.getElementById("views").showCard(3);
+  Controller.resetImportList();
 });
 /* Import Confirm button */
 document.querySelector("#btn-confirm-import").addEventListener("click", function() {
