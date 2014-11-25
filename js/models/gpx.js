@@ -78,7 +78,9 @@ var GPX = function() {
       date: "",
       data: []
     };
-    var missing_date;
+    var missing_date,
+        tstart,
+        tend;
     var metadata = x.getElementsByTagName("metadata");
     var time = metadata[0].getElementsByTagName("time");
     if (time.length > 0) {
@@ -121,6 +123,10 @@ var GPX = function() {
               track.date = point.date;
               missing_time = false;
             };
+            if (j === 0) {
+            tstart = new Date(point.date);
+            };
+            tend = new Date (point.date);
           }
 
           var i = p.getElementsByTagName("ele");
@@ -156,7 +162,7 @@ var GPX = function() {
     } else {
       failureCallback("Could not parse track segment from file");
     }
-
+    track.duration = tend - tstart;
 
     successCallback(track);
   }

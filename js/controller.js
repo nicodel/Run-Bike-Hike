@@ -440,14 +440,14 @@ var Controller = function() {
       // calculate distance
       distance = Tracks.getDistance(data[i].latitude, data[i].longitude);
       // calculating duration
-      if (data.date) {
-        duration = Tracks.getDuration(data.date);
-      }
+      // if (data.date) {
+        // duration = Tracks.getDuration(data.date);
+      // }
     };
-    if (isNaN(duration)) {
-      duration = "--";
-    }
-    current_track.duration = duration;
+    // if (isNaN(duration)) {
+      // duration = "--";
+    // }
+    // current_track.duration = duration;
     current_track.distance = distance;
     Tracks.reset();
     // Tracks.close();
