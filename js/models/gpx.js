@@ -78,11 +78,14 @@ var GPX = function() {
       date: "",
       data: []
     };
+    var missing_date;
     var metadata = x.getElementsByTagName("metadata");
     var time = metadata[0].getElementsByTagName("time");
     if (time.length > 0) {
       track.date = time[0].textContent;
-    }
+    } else {
+      missing_time = true;
+    };
 
     var t;
     var trk = x.getElementsByTagName("trk");
@@ -114,6 +117,10 @@ var GPX = function() {
           var i = p.getElementsByTagName("time");
           if (i.length > 0) {
             point.date = i[0].textContent;
+            if (missing_time) {
+              track.date = point.date;
+              missing_time = false;
+            };
           }
 
           var i = p.getElementsByTagName("ele");
