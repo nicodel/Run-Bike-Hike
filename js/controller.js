@@ -435,20 +435,20 @@ var Controller = function() {
     // console.log("success load track", inTrack);
     current_track = Tracks.importFromFile(inTrack);
     var data = current_track.data;
-    for (var i = 0; i < data.length; i++) {
-      data[i]
+    // for (var i = 0; i < data.length; i++) {
+      // data[i]
       // calculate distance
-      distance = Tracks.getDistance(data[i].latitude, data[i].longitude);
+      // distance = Tracks.getDistance(data[i].latitude, data[i].longitude);
       // calculating duration
       // if (data.date) {
         // duration = Tracks.getDuration(data.date);
       // }
-    };
+    // };
     // if (isNaN(duration)) {
       // duration = "--";
     // }
     // current_track.duration = duration;
-    current_track.distance = distance;
+    // current_track.distance = distance;
     Tracks.reset();
     // Tracks.close();
     var track = Tracks.close();

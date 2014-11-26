@@ -8,7 +8,9 @@ var GPX = function() {
     map: "",
     data: []
   };
-
+  var olat = null;
+  var olon = null;
+  var distance = 0;
 
   var load = function(inFile, successCallback, failureCallback) {
     console.log("load inFile:", inFile);
@@ -91,7 +93,6 @@ var GPX = function() {
 
     var t;
     var trk = x.getElementsByTagName("trk");
-
     if (trk.length > 0) {
       t = trk[0];
     } else {
@@ -104,7 +105,6 @@ var GPX = function() {
     } else {
       track.name = __named();
     }
-
     var trkseg = t.getElementsByTagName("trkseg");
     if (trkseg.length > 0) {
       var trkpt = trkseg[0].getElementsByTagName("trkpt");
@@ -116,6 +116,7 @@ var GPX = function() {
           var p = trkpt[j];
           point.latitude = p.getAttribute("lat");
           point.longitude = p.getAttribute("lon");
+          distance = __getDistance(point.latitude, point.longitude);
           var i = p.getElementsByTagName("time");
           if (i.length > 0) {
             point.date = i[0].textContent;
@@ -128,7 +129,6 @@ var GPX = function() {
             };
             tend = new Date (point.date);
           }
-
           var i = p.getElementsByTagName("ele");
           if (i.length > 0) {
             point.altitude = i[0].textContent;
@@ -163,7 +163,7 @@ var GPX = function() {
       failureCallback("Could not parse track segment from file");
     }
     track.duration = tend - tstart;
-
+    track.distance = distance;
     successCallback(track);
   }
 
@@ -193,7 +193,38 @@ var GPX = function() {
     };
 
     return "TR-"+year+month+day+"-"+hour+min+sec;
-   }
+  }
+
+  var __getDistance = function(lat, lon) {
+    // console.log("__getDistance");
+    // console.log("olat", olat);
+    if (olat != null) {
+      distance += __distanceFromPrev(olat, olon, lat, lon);
+    };
+    olat = lat;
+    olon = lon;
+    // console.log("calc distance: ", distance);
+    return distance;
+  }
+
+  var __distanceFromPrev = function(lat1, lon1, lat2, lon2) {
+    // console.log("__getDistanceFromPrev");
+    var lat1Rad = lat1*( Math.PI / 180);
+    // console.log("lat1Rad: ", lat1Rad);
+    var lon1Rad = lon1*( Math.PI / 180);
+    var lat2Rad = lat2*( Math.PI / 180);
+    var lon2Rad = lon2*( Math.PI / 180);
+
+    var dLat = lat2Rad - lat1Rad;
+    // console.log("dLat: ", dLat);
+    var dLon = lon2Rad - lon1Rad;
+
+    var a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.cos(lat1Rad) * Math.cos(lat2Rad) * Math.sin(dLon/2) * Math.sin(dLon/2);
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    var R = 6371 * 1000; // Earth radius (mean) in metres {6371, 6367}
+    // console.log("R*c: ", R*c);
+    return R * c;
+  }
 
   return {
     load: load,
