@@ -429,6 +429,7 @@ var Controller = function() {
   function importFile(inPath) {
     console.log("import file", inPath);
     importView.resetList();
+    importView.showSpinner();
     GPX.load(track_to_import[inPath], __GPXloadSuccess, __GPXloadError);
   }
   function __GPXloadSuccess(inTrack) {
@@ -459,6 +460,7 @@ var Controller = function() {
 
   function __addTrackonImportSuccess(inEvent) {
     utils.status.show(_("track-saved", {inEvent:inEvent})); //"Track " + inEvent + " sucessfully saved.");
+    importView.hideSpinner();
     document.getElementById("views").showCard(4);
     __displayTrack(current_track);
   }

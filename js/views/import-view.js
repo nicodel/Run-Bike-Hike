@@ -20,9 +20,19 @@ var importView = function() {
       };
     };
   }
+  function showSpinner() {
+    document.getElementById("import-spinner-area").className = "align-center front";
+    document.getElementById("import-form").className = "light behind";
+  }
+  function hideSpinner() {
+   document.getElementById("import-spinner-area").className = "align-center hidden behind";
+   document.getElementById("import-form").className = "light";
+  }
 
   return {
     addFile: addFile,
-    resetList: resetList
+    resetList: resetList,
+    showSpinner: showSpinner,
+    hideSpinner: hideSpinner
   }
 }();
