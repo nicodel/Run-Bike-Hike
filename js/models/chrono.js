@@ -17,6 +17,7 @@ var Chrono = function() {
 	var chrono_ecoule=0;
 	var chrono_depart=0;
 	var chrono_dernier=0;
+  var pause = false;
 
 	// variables pour la mise a jour dynamique
 	var chrono_champ;
@@ -33,23 +34,35 @@ var Chrono = function() {
 	function arreterChrono() {
 		if (chrono_demarre) {
 			chrono_dernier=(new Date()).getTime();
-			chrono_ecoule+=(chrono_dernier-chrono_depart);
+			
+      chrono_ecoule+=(chrono_dernier-chrono_depart);
 			chrono_demarre=false;
 		}
 		RAZChrono();
 		return true;
 	} // fin arreterChrono()
 
+  function pauseChrono() {
+    if (pause) {
+      pause = false;
+      window.clearTimeout(chrono_timeout);
+      break;
+    } else {
+      pause = true;
+      chrono_timeout=window.setTimeout(chargerChronoDyna, 10);
+    };
+  }
+
 	// active la mise a jour dynamique du temps mesure pour le champ specifie
 	function chargerChronoDyna(champ) {
-		if (champ) {
-			chrono_champ = champ;
-    }
-    // chrono_champ.value=tempsChrono();
-		// console.log("chrono_champ: ", chrono_champ);
-		chrono_champ.textContent = tempsChrono();
-		// chrono_timeout=window.setTimeout("chargerChronoDyna()", 10);
-		chrono_timeout=window.setTimeout(chargerChronoDyna, 10);
+    // if (!pause) {
+		  if (champ) {
+			  chrono_champ = champ;
+      }
+		  // console.log("chrono_champ: ", chrono_champ);
+		  chrono_champ.textContent = tempsChrono();
+		  chrono_timeout=window.setTimeout(chargerChronoDyna, 10);
+    // };
 		return true;
 	} // fin chargerChronoDyna(champ)
 
