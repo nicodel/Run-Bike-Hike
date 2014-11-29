@@ -106,9 +106,11 @@ var Controller = function() {
     if (tracking) {
       tracking = false;
       document.getElementById("btn-pause").className="recommend small icon icon-play";
+      Chrono.pause();
    } else {
       tracking = true;
       document.getElementById("btn-pause").className="recommend small icon icon-pause";
+      Chrono.pause();
    }
   }
 
