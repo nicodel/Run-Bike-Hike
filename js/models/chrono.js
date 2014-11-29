@@ -100,11 +100,29 @@ var Chrono = function() {
 		return (ch+":"+cm+":"+cs);
 	} // fin tempsChrono()
 
+  function pause() {
+		if (chrono_demarre) {
+			chrono_dernier=(new Date()).getTime();
+			chrono_ecoule+=(chrono_dernier-chrono_depart);
+			chrono_demarre=false;
+		}
+		return true;
+
+  }
+
+  function resume() {
+    chrono_depart = (new Date()).getTime();
+    chrono_demarre =  true;
+    return true;
+  }
+
 	return {
 		start: demarrerChrono,
 		stop: arreterChrono,
 		reset: RAZChrono,
-		load: chargerChronoDyna
+		load: chargerChronoDyna,
+    pause: pause,
+    resume: resume
 	};
 
 }();

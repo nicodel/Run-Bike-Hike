@@ -5,6 +5,7 @@ var Controller = function() {
   var watchID, lock;
   var olat, olon;
   var tracking = false;
+  var pause = false;
   var display_map = false;
   var duration;
   var displayed_track;
@@ -103,12 +104,16 @@ var Controller = function() {
     document.getElementById("btn-pause").className="hidden recommend small icon icon-pause";
   }
   function pauseRecording() {
-    if (tracking) {
-      tracking = false;
+    if (pause) {
       document.getElementById("btn-pause").className="recommend small icon icon-play";
-   } else {
+      Chrono.resume();
       tracking = true;
+      pause = false;
+   } else {
       document.getElementById("btn-pause").className="recommend small icon icon-pause";
+      Chrono.pause();
+      tracking = false;
+      pause = true;
    }
   }
 
