@@ -185,11 +185,11 @@ var Controller = function() {
     console.log("frequency:", inSettings.frequency);
     if (!inSettings.frequency) {
       console.log("frequency not present in Settings, so we put it !");
-      savingSettings("frequency", "auto");
+      savingSettings("frequency", "0");
     }
-    if (inSettings.frequency != "auto") {
+    if (inSettings.frequency != "0") {
       console.log("frequency value is not default!");
-      __changeFrequency(inSettings.frequency);
+      __changeFrequency(parseInt(inSettings.frequency, 10));
     }
 
   }
