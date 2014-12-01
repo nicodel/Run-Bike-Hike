@@ -179,7 +179,7 @@ ul li > label.pack-switch {
 #message-area {
   margin-top: 30%;
   padding: 10% 0;
-  background: white;
+  background: rgba(248, 248, 255, 0.9);
 }
 #message {
   background: rgba(248, 248, 255, 0.9);
