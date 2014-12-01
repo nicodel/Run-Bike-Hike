@@ -234,10 +234,10 @@ x-layout > [data-type="home"] ul li {
 /*  text-align: center;*/
 }
 x-layout > [data-type="home"] ul li:first-child,
-x-layout > [data-type="home"] ul li#button {
+x-layout > [data-type="home"] ul li.button {
   width: 100%;
 }
-x-layout > [data-type="home"] ul li#button {
+x-layout > [data-type="home"] ul li.button {
   text-align: center;
   padding-top: 1rem;
   padding-bottom: 0.5rem;

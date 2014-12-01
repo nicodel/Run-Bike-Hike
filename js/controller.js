@@ -5,6 +5,7 @@ var Controller = function() {
   var watchID, lock;
   var olat, olon;
   var tracking = false;
+  var pause = false;
   var display_map = false;
   var duration;
   var displayed_track;
@@ -74,6 +75,7 @@ var Controller = function() {
       // document.querySelector("#btn-start").innerHTML = "Stop";
       document.getElementById("btn-start-stop").className = "danger big";
       document.getElementById("btn-start-stop").textContent = _("stop");
+      document.getElementById("btn-pause").className="recommend small icon icon-pause";
 
       // document.getElementById("btn-start-stop").style.backgroundColor = "#e51e1e";
     };
@@ -97,10 +99,24 @@ var Controller = function() {
       // Save to DB
       DB.addTrack(__addTrackSuccess, __addTrackError, track);
     };
-    // document.querySelector("#btn-start").innerHTML = "Start";
     document.getElementById("btn-start-stop").className = "recommend big";
     document.getElementById("btn-start-stop").textContent = _("start");
-    // document.getElementById("btn-start-stop").style.backgroundColor = "#1E824C";
+    document.getElementById("btn-pause").className="hidden recommend small icon icon-pause";
+  }
+  function pauseRecording() {
+    if (pause) {
+      document.getElementById("btn-pause").className="recommend small icon icon-play";
+      document.getElementById('home-chrono').className = "home-value align-center text-huger text-thin new-line";
+      Chrono.resume();
+      tracking = true;
+      pause = false;
+   } else {
+      document.getElementById("btn-pause").className="recommend small icon icon-pause";
+      document.getElementById('home-chrono').className = "text-red home-value align-center text-huger text-thin new-line";
+      Chrono.pauseIt();
+      tracking = false;
+      pause = true;
+   }
   }
 
   function __addNewPoint(inPosition){
@@ -400,6 +416,7 @@ var Controller = function() {
     init: init,
     toggleWatch: toggleWatch,
     stopWatch: stopWatch,
+    pauseRecording: pauseRecording,
     displayTracks: displayTracks,
     // displayTrack: displayTrack,
     deleteTrack: deleteTrack,

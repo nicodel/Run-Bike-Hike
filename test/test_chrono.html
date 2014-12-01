@@ -3,26 +3,114 @@
 <head>
   <meta charset="utf-8" />
   <title >Test chrono.js</title>
-  <script type="text/javascript" src="../lib/chrono.js"></script>
+  <script type="text/javascript" src="../js/models/chrono.js"></script>
 </head>
 <body>
   <h1>Test Chrono.js</h1>
   <p id="chronoshow">00:00:00</p>
-  <button id="btn">Start / Stop</button>
+  <p id="message"></p>
+  <button id="btn-start">Start / Stop</button>
+  <button id="btn-pause">Pause / Resume</button>
 </body>
 <script>
-document.querySelector("#btn").addEventListener ("click", function () {
-  btnCliked();
+var Chronometre = function() {
+  var api = {};
+  var first = 0;
+  var current = 0;
+  var last = 0;
+  var started = false;
+  var timerId;
+
+  api.init = function(inHtml) {
+    if (inHtml) {
+      Html = inHtml;
+    };
+    Html.innerHTML = formatedChrono();
+    timerId = window.setTimeout(init, 10);
+    return true;
+  };
+
+  formatedChrono = function() {
+    var t;
+    if(started) {
+      last = (new Date()).getTime();
+      t = new Date(current + (last - first));
+    } else {
+      t = new Date(current);
+    };
+    var h = parseInt(t.getHours()) - 1;
+    var m = t.getMinutes();
+    var s = t.getSeconds();
+    // if (h < 10) {h = "O" + h;};
+    if (m < 10) {
+      m = "O" + m;
+    };
+    if (s < 10) {
+      s = "O" + s;
+    };
+    return (h + ":" + m + ":" + s);
+  };
+
+  api.start =  function() {
+    start = (new Date().getTime());
+    started = true
+    return true;
+  };
+
+  api.stop = function() {
+    last = (new Date()).getTime();
+    current =+ (last - start);
+    stared = false;
+  };
+
+  api.pause = function() {
+    window.clearTimeout(timerId);
+    remaining -=  new Date() - start;
+  };
+
+  api.resume = function() {
+    start = new Date();
+    window.setTimeout(inCallback, remaining);
+  };
+
+  return api;
+}();
+
+var tracking = false;
+var pause  = false;
+
+Chrono.load(document.getElementById("chronoshow"));
+
+document.getElementById("btn-start").addEventListener("click", function() {
+  startClicked();
 });
-function btnCliked() {
-  console.log("clicked!");
-  if (actifChrono()) {
-    arreterChrono();
+document.getElementById("btn-pause").addEventListener("click", function() {
+  pauseClicked();
+});
+
+function startClicked() {
+  if (tracking) {
+    console.log("stop");
+    Chrono.stop();
+    tracking = false;
   } else {
-    demarrerChrono();
+    console.log("start")
+    Chrono.start();
+    tracking = true;
   }   
 }
-chargerChronoDyna(document.getElementById("chronoshow"));
+function pauseClicked() {
+  if (pause) {
+    console.log("resume");
+    Chrono.resume();
+    pause = false;
+  } else {
+    console.log("pause");
+    Chrono.pause();
+    pause = true;
+  }
+}
+// chargerChronoDyna(document.getElementById("chronoshow"));
 
 </script>
 </html>
