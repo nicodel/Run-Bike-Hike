@@ -13,7 +13,8 @@ var DB = function() {
     {"key":"language", "value":"none"},
     {"key":"distance", "value":"0"},
     {"key":"speed", "value":"0"},
-    {"key":"position", "value":"0"}
+    {"key":"position", "value":"0"},
+    {"key":"frequency", "value":"auto"}
   ];
 /*  var DEFAULT_CONFIG = {
     screen : false,
@@ -155,10 +156,14 @@ var DB = function() {
           settings.push(cursor.value);
           cursor.continue();
         } else {
+          console.log("!settings.frequency:", settings);
           if (settings.length === 0) {
             console.log("no config found, loading the default one !")
             settings = DEFAULT_CONFIG;
             __saveDefaultConfig();
+          // Adding Frequency settings
+          } else if (settings.length === 5) {
+            __addSettingsParameter("frequency", "auto");
           };
           var prettySettings = {};
           for (var i = 0; i < settings.length; i++) {
@@ -241,24 +246,35 @@ var DB = function() {
       };
     };
   }
+  function __addSettingsParameter(inKey, inValue) {
+    var tx = db.transaction(DB_STORE_SETTINGS, "readwrite");
+    tx.oncomplete = function(e) {};
+    tx.onerror = function(e) {};
+    var store = tx.objectStore([DB_STORE_SETTINGS]);
+    var req = store.add({"key":inKey, "value": inValue});
+    req.onsuccess = function(e) {};
+    req.onerror = function(e) {};
+  }
 
   function updateConfig(successCallback, errorCallback, inKey, inValue) {
     if (typeof successCallback === "function") {
       var tx = db.transaction(DB_STORE_SETTINGS, "readwrite");
       var store = tx.objectStore(DB_STORE_SETTINGS);
       var req = store.get(inKey);
-      console.log("req", req);
       req.onsuccess = function(e) {
-        req.result.value = inValue;
-        console.log("req.result", req.result);
-        var req2 = store.put(req.result);
-        console.log("req2", req2);
-        req2.onsuccess = function(e) {
-          console.log("successfully updated");
-          successCallback();
-        }
-        req2.onerror = function(e) {
-          errorCallback(e.error.name);
+        console.log("req", req);
+        if (req.result) {
+          req.result.value = inValue;
+          console.log("req.result", req.result);
+          var req2 = store.put(req.result);
+          console.log("req2", req2);
+          req2.onsuccess = function(e) {
+            console.log("successfully updated");
+            successCallback();
+          }
+         req2.onerror = function(e) {
+           errorCallback(e.error.name);
+         }
         }
       }
       req.onerror = function(e) {
