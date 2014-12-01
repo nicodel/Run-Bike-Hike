@@ -106,12 +106,14 @@ var Controller = function() {
   function pauseRecording() {
     if (pause) {
       document.getElementById("btn-pause").className="recommend small icon icon-play";
+      document.getElementById('home-chrono').className = "home-value align-center text-huger text-thin new-line";
       Chrono.resume();
       tracking = true;
       pause = false;
    } else {
       document.getElementById("btn-pause").className="recommend small icon icon-pause";
-      Chrono.pause();
+      document.getElementById('home-chrono').className = "text-red home-value align-center text-huger text-thin new-line";
+      Chrono.pauseIt();
       tracking = false;
       pause = true;
    }

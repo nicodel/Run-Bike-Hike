@@ -42,17 +42,6 @@ var Chrono = function() {
 		return true;
 	} // fin arreterChrono()
 
-  function pauseChrono() {
-    if (pause) {
-      pause = false;
-      window.clearTimeout(chrono_timeout);
-      break;
-    } else {
-      pause = true;
-      chrono_timeout=window.setTimeout(chargerChronoDyna, 10);
-    };
-  }
-
 	// active la mise a jour dynamique du temps mesure pour le champ specifie
 	function chargerChronoDyna(champ) {
     // if (!pause) {
@@ -113,14 +102,13 @@ var Chrono = function() {
 		return (ch+":"+cm+":"+cs);
 	} // fin tempsChrono()
 
-  function pause() {
+  function pauseIt() {
 		if (chrono_demarre) {
 			chrono_dernier=(new Date()).getTime();
 			chrono_ecoule+=(chrono_dernier-chrono_depart);
 			chrono_demarre=false;
 		}
 		return true;
-
   }
 
   function resume() {
@@ -134,7 +122,7 @@ var Chrono = function() {
 		stop: arreterChrono,
 		reset: RAZChrono,
 		load: chargerChronoDyna,
-    pause: pause,
+    pauseIt: pauseIt,
     resume: resume
 	};
 

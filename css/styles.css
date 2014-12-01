@@ -31,6 +31,9 @@ button.big {
 .text-thinner {
   font-weight: 100;
 }
+.text-red {
+  color: #E51E1E;
+}
 .align-left {
   float: left;
   margin-left: 8px;
