@@ -7,7 +7,7 @@ var Controller = function() {
   var tracking = false;
   var pause = false;
   var display_map = false;
-  var duration;
+  var duration, distance;
   var displayed_track;
 
   function init() {
@@ -39,9 +39,11 @@ var Controller = function() {
   function __locationChanged(inPosition){
     // console.log("Position found", inPosition);
     if (inPosition.coords.accuracy < 50) {
-      if (tracking) {
+      if (tracking && !pause) {
         // console.log("tracking");
         __addNewPoint(inPosition);
+      } else if (tracking && pause) {
+        HomeView.updateInfos(inPosition, distance);
       } else {
         // console.log("not tracking");
         HomeView.updateInfos(inPosition, null);
@@ -124,14 +126,17 @@ var Controller = function() {
     if (pause) {
       document.getElementById("btn-pause").className="recommend small icon icon-pause";
       document.getElementById('home-chrono').className = "home-value align-center text-huger text-thin new-line";
+      document.getElementById('home-dist').className = "home-value align-center text-huge text-thin";
+      Tracks.resumed();
       Chrono.resume();
-      tracking = true;
+      // tracking = true;
       pause = false;
    } else {
       document.getElementById("btn-pause").className="recommend small icon icon-play";
       document.getElementById('home-chrono').className = "text-red home-value align-center text-huger text-thin new-line";
+      document.getElementById('home-dist').className = "text-red home-value align-center text-huge text-thin";
       Chrono.pauseIt();
-      tracking = false;
+      // tracking = false;
       pause = true;
    }
   }
@@ -158,7 +163,7 @@ var Controller = function() {
       alt = null;
     }
     // calculate distance
-    var distance = Tracks.getDistance(lat, lon);
+    distance = Tracks.getDistance(lat, lon);
 
     // calculating duration
     duration = Tracks.getDuration(inPosition.timestamp);
