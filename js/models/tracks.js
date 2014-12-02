@@ -110,6 +110,10 @@ var Tracks = function() {
     return current_track;
   }
 
+  function resumed() {
+   olat = null;
+   olon = null;
+  }
 
   return {
     open: open,
@@ -118,7 +122,8 @@ var Tracks = function() {
     getDistance: getDistance,
     reset: reset,
     close: close,
-    importFromFile: importFromFile
+    importFromFile: importFromFile,
+    resumed: resumed
   };
 }();
 // });
