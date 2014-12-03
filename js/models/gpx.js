@@ -128,6 +128,8 @@ var GPX = function() {
             tstart = new Date(point.date);
             };
             tend = new Date (point.date);
+          } else {
+            track.date = 0;
           }
           var i = p.getElementsByTagName("ele");
           if (i.length > 0) {
@@ -162,7 +164,11 @@ var GPX = function() {
     } else {
       failureCallback("Could not parse track segment from file");
     }
-    track.duration = tend - tstart;
+    if (tend && tstart) {
+      track.duration = tend - tstart;
+    } else {
+      track.duration = 0;
+    }
     track.distance = distance;
     successCallback(track);
   }
