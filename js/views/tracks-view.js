@@ -84,7 +84,11 @@ var TracksView = function() {
     div = div + '<img class="track-icon" src="img/activities/' + inTrack.icon + '.svg" />';
     div = div + '<span class="track-name">' + inTrack.name + '</span>';
     div = div + '</p><p class="track-description">';
-    div = div + '<span class="track-date">' + Config.userDate(inTrack.date) + '</span>';
+    if (inTrack.date === 0) {
+      div = div + '<span class="track-date">--/--/--</span>';
+    } else {
+      div = div + '<span class="track-date">' + Config.userDate(inTrack.date) + '</span>';
+    };
     div = div + '<span class="track-length">' + a.v + " " + a.u + '</span>';
     div = div + '<span class="track-duration">' + (isNaN(inTrack.duration) ? '--' : (inTrack.duration / 60000).toFixed()) + ' min</span>';
     div = div + '</p>';

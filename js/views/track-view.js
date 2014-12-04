@@ -35,10 +35,14 @@ var TrackView = function() {
     var tr = document.getElementById("tr-name");
     tr.innerHTML = inTrack.name;
 
-    document.getElementById("trk-date").innerHTML = Config.userDate(inTrack.date);
+    if (inTrack.date === 0) {
+      document.getElementById("trk-date").innerHTML = "--/--/--";
+    } else {
+      document.getElementById("trk-date").innerHTML = Config.userDate(inTrack.date);
+    };
     var a = Config.userDistance(inTrack.distance);
     document.getElementById("trk-dist").innerHTML = a.v + " " + a.u;
-    if (isNaN(inTrack.duration)) {
+    if (isNaN(inTrack.duration) || inTrack.duration === 0) {
       document.getElementById("trk-dur").innerHTML = "-- min";
     } else {
       var d = inTrack.duration / 60000;
@@ -193,8 +197,12 @@ var TrackView = function() {
     // console.log("xspace",xspace);
     for (i=0;i<data.length;i+=xspace) {
       i = parseInt(i,10);
-      var d = new Date(data[i].date);
-      var date = ("0" + d.getHours()).slice(-2) + ":" + ("0" + d.getMinutes()).slice(-2);
+      if (isNaN(data[i].date)) {
+        var date = "";
+      } else {
+        var d = new Date(data[i].date);
+        var date = ("0" + d.getHours()).slice(-2) + ":" + ("0" + d.getMinutes()).slice(-2);
+      };
       c.textAlign = "center";
       c.fillStyle = "gray";
       if (i+xspace > data.length) {
