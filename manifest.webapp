@@ -14,7 +14,7 @@
   },
   "permissions": {
     "device-storage:sdcard": {
-      "access": "createonly",
+      "access": "readwrite",
       "description": "Required to save exported tracks to gpx files"
     },
     "geolocation": {

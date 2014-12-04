@@ -105,10 +105,10 @@
                 <h2 data-l10n-id="informations" class="about">Informations</h2>
                 <p class="about">Run, Bike, Hike...<span data-l10n-id="version" data-l10n-args='{"version":"0.1.7"}' class="align-right">version 0.1.7</span></p>
                 <p data-l10n-id="contribute" class="about">You can <a href="https://github.com/nicodel/Run-Bike-Hike">contibute</a> to the project.</p>
-                <p data-l10n-id="translate" class="about">You can help <a href="http://beta.babelzilla.org/projects/p/run-bike-hike/">localize it</a> in your language.</p>
+                <p data-l10n-id="translate" class="about">You can help <a href="https://www.transifex.com/projects/p/run-bike-hike/translate/">localize it</a> in your language.</p>
                 <p data-l10n-id="bug" class="about">You can also report a <a href="https://github.com/nicodel/Run-Bike-Hike/issues">bug</a>.</p>
                 <p data-l10n-id="contributors" class="about">The contributors to this project are <a href="https://github.com/nicodel">nicodel</a>, Bonbadil, <a href="https://mathieu.rochette.cc/">mathroc</a>.</p>
-                <p data-l10n-id="credits" class="about">The sports icons are under CC BY, and made by<a href="http://icons8.com/">icons8.com</a>.</p>
+                <p data-l10n-id="credits" class="about">The sports icons are under CC BY, and made by <a href="http://icons8.com/">icons8.com</a>.</p>
                 <p data-l10n-id="licence" class="about">This application source code is licenced under the <a href="http://www.mozilla.org/MPL/2.0/">MPL2.0</a> licence.</p>
               </li>
               <!-- <li> -->
@@ -175,7 +175,7 @@
                     <progress id="spinner"></progress>
                     <p data-l10n-id="retreiving" id="msg" class="text-big align-center">Retreiving GPS signal. It may take some time...</p>
                     <p data-l10n-id="accmsg" id="accmsg" class="hidden text-big align-center"></p>
-                    <p data-l10n-id="error-position" id="errmsg" class="hidden text-big align-center"></p>
+                    <p id="errmsg" class="hidden text-big align-center"></p>
                   </div>
                 </li>
               </ul>
@@ -205,6 +205,7 @@
           <x-appbar>
             <button data-l10n-id="back" id="btn-tracks-back" class="icon icon-back">Back</button>
             <h1 data-l10n-id="recorded-tracks">Recorded tracks</h1>
+            <button data-l10n-id="import" id="btn-import" class="icon icon-import">Import</button>
           </x-appbar>
           <section data-type="list">
             <ul id="tracks-list">
@@ -375,18 +376,17 @@
             </p>
             <select id="select-file">
               <option value="empty">--</option>
-              <!--- EXAMPLES -->
-              <option value="test/16181.gpx">TRACK-1.gpx</option>
-              <option value="test/17936.gpx">TRACK-2.gpx</option>
-              <option value="test/TR201410011900145.gpx">TRACK-3.gpx</option>
-              <!-- -->
             </select>
+            <p id="import-msg-area"></p>
           </section>
           <menu>
             <button id="btn-cancel-import" class="cancel" data-l10n-id="cancel">Cancel</button>
             <button id="btn-confirm-import" role="button" class="danger" data-l10n-id="import" disabled="disabled">Import</button>
           </menu>
         </form>
+        <div id="import-spinner-area" class="hidden behind">
+          <progress id="import-spinner"class="align-center top40"></progress>
+        </div>
       </x-card>
 
     </x-deck>
@@ -399,12 +399,14 @@
     <script type="text/javascript" src="js/views/home-view.js"></script>
     <script type="text/javascript" src="js/views/infos-view.js"></script>
     <script type="text/javascript" src="js/views/tracks-view.js"></script>
+    <script type="text/javascript" src="js/views/import-view.js"></script>
     <script type="text/javascript" src="js/views/track-view.js"></script>
     <script type="text/javascript" src="js/views/status.js"></script>
     <script type="text/javascript" src="js/models/chrono.js"></script>
     <script type="text/javascript" src="js/models/config.js"></script>
     <script type="text/javascript" src="js/models/share.js"></script>
     <script type="text/javascript" src="js/models/gpx.js"></script>
+    <script type="text/javascript" src="js/models/sdcard.js"></script>
     <script type="text/javascript" src="js/models/db.js"></script>
     <script type="text/javascript" src="js/models/tracks.js"></script>
     <script type="text/javascript" src="js/models/export_tracks.js"></script>

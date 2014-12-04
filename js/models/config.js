@@ -57,7 +57,7 @@ var Config = function() {
     // console.log("SPEED METRIC:", velocityMPS);
     // console.log("Config.CONFIG['speed']", Config.CONFIG['speed']);
     var a = {};
-    if (velocityMPS === null || velocityMPS<0 || isNaN(velocityMPS)) {
+    if (velocityMPS === null || velocityMPS<0 || isNaN(velocityMPS) || velocityMPS === Infinity) {
       // if (USER_SPEED === IMPERIAL_UNITS) {
       if (Config.CONFIG["speed"] === IMPERIAL_UNITS) {
         // console.log("null - IMPERIAL_UNITS");
