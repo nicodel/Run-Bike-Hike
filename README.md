@@ -11,6 +11,7 @@ A GPS recording web app.
 ## Release notes
 
 ### v0.1.8 - 
+* Add feature #30: Add import button (and give user the possibility to import tracks with GPX format file).
 * Add feature #37: Ability to pause the ride (PR #60).
 * Add feature #28: Let the user choose GPS refresh rate (PR #61).
 * Fix issue #26 (again)...
