@@ -89,7 +89,7 @@ var TrackView = function() {
       }
       // t.av_speed = t.av_speed + speed_int;
     }
-    t.av_speed = inTrack.distance / inTrack.duration;
+    t.av_speed = inTrack.distance / inTrack.duration * 1000;
     var a = Config.userSpeed(t.av_speed);
     document.getElementById("trk-av-speed").innerHTML = a.v + " " + a.u;
     var a = Config.userSpeed(t.max_speed);
