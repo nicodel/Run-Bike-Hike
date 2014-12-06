@@ -113,6 +113,7 @@ document.querySelector("#btn-tracks-back").addEventListener ("click", function (
 
 /* Tracks View Import button */
 document.querySelector("#btn-import").addEventListener ("click", function () {
+  document.querySelector("#btn-confirm-import").setAttribute("disabled", "disabled");
   Controller.searchFiles();
   document.getElementById("views").showCard(8);
 });
@@ -126,10 +127,8 @@ document.querySelector("#btn-confirm-import").addEventListener("click", function
   Controller.importFile(document.querySelector("#select-file").value);
 });
 document.querySelector("#select-file").onchange = function() {
-  var dom = document.querySelector("#select-file");
   var id = this.selectedIndex;
-  // console.log("import select changed", dom[id].value);
-  if (dom[id].value === "empty") {
+  if (this[id].value === "empty") {
     document.getElementById("btn-confirm-import").setAttribute("disabled", "disabled");
   } else {
     document.getElementById("btn-confirm-import").removeAttribute("disabled");
