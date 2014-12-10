@@ -28,7 +28,7 @@ var TracksView = function() {
         //console.log("buildList i ", i);
       }
     }
-    document.getElementById("list-spinner").className = "behind hidden";
+    document.getElementById("list-spinner").className = "hidden";
 
     /*
      * TESTING !!!
@@ -58,14 +58,8 @@ var TracksView = function() {
     if (document.getElementById("tracks-list").hasChildNodes()) {
       __remove_childs("tracks-list");
     };
-    var li = document.createElement("li");
-    li.className = "ontop";
-    li.id = "list-spinner"
-    li.innerHTML = '<div class="align-center top40"><progress id="spinner"></progress></div>';
-    document.getElementById("tracks-list").appendChild(li);
+    document.getElementById("list-spinner").className = "";
   }
-  //Launch it on start.
-  reset();
 
   function __showEmpty() {
     var el = document.createElement("p");

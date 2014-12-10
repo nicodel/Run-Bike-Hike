@@ -97,10 +97,11 @@ button#btn-pause {
 /*
   Tacks list specific styles
 */
-/*#tracks-list li.it-track {
-  height: 6rem;
-  padding: 0;
-}*/
+#list-spinner {
+  width: 100%;
+  text-align: center;
+  padding-top: 80px;
+}
 #tracks-list a {
   text-align: left;
 }

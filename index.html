@@ -208,7 +208,8 @@
             <button data-l10n-id="import" id="btn-import" class="icon icon-import">Import</button>
           </x-appbar>
           <section data-type="list">
-            <ul id="tracks-list">
+            <div id="list-spinner"><progress></progress></div>
+            <ul id="tracks-list" data-state="dirty">
             </ul>
           </section>
         </x-layout>
