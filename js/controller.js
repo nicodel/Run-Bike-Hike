@@ -342,10 +342,11 @@ var Controller = function() {
   }
 
   function displayTracks() {
-    // reset the tracks list display
-    TracksView.reset();
-    // get the whole tracks list
-    DB.getTracks(__getTracksSuccess, __getTracksError);
+    if( document.getElementById("tracks-list").dataset.state == "dirty") {
+      document.getElementById("tracks-list").dataset.state = ""
+      // get the whole tracks list
+      DB.getTracks(__getTracksSuccess, __getTracksError);
+    }
   }
 
   function __getTracksSuccess(inTracks) {
@@ -361,12 +362,6 @@ var Controller = function() {
     TrackView.display(inTrack, __saveMap);
   }
 
-/*  function displayTrack(inTrack) {
-    // console.log("inTrack display: ", inTrack);
-    displayed_track = inTrack;
-    TrackView.display(inTrack);
-  }*/
-
   function deleteTrack() {
     DB.deleteTrack(__deleteTrackSuccess, __deleteTrackError, displayed_track);
     console.log("delete track: ", displayed_track);
@@ -374,9 +369,9 @@ var Controller = function() {
 
   function __deleteTrackSuccess() {
     TracksView.reset();
-    displayTracks();
     utils.status.show(_("track-delete-success", {name:displayed_track.name}));
-
+    document.getElementById("views").showCard(3);
+    displayTracks();
   }
 
   function __deleteTrackError() {
@@ -487,7 +482,7 @@ var Controller = function() {
   function __GPXloadSuccess(inTrack) {
     // console.log("success load track", inTrack);
     current_track = Tracks.importFromFile(inTrack);
-    var data = current_track.data;
+    //var data = current_track.data;
     // for (var i = 0; i < data.length; i++) {
       // data[i]
       // calculate distance
@@ -513,6 +508,7 @@ var Controller = function() {
   function __addTrackonImportSuccess(inEvent) {
     utils.status.show(_("track-saved", {inEvent:inEvent})); //"Track " + inEvent + " sucessfully saved.");
     importView.hideSpinner();
+    TracksView.reset()
     document.getElementById("views").showCard(4);
     __displayTrack(current_track);
   }

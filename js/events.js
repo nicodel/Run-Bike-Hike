@@ -46,8 +46,9 @@ document.querySelector("#btn-pause").addEventListener ("click", function () {
 /*-------- Stop tracking confirmation ------------*/
 /* Stop tracking Confirm button */
 document.querySelector("#btn-confirm-stop").addEventListener ("click", function () {
+  TracksView.reset()
   document.getElementById("views").showCard(1);
-    Controller.stopWatch();
+  Controller.stopWatch();
 });
 /* Stop tracking Cancel button */
 document.querySelector("#btn-cancel-stop").addEventListener ("click", function () {
@@ -64,41 +65,38 @@ document.querySelector("#screen").onchange = function () {
 };
 /* Settings View Language selection */
 document.querySelector("#language").onchange = function() {
-  var dom = document.querySelector("#language");
-  var id = this.selectedIndex;
-  Controller.savingSettings("language", dom[id].value);
-  Controller.changeLanguage(dom[id].value);
-  document.webL10n.setLanguage(dom[id].value);
+  var setting = this[this.selectedIndex].value;
+  Controller.savingSettings("language", setting);
+  Controller.changeLanguage(setting);
+  document.webL10n.setLanguage(setting);
+  TracksView.reset()
 };
 /* Settings View Distance unit selection */
 document.querySelector("#distance").onchange = function() {
-  var dom = document.querySelector("#distance");
-  var id = this.selectedIndex;
-  Controller.savingSettings("distance", dom[id].value);
-  Controller.changeDistance(dom[id].value);
+  var setting = this[this.selectedIndex].value;
+  Controller.savingSettings("distance", setting);
+  Controller.changeDistance(setting);
+  TracksView.reset()
 };
 /* Settings View Speed unit selection */
 document.querySelector("#speed").onchange = function() {
-  var dom = document.querySelector("#speed");
-  var id = this.selectedIndex;
-  Controller.savingSettings("speed", dom[id].value);
-  Controller.changeSpeed(dom[id].value);
+  var setting = this[this.selectedIndex].value;
+  Controller.savingSettings("speed", setting);
+  Controller.changeSpeed(setting);
+  TracksView.reset()
 };
 /* Settings View Position unit selection */
 document.querySelector("#position").onchange = function() {
-  var dom = document.querySelector("#position");
-  var id = this.selectedIndex;
-  Controller.savingSettings("position", dom[id].value);
-  Controller.changePosition(dom[id].value);
-}
+  var setting = this[this.selectedIndex].value;
+  Controller.savingSettings("position", setting);
+  Controller.changePosition(setting);
+};
 /* Settings View Geoposition frequency selection */
 document.querySelector("#frequency").onchange = function() {
-  var dom = document.querySelector("#frequency");
-  var id = this.selectedIndex;
-  Controller.savingSettings("frequency", dom[id].value);
-  Controller.changeFrequency(dom[id].value);
+  var setting = this[this.selectedIndex].value;
+  Controller.savingSettings("frequency", setting);
+  Controller.changeFrequency(setting);
 };
-;
 /* Settings View Back button */
 document.querySelector("#btn-settings-back").addEventListener ("click", function () {
   document.getElementById("views").showCard(1);
@@ -174,6 +172,7 @@ document.querySelector("#btn-confirm-edit").addEventListener("click", function()
     document.querySelector("#input-rename").value,
     (icon != null) ? icon.id.slice(5) : "default"
   );
+  TracksView.reset()
 });
 /* Rename Clear button */
 document.querySelector("#btn-clear-rename").addEventListener("click", function() {
@@ -209,21 +208,20 @@ document.querySelector("#btn-share").addEventListener("click", function() {
 /*----------------- Track Share Form -----------------*/
 /* Way to share a track selection */
 /*document.querySelector("#select-share").onchange = function() {
-  var dom = document.querySelector("#select-share");
-  var id = this.selectedIndex;
-  if (dom[id].value === "email") {
+  var setting = this[this.selectedIndex].value;
+  if (setting === "email") {
     console.log("sharing via email");
     document.querySelector("#toggle-share-summary").disabled = false;
     document.querySelector("#toggle-share-summary").checked = false;
     document.querySelector("#toggle-share-file").disabled = false;
     document.querySelector("#toggle-share-file").checked = false;
-  } else if (dom[id].value === "twitter") {
+  } else if (setting === "twitter") {
     console.log("sharing via twitter");
     document.querySelector("#toggle-share-summary").disabled = true;
     document.querySelector("#toggle-share-summary").checked = true;
     document.querySelector("#toggle-share-file").disabled = true;
     document.querySelector("#toggle-share-file").checked = false;
-  } else if (dom[id].value === "local") {
+  } else if (setting === "local") {
     console.log("sharing via local");
     document.querySelector("#toggle-share-summary").disabled = true;
     document.querySelector("#toggle-share-summary").checked = false;
@@ -262,7 +260,6 @@ document.querySelector("#btn-cancel-delete").addEventListener("click", function 
 });
 /* Delete Track Confirm button */
 document.querySelector("#btn-confirm-delete").addEventListener("click", function () {
-  document.getElementById("views").showCard(3);
   Controller.deleteTrack();
 });
 document.getElementById("del-form-confirm").onsubmit = function() {return false;};

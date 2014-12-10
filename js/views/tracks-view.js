@@ -53,16 +53,19 @@ var TracksView = function() {
   }
 
   function reset() {
+    console.log("Tracks list marked as dirty.");
+    document.getElementById("tracks-list").dataset.state = "dirty"
     if (document.getElementById("tracks-list").hasChildNodes()) {
       __remove_childs("tracks-list");
-      var li = document.createElement("li");
-      li.className = "ontop";
-      li.id = "list-spinner"
-      var div = '<div class="align-center top40"><progress id="spinner"></progress></div>';
-      li.innerHTML = div;
-      document.getElementById("tracks-list").appendChild(li);
     };
+    var li = document.createElement("li");
+    li.className = "ontop";
+    li.id = "list-spinner"
+    li.innerHTML = '<div class="align-center top40"><progress id="spinner"></progress></div>';
+    document.getElementById("tracks-list").appendChild(li);
   }
+  //Launch it on start.
+  reset();
 
   function __showEmpty() {
     var el = document.createElement("p");
@@ -104,9 +107,7 @@ var TracksView = function() {
 
   function __remove_childs(parent) {
     var d = document.getElementById(parent).childNodes;
-    console.log("d",d);
     for (i = 0; i = d.length - 1; i++) {
-      console.log("remove element " + i + " " + d[i]);
       document.getElementById(parent).removeChild(d[i]);
     }
   }
