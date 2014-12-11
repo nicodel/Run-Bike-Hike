@@ -10,7 +10,8 @@ A GPS recording web app.
 
 ## Release notes
 
-### v0.2.0 -
+### v0.1.10 - 11/12/2014
+* Build process fixed.
 
 ### v0.1.9 - 08/12/2014
 * Various locales fixed.
