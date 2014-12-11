@@ -508,7 +508,7 @@ var Controller = function() {
   function __addTrackonImportSuccess(inEvent) {
     utils.status.show(_("track-saved", {inEvent:inEvent})); //"Track " + inEvent + " sucessfully saved.");
     importView.hideSpinner();
-    TracksView.reset()
+    TracksView.reset();
     document.getElementById("views").showCard(4);
     __displayTrack(current_track);
   }

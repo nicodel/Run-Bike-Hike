@@ -13,6 +13,9 @@ var GPX = function() {
   var distance = 0;
 
   var load = function(inFile, successCallback, failureCallback) {
+    olat = null;
+    olon = null;
+    distance = 0;
     var n = "rbh/import/" + inFile.name.match(/[^/]+$/i)[0];
     var reader = new FileReader(); 
     reader.onloadend = function(e) {

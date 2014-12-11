@@ -57,8 +57,8 @@ var TracksView = function() {
     document.getElementById("tracks-list").dataset.state = "dirty";
     if (document.getElementById("tracks-list").hasChildNodes()) {
       __remove_childs("tracks-list");
+      document.getElementById("list-spinner").className = "";
     }
-    document.getElementById("list-spinner").className = "";
   }
 
   function __showEmpty() {
@@ -75,7 +75,7 @@ var TracksView = function() {
     var lia = document.createElement("a");
     var a = Config.userDistance(inTrack.distance);
     var div = '<p class="track-title">';
-    if (inTrack.icon === null) {
+    if (inTrack.icon === null || inTrack.icon === undefined) {
        inTrack.icon = "default";
     }
     div = div + '<img class="track-icon" src="img/activities/' + inTrack.icon + '.svg" />';
