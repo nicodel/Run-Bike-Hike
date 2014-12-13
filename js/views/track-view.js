@@ -193,22 +193,19 @@ var TrackView = function() {
       xspace = data.length / SPACE_BTW_POINTS;
     }
     // console.log("xspace",xspace);
-    var date = "";
-    for (i=0;i<data.length;i+=xspace) {
+    var timestamp, date, hour = "";
+    for (i=0; i<data.length; i+=xspace) {
       i = parseInt(i,10);
-      if (isNaN(data[i].date)) {
-        date = "";
+      timestamp = Date.parse(data[i].date);
+      if (isNaN(timestamp)) {
+        hour = "";
       } else {
-        var d = new Date(data[i].date);
-        date = ("0" + d.getHours()).slice(-2) + ":" + ("0" + d.getMinutes()).slice(-2);
+        date = new Date(timestamp);
+        hour = ("0" + date.getHours()).slice(-2) + ":" + ("0" + date.getMinutes()).slice(-2);
       }
       c.textAlign = "center";
       c.fillStyle = "gray";
-      if (i+xspace > data.length) {
-        c.fillText(date, __getXPixel(i,data) - 15, SCREEN_HEIGHT - yPadding + 27);
-      } else {
-        c.fillText(date, __getXPixel(i,data), SCREEN_HEIGHT - yPadding + 27);
-      }
+      c.fillText(hour, __getXPixel(i,data) - (i+xspace > data.length ? 15 : 0), SCREEN_HEIGHT - yPadding + 27);
       // draw vertical lines
       c.beginPath();
       // c.strokeStyle  = "rgba(150,150,150, 0.5)";
@@ -336,7 +333,6 @@ var TrackView = function() {
     var SIZE = "&size=" + MAP_WIDTH + "," + MAP_HEIGHT;
     var TYPE = "&type=map&imagetype=jpeg";
     var BASE_URL = "http://www.mapquestapi.com/staticmap/v4/getmap?key=Fmjtd%7Cluur21u720%2Cr5%3Do5-90tx9a&";
-
 
     var loc = BASE_URL + SIZE + TYPE + BESTFIT + PATH;
 
