@@ -10,7 +10,9 @@ A GPS recording web app.
 
 ## Release notes
 
-### v0.2.0 -
+### v0.1.11 - 15/12/2014
+* Fix issue #76: Elapsed time depending on timezone.
+* Fix issue #77: Shared-by-email GPX file [Bug 1111724](https://bugzilla.mozilla.org/show_bug.cgi?id=1111724).
 
 ### v0.1.10 - 11/12/2014
 * Build process fixed.
