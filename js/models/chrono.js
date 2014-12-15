@@ -14,9 +14,9 @@ var Chrono = function() {
 
 	// variables pour la gestion du chronometre
 	var chrono_demarre=false;
-	var chrono_ecoule=0;
-	var chrono_depart=0;
-	var chrono_dernier=0;
+	var chrono_ecoule=null;
+	var chrono_depart=null;
+	var chrono_dernier=null;
   var pause = false;
 
 	// variables pour la mise a jour dynamique
@@ -91,9 +91,9 @@ var Chrono = function() {
 		} else {
 			cnow=new Date(chrono_ecoule);
 		}
-		var ch=parseInt(cnow.getHours()) - 1;
-		var cm=cnow.getMinutes();
-		var cs=cnow.getSeconds();
+		var ch=cnow.getUTCHours();
+		var cm=cnow.getUTCMinutes();
+		var cs=cnow.getUTCSeconds();
 		// var cc=parseInt(cnow.getMilliseconds()/10);
 		// if (cc<10) cc="0"+cc;
 		if (cs<10) cs="0"+cs;
