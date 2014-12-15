@@ -22,7 +22,7 @@ var Share = function() {
   }
 
   function toEmail(inTrack, inFile) {
-    var blob = new Blob([inFile], {type: "text/plain"});
+    var blob = new Blob([inFile], {type: "application/gpx+xml"});
     var name = inTrack.name + ".gpx";
     var subject = "Track: " + name;
     
