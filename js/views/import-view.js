@@ -1,4 +1,5 @@
 var importView = function() {
+  "use strict";
 
   function addFile(inFile) {
     var s = document.getElementById("select-file");
@@ -13,8 +14,8 @@ var importView = function() {
     if (nb > 1) {
       for (var i = 0; i < nb; i++) {
         sel.remove(1);
-      };
-    };
+      }
+    }
   }
   function showSpinner() {
     document.getElementById("import-spinner-area").className = "align-center front";
@@ -30,5 +31,5 @@ var importView = function() {
     resetList: resetList,
     showSpinner: showSpinner,
     hideSpinner: hideSpinner
-  }
+  };
 }();
