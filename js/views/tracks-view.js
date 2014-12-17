@@ -1,3 +1,7 @@
+/* jshint browser: true, strict: true, devel: true */
+/* exported TracksView */
+/* global _, Config */
+
 var TracksView = function() {
   "use strict";
 
@@ -101,7 +105,7 @@ var TracksView = function() {
 
   function __remove_childs(parent) {
     var d = document.getElementById(parent).childNodes;
-    for (var i = 0; i = d.length - 1; i++) {
+    for (var i = 0; i >= d.length - 1; i++) {
       document.getElementById(parent).removeChild(d[i]);
     }
   }

@@ -1,3 +1,6 @@
+/* jshint browser: true, strict: true, devel: true */
+/* exported importView */
+
 var importView = function() {
   "use strict";
 

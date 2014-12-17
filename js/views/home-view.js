@@ -1,3 +1,7 @@
+/* jshint browser: true, strict: true, devel: true */
+/* exported HomeView */
+/* global _, Config */
+
 var HomeView = function() {
   "use strict";
 
@@ -92,15 +96,15 @@ var HomeView = function() {
     document.getElementById("accmsg").className = "text-big align-center";
   }
 
-  function __displayCompass(event) {
+/*  function __displayCompass(event) {
     // compass = document.getElementById("home-compass");
     //~ console.log("heading:", event.heading);
     if (event.heading > 0 ){
-      /** in case, when GPS is disabled (only if GSM fix is available),
-       * event.heading should be -1 and event.errorCode should be 4,
-       * but it isn't... So we use this strange condition that don't
-       * work if we go _directly_ to north...
-       */
+      // in case, when GPS is disabled (only if GSM fix is available),
+      // event.heading should be -1 and event.errorCode should be 4,
+      // but it isn't... So we use this strange condition that don't
+      // work if we go _directly_ to north...
+      //
       // opacity = 1; // 0.8
       // compass.src = 'img/compass.png';
       var rot = 360 - event.heading.toFixed(0);
@@ -113,7 +117,7 @@ var HomeView = function() {
       document.getElementById('home-dir').innerHTML = "??";
     }
     // compass.style.opacity = opacity;
-  }
+  }*/
 
   return {
     // hideSpinner: hideSpinner,

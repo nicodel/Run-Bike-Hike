@@ -1,8 +1,11 @@
-'use strict';
+/* jshint browser: true, strict: true, devel: true */
+/* exported utils */
+
 // From Mozilla Building Blocks
 var utils = this.utils || {};
 
 utils.status = (function() {
+  'use strict';
 
   // This constant is essential to resolve what is the path of the CSS file
   // that defines the animations
