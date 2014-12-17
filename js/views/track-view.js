@@ -1,3 +1,7 @@
+/* jshint browser: true, strict: true, devel: true */
+/* exported TrackView */
+/* global _, Config */
+
 var TrackView = function() {
   "use strict";
 
@@ -106,7 +110,7 @@ var TrackView = function() {
       var img = document.getElementById("map-img");
       img.width = SCREEN_WIDTH;
       img.src = window.URL.createObjectURL(t.map);
-      img.onload = function(e) {
+      img.onload = function() {
         window.URL.revokeObjectURL(this.src);
       };
       document.querySelector("#map-text").classList.add("hidden");
@@ -114,7 +118,7 @@ var TrackView = function() {
       img.classList.remove("hidden");
     } else {
       console.log("map does not exist");
-      var mapToSave = __buildMap2(inTrack, saveMapCallback);
+      /*var mapToSave = */__buildMap2(inTrack, saveMapCallback);
       // console.log("mapToSave.map", mapToSave.map);
       // saveMapCallback(mapToSave);
     }
@@ -304,10 +308,10 @@ var TrackView = function() {
     }
 
     var MAX_POINTS = 100;
-    var BLACK = "0x000000";
+    // var BLACK = "0x000000";
     var BLUE = "0x0AFF00";
-    var RED = "0xFF0000";
-    var GREEN = "0x0027FF";
+    // var RED = "0xFF0000";
+    // var GREEN = "0x0027FF";
     var PATH = "&polyline=color:" + BLUE + "|width:3|";
     var j = 0;
     var y;
@@ -400,7 +404,7 @@ var TrackView = function() {
       alt_x += inSpaceAlt;
       speed_y += inSpaceSp;
       speed_x += inSpaceSp;
-      console.log("2-speed.v", speed.v);
+      // console.log("2-speed.v", speed.v);
     }
     c.beginPath();
     c.moveTo( xPadding,SCREEN_HEIGHT - yPadding + 15);
@@ -421,7 +425,7 @@ var TrackView = function() {
   function __getYPixel(val,range) {
     return SCREEN_HEIGHT - (((SCREEN_HEIGHT - yPadding) / range) * val) - yPadding;
   }
-  function __getCenter(inTrack) {
+/*  function __getCenter(inTrack) {
     var x = 0;
     var y = 0;
     var z = 0;
@@ -451,7 +455,7 @@ var TrackView = function() {
     clon = clon * 180 / Math.PI;
     // console.log("clat, clon", clat + " " + clon);
     return {lat: clat, lon: clon};
-  }
+  }*/
   function __getDistance (lat1, lon1, lat2, lon2) {
     var radius = 6371 * 1000; // Earth radius (mean) in metres {6371, 6367}
 
@@ -477,7 +481,7 @@ var TrackView = function() {
     var lonRad = p.lon*( Math.PI / 180);
 
     var latCircleR = Math.sin( Math.PI/2 - latRad) * radius;
-    var horizRad = (latCircleR == 0 ? 0 : horizontal / latCircleR);
+    var horizRad = (latCircleR === 0 ? 0 : horizontal / latCircleR);
     var vertRad = vertical / radius;
 
     latRad -= vertRad;
