@@ -1,13 +1,17 @@
+/* jshint browser: true, strict: true, devel: true */
+/* exported GPX */
+/* global _ */
 var GPX = function() {
+  "use strict";
 
-  var T = {
+/*  var T = {
     id: new Date().toISOString(),
     name: null,
     duration: 0,
     distance: 0,
     map: "",
     data: []
-  };
+  };*/
   var olat = null;
   var olon = null;
   var distance = 0;
@@ -16,43 +20,43 @@ var GPX = function() {
     olat = null;
     olon = null;
     distance = 0;
-    var n = "rbh/import/" + inFile.name.match(/[^/]+$/i)[0];
+    // var n = "rbh/import/" + inFile.name.match(/[^/]+$/i)[0];
     var reader = new FileReader(); 
-    reader.onloadend = function(e) {
+    reader.onloadend = function() {
       var p = new DOMParser();
       __parse(p.parseFromString(reader.result, "text/xml"), successCallback, failureCallback);
-    }
+    };
     reader.onerror = function(e) {
       console.log("reader error:", e);
       failureCallback(_("error-reading-file", {file:inFile.name.match(/[^/]+$/i)[0], error:e.target.result}));
-    }
+    };
     reader.readAsText(inFile);
-  }
+  };
 
   var verify = function(inFile, successCallback, failureCallback) {
-    var n = "rbh/import/" + inFile.name.match(/[^/]+$/i)[0];
+    // var n = "rbh/import/" + inFile.name.match(/[^/]+$/i)[0];
     var reader = new FileReader(); 
-    reader.onloadend = function(e) {
+    reader.onloadend = function() {
       // console.log("reader success", reader.result);
       var p = new DOMParser();
       var x = p.parseFromString(reader.result, "text/xml");
 
-      var metadata = x.getElementsByTagName("metadata");
-      var time = metadata[0].getElementsByTagName("time");
+      // var metadata = x.getElementsByTagName("metadata");
+      // var time = metadata[0].getElementsByTagName("time");
       var trk = x.getElementsByTagName("trk");
       if (trk.length > 0) {
         successCallback(inFile);
-        t = trk[0];
+        // t = trk[0];
       } else {
         failureCallback(_("no-track-in-file", {file:inFile.name.match(/[^/]+$/i)[0]}));
       }
-    }
+    };
     reader.onerror = function(e) {
       console.log("reader error:", e);
       failureCallback(_("error-reading-file", {file:inFile.name.match(/[^/]+$/i)[0], error:e.target.result}));
-    }
+    };
     reader.readAsText(inFile);
-  }
+  };
 
   var __parse = function(x, successCallback, failureCallback) {
     var track = {
@@ -64,7 +68,7 @@ var GPX = function() {
       date: "",
       data: []
     };
-    var missing_date,
+    var missing_time,
         tstart,
         tend;
     var metadata = x.getElementsByTagName("metadata");
@@ -97,7 +101,7 @@ var GPX = function() {
         trkpt = trkseg[i].getElementsByTagName("trkpt");
         if (trkpt.length > 0) {
           for (var j = 0; j < trkpt.length; j++) {
-            var point = {}
+            var point = {};
             var p = trkpt[j];
             point.latitude = p.getAttribute("lat");
             point.longitude = p.getAttribute("lon");
@@ -144,7 +148,7 @@ var GPX = function() {
             track.data.push(point);
           }
         } else {
-          failureCallback("Could not parse trkpt from file")
+          failureCallback("Could not parse trkpt from file");
         }
       }
     } else {
@@ -157,7 +161,7 @@ var GPX = function() {
     }
     track.distance = distance;
     successCallback(track);
-  }
+  };
 
   var __named =  function() {
     // Build track name
@@ -185,19 +189,19 @@ var GPX = function() {
     }
 
     return "TR-"+year+month+day+"-"+hour+min+sec;
-  }
+  };
 
   var __getDistance = function(lat, lon) {
     // console.log("__getDistance");
     // console.log("olat", olat);
-    if (olat != null) {
+    if (olat !== null) {
       distance += __distanceFromPrev(olat, olon, lat, lon);
     }
     olat = lat;
     olon = lon;
     // console.log("calc distance: ", distance);
     return distance;
-  }
+  };
 
   var __distanceFromPrev = function(lat1, lon1, lat2, lon2) {
     // console.log("__getDistanceFromPrev");
@@ -216,12 +220,12 @@ var GPX = function() {
     var R = 6371 * 1000; // Earth radius (mean) in metres {6371, 6367}
     // console.log("R*c: ", R*c);
     return R * c;
-  }
+  };
 
   return {
     load: load,
     verify: verify
-  }
+  };
 
 
 
