@@ -1,12 +1,15 @@
-"use strict;"
-// define(function(){
+/* jshint browser: true, strict: true, devel: true */
+/* exported Tracks */
+
 var Tracks = function() {
+  "use strict";
 
   var current_track = {};
   var start_date;
   var distance = 0;
   var olat = null;
   var olon = null;
+  var nb_point = 0;
 
   function open() {
     current_track = {};
@@ -25,19 +28,19 @@ var Tracks = function() {
     var sec = d.getSeconds();
     if (month < 10) {
       month = "0" + month.toString();
-    };
+    }
     if (day < 10) {
       day = "0" + day.toString();
-    };
+    }
     if (hour < 10) {
       hour = "0" + day.toString();
-    };
+    }
     if (min < 10) {
       min = "0" + day.toString();
-    };
+    }
     if (sec < 10) {
       sec = "0" + day.toString();
-    };
+    }
 
     current_track.name = "TR-"+year+month+day+"-"+hour+min+sec;
     // Initiate the rest
@@ -60,10 +63,10 @@ var Tracks = function() {
   }
 
   function getDistance(lat, lon) {
-    if (olat != null) {
+    if (olat !== null) {
       distance += __distanceFromPrev(olat, olon, lat, lon);
       // console.log("distance: ", distance);
-    };
+    }
     olat = lat;
     olon = lon;
     return distance;
