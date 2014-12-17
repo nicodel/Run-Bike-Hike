@@ -1,14 +1,18 @@
-"use strict;"
+/* jshint browser: true, strict: true, devel: true */
+/* exported Controller */
+/* global _, Chrono, Config, DB, ExportTrack, GPX, SDCard, Share, Tracks, HomeView, importView, utils, TracksView, TrackView */
 var Controller = function() {
+  "use strict";
 
   var settings;
   var watchID, lock;
-  var olat, olon;
+  // var olat, olon;
   var tracking = false;
   var pause = false;
   var display_map = false;
   var duration, distance;
-  var displayed_track;
+  var displayed_track, current_track;
+  var nb_point;
   var track_to_import = {};
 
   function init() {
@@ -29,7 +33,7 @@ var Controller = function() {
       );
     }
   }
-  function __initiateSuccess(inEvent) {
+  function __initiateSuccess() {
     DB.getConfig(__getConfigSuccess, __getConfigError);
   }
 
@@ -51,7 +55,7 @@ var Controller = function() {
       }
     } else {
         HomeView.displayAccuracy(inPosition);
-    };
+    }
   }
 
   function __locationError(inError){
@@ -60,7 +64,7 @@ var Controller = function() {
       __positionError(inError);
     } else {
       HomeView.displayError(inError);
-    };
+    }
   }
 
   function __changeFrequency(inFreq) {
@@ -98,7 +102,7 @@ var Controller = function() {
       document.getElementById("btn-pause").className="recommend small icon icon-pause";
 
       // document.getElementById("btn-start-stop").style.backgroundColor = "#e51e1e";
-    };
+    }
   }
   function stopWatch(){
     //Stop the calculation of elapsed time
@@ -118,7 +122,7 @@ var Controller = function() {
     } else {
       // Save to DB
       DB.addTrack(__addTrackSuccess, __addTrackError, track);
-    };
+    }
     document.getElementById("btn-start-stop").className = "recommend big";
     document.getElementById("btn-start-stop").textContent = _("start");
     document.getElementById("btn-pause").className="hidden recommend small icon icon-pause";
@@ -149,15 +153,15 @@ var Controller = function() {
 
     var event = inPosition.coords;
     // Display GPS data, log to Db
-    var now = new Date();
+    // var now = new Date();
     var speed = event.speed;
-    lat = event.latitude.toFixed(6);
-    lon = event.longitude.toFixed(6);
+    var lat = event.latitude.toFixed(6);
+    var lon = event.longitude.toFixed(6);
     var alt = event.altitude;
     var date = new Date(inPosition.timestamp).toISOString();
     var horizAccuracy = event.accuracy.toFixed(0);
     var vertAccuracy = event.altitudeAccuracy.toFixed(0);
-    var direction = event.heading.toFixed(0);
+    // var direction = event.heading.toFixed(0);
 
     // fix bad values from gps
     if (alt < -200 || (alt === 0 && vertAccuracy === 0)) {
@@ -173,7 +177,7 @@ var Controller = function() {
     // if (display_map) {
     //   MapView.updateMap(inPosition)
     // } else {
-      HomeView.updateInfos(inPosition, distance)
+      HomeView.updateInfos(inPosition, distance);
     // }
 
     // appending gps point
@@ -188,7 +192,7 @@ var Controller = function() {
     };
     Tracks.addNode(gps_point, distance, duration);
   }
-  function __positionError(inError) {}
+  function __positionError() {}
 
   function __getConfigSuccess(inSettings) {
     //console.log("__getConfigSuccess ", Object.keys(inSettings));
@@ -203,13 +207,13 @@ var Controller = function() {
       window.addEventListener('unload', function () {
         lock.unlock();
       });
-    };
+    }
     console.log("frequency:", inSettings.frequency);
     if (!inSettings.frequency) {
       console.log("frequency not present in Settings, so we put it !");
       savingSettings("frequency", "0");
     }
-    if (inSettings.frequency != "0") {
+    if (inSettings.frequency !== "0") {
       console.log("frequency value is not default!");
       __changeFrequency(parseInt(inSettings.frequency, 10));
     }
@@ -240,10 +244,10 @@ var Controller = function() {
       /* Unlock the screen */
       window.addEventListener('unload', function () {
         lock.unlock();
-      })
+      });
     } else {
       window.navigator.requestWakeLock('screen').unlock();
-    };
+    }
   }
   function changeLanguage(inSetting) {
     settings.language = inSetting;
@@ -291,7 +295,7 @@ var Controller = function() {
       } else if (param === "position") {
         Config.change("USER_POSITION_FORMAT", inSettings[param]);
       }
-    };
+    }
     // console.log("USER_DISTANCE", Config.USER_DISTANCE);
     Config.CONFIG = inSettings;
     console.log("Config.CONFIG", Config.CONFIG);
@@ -299,13 +303,13 @@ var Controller = function() {
     var a = Config.userSmallDistance(null);
     document.getElementById("home-acc").innerHTML = "&#177; " + a.v;
     document.getElementById("acc-unit").innerHTML =  "(" + a.u + ")";
-    var a = Config.userSmallDistance(null);
+    a = Config.userSmallDistance(null);
     document.getElementById("home-alt").innerHTML = a.v;
     document.getElementById("alt-unit").innerHTML = "(" + a.u + ")";
-    var a = Config.userSmallDistance(null);
+    a = Config.userSmallDistance(null);
     document.getElementById("home-dist").innerHTML = a.v;
     document.getElementById("dist-unit").innerHTML = "(" + a.u + ")";
-    var a = Config.userSpeed(null);
+    a = Config.userSpeed(null);
     document.getElementById("home-speed").innerHTML = a.v;
     document.getElementById("speed-unit").innerHTML = "(" + a.u + ")";
 
@@ -342,8 +346,8 @@ var Controller = function() {
   }
 
   function displayTracks() {
-    if( document.getElementById("tracks-list").dataset.state == "dirty") {
-      document.getElementById("tracks-list").dataset.state = ""
+    if( document.getElementById("tracks-list").dataset.state === "dirty") {
+      document.getElementById("tracks-list").dataset.state = "";
       // get the whole tracks list
       DB.getTracks(__getTracksSuccess, __getTracksError);
     }
@@ -354,7 +358,7 @@ var Controller = function() {
     TracksView.display(inTracks, __displayTrack);
   }
 
-  function __getTracksError(inTracks) {}
+  function __getTracksError() {}
 
   function __displayTrack(inTrack) {
     console.log("inTrack display: ", inTrack);
@@ -434,7 +438,7 @@ var Controller = function() {
     } else {
       // ?? nothing selected ??
       console.log("nothind to be sharing on ??");
-    };
+    }
   }
   function __shareSuccess(inMessage) {
     utils.status.show(inMessage);
@@ -503,7 +507,7 @@ var Controller = function() {
     DB.addTrack(__addTrackonImportSuccess, __addTrackonImportError, track);
   }
 
-  function __GPXloadError(inMessage) {}
+  function __GPXloadError() {}
 
   function __addTrackonImportSuccess(inEvent) {
     utils.status.show(_("track-saved", {inEvent:inEvent})); //"Track " + inEvent + " sucessfully saved.");
@@ -521,9 +525,9 @@ var Controller = function() {
     importView.resetList();
   }
 
-  function importForDev() {
-    DB.addTrack(__addTrackSuccess, __addTrackError, testdata);
-  }
+  // function importForDev() {
+    // DB.addTrack(__addTrackSuccess, __addTrackError, testdata);
+  // }
 
   return {
     init: init,
