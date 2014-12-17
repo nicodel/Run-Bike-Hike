@@ -1,4 +1,8 @@
+/* jshint browser: true, strict: true, devel: true */
+/* exported SDCard */
+/* global _ */
 var SDCard = function(){
+  "use strict";
 
   var sdcard = navigator.getDeviceStorage("sdcard");
 
@@ -17,20 +21,20 @@ var SDCard = function(){
         var file = this.result;
         // console.log("File updated on:" + file.name.match(/\.[0-9a-z]+$/i));
 
-        if (file.name.match(/\.[0-9a-z]+$/i) == ".gpx") {
+        if (file.name.match(/\.[0-9a-z]+$/i).toString() === ".gpx") {
           console.log("just got file:", file);
           successCallback(file);
         }
         this.continue();
       }
-    }
+    };
     cursor.onerror = function(error) {
-      var e = error.target.error.name
+      var e = error.target.error.name;
       console.log("search error", e);
       if (e === "NotFoudError") {
         errorCallback(_("import-missing"));
       }
-    }
+    };
     } else  {
       errorCallback("initiate() successCallback should be a function");
     }
@@ -47,12 +51,12 @@ var SDCard = function(){
         var file = this.result;
         console.log("Get the file: " + file.name);
         successCallback(file);
-      }
+      };
 
       req.onerror = function () {
         console.log("Unable to get the file: " + this.error);
         errorCallback(_("unable-get-file", {file:inPath, error:this.error}));
-      }
+      };
     } else  {
       errorCallback("initiate() successCallback should be a function");
     }
@@ -63,5 +67,5 @@ var SDCard = function(){
   return {
     search: search,
     get: get
-  }
+  };
 }();
