@@ -26,7 +26,7 @@ var Share = function() {
     };
   }
 
-  function toEmail(inTrack, inFile) {
+/*  function toEmail(inTrack, inFile) {
     var blob = new Blob([inFile], {type: "application/gpx+xml"});
     var name = inTrack.name + ".gpx";
     var subject = "Track: " + name;
@@ -47,26 +47,30 @@ var Share = function() {
     activity.onerror = function() {
       console.log("email not send:", this.error);
     };
-  }
+  }*/
 
 
   function toApps(inTrack, inFile, successCallback, errorCallback) {
     console.log("social apps share");
     var name = inTrack.name;
+    var body = "I have completed a track! o/";
+    var url = "mailto:?subject=Track: " + name;
+    url += "&body=" + body;
+    // var blob = new Blob([inFile], {type: "application/gpx+xml"});
     var activity = new MozActivity({
       name: "share",
       data: {
         type:"image/*",
-        url: "mailto:?subject=Track: " + name,
-        number: 1,
-        filenames: [name + ".jpg"],
-        blobs: [inTrack.map]
+        url: url,
+        // number: 1,
+        filenames: [/*name, */name + ".jpg"],
+        blobs: [/*blob, */inTrack.map]
       }
     });
 
     activity.onsuccess = function() {
-      console.log("share success", this);
-      successCallback();
+      // console.log("share success", this);
+      successCallback("share-activity-success");
     };
     activity.onerror = function() {
       console.log("share error", this.error);
@@ -84,7 +88,7 @@ var Share = function() {
 
   return {
     toLocal: toLocal,
-    toEmail: toEmail,
+/*    toEmail: toEmail,*/
     toApps: toApps
   };
 }();

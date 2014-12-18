@@ -428,7 +428,7 @@ var Controller = function() {
     console.log('controller share');
     if (inShare === "on-social") {
       console.log("sharing on social apps");
-      Share.toApps(displayed_track);
+      Share.toApps(displayed_track, __shareSuccess, __shareError);
     /*} else if (inShare === "twitter") {
       console.log("sharing on twitter");*/
     } else if (inShare === "on-device") {
@@ -441,8 +441,9 @@ var Controller = function() {
       console.log("nothind to be sharing on ??");
     }
   }
-  function __shareSuccess(inMessage) {
-    utils.status.show(inMessage);
+  function __shareSuccess(/*inMessage*/) {
+    // utils.status.show(inMessage);
+    // document.getElementById("views").showCard(4);
   }
   function __shareError(inMessage) {
     utils.status.show(inMessage);
