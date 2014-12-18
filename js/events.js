@@ -233,38 +233,13 @@ document.querySelector("#btn-share").addEventListener("click", function() {
   console.Log("exporting");
   document.getElementById("views").showCard(7);
   // setting it to default
-  document.querySelector("#select-share").value = "local";
-  /*document.querySelector("#toggle-share-summary").disabled = true;
-  document.querySelector("#toggle-share-summary").checked = false;
-  document.querySelector("#toggle-share-file").disabled = true;
-  document.querySelector("#toggle-share-file").checked = true;*/
+  document.querySelector('[name="radio-share"]').value = "on-device";
 });
 
-/*----------------- Track Share Form -----------------*/
-/* Way to share a track selection */
-/*document.querySelector("#select-share").onchange = function() {
-  var setting = this[this.selectedIndex].value;
-  if (setting === "email") {
-    console.log("sharing via email");
-    document.querySelector("#toggle-share-summary").disabled = false;
-    document.querySelector("#toggle-share-summary").checked = false;
-    document.querySelector("#toggle-share-file").disabled = false;
-    document.querySelector("#toggle-share-file").checked = false;
-  } else if (setting === "twitter") {
-    console.log("sharing via twitter");
-    document.querySelector("#toggle-share-summary").disabled = true;
-    document.querySelector("#toggle-share-summary").checked = true;
-    document.querySelector("#toggle-share-file").disabled = true;
-    document.querySelector("#toggle-share-file").checked = false;
-  } else if (setting === "local") {
-    console.log("sharing via local");
-    document.querySelector("#toggle-share-summary").disabled = true;
-    document.querySelector("#toggle-share-summary").checked = false;
-    document.querySelector("#toggle-share-file").disabled = true;
-    document.querySelector("#toggle-share-file").checked = true;
-  };
-};*/
-
+document.forms['share-form'].addEventListener("click", function() {
+  "use strict";
+  console.log('click', this.elements['radio-share'].value);
+});
 /* Share Cancel button */
 document.querySelector("#btn-cancel-share").addEventListener("click", function() {
   "use strict";
@@ -273,20 +248,10 @@ document.querySelector("#btn-cancel-share").addEventListener("click", function()
 /* Share Confirm button */
 document.querySelector("#btn-confirm-share").addEventListener("click", function() {
   "use strict";
-  var file, summary = false;
-  /*if (document.querySelector("#toggle-share-file").value) {
-    // export file
-    file = true;
-  } else if (document.querySelector("#toggle-share-summary").value) {
-    // create summary
-    summary = true;
-  } else {
-    // no selection made ???
-  };*/
-  var share = document.querySelector("#select-share").value;
+  var share = document.forms['share-form'].elements["radio-share"].value;
   console.log("ready to share", share);
   document.getElementById("views").showCard(4);
-  Controller.shareTrack(file, summary, share);
+  Controller.shareTrack(share);
 });
 document.getElementById("share-form").onsubmit = function() {
   "use strict";

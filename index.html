@@ -342,11 +342,19 @@
             <p>
               <span data-l10n-id="choose-how-share-track">Choose how you want to share your track</span>
             </p>
-            <select id="select-share">
-              <option value="email" data-l10n-id="email">Email</option>
+            <!-- <select id="select&#45;share"> -->
+              <!-- <option value="email" data&#45;l10n&#45;id="email">Email</option> -->
               <!-- <option value="twitter" data&#45;l10n&#45;id="twitter">Twitter</option> -->
-              <option value="local" data-l10n-id="on-device">On device</option>
-            </select>
+              <!-- <option value="local" data&#45;l10n&#45;id="on&#45;device">On device</option> -->
+            <!-- </select> -->
+            <label class="pack-radio">
+              <input type="radio" value="on-device" name="radio-share" checked>
+              <span data-l10n-id="export-device-storage">Export track in GPX format to device storage</span>
+            </label>
+            <label class="pack-radio">
+              <input type="radio" value="on-social" name="radio-share">
+              <span data-l10n-id="share-social-apps">Be proud to share your track to the social apps installed on your device.</span>
+            </label>
           </section>
           <menu>
             <button id="btn-cancel-share" class="cancel" data-l10n-id="cancel">Cancel</button>

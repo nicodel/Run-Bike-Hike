@@ -414,34 +414,24 @@ var Controller = function() {
     utils.status.show(_("track-edit-failure"));
   }
 
-  function shareTrack(inFile, inSummary, inShare) {
-    /*if (inFile || inSummary) {
-      if (inFile) {
-        var gpx_track = ExportTrack.toGPX(displayed_track);
-      };
-      if (inSummary) {
-        var sum_track = ExportTrack.toSummary(displayed_track);
-      }
-    } else {
-      // ?? nothing selected ??
-    };*/
-    var gpx_track = ExportTrack.toGPX(displayed_track);
-    if (inShare === "email") {
-      console.log("sharing on email");
-      Share.toEmail(displayed_track, gpx_track);
-    /*} else if (inShare === "twitter") {
-      console.log("sharing on twitter");*/
-    } else if (inShare === "local") {
+  function shareTrack(inShare) {
+    console.log('controller share');
+    if (inShare === "on-social") {
+      console.log("sharing on social apps");
+      Share.toApps(displayed_track, __shareSuccess, __shareError);
+    } else if (inShare === "on-device") {
+      var gpx_track = ExportTrack.toGPX(displayed_track);
       var n = displayed_track.name.replace(/[:.-]/g,"") + ".gpx";
       console.log("sharing on local", n);
       Share.toLocal(gpx_track, n, __shareSuccess, __shareError);
     } else {
       // ?? nothing selected ??
-      console.log("nothind to be sharing on ??");
+      console.log("nothing to be sharing on ??");
     }
   }
-  function __shareSuccess(inMessage) {
-    utils.status.show(inMessage);
+  function __shareSuccess(/*inMessage*/) {
+    // utils.status.show(inMessage);
+    // document.getElementById("views").showCard(4);
   }
   function __shareError(inMessage) {
     utils.status.show(inMessage);

@@ -17,16 +17,16 @@ var Share = function() {
 
     req.onerror = function() {
       if (this.error.name === "NoModificationAllowedError") {
-        errorCallback(_('track-share-local-failure') + _('track-share-local-failure-exist'));
+        errorCallback(_('track-share-local-failure') + " " + _('track-share-local-failure-exist'));
       } else if (this.error.name === "SecurityError") {
-        errorCallback(_('track-share-local-failure') + _('track-share-local-failure-security'));
+        errorCallback(_('track-share-local-failure') + " " + _('track-share-local-failure-security'));
       } else {
-        errorCallback(_('track-share-local-failure') + this.error.name);
+        errorCallback(_('track-share-local-failure') + " " + this.error.name);
       }
     };
   }
 
-  function toEmail(inTrack, inFile) {
+/*  function toEmail(inTrack, inFile) {
     var blob = new Blob([inFile], {type: "application/gpx+xml"});
     var name = inTrack.name + ".gpx";
     var subject = "Track: " + name;
@@ -47,15 +47,48 @@ var Share = function() {
     activity.onerror = function() {
       console.log("email not send:", this.error);
     };
+  }*/
+
+
+  function toApps(inTrack, inFile, successCallback, errorCallback) {
+    console.log("social apps share");
+    var name = inTrack.name;
+    // var body = "I have completed a track! o/";
+    var url = "mailto:?subject=Track: " + name;
+    // url += "&body=" + body;
+    // var blob = new Blob([inFile], {type: "application/gpx+xml"});
+    var activity = new MozActivity({
+      name: "share",
+      data: {
+        type:"image/*",
+        url: url,
+        // number: 1,
+        filenames: [/*name, */name + ".jpg"],
+        blobs: [/*blob, */inTrack.map]
+      }
+    });
+
+    activity.onsuccess = function() {
+      // console.log("share success", this);
+      successCallback();
+    };
+    activity.onerror = function() {
+      console.log("share error", this.error);
+      if (this.error.name === 'NO_PROVIDER') {
+        console.log("share-activity-noprovider");
+        errorCallback("share-activity-noprovider");
+      } else {
+        console.log("share-activity-error", this.error.name);
+        errorCallback("share-activity-error", this.error.name);
+
+      }
+    };
   }
-
-  function toTwitter() {}
-
 
 
   return {
     toLocal: toLocal,
-    toEmail: toEmail,
-    toTwitter: toTwitter
+/*    toEmail: toEmail,*/
+    toApps: toApps
   };
 }();
