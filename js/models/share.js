@@ -53,9 +53,9 @@ var Share = function() {
   function toApps(inTrack, inFile, successCallback, errorCallback) {
     console.log("social apps share");
     var name = inTrack.name;
-    var body = "I have completed a track! o/";
+    // var body = "I have completed a track! o/";
     var url = "mailto:?subject=Track: " + name;
-    url += "&body=" + body;
+    // url += "&body=" + body;
     // var blob = new Blob([inFile], {type: "application/gpx+xml"});
     var activity = new MozActivity({
       name: "share",
@@ -70,7 +70,7 @@ var Share = function() {
 
     activity.onsuccess = function() {
       // console.log("share success", this);
-      successCallback("share-activity-success");
+      successCallback();
     };
     activity.onerror = function() {
       console.log("share error", this.error);

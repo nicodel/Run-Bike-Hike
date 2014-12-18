@@ -192,4 +192,5 @@ form > section label.pack-radio > span {
   left: auto;
   right: 0;
   max-width: calc(100% - 3.5rem);
+  line-height: 2rem;
 }

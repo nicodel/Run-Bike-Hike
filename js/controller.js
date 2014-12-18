@@ -415,22 +415,10 @@ var Controller = function() {
   }
 
   function shareTrack(inShare) {
-    /*if (inFile || inSummary) {
-      if (inFile) {
-        var gpx_track = ExportTrack.toGPX(displayed_track);
-      };
-      if (inSummary) {
-        var sum_track = ExportTrack.toSummary(displayed_track);
-      }
-    } else {
-      // ?? nothing selected ??
-    };*/
     console.log('controller share');
     if (inShare === "on-social") {
       console.log("sharing on social apps");
       Share.toApps(displayed_track, __shareSuccess, __shareError);
-    /*} else if (inShare === "twitter") {
-      console.log("sharing on twitter");*/
     } else if (inShare === "on-device") {
       var gpx_track = ExportTrack.toGPX(displayed_track);
       var n = displayed_track.name.replace(/[:.-]/g,"") + ".gpx";
@@ -438,7 +426,7 @@ var Controller = function() {
       Share.toLocal(gpx_track, n, __shareSuccess, __shareError);
     } else {
       // ?? nothing selected ??
-      console.log("nothind to be sharing on ??");
+      console.log("nothing to be sharing on ??");
     }
   }
   function __shareSuccess(/*inMessage*/) {
