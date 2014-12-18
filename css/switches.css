@@ -45,6 +45,7 @@ label.pack-checkbox input ~ span:after {
 
 label.pack-radio input ~ span:after {
   background: url(../img/switch/default.png) no-repeat center top / 2.2rem auto;
+  right: 1rem;
 }
 
 label.pack-checkbox input:checked ~ span:after,

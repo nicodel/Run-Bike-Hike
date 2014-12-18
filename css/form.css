@@ -171,4 +171,25 @@ form p {
   /*border-top: 0.1rem solid #686868;*/
   line-height: 3rem;
 }
-
+/*
+ * Share View specfic styles
+ */
+form > section label > * {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+form > section label.pack-radio {
+  padding-bottom: 1rem;
+  padding-top: 1rem;
+  font-size: 1.6rem;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  border-top: 0.1rem solid #E6E6E3;
+}
+form > section label.pack-radio > span {
+  left: auto;
+  right: 0;
+  max-width: calc(100% - 3.5rem);
+}
