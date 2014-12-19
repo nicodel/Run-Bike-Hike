@@ -198,9 +198,6 @@ var Controller = function() {
     //console.log("__getConfigSuccess ", Object.keys(inSettings));
     settings = inSettings;
     // document.webL10n.setLanguage(inSettings.language);
-    __updateConfigValues(inSettings);
-    // __setConfigView(inSettings);
-    // __setHomeView(inSettings);
 
     if (inSettings.screen) {
       var lock = window.navigator.requestWakeLock('screen');
@@ -217,6 +214,38 @@ var Controller = function() {
       console.log("frequency value is not default!");
       __changeFrequency(parseInt(inSettings.frequency, 10));
     }
+
+    var storages = SDCard.getStorages();
+    var sdcard = SDCard.getSDCard();
+    var select = document.querySelector("#storage");
+    var o;
+    if (storages.length === 1) {
+      o = document.createElement("option");
+      o.value = "0";
+      o.setAttribute("data-l10n-id", "sdcard");
+      o.innerHTML = "SD Card";
+    } else if (storages.length === 2) {
+      for (var i = 0; i < storages.length; i++) {
+        o = document.createElement("option");
+        o.value = i;
+        if (storages[i].storageName === sdcard.storageName) {
+          o.setAttribute("data-l10n-id", "sdcard");
+          o.innerHTML = "SD Card";
+        } else {
+          o.setAttribute("data-l10n-id", "internal");
+          o.innerHTML = "Internal";
+        }
+        /*if (storages[i].default) {
+          o.innerHTML +=  " (Default)";
+        }*/
+        select.appendChild(o);
+      }
+    }
+    if (!inSettings.storage) {
+      console.log("storage is not present in settings");
+      savingSettings("storage", "0");
+    }
+    __updateConfigValues(inSettings);
 
   }
   function __getConfigError(inEvent) { console.log("__getConfigError ", inEvent); }
@@ -264,15 +293,9 @@ var Controller = function() {
   function changeFrequency(inSetting) {
     settings.frequency = inSetting;
   }
-
-
-  // function __setConfigView(inSettings) {
-  //   // console.log("updating the settings DOM elements");
-  //   document.getElementById("screen").checked = inSettings.screen;
-  //   document.getElementById("language").value = inSettings.language;
-  //   document.getElementById("distance").value = inSettings.distance;
-  //   document.getElementById("speed").value = inSettings.speed;
-  //   document.getElementById("position").value = inSettings.position;
+  function changeStorage(inSetting) {
+    settings.storage = inSetting;
+  }
 
   function __updateConfigValues(inSettings) {
     //console.log("setting settings :)", inSettings);
@@ -320,6 +343,7 @@ var Controller = function() {
     document.getElementById("position").value = inSettings.position;
     document.getElementById("language").value = inSettings.language;
     document.getElementById("frequency").value = inSettings.frequency;
+    document.getElementById("storage").value = inSettings.storage;
   }
 
   // function __setHomeView(inSettings) {
@@ -534,6 +558,7 @@ var Controller = function() {
     changeSpeed: changeSpeed,
     changePosition: changePosition,
     changeFrequency: changeFrequency,
+    changeStorage: changeStorage,
     flippingTrack: flippingTrack,
     getTrackInfo: getTrackInfo,
     editTrack: editTrack,

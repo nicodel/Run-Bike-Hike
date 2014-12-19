@@ -111,6 +111,14 @@ document.querySelector("#frequency").onchange = function() {
   Controller.savingSettings("frequency", setting);
   Controller.changeFrequency(setting);
 };
+/* Settings View Storage selection */
+document.querySelector("#storage").onchange = function() {
+  "use strict";
+  console.log("change storage");
+  var setting = this[this.selectedIndex].value;
+  Controller.savingSettings("storage", setting);
+  Controller.changeStorage(setting);
+};
 /* Settings View Back button */
 document.querySelector("#btn-settings-back").addEventListener ("click", function () {
   "use strict";

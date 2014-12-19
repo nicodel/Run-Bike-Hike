@@ -63,13 +63,14 @@ var SDCard = function(){
     }
   }
 
-  function getStorages() {
-    return storages;
-  }
+  function getStorages() {return storages;}
+
+  function getSDCard() {return sdcard;}
 
   return {
     search: search,
     get: get,
-    getStorages: getStorages
+    getStorages: getStorages,
+    getSDCard: getSDCard
   };
 }();
