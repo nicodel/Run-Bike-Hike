@@ -4,6 +4,7 @@
 var SDCard = function(){
   "use strict";
 
+  var storages = navigator.getDeviceStorages("sdcard");
   var sdcard = navigator.getDeviceStorage("sdcard");
 
   function search(successCallback, errorCallback) {
@@ -60,12 +61,15 @@ var SDCard = function(){
     } else  {
       errorCallback("initiate() successCallback should be a function");
     }
+  }
 
-
+  function getStorages() {
+    return storages;
   }
 
   return {
     search: search,
-    get: get
+    get: get,
+    getStorages: getStorages
   };
 }();
