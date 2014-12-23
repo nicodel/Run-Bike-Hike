@@ -246,7 +246,7 @@ document.querySelector("#btn-share").addEventListener("click", function() {
 
 document.forms['share-form'].addEventListener("click", function() {
   "use strict";
-  console.log('click', this.elements['radio-share'].value);
+  console.log('click', this.elements['radio-share']);
 });
 /* Share Cancel button */
 document.querySelector("#btn-cancel-share").addEventListener("click", function() {
@@ -256,7 +256,14 @@ document.querySelector("#btn-cancel-share").addEventListener("click", function()
 /* Share Confirm button */
 document.querySelector("#btn-confirm-share").addEventListener("click", function() {
   "use strict";
-  var share = document.forms['share-form'].elements["radio-share"].value;
+  // var share = document.forms['share-form'].elements["radio-share"].value; // only works for FF 2.0 and later
+  var radiolist = document.forms['share-form'].elements['radio-share'];
+  var share;
+  for (var i = 0; i < radiolist.length; i++) {
+    if (radiolist[i].checked) {
+      share = radiolist[i].value;
+    }
+  }
   console.log("ready to share", share);
   document.getElementById("views").showCard(4);
   Controller.shareTrack(share);
