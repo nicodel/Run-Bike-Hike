@@ -7,11 +7,10 @@ var SDCard = function(){
   var storages = navigator.getDeviceStorages("sdcard");
   var sdcard = navigator.getDeviceStorage("sdcard");
 
-  function search(successCallback, errorCallback) {
+  function search(inStorage, successCallback, errorCallback) {
    if (typeof(successCallback) === "function") {
-    // var files = [];
 
-    // var path = "/" + sdcard.storageName + "/rbh/import";
+    sdcard = navigator.getDeviceStorages("sdcard")[inStorage];
     var path = "rbh/import";
     console.log("path:", path);
     var cursor = sdcard.enumerate(path);

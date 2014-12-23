@@ -447,7 +447,7 @@ var Controller = function() {
   }
 
   function searchFiles() {
-    SDCard.search(__searchFilesSuccess, __searchFilesError);
+    SDCard.search(settings.storage, __searchFilesSuccess, __searchFilesError);
   }
   function __searchFilesSuccess(inFile) {
     SDCard.get(inFile, __getFileSuccess, __getFileError);
