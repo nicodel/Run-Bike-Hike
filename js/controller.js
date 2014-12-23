@@ -219,26 +219,25 @@ var Controller = function() {
     var sdcard = SDCard.getSDCard();
     var select = document.querySelector("#storage");
     var o;
-    if (storages.length === 1) {
-      o = document.createElement("option");
-      o.value = "0";
-      o.setAttribute("data-l10n-id", "sdcard");
-      o.innerHTML = "SD Card";
-    } else if (storages.length === 2) {
-      for (var i = 0; i < storages.length; i++) {
+    if (select.length === 0) {
+      if (storages.length === 1) {
         o = document.createElement("option");
-        o.value = i;
-        if (storages[i].storageName === sdcard.storageName) {
-          o.setAttribute("data-l10n-id", "sdcard");
-          o.innerHTML = "SD Card";
-        } else {
-          o.setAttribute("data-l10n-id", "internal");
-          o.innerHTML = "Internal";
+        o.value = "0";
+        o.setAttribute("data-l10n-id", "sdcard");
+        o.innerHTML = "SD Card";
+      } else if (storages.length === 2) {
+        for (var i = 0; i < storages.length; i++) {
+          o = document.createElement("option");
+          o.value = i;
+          if (storages[i].storageName === sdcard.storageName) {
+            o.setAttribute("data-l10n-id", "sdcard");
+            o.innerHTML = "SD Card";
+          } else {
+            o.setAttribute("data-l10n-id", "internal");
+            o.innerHTML = "Internal";
+          }
+          select.appendChild(o);
         }
-        /*if (storages[i].default) {
-          o.innerHTML +=  " (Default)";
-        }*/
-        select.appendChild(o);
       }
     }
     if (!inSettings.storage) {
@@ -346,21 +345,6 @@ var Controller = function() {
     document.getElementById("storage").value = inSettings.storage;
   }
 
-  // function __setHomeView(inSettings) {
-  //   var a = Config.userSmallDistance(null);
-  //   document.getElementById("home-acc").innerHTML = "&#177; " + a.v;
-  //   document.getElementById("acc-unit").innerHTML =  "(" + a.u + ")";
-  //   var a = Config.userSmallDistance(null);
-  //   document.getElementById("home-alt").innerHTML = a.v;
-  //   document.getElementById("alt-unit").innerHTML = "(" + a.u + ")";
-  //   var a = Config.userSmallDistance(null);
-  //   document.getElementById("home-dist").innerHTML = a.v;
-  //   document.getElementById("dist-unit").innerHTML = "(" + a.u + ")";
-  //   var a = Config.userSpeed(null);
-  //   document.getElementById("home-speed").innerHTML = a.v;
-  //   document.getElementById("speed-unit").innerHTML = "(" + a.u + ")";
-  // }
-
   function __addTrackSuccess(inEvent) {
     utils.status.show(_("track-saved", {inEvent:inEvent})); //"Track " + inEvent + " sucessfully saved.");
   }
@@ -447,14 +431,14 @@ var Controller = function() {
       var gpx_track = ExportTrack.toGPX(displayed_track);
       var n = displayed_track.name.replace(/[:.-]/g,"") + ".gpx";
       console.log("sharing on local", n);
-      Share.toLocal(gpx_track, n, __shareSuccess, __shareError);
+      Share.toLocal(gpx_track, n, settings.storage, __shareSuccess, __shareError);
     } else {
       // ?? nothing selected ??
       console.log("nothing to be sharing on ??");
     }
   }
-  function __shareSuccess(/*inMessage*/) {
-    // utils.status.show(inMessage);
+  function __shareSuccess(inMessage) {
+    utils.status.show(inMessage);
     // document.getElementById("views").showCard(4);
   }
   function __shareError(inMessage) {
