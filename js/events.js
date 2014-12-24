@@ -256,7 +256,7 @@ document.querySelector("#btn-cancel-share").addEventListener("click", function()
 /* Share Confirm button */
 document.querySelector("#btn-confirm-share").addEventListener("click", function() {
   "use strict";
-  // var share = document.forms['share-form'].elements["radio-share"].value; // only works for FF 2.0 and later
+  // var share = document.forms['share-form'].elements["radio-share"].value; // only works for FF 2.0 an later
   var radiolist = document.forms['share-form'].elements['radio-share'];
   var share;
   for (var i = 0; i < radiolist.length; i++) {
