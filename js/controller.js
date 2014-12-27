@@ -1,6 +1,8 @@
 /* jshint browser: true, strict: true, devel: true */
 /* exported Controller */
-/* global _, Chrono, Config, DB, ExportTrack, GPX, SDCard, Share, Tracks, HomeView, importView, utils, TracksView, TrackView */
+/* global _, Chrono, Config, DB, ExportTrack, GPX, SDCard, Share, Tracks,
+          HomeView, importView, utils, TracksView, TrackView,
+          FxDeviceStorage */
 var Controller = function() {
   "use strict";
 
@@ -447,9 +449,12 @@ var Controller = function() {
   }
 
   function searchFiles() {
-    SDCard.search(settings.storage, __searchFilesSuccess, __searchFilesError);
+    // SDCard.search(settings.storage, __searchFilesSuccess, __searchFilesError);
+    FxDeviceStorage.getFilesFromPath("rbh/import", "gpx",
+        __getFilesFromPathSuccess,
+        __getFilesFromPathError);
   }
-  function __searchFilesSuccess(inFile) {
+  /*function __searchFilesSuccess(inFile) {
     SDCard.get(inFile, __getFileSuccess, __getFileError);
     console.log("inFile", inFile);
     // document.getElementById("list-files").innerHTML = inFiles;
@@ -457,9 +462,18 @@ var Controller = function() {
   function __searchFilesError(inError) {
     document.getElementById("import-msg-area").innerHTML = inError;
     console.log("inError", inError);
+  }*/
+
+  function __getFilesFromPathSuccess(inFiles) {
+    inFiles.forEach(function(inFile) {
+      track_to_import[inFile.name] = inFile;
+      importView.addFile(inFile);
+    });
   }
 
-  function __getFileSuccess(inFile) {
+  function __getFilesFromPathError() {}
+
+/*  function __getFileSuccess(inFile) {
     // importView.addFile(inFile);
     GPX.verify(inFile, __verifySuccess, __verifyError);
   }
@@ -473,7 +487,7 @@ var Controller = function() {
   }
   function __verifyError(inError) {
     utils.status.show(inError);
-  }
+  }*/
 
   function importFile(inPath) {
     console.log("import file", inPath);
