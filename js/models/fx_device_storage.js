@@ -35,7 +35,7 @@ var Storage = function() {
         }
       };
     } else {
-      errorCallback("searchForFile() successCallbak should be a function");
+      errorCallback("searchForFile() successCallback should be a function");
     }
   }
 
