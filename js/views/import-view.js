@@ -11,6 +11,15 @@ var importView = function() {
     o.innerHTML = inFile.name.match(/[^/]+$/i)[0];
     s.appendChild(o);
   }
+  function updateSelectFilesList(inFiles) {
+    var s = document.getElementById('select-file');
+    inFiles.forEach(function(file) {
+      var o = document.createElement('option');
+      o.value = file.name;
+      o.innerHTML = file.name.match(/[^/]+$/i)[0];
+      s.appendChild(o);
+    });
+  }
   function resetList() {
     var sel = document.getElementById("select-file");
     var nb = sel.length;
@@ -30,6 +39,7 @@ var importView = function() {
   }
 
   return {
+    updateSelectFilesList: updateSelectFilesList,
     addFile: addFile,
     resetList: resetList,
     showSpinner: showSpinner,

@@ -7,11 +7,15 @@ var FxDeviceStorage = function() {
 
   function getAvailableStorages() {
     var storages = navigator.getDeviceStorages("sdcard");
-    var available_storages;
+    var available_storages = [];
     storages.forEach(function(sto) {
       available_storages.push(sto.storageName);
     });
     return available_storages;
+  }
+  
+  function getSdcard() {
+    return navigator.getDeviceStorage("sdcard");
   }
 
   /* replace sdcard.js search() */
@@ -54,7 +58,7 @@ var FxDeviceStorage = function() {
 
       req.onerror = function () {
         // errorCallback(_("unable-get-file", {file:inPath, error:this.error}));
-        errorCallback(this.error);
+        errorCallback(inPath, this.error);
       };
     } else  {
       errorCallback("openFile() successCallback should be a function");
@@ -90,7 +94,8 @@ var FxDeviceStorage = function() {
   }
 
   return {
-    getAvailableStorages:  getAvailableStorages,
+    getAvailableStorages: getAvailableStorages,
+    getSdcard:            getSdcard,
     getFilesFromPath:     getFilesFromPath,
     openFile:             openFile,
     saveFile:             saveFile,

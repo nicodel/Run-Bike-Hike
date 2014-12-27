@@ -24,16 +24,21 @@ var GPX = function() {
     var reader = new FileReader(); 
     reader.onloadend = function() {
       var p = new DOMParser();
-      __parse(p.parseFromString(reader.result, "text/xml"), successCallback, failureCallback);
+      __parse(p.parseFromString(reader.result, "text/xml"),
+          successCallback,
+          failureCallback);
     };
     reader.onerror = function(e) {
       console.log("reader error:", e);
-      failureCallback(_("error-reading-file", {file:inFile.name.match(/[^/]+$/i)[0], error:e.target.result}));
+      failureCallback(_("error-reading-file",
+            {file:inFile.name.match(/[^/]+$/i)[0],
+              error:e.target.result}
+            ));
     };
     reader.readAsText(inFile);
   };
 
-  var verify = function(inFile, successCallback, failureCallback) {
+/*  var verify = function(inFile, successCallback, failureCallback) {
     // var n = "rbh/import/" + inFile.name.match(/[^/]+$/i)[0];
     var reader = new FileReader(); 
     reader.onloadend = function() {
@@ -56,7 +61,7 @@ var GPX = function() {
       failureCallback(_("error-reading-file", {file:inFile.name.match(/[^/]+$/i)[0], error:e.target.result}));
     };
     reader.readAsText(inFile);
-  };
+  };*/
 
   var __parse = function(x, successCallback, failureCallback) {
     var track = {
@@ -223,8 +228,8 @@ var GPX = function() {
   };
 
   return {
-    load: load,
-    verify: verify
+    load: load
+    // verify: verify
   };
 
 

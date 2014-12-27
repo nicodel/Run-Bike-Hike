@@ -1,6 +1,6 @@
 /* jshint browser: true, strict: true, devel: true */
 /* exported Controller */
-/* global _, Chrono, Config, DB, ExportTrack, GPX, SDCard, Share, Tracks,
+/* global _, Chrono, Config, DB, ExportTrack, GPX, Share, Tracks,
           HomeView, importView, utils, TracksView, TrackView,
           FxDeviceStorage */
 var Controller = function() {
@@ -217,8 +217,10 @@ var Controller = function() {
       __changeFrequency(parseInt(inSettings.frequency, 10));
     }
 
-    var storages = SDCard.getStorages();
-    var sdcard = SDCard.getSDCard();
+    var storages = FxDeviceStorage.getAvailableStorages();
+    var sdcard = FxDeviceStorage.getSdcard();
+    // var storages = SDCard.getStorages();
+    // var sdcard = SDCard.getSDCard();
     var select = document.querySelector("#storage");
     var o;
     if (select.length === 0) {
@@ -433,7 +435,10 @@ var Controller = function() {
       var gpx_track = ExportTrack.toGPX(displayed_track);
       var n = displayed_track.name.replace(/[:.-]/g,"") + ".gpx";
       console.log("sharing on local", n);
-      Share.toLocal(gpx_track, n, settings.storage, __shareSuccess, __shareError);
+      // Share.toLocal(gpx_track, n, settings.storage, __shareSuccess, __shareError);
+      FxDeviceStorage.saveFile(gpx_track, n,
+          __shareSuccess,
+          __shareError);
     } else {
       // ?? nothing selected ??
       console.log("nothing to be sharing on ??");
@@ -465,13 +470,20 @@ var Controller = function() {
   }*/
 
   function __getFilesFromPathSuccess(inFiles) {
-    inFiles.forEach(function(inFile) {
+    importView.updateSelectFilesList(inFiles);
+/*    inFiles.forEach(function(inFile) {
       track_to_import[inFile.name] = inFile;
       importView.addFile(inFile);
-    });
+    });*/
   }
 
-  function __getFilesFromPathError() {}
+  function __getFilesFromPathError(inError) {
+    var e;
+    if (inError === "NotFoundError") {
+      e = _("import-missing");
+    }
+    utils.status.show(e);
+  }
 
 /*  function __getFileSuccess(inFile) {
     // importView.addFile(inFile);
@@ -493,8 +505,19 @@ var Controller = function() {
     console.log("import file", inPath);
     importView.resetList();
     importView.showSpinner();
-    GPX.load(track_to_import[inPath], __GPXloadSuccess, __GPXloadError);
+    FxDeviceStorage.openFile(track_to_import[inPath],
+        __openFileSuccess,
+        __openFileError);
   }
+  function __openFileSuccess(inFile) {
+    GPX.load(inFile,
+        __GPXloadSuccess,
+        __GPXloadError);
+  }
+  function __openFileError(inPath, inError) {
+    utils.status.show(_("unable-get-file", {file:inPath, error: inError}));
+  }
+
   function __GPXloadSuccess(inTrack) {
     // console.log("success load track", inTrack);
     current_track = Tracks.importFromFile(inTrack);
