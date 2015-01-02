@@ -228,17 +228,17 @@ var Controller = function() {
         o = document.createElement("option");
         o.value = "0";
         o.setAttribute("data-l10n-id", "sdcard");
-        o.innerHTML = "SD Card";
+        // o.innerHTML = _("sd-card");
       } else if (storages.length === 2) {
         for (var i = 0; i < storages.length; i++) {
           o = document.createElement("option");
           o.value = i;
-          if (storages[i].storageName === sdcard.storageName) {
+          if (storages[i] === sdcard.storageName) {
             o.setAttribute("data-l10n-id", "sdcard");
-            o.innerHTML = "SD Card";
+            // o.innerHTML = _("sdcard");
           } else {
             o.setAttribute("data-l10n-id", "internal");
-            o.innerHTML = "Internal";
+            // o.innerHTML = _("internal");
           }
           select.appendChild(o);
         }
