@@ -1,6 +1,6 @@
 /* jshint browser: true, strict: true, devel: true */
 /* exported Controller */
-/* global _, Chrono, Config, DB, ExportTrack, GPX, Share, Tracks,
+/* global _, Chrono, Config, DB, GPX, Share, Tracks,
           HomeView, importView, utils, TracksView, TrackView,
           FxDeviceStorage */
 var Controller = function() {
@@ -432,7 +432,8 @@ var Controller = function() {
       console.log("sharing on social apps");
       Share.toApps(displayed_track, __shareSuccess, __shareError);
     } else if (inShare === "on-device") {
-      var gpx_track = ExportTrack.toGPX(displayed_track);
+      // var gpx_track = ExportTrack.toGPX(displayed_track);
+      var gpx_track = GPX.create(displayed_track);
       var n = displayed_track.name.replace(/[:.-]/g,"") + ".gpx";
       console.log("sharing on local", n);
       // Share.toLocal(gpx_track, n, settings.storage, __shareSuccess, __shareError);
