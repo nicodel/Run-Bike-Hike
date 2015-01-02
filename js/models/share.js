@@ -1,15 +1,19 @@
 /* jshint browser: true, strict: true, devel: true */
 /* exported Share */
-/* global _, MozActivity */
+/* global MozActivity */
 
 var Share = function() {
   "use strict";
-  function toLocal(inFile, inName, successCallback, errorCallback) {
+/*  function toLocal(inFile, inName, inStorage, successCallback, errorCallback) {
     console.log("saving to local :-(");
-    var sdcard = navigator.getDeviceStorage("sdcard");
+    console.log("saving to", navigator.getDeviceStorages("sdcard")[inStorage]);
+    var sdcard = navigator.getDeviceStorages("sdcard")[inStorage];
+    // var sdcard = navigator.getDeviceStorage(card);
     var blob = new Blob ([inFile], {"type":"plain/text"});
 
-    var req = sdcard.addNamed(blob, "/sdcard/rbh/" + inName);
+    // var req = sdcard.addNamed(blob, "/sdcard/rbh/" + inName);
+    console.log( "path to export","/" + sdcard.storageName + "/rbh/" + inName);
+    var req = sdcard.addNamed(blob, "/" + sdcard.storageName + "/rbh/" + inName);
 
     req.onsuccess = function() {
       successCallback(_('track-share-local-success'), this.result);
@@ -24,7 +28,7 @@ var Share = function() {
         errorCallback(_('track-share-local-failure') + " " + this.error.name);
       }
     };
-  }
+  }*/
 
 /*  function toEmail(inTrack, inFile) {
     var blob = new Blob([inFile], {type: "application/gpx+xml"});
@@ -87,7 +91,7 @@ var Share = function() {
 
 
   return {
-    toLocal: toLocal,
+    // toLocal: toLocal,
 /*    toEmail: toEmail,*/
     toApps: toApps
   };

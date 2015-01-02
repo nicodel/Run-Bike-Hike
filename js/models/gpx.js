@@ -1,6 +1,6 @@
 /* jshint browser: true, strict: true, devel: true */
 /* exported GPX */
-/* global _ */
+
 var GPX = function() {
   "use strict";
 
@@ -21,19 +21,28 @@ var GPX = function() {
     olon = null;
     distance = 0;
     // var n = "rbh/import/" + inFile.name.match(/[^/]+$/i)[0];
-    var reader = new FileReader(); 
+/*    var reader = new FileReader(); 
     reader.onloadend = function() {
       var p = new DOMParser();
-      __parse(p.parseFromString(reader.result, "text/xml"), successCallback, failureCallback);
+      __parse(p.parseFromString(reader.result, "text/xml"),
+          successCallback,
+          failureCallback);
     };
     reader.onerror = function(e) {
       console.log("reader error:", e);
-      failureCallback(_("error-reading-file", {file:inFile.name.match(/[^/]+$/i)[0], error:e.target.result}));
+      failureCallback(_("error-reading-file",
+            {file:inFile.name.match(/[^/]+$/i)[0],
+              error:e.target.result}
+            ));
     };
-    reader.readAsText(inFile);
+    reader.readAsText(inFile);*/
+    __parse(inFile,
+        successCallback,
+        failureCallback);
+
   };
 
-  var verify = function(inFile, successCallback, failureCallback) {
+/*  var verify = function(inFile, successCallback, failureCallback) {
     // var n = "rbh/import/" + inFile.name.match(/[^/]+$/i)[0];
     var reader = new FileReader(); 
     reader.onloadend = function() {
@@ -56,7 +65,7 @@ var GPX = function() {
       failureCallback(_("error-reading-file", {file:inFile.name.match(/[^/]+$/i)[0], error:e.target.result}));
     };
     reader.readAsText(inFile);
-  };
+  };*/
 
   var __parse = function(x, successCallback, failureCallback) {
     var track = {
@@ -222,9 +231,43 @@ var GPX = function() {
     return R * c;
   };
 
+
+  var create = function(inTrack) {
+    var name = inTrack.name.replace(/&/g,"&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    // console.log("exporting ", name);
+    var data = "";
+    data += "<?xml version='1.0' encoding='UTF-8'?>\n";
+    data += "<gpx version='1.1'\n";
+    data += "creator='Run, Bike, Hike - https://github.com/nicodel/Run-Bike-Hike'\n";
+    data += "xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'\n";
+    data += "xmlns='http://www.topografix.com/GPX/1/1'\n";
+    data += "xsi:schemaLocation='http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd'>\n";
+    data += "<metadata>\n";
+    data += "<author><name>Nicolas Delebecque</name><link href='https://github.com/nicodel/'></link></author>";
+    data += "<name>" + name + "</name>";
+    data += "<time>" + new Date().toISOString() + "</time>";
+    data += "</metadata>";
+    data += "<trk>\n<name>" + name + "</name>\n<trkseg>\n";
+    for (var i = 0; i < inTrack.data.length; i++) {
+      var row = inTrack.data[i];
+      data += "<trkpt lat='" + row.latitude + "' lon='" + row.longitude + "'>\n";
+      data += "\t<time>" + row.date + "</time>\n";
+      data += ((row.altitude) && (row.altitude !== "null"))?"\t<ele>" + row.altitude + "</ele>\n" : "";
+      data += (row.speed>=0) ? "\t<speed>" +row.speed+ "</speed>\n" : "";
+      data += (row.accuracy>0)?"\t<hdop>" + row.accuracy + "</hdop>\n" : "";
+      data += (row.vertAccuracy>0)?"\t<vdop>" + row.vertAccuracy + "</vdop>\n" : "";
+      data += "</trkpt>\n";
+    }
+    data += "</trkseg>\n</trk>\n";
+    data += "</gpx>\n";
+    // console.log("export done", data);
+    return data;
+  };
+
   return {
     load: load,
-    verify: verify
+    create: create
+    // verify: verify
   };
 
 

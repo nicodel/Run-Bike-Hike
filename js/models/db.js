@@ -17,7 +17,8 @@ var DB = function() {
     {"key":"distance", "value":"0"},
     {"key":"speed", "value":"0"},
     {"key":"position", "value":"0"},
-    {"key":"frequency", "value":"auto"}
+    {"key":"frequency", "value":"auto"},
+    {"key":"storage", "value":"0"}
   ];
 /*  var DEFAULT_CONFIG = {
     screen : false,
@@ -159,7 +160,7 @@ var DB = function() {
           settings.push(cursor.value);
           cursor.continue();
         } else {
-          console.log("!settings.frequency:", settings);
+          console.log("!settings:", settings);
           if (settings.length === 0) {
             console.log("no config found, loading the default one !");
             settings = DEFAULT_CONFIG;
@@ -167,6 +168,9 @@ var DB = function() {
           // Adding Frequency settings
           } else if (settings.length === 5) {
             __addSettingsParameter("frequency", "auto");
+          } else if (settings.length === 6) {
+            console.log("settings.length === 6", settings);
+            __addSettingsParameter("storage", "0");
           }
           var prettySettings = {};
           for (var i = 0; i < settings.length; i++) {

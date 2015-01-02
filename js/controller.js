@@ -1,6 +1,8 @@
 /* jshint browser: true, strict: true, devel: true */
 /* exported Controller */
-/* global _, Chrono, Config, DB, ExportTrack, GPX, SDCard, Share, Tracks, HomeView, importView, utils, TracksView, TrackView */
+/* global _, Chrono, Config, DB, GPX, Share, Tracks,
+          HomeView, importView, utils, TracksView, TrackView,
+          FxDeviceStorage */
 var Controller = function() {
   "use strict";
 
@@ -13,7 +15,7 @@ var Controller = function() {
   var duration, distance;
   var displayed_track, current_track;
   var nb_point;
-  var track_to_import = {};
+  // var track_to_import = {};
 
   function init() {
     DB.initiate(__initiateSuccess, __initiateError);
@@ -198,9 +200,6 @@ var Controller = function() {
     //console.log("__getConfigSuccess ", Object.keys(inSettings));
     settings = inSettings;
     // document.webL10n.setLanguage(inSettings.language);
-    __updateConfigValues(inSettings);
-    // __setConfigView(inSettings);
-    // __setHomeView(inSettings);
 
     if (inSettings.screen) {
       var lock = window.navigator.requestWakeLock('screen');
@@ -217,6 +216,39 @@ var Controller = function() {
       console.log("frequency value is not default!");
       __changeFrequency(parseInt(inSettings.frequency, 10));
     }
+
+    var storages = FxDeviceStorage.getAvailableStorages();
+    var sdcard = FxDeviceStorage.getSdcard();
+    // var storages = SDCard.getStorages();
+    // var sdcard = SDCard.getSDCard();
+    var select = document.querySelector("#storage");
+    var o;
+    if (select.length === 0) {
+      if (storages.length === 1) {
+        o = document.createElement("option");
+        o.value = "0";
+        o.setAttribute("data-l10n-id", "sdcard");
+        // o.innerHTML = _("sd-card");
+      } else if (storages.length === 2) {
+        for (var i = 0; i < storages.length; i++) {
+          o = document.createElement("option");
+          o.value = i;
+          if (storages[i] === sdcard.storageName) {
+            o.setAttribute("data-l10n-id", "sdcard");
+            // o.innerHTML = _("sdcard");
+          } else {
+            o.setAttribute("data-l10n-id", "internal");
+            // o.innerHTML = _("internal");
+          }
+          select.appendChild(o);
+        }
+      }
+    }
+    if (!inSettings.storage) {
+      console.log("storage is not present in settings");
+      savingSettings("storage", "0");
+    }
+    __updateConfigValues(inSettings);
 
   }
   function __getConfigError(inEvent) { console.log("__getConfigError ", inEvent); }
@@ -264,15 +296,9 @@ var Controller = function() {
   function changeFrequency(inSetting) {
     settings.frequency = inSetting;
   }
-
-
-  // function __setConfigView(inSettings) {
-  //   // console.log("updating the settings DOM elements");
-  //   document.getElementById("screen").checked = inSettings.screen;
-  //   document.getElementById("language").value = inSettings.language;
-  //   document.getElementById("distance").value = inSettings.distance;
-  //   document.getElementById("speed").value = inSettings.speed;
-  //   document.getElementById("position").value = inSettings.position;
+  function changeStorage(inSetting) {
+    settings.storage = inSetting;
+  }
 
   function __updateConfigValues(inSettings) {
     //console.log("setting settings :)", inSettings);
@@ -320,22 +346,8 @@ var Controller = function() {
     document.getElementById("position").value = inSettings.position;
     document.getElementById("language").value = inSettings.language;
     document.getElementById("frequency").value = inSettings.frequency;
+    document.getElementById("storage").value = inSettings.storage;
   }
-
-  // function __setHomeView(inSettings) {
-  //   var a = Config.userSmallDistance(null);
-  //   document.getElementById("home-acc").innerHTML = "&#177; " + a.v;
-  //   document.getElementById("acc-unit").innerHTML =  "(" + a.u + ")";
-  //   var a = Config.userSmallDistance(null);
-  //   document.getElementById("home-alt").innerHTML = a.v;
-  //   document.getElementById("alt-unit").innerHTML = "(" + a.u + ")";
-  //   var a = Config.userSmallDistance(null);
-  //   document.getElementById("home-dist").innerHTML = a.v;
-  //   document.getElementById("dist-unit").innerHTML = "(" + a.u + ")";
-  //   var a = Config.userSpeed(null);
-  //   document.getElementById("home-speed").innerHTML = a.v;
-  //   document.getElementById("speed-unit").innerHTML = "(" + a.u + ")";
-  // }
 
   function __addTrackSuccess(inEvent) {
     utils.status.show(_("track-saved", {inEvent:inEvent})); //"Track " + inEvent + " sucessfully saved.");
@@ -420,17 +432,21 @@ var Controller = function() {
       console.log("sharing on social apps");
       Share.toApps(displayed_track, __shareSuccess, __shareError);
     } else if (inShare === "on-device") {
-      var gpx_track = ExportTrack.toGPX(displayed_track);
+      // var gpx_track = ExportTrack.toGPX(displayed_track);
+      var gpx_track = GPX.create(displayed_track);
       var n = displayed_track.name.replace(/[:.-]/g,"") + ".gpx";
       console.log("sharing on local", n);
-      Share.toLocal(gpx_track, n, __shareSuccess, __shareError);
+      // Share.toLocal(gpx_track, n, settings.storage, __shareSuccess, __shareError);
+      FxDeviceStorage.saveFile(gpx_track, n,
+          __shareSuccess,
+          __shareError);
     } else {
       // ?? nothing selected ??
       console.log("nothing to be sharing on ??");
     }
   }
-  function __shareSuccess(/*inMessage*/) {
-    // utils.status.show(inMessage);
+  function __shareSuccess(inMessage) {
+    utils.status.show(inMessage);
     // document.getElementById("views").showCard(4);
   }
   function __shareError(inMessage) {
@@ -439,9 +455,12 @@ var Controller = function() {
   }
 
   function searchFiles() {
-    SDCard.search(__searchFilesSuccess, __searchFilesError);
+    // SDCard.search(settings.storage, __searchFilesSuccess, __searchFilesError);
+    FxDeviceStorage.getFilesFromPath("rbh/import", "gpx",
+        __getFilesFromPathSuccess,
+        __getFilesFromPathError);
   }
-  function __searchFilesSuccess(inFile) {
+  /*function __searchFilesSuccess(inFile) {
     SDCard.get(inFile, __getFileSuccess, __getFileError);
     console.log("inFile", inFile);
     // document.getElementById("list-files").innerHTML = inFiles;
@@ -449,9 +468,26 @@ var Controller = function() {
   function __searchFilesError(inError) {
     document.getElementById("import-msg-area").innerHTML = inError;
     console.log("inError", inError);
+  }*/
+
+  function __getFilesFromPathSuccess(inFiles) {
+    console.log("inFiles to display", inFiles);
+    importView.updateSelectFilesList(inFiles);
+/*    inFiles.forEach(function(inFile) {
+      track_to_import[inFile.name] = inFile;
+      importView.addFile(inFile);
+    });*/
   }
 
-  function __getFileSuccess(inFile) {
+  function __getFilesFromPathError(inError) {
+    var e;
+    if (inError === "NotFoundError") {
+      e = _("import-missing");
+    }
+    utils.status.show(e);
+  }
+
+/*  function __getFileSuccess(inFile) {
     // importView.addFile(inFile);
     GPX.verify(inFile, __verifySuccess, __verifyError);
   }
@@ -465,14 +501,25 @@ var Controller = function() {
   }
   function __verifyError(inError) {
     utils.status.show(inError);
-  }
+  }*/
 
   function importFile(inPath) {
     console.log("import file", inPath);
     importView.resetList();
     importView.showSpinner();
-    GPX.load(track_to_import[inPath], __GPXloadSuccess, __GPXloadError);
+    FxDeviceStorage.openFile(inPath,
+        __openFileSuccess,
+        __openFileError);
   }
+  function __openFileSuccess(inFile) {
+    GPX.load(inFile,
+        __GPXloadSuccess,
+        __GPXloadError);
+  }
+  function __openFileError(inPath, inError) {
+    utils.status.show(_("unable-get-file", {file:inPath, error: inError}));
+  }
+
   function __GPXloadSuccess(inTrack) {
     // console.log("success load track", inTrack);
     current_track = Tracks.importFromFile(inTrack);
@@ -534,6 +581,7 @@ var Controller = function() {
     changeSpeed: changeSpeed,
     changePosition: changePosition,
     changeFrequency: changeFrequency,
+    changeStorage: changeStorage,
     flippingTrack: flippingTrack,
     getTrackInfo: getTrackInfo,
     editTrack: editTrack,

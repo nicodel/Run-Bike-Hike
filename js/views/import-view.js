@@ -4,21 +4,35 @@
 var importView = function() {
   "use strict";
 
-  function addFile(inFile) {
+/*  function addFile(inFile) {
     var s = document.getElementById("select-file");
     var o = document.createElement("option");
     o.value = inFile.name;
     o.innerHTML = inFile.name.match(/[^/]+$/i)[0];
     s.appendChild(o);
+  }*/
+  function updateSelectFilesList(inFiles) {
+    var s = document.getElementById('select-file');
+    inFiles.forEach(function(file) {
+      var o = document.createElement('option');
+      o.value = file.name;
+      o.innerHTML = file.name.match(/[^/]+$/i)[0];
+      s.appendChild(o);
+    });
   }
   function resetList() {
     var sel = document.getElementById("select-file");
-    var nb = sel.length;
+    sel.innerHTML = "";
+    var o = document.createElement("option");
+    o.value = "empty";
+    o.innerHTML = "--";
+    sel.appendChild(o);
+/*    var nb = sel.length;
     if (nb > 1) {
       for (var i = 0; i < nb; i++) {
         sel.remove(1);
       }
-    }
+    }*/
   }
   function showSpinner() {
     document.getElementById("import-spinner-area").className = "align-center front";
@@ -30,7 +44,8 @@ var importView = function() {
   }
 
   return {
-    addFile: addFile,
+    updateSelectFilesList: updateSelectFilesList,
+    // addFile: addFile,
     resetList: resetList,
     showSpinner: showSpinner,
     hideSpinner: hideSpinner
