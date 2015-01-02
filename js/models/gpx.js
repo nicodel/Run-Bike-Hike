@@ -1,6 +1,6 @@
 /* jshint browser: true, strict: true, devel: true */
 /* exported GPX */
-/* global _ */
+
 var GPX = function() {
   "use strict";
 
@@ -21,7 +21,7 @@ var GPX = function() {
     olon = null;
     distance = 0;
     // var n = "rbh/import/" + inFile.name.match(/[^/]+$/i)[0];
-    var reader = new FileReader(); 
+/*    var reader = new FileReader(); 
     reader.onloadend = function() {
       var p = new DOMParser();
       __parse(p.parseFromString(reader.result, "text/xml"),
@@ -35,7 +35,11 @@ var GPX = function() {
               error:e.target.result}
             ));
     };
-    reader.readAsText(inFile);
+    reader.readAsText(inFile);*/
+    __parse(inFile,
+        successCallback,
+        failureCallback);
+
   };
 
 /*  var verify = function(inFile, successCallback, failureCallback) {

@@ -1,5 +1,6 @@
 /* jshint browser: true, devel: true, strict: true */
 /* exported FxDeviceStorage */
+/* global _ */
 
 var FxDeviceStorage = function() {
   "use strict";
@@ -56,7 +57,20 @@ var FxDeviceStorage = function() {
       var req = user_storage.get(inPath);
       req.onsuccess = function () {
         var file = this.result;
-        successCallback(file);
+        var reader = new FileReader();
+        reader.onloadend = function() {
+          var p = new DOMParser();
+          successCallback(p.parseFromString(reader.result, "text/xml"));
+        };
+        reader.onerror = function(e) {
+          errorCallback(_("error-reading-file",
+                {
+                  file: file.match(/[^/]+$/i)[0],
+                  error: e.target.result
+                }));
+        };
+        reader.readAsText(file);
+        // successCallback(file);
       };
       req.onerror = function () {
         // errorCallback(_("unable-get-file", {file:inPath, error:this.error}));
