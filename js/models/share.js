@@ -1,10 +1,10 @@
 /* jshint browser: true, strict: true, devel: true */
 /* exported Share */
-/* global _, MozActivity */
+/* global MozActivity */
 
 var Share = function() {
   "use strict";
-  function toLocal(inFile, inName, inStorage, successCallback, errorCallback) {
+/*  function toLocal(inFile, inName, inStorage, successCallback, errorCallback) {
     console.log("saving to local :-(");
     console.log("saving to", navigator.getDeviceStorages("sdcard")[inStorage]);
     var sdcard = navigator.getDeviceStorages("sdcard")[inStorage];
@@ -28,7 +28,7 @@ var Share = function() {
         errorCallback(_('track-share-local-failure') + " " + this.error.name);
       }
     };
-  }
+  }*/
 
 /*  function toEmail(inTrack, inFile) {
     var blob = new Blob([inFile], {type: "application/gpx+xml"});
@@ -91,7 +91,7 @@ var Share = function() {
 
 
   return {
-    toLocal: toLocal,
+    // toLocal: toLocal,
 /*    toEmail: toEmail,*/
     toApps: toApps
   };
