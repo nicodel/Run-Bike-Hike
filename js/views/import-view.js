@@ -22,12 +22,17 @@ var importView = function() {
   }
   function resetList() {
     var sel = document.getElementById("select-file");
-    var nb = sel.length;
+    sel.innerHTML = "";
+    var o = document.createElement("option");
+    o.value = "empty";
+    o.innerHTML = "--";
+    sel.appendChild(o);
+/*    var nb = sel.length;
     if (nb > 1) {
       for (var i = 0; i < nb; i++) {
         sel.remove(1);
       }
-    }
+    }*/
   }
   function showSpinner() {
     document.getElementById("import-spinner-area").className = "align-center front";
