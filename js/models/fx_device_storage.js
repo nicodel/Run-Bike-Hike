@@ -31,7 +31,12 @@ var FxDeviceStorage = function() {
             console.log("just got file:", file);
             files.push(file);
           }
-          this.continue();
+          if (!this.done) {
+            this.continue();
+          }
+        }
+        if (this.done) {
+          successCallback(files);
         }
       };
       req.onerror = function(e) {
@@ -40,7 +45,6 @@ var FxDeviceStorage = function() {
           // errorCallback(_("import-missing"));
         // }
       };
-      successCallback(files);
     } else {
       errorCallback("searchForFile() successCallback should be a function");
     }
@@ -49,13 +53,11 @@ var FxDeviceStorage = function() {
   /* replace sdcard.js get() */
   function openFile(inPath, successCallback, errorCallback) {
     if (typeof(successCallback) === "function") {
-      var req = user_storage.get(inPath.name);
-
+      var req = user_storage.get(inPath);
       req.onsuccess = function () {
         var file = this.result;
         successCallback(file);
       };
-
       req.onerror = function () {
         // errorCallback(_("unable-get-file", {file:inPath, error:this.error}));
         errorCallback(inPath, this.error);

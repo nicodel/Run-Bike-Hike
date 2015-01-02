@@ -4,13 +4,13 @@
 var importView = function() {
   "use strict";
 
-  function addFile(inFile) {
+/*  function addFile(inFile) {
     var s = document.getElementById("select-file");
     var o = document.createElement("option");
     o.value = inFile.name;
     o.innerHTML = inFile.name.match(/[^/]+$/i)[0];
     s.appendChild(o);
-  }
+  }*/
   function updateSelectFilesList(inFiles) {
     var s = document.getElementById('select-file');
     inFiles.forEach(function(file) {
@@ -40,7 +40,7 @@ var importView = function() {
 
   return {
     updateSelectFilesList: updateSelectFilesList,
-    addFile: addFile,
+    // addFile: addFile,
     resetList: resetList,
     showSpinner: showSpinner,
     hideSpinner: hideSpinner

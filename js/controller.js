@@ -15,7 +15,7 @@ var Controller = function() {
   var duration, distance;
   var displayed_track, current_track;
   var nb_point;
-  var track_to_import = {};
+  // var track_to_import = {};
 
   function init() {
     DB.initiate(__initiateSuccess, __initiateError);
@@ -470,6 +470,7 @@ var Controller = function() {
   }*/
 
   function __getFilesFromPathSuccess(inFiles) {
+    console.log("inFiles to display", inFiles);
     importView.updateSelectFilesList(inFiles);
 /*    inFiles.forEach(function(inFile) {
       track_to_import[inFile.name] = inFile;
@@ -505,7 +506,7 @@ var Controller = function() {
     console.log("import file", inPath);
     importView.resetList();
     importView.showSpinner();
-    FxDeviceStorage.openFile(track_to_import[inPath],
+    FxDeviceStorage.openFile(inPath,
         __openFileSuccess,
         __openFileError);
   }
