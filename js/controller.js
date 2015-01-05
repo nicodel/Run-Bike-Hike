@@ -247,6 +247,8 @@ var Controller = function() {
     if (!inSettings.storage) {
       console.log("storage is not present in settings");
       savingSettings("storage", "0");
+    } else {
+      FxDeviceStorage.setUserStorage(inSettings.storage);
     }
     __updateConfigValues(inSettings);
 
@@ -297,6 +299,7 @@ var Controller = function() {
     settings.frequency = inSetting;
   }
   function changeStorage(inSetting) {
+    FxDeviceStorage.setUserStorage(inSetting);
     settings.storage = inSetting;
   }
 
