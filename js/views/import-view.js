@@ -1,16 +1,10 @@
 /* jshint browser: true, strict: true, devel: true */
 /* exported importView */
+/* global _ */
 
 var importView = function() {
   "use strict";
 
-/*  function addFile(inFile) {
-    var s = document.getElementById("select-file");
-    var o = document.createElement("option");
-    o.value = inFile.name;
-    o.innerHTML = inFile.name.match(/[^/]+$/i)[0];
-    s.appendChild(o);
-  }*/
   function updateSelectFilesList(inFiles) {
     var s = document.getElementById('select-file');
     inFiles.forEach(function(file) {
@@ -20,6 +14,18 @@ var importView = function() {
       s.appendChild(o);
     });
   }
+
+  /**
+   * update the storage name in the Import View
+   * @param {string} inName
+   */
+  function updateStorageName(inName) {
+    // console.log("inName", inName);
+    var msg  = document.getElementById("import-track-path");
+    msg.innerHTML = _("import-track-path", {name: _(inName)});
+  }
+
+
   function resetList() {
     var sel = document.getElementById("select-file");
     sel.innerHTML = "";
@@ -27,12 +33,6 @@ var importView = function() {
     o.value = "empty";
     o.innerHTML = "--";
     sel.appendChild(o);
-/*    var nb = sel.length;
-    if (nb > 1) {
-      for (var i = 0; i < nb; i++) {
-        sel.remove(1);
-      }
-    }*/
   }
   function showSpinner() {
     document.getElementById("import-spinner-area").className = "align-center front";
@@ -44,10 +44,10 @@ var importView = function() {
   }
 
   return {
-    updateSelectFilesList: updateSelectFilesList,
-    // addFile: addFile,
-    resetList: resetList,
-    showSpinner: showSpinner,
-    hideSpinner: hideSpinner
+    updateSelectFilesList:  updateSelectFilesList,
+    updateStorageName:      updateStorageName,
+    resetList:              resetList,
+    showSpinner:            showSpinner,
+    hideSpinner:            hideSpinner
   };
 }();

@@ -8,14 +8,12 @@ var Controller = function() {
 
   var settings;
   var watchID, lock;
-  // var olat, olon;
   var tracking = false;
   var pause = false;
   var display_map = false;
   var duration, distance;
   var displayed_track, current_track;
   var nb_point;
-  // var track_to_import = {};
 
   function init() {
     DB.initiate(__initiateSuccess, __initiateError);
@@ -92,18 +90,14 @@ var Controller = function() {
     } else {
       tracking = true;
       // Start the calculation of elapsed time
-      // InfosView.startChrono();
       Chrono.load(document.getElementById("home-chrono"));
       Chrono.start();
       // Open new track
       current_track = Tracks.open();
       nb_point = 0;
-      // document.querySelector("#btn-start").innerHTML = "Stop";
       document.getElementById("btn-start-stop").className = "danger big";
       document.getElementById("btn-start-stop").textContent = _("stop");
       document.getElementById("btn-pause").className="recommend small icon icon-pause";
-
-      // document.getElementById("btn-start-stop").style.backgroundColor = "#e51e1e";
     }
   }
   function stopWatch(){
@@ -136,7 +130,6 @@ var Controller = function() {
       document.getElementById('home-dist').className = "home-value align-center text-huge text-thin";
       Tracks.resumed();
       Chrono.resume();
-      // tracking = true;
       pause = false;
    } else {
       document.getElementById("btn-pause").className="recommend small icon icon-play";
@@ -155,7 +148,6 @@ var Controller = function() {
 
     var event = inPosition.coords;
     // Display GPS data, log to Db
-    // var now = new Date();
     var speed = event.speed;
     var lat = event.latitude.toFixed(6);
     var lon = event.longitude.toFixed(6);
@@ -175,12 +167,7 @@ var Controller = function() {
     // calculating duration
     duration = Tracks.getDuration(inPosition.timestamp);
 
-    // updating UI
-    // if (display_map) {
-    //   MapView.updateMap(inPosition)
-    // } else {
-      HomeView.updateInfos(inPosition, distance);
-    // }
+    HomeView.updateInfos(inPosition, distance);
 
     // appending gps point
     var gps_point = {
@@ -218,35 +205,21 @@ var Controller = function() {
     }
 
     var storages = FxDeviceStorage.getAvailableStorages();
-    var sdcard = FxDeviceStorage.getSdcard();
-    // var storages = SDCard.getStorages();
-    // var sdcard = SDCard.getSDCard();
-    var select = document.querySelector("#storage");
-    var o;
+    var select = document.getElementById("storage");
     if (select.length === 0) {
-      if (storages.length === 1) {
-        o = document.createElement("option");
-        o.value = "0";
-        o.setAttribute("data-l10n-id", "sdcard");
-        // o.innerHTML = _("sd-card");
-      } else if (storages.length === 2) {
-        for (var i = 0; i < storages.length; i++) {
-          o = document.createElement("option");
-          o.value = i;
-          if (storages[i] === sdcard.storageName) {
-            o.setAttribute("data-l10n-id", "sdcard");
-            // o.innerHTML = _("sdcard");
-          } else {
-            o.setAttribute("data-l10n-id", "internal");
-            // o.innerHTML = _("internal");
-          }
-          select.appendChild(o);
-        }
+      for (var i = 0; i < storages.length; i++) {
+        var o = document.createElement("option");
+        o.value = storages[i].id;
+        o.innerHTML = storages[i].name;
+        o.setAttribute("data-l10n-id", storages[i].name);
+        select.appendChild(o);
       }
     }
     if (!inSettings.storage) {
       console.log("storage is not present in settings");
       savingSettings("storage", "0");
+    } else {
+      FxDeviceStorage.setUserStorage(inSettings.storage);
     }
     __updateConfigValues(inSettings);
 
@@ -297,6 +270,7 @@ var Controller = function() {
     settings.frequency = inSetting;
   }
   function changeStorage(inSetting) {
+    FxDeviceStorage.setUserStorage(inSetting);
     settings.storage = inSetting;
   }
 
@@ -432,11 +406,9 @@ var Controller = function() {
       console.log("sharing on social apps");
       Share.toApps(displayed_track, __shareSuccess, __shareError);
     } else if (inShare === "on-device") {
-      // var gpx_track = ExportTrack.toGPX(displayed_track);
       var gpx_track = GPX.create(displayed_track);
       var n = displayed_track.name.replace(/[:.-]/g,"") + ".gpx";
       console.log("sharing on local", n);
-      // Share.toLocal(gpx_track, n, settings.storage, __shareSuccess, __shareError);
       FxDeviceStorage.saveFile(gpx_track, n,
           __shareSuccess,
           __shareError);
@@ -455,28 +427,15 @@ var Controller = function() {
   }
 
   function searchFiles() {
-    // SDCard.search(settings.storage, __searchFilesSuccess, __searchFilesError);
     FxDeviceStorage.getFilesFromPath("rbh/import", "gpx",
         __getFilesFromPathSuccess,
         __getFilesFromPathError);
   }
-  /*function __searchFilesSuccess(inFile) {
-    SDCard.get(inFile, __getFileSuccess, __getFileError);
-    console.log("inFile", inFile);
-    // document.getElementById("list-files").innerHTML = inFiles;
-  }
-  function __searchFilesError(inError) {
-    document.getElementById("import-msg-area").innerHTML = inError;
-    console.log("inError", inError);
-  }*/
 
   function __getFilesFromPathSuccess(inFiles) {
+    importView.updateStorageName(FxDeviceStorage.getUserStorage().name);
     console.log("inFiles to display", inFiles);
     importView.updateSelectFilesList(inFiles);
-/*    inFiles.forEach(function(inFile) {
-      track_to_import[inFile.name] = inFile;
-      importView.addFile(inFile);
-    });*/
   }
 
   function __getFilesFromPathError(inError) {
@@ -486,22 +445,6 @@ var Controller = function() {
     }
     utils.status.show(e);
   }
-
-/*  function __getFileSuccess(inFile) {
-    // importView.addFile(inFile);
-    GPX.verify(inFile, __verifySuccess, __verifyError);
-  }
-  function __getFileError(inError) {
-    utils.status.show(inError);
-  }
-
-  function __verifySuccess(inFile) {
-    track_to_import[inFile.name] = inFile;
-    importView.addFile(inFile);
-  }
-  function __verifyError(inError) {
-    utils.status.show(inError);
-  }*/
 
   function importFile(inPath) {
     console.log("import file", inPath);
@@ -523,23 +466,7 @@ var Controller = function() {
   function __GPXloadSuccess(inTrack) {
     // console.log("success load track", inTrack);
     current_track = Tracks.importFromFile(inTrack);
-    //var data = current_track.data;
-    // for (var i = 0; i < data.length; i++) {
-      // data[i]
-      // calculate distance
-      // distance = Tracks.getDistance(data[i].latitude, data[i].longitude);
-      // calculating duration
-      // if (data.date) {
-        // duration = Tracks.getDuration(data.date);
-      // }
-    // };
-    // if (isNaN(duration)) {
-      // duration = "--";
-    // }
-    // current_track.duration = duration;
-    // current_track.distance = distance;
     Tracks.reset();
-    // Tracks.close();
     var track = Tracks.close();
     DB.addTrack(__addTrackonImportSuccess, __addTrackonImportError, track);
   }
@@ -561,10 +488,6 @@ var Controller = function() {
   function resetImportList() {
     importView.resetList();
   }
-
-  // function importForDev() {
-    // DB.addTrack(__addTrackSuccess, __addTrackError, testdata);
-  // }
 
   return {
     init: init,
