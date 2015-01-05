@@ -218,30 +218,14 @@ var Controller = function() {
     }
 
     var storages = FxDeviceStorage.getAvailableStorages();
-    var sdcard = FxDeviceStorage.getSdcard();
-    // var storages = SDCard.getStorages();
-    // var sdcard = SDCard.getSDCard();
-    var select = document.querySelector("#storage");
-    var o;
+    var select = document.getElementById("storage");
     if (select.length === 0) {
-      if (storages.length === 1) {
-        o = document.createElement("option");
-        o.value = "0";
-        o.setAttribute("data-l10n-id", "sdcard");
-        // o.innerHTML = _("sd-card");
-      } else if (storages.length === 2) {
-        for (var i = 0; i < storages.length; i++) {
-          o = document.createElement("option");
-          o.value = i;
-          if (storages[i] === sdcard.storageName) {
-            o.setAttribute("data-l10n-id", "sdcard");
-            // o.innerHTML = _("sdcard");
-          } else {
-            o.setAttribute("data-l10n-id", "internal");
-            // o.innerHTML = _("internal");
-          }
-          select.appendChild(o);
-        }
+      for (var i = 0; i < storages.length; i++) {
+        var o = document.createElement("option");
+        o.value = storages[i].id;
+        o.innerHTML = storages[i].name;
+        o.setAttribute("data-l10n-id", storages[i].name);
+        select.appendChild(o);
       }
     }
     if (!inSettings.storage) {
@@ -458,7 +442,6 @@ var Controller = function() {
   }
 
   function searchFiles() {
-    // SDCard.search(settings.storage, __searchFilesSuccess, __searchFilesError);
     FxDeviceStorage.getFilesFromPath("rbh/import", "gpx",
         __getFilesFromPathSuccess,
         __getFilesFromPathError);
@@ -474,6 +457,7 @@ var Controller = function() {
   }*/
 
   function __getFilesFromPathSuccess(inFiles) {
+    importView.updateStorageName(FxDeviceStorage.getUserStorage().name);
     console.log("inFiles to display", inFiles);
     importView.updateSelectFilesList(inFiles);
 /*    inFiles.forEach(function(inFile) {

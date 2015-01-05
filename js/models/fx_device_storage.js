@@ -5,17 +5,33 @@
 var FxDeviceStorage = function() {
   "use strict";
   var user_storage = navigator.getDeviceStorage("sdcard");
+  var storage_id = 0;
+  var storage_name = user_storage.storageName;
+  var available_storages = [];
 
+  /**
+   * Get the list of device available storages
+   *
+   * @return [{"id": storage id, "name": storage name}, {"id": storage id, "name": storage name}]
+   */
   function getAvailableStorages() {
     var storages = navigator.getDeviceStorages("sdcard");
-    var available_storages = [];
-    storages.forEach(function(sto) {
-      available_storages.push(sto.storageName);
-    });
+    var sdcard = navigator.getDeviceStorage("sdcard");
+    if (storages.length === 1) {
+      available_storages.push({"id": 0, "name": "sdcard"});
+    } else if (storages.length === 2) {
+      for (var i = 0; i < storages.length; i++) {
+        if (storages[i].storageName === sdcard.storageName) {
+          available_storages.push({"id": i, "name": "sdcard"});
+        } else {
+          available_storages.push({"id": i, "name": "internal"});
+        }
+      }
+    }
     return available_storages;
   }
   
-  function getSdcard() {
+  function getDefault() {
     return navigator.getDeviceStorage("sdcard");
   }
 
@@ -89,7 +105,6 @@ var FxDeviceStorage = function() {
     var req = user_storage.addNamed(blob, path);
 
     req.onsuccess = function() {
-      // successCallback(_('track-share-local-success'), this.result);
       successCallback(this.result);
     };
 
@@ -107,15 +122,26 @@ var FxDeviceStorage = function() {
 
   function setUserStorage(inStorage) {
     user_storage = navigator.getDeviceStorages("sdcard")[inStorage];
+    storage_id = inStorage;
+    storage_name = available_storages[storage_id].name;
+  }
+
+  /**
+   * Get the ID and Name of Storage chosen by user
+   * @return {id, name}
+   */
+  function getUserStorage() {
+    return {"id": storage_id, "name": storage_name};
   }
 
   return {
     getAvailableStorages: getAvailableStorages,
-    getSdcard:            getSdcard,
+    getDefault:           getDefault,
     getFilesFromPath:     getFilesFromPath,
     openFile:             openFile,
     saveFile:             saveFile,
-    setUserStorage:       setUserStorage
+    setUserStorage:       setUserStorage,
+    getUserStorage:       getUserStorage
   };
 
 }();
