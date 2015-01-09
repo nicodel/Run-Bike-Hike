@@ -33,13 +33,13 @@ var Tracks = function() {
       day = "0" + day.toString();
     }
     if (hour < 10) {
-      hour = "0" + day.toString();
+      hour = "0" + hour.toString();
     }
     if (min < 10) {
-      min = "0" + day.toString();
+      min = "0" + min.toString();
     }
     if (sec < 10) {
-      sec = "0" + day.toString();
+      sec = "0" + sec.toString();
     }
 
     current_track.name = "TR-"+year+month+day+"-"+hour+min+sec;
