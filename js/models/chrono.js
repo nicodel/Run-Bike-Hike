@@ -1,4 +1,6 @@
-"use strict;"
+/* jshint browser: true, strict: true, devel: true */
+/* exported Chrono */
+
 /* chrono.js
  * Role : simule un chronometre et affiche le temps ecoule
  * Projet : JsLib
@@ -10,14 +12,15 @@
  */
 
 var Chrono = function() {
+  "use strict";
 	// --- Variables globales ---
 
 	// variables pour la gestion du chronometre
 	var chrono_demarre=false;
-	var chrono_ecoule=0;
-	var chrono_depart=0;
-	var chrono_dernier=0;
-  var pause = false;
+	var chrono_ecoule=null;
+	var chrono_depart=null;
+	var chrono_dernier=null;
+  // var pause = false;
 
 	// variables pour la mise a jour dynamique
 	var chrono_champ;
@@ -26,9 +29,9 @@ var Chrono = function() {
 	// --- Fonctions ---
 
 	// indique si le chronometre est demarre ou non
-	function actifChrono() {
-		return (chrono_demarre);
-	} // fin actifChrono()
+	// function actifChrono() {
+		// return (chrono_demarre);
+	// } // fin actifChrono()
 
 	// arrete le chronometre
 	function arreterChrono() {
@@ -56,10 +59,10 @@ var Chrono = function() {
 	} // fin chargerChronoDyna(champ)
 
 	// desactive la mise a jour dynamique du temps mesure precedemment activee
-	function dechargerChronoDyna() {
-		window.clearTimeout(chrono_timeout);
-		return true;
-	} // fin dechargerChronoDyna()
+	// function dechargerChronoDyna() {
+		// window.clearTimeout(chrono_timeout);
+		// return true;
+	// } // fin dechargerChronoDyna()
 
 	// demarre le chronometre
 	function demarrerChrono() {
@@ -91,13 +94,13 @@ var Chrono = function() {
 		} else {
 			cnow=new Date(chrono_ecoule);
 		}
-		var ch=parseInt(cnow.getHours()) - 1;
-		var cm=cnow.getMinutes();
-		var cs=cnow.getSeconds();
+		var ch=cnow.getUTCHours();
+		var cm=cnow.getUTCMinutes();
+		var cs=cnow.getUTCSeconds();
 		// var cc=parseInt(cnow.getMilliseconds()/10);
 		// if (cc<10) cc="0"+cc;
-		if (cs<10) cs="0"+cs;
-		if (cm<10) cm="0"+cm;
+		if (cs<10) {cs="0"+cs;}
+		if (cm<10) {cm="0"+cm;}
 		// return (ch+":"+cm+":"+cs+":"+cc);
 		return (ch+":"+cm+":"+cs);
 	} // fin tempsChrono()

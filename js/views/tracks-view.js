@@ -1,8 +1,11 @@
+/* jshint browser: true, strict: true, devel: true */
+/* exported TracksView */
+/* global _, Config */
+
 var TracksView = function() {
   "use strict";
 
   function display(inTracks, displayTrackCallback) {
-    // __remove_childs("tracks-list");
     var list = document.getElementById("tracks-list");
     console.log("list.childNodes",list.childNodes);
 /*    for (i = 0; i = list.childNodes.length - 1; i++) {
@@ -56,7 +59,7 @@ var TracksView = function() {
     console.log("Tracks list marked as dirty.");
     document.getElementById("tracks-list").dataset.state = "dirty";
     if (document.getElementById("tracks-list").hasChildNodes()) {
-      __remove_childs("tracks-list");
+      document.getElementById("tracks-list").innerHTML = "";
       document.getElementById("list-spinner").className = "";
     }
   }
@@ -97,13 +100,6 @@ var TracksView = function() {
       document.getElementById("views").showCard(4);
       displayTrackCallback(inTrack);
     });
-  }
-
-  function __remove_childs(parent) {
-    var d = document.getElementById(parent).childNodes;
-    for (var i = 0; i = d.length - 1; i++) {
-      document.getElementById(parent).removeChild(d[i]);
-    }
   }
 
   return {

@@ -1,13 +1,17 @@
-var GPX = function() {
+/* jshint browser: true, strict: true, devel: true */
+/* exported GPX */
 
-  var T = {
+var GPX = function() {
+  "use strict";
+
+/*  var T = {
     id: new Date().toISOString(),
     name: null,
     duration: 0,
     distance: 0,
     map: "",
     data: []
-  };
+  };*/
   var olat = null;
   var olon = null;
   var distance = 0;
@@ -16,43 +20,52 @@ var GPX = function() {
     olat = null;
     olon = null;
     distance = 0;
-    var n = "rbh/import/" + inFile.name.match(/[^/]+$/i)[0];
-    var reader = new FileReader(); 
-    reader.onloadend = function(e) {
+    // var n = "rbh/import/" + inFile.name.match(/[^/]+$/i)[0];
+/*    var reader = new FileReader(); 
+    reader.onloadend = function() {
       var p = new DOMParser();
-      __parse(p.parseFromString(reader.result, "text/xml"), successCallback, failureCallback);
-    }
+      __parse(p.parseFromString(reader.result, "text/xml"),
+          successCallback,
+          failureCallback);
+    };
     reader.onerror = function(e) {
       console.log("reader error:", e);
-      failureCallback(_("error-reading-file", {file:inFile.name.match(/[^/]+$/i)[0], error:e.target.result}));
-    }
-    reader.readAsText(inFile);
-  }
+      failureCallback(_("error-reading-file",
+            {file:inFile.name.match(/[^/]+$/i)[0],
+              error:e.target.result}
+            ));
+    };
+    reader.readAsText(inFile);*/
+    __parse(inFile,
+        successCallback,
+        failureCallback);
 
-  var verify = function(inFile, successCallback, failureCallback) {
-    var n = "rbh/import/" + inFile.name.match(/[^/]+$/i)[0];
+  };
+
+/*  var verify = function(inFile, successCallback, failureCallback) {
+    // var n = "rbh/import/" + inFile.name.match(/[^/]+$/i)[0];
     var reader = new FileReader(); 
-    reader.onloadend = function(e) {
+    reader.onloadend = function() {
       // console.log("reader success", reader.result);
       var p = new DOMParser();
       var x = p.parseFromString(reader.result, "text/xml");
 
-      var metadata = x.getElementsByTagName("metadata");
-      var time = metadata[0].getElementsByTagName("time");
+      // var metadata = x.getElementsByTagName("metadata");
+      // var time = metadata[0].getElementsByTagName("time");
       var trk = x.getElementsByTagName("trk");
       if (trk.length > 0) {
         successCallback(inFile);
-        t = trk[0];
+        // t = trk[0];
       } else {
         failureCallback(_("no-track-in-file", {file:inFile.name.match(/[^/]+$/i)[0]}));
       }
-    }
+    };
     reader.onerror = function(e) {
       console.log("reader error:", e);
       failureCallback(_("error-reading-file", {file:inFile.name.match(/[^/]+$/i)[0], error:e.target.result}));
-    }
+    };
     reader.readAsText(inFile);
-  }
+  };*/
 
   var __parse = function(x, successCallback, failureCallback) {
     var track = {
@@ -64,7 +77,7 @@ var GPX = function() {
       date: "",
       data: []
     };
-    var missing_date,
+    var missing_time,
         tstart,
         tend;
     var metadata = x.getElementsByTagName("metadata");
@@ -97,7 +110,7 @@ var GPX = function() {
         trkpt = trkseg[i].getElementsByTagName("trkpt");
         if (trkpt.length > 0) {
           for (var j = 0; j < trkpt.length; j++) {
-            var point = {}
+            var point = {};
             var p = trkpt[j];
             point.latitude = p.getAttribute("lat");
             point.longitude = p.getAttribute("lon");
@@ -109,7 +122,7 @@ var GPX = function() {
                 track.date = point.date;
                 missing_time = false;
               }
-              if (j === 0) {
+              if (i === 0 && j === 0) {
                 tstart = new Date(point.date);
               }
               tend = new Date (point.date);
@@ -144,7 +157,7 @@ var GPX = function() {
             track.data.push(point);
           }
         } else {
-          failureCallback("Could not parse trkpt from file")
+          failureCallback("Could not parse trkpt from file");
         }
       }
     } else {
@@ -157,7 +170,7 @@ var GPX = function() {
     }
     track.distance = distance;
     successCallback(track);
-  }
+  };
 
   var __named =  function() {
     // Build track name
@@ -175,29 +188,29 @@ var GPX = function() {
       day = "0" + day.toString();
     }
     if (hour < 10) {
-      hour = "0" + day.toString();
+      hour = "0" + hour.toString();
     }
     if (min < 10) {
-      min = "0" + day.toString();
+      min = "0" + min.toString();
     }
     if (sec < 10) {
-      sec = "0" + day.toString();
+      sec = "0" + sec.toString();
     }
 
     return "TR-"+year+month+day+"-"+hour+min+sec;
-  }
+  };
 
   var __getDistance = function(lat, lon) {
     // console.log("__getDistance");
     // console.log("olat", olat);
-    if (olat != null) {
+    if (olat !== null) {
       distance += __distanceFromPrev(olat, olon, lat, lon);
     }
     olat = lat;
     olon = lon;
     // console.log("calc distance: ", distance);
     return distance;
-  }
+  };
 
   var __distanceFromPrev = function(lat1, lon1, lat2, lon2) {
     // console.log("__getDistanceFromPrev");
@@ -216,12 +229,46 @@ var GPX = function() {
     var R = 6371 * 1000; // Earth radius (mean) in metres {6371, 6367}
     // console.log("R*c: ", R*c);
     return R * c;
-  }
+  };
+
+
+  var create = function(inTrack) {
+    var name = inTrack.name.replace(/&/g,"&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    // console.log("exporting ", name);
+    var data = "";
+    data += "<?xml version='1.0' encoding='UTF-8'?>\n";
+    data += "<gpx version='1.1'\n";
+    data += "creator='Run, Bike, Hike - https://github.com/nicodel/Run-Bike-Hike'\n";
+    data += "xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'\n";
+    data += "xmlns='http://www.topografix.com/GPX/1/1'\n";
+    data += "xsi:schemaLocation='http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd'>\n";
+    data += "<metadata>\n";
+    data += "<author><name>Nicolas Delebecque</name><link href='https://github.com/nicodel/'></link></author>";
+    data += "<name>" + name + "</name>";
+    data += "<time>" + new Date().toISOString() + "</time>";
+    data += "</metadata>";
+    data += "<trk>\n<name>" + name + "</name>\n<trkseg>\n";
+    for (var i = 0; i < inTrack.data.length; i++) {
+      var row = inTrack.data[i];
+      data += "<trkpt lat='" + row.latitude + "' lon='" + row.longitude + "'>\n";
+      data += "\t<time>" + row.date + "</time>\n";
+      data += ((row.altitude) && (row.altitude !== "null"))?"\t<ele>" + row.altitude + "</ele>\n" : "";
+      data += (row.speed>=0) ? "\t<speed>" +row.speed+ "</speed>\n" : "";
+      data += (row.accuracy>0)?"\t<hdop>" + row.accuracy + "</hdop>\n" : "";
+      data += (row.vertAccuracy>0)?"\t<vdop>" + row.vertAccuracy + "</vdop>\n" : "";
+      data += "</trkpt>\n";
+    }
+    data += "</trkseg>\n</trk>\n";
+    data += "</gpx>\n";
+    // console.log("export done", data);
+    return data;
+  };
 
   return {
     load: load,
-    verify: verify
-  }
+    create: create
+    // verify: verify
+  };
 
 
 
