@@ -1,19 +1,27 @@
 /* jshint browser: true, devel: true, strict: true, phantom: true */
-/* global casper */
+/* global casper, Config */
 // casperjs test test-config.js --includes=../js/models/config.js --verbose
-var require = patchRequire(require);
-var config  = require("../js/models/config.js");
-var DEFAULT_CONFIG = [
+// var require = patchRequire(require);
+var fs = require("fs");
+var vm = require('vm');
+vm.runInThisContext(fs.readFileSync("../js/models/config.js"));
+// var Config  = require("../js/models/config.js");
+/*Config.CONFIG = [
   {screen: false},
   {language: "en"},
   {distance: "0"},
   {speed: "0"},
   {position: "0"},
   {frequency: "auto"}
-];
-casper.test.begin("Testing Config", 9, function suite (test) {
+];*/
+casper.test.begin("Testing Config", 1, function suite (test) {
   "use strict";
-  for (var i = 0; i < DEFAULT_CONFIG.length; i++) {
+  console.log("Config", JSON.stringify(Config));
+  test.info("Config.userSpeed");
+  test.assertEquals(Config.userSpeed(null), {v:"--", u:"km/h"}, "null");
+  test.assertEquals(Config.userSpeed(-6), {v:"--", u:"km/h"}, "-6");
+  test.done();
+/*  for (var i = 0; i < DEFAULT_CONFIG.length; i++) {
     var param = DEFAULT_CONFIG[i];
     if (param === "screen") {
       Config.change("SCREEN_KEEP_ALIVE", DEFAULT_CONFIG[param]);
@@ -40,5 +48,5 @@ casper.test.begin("Testing Config", 9, function suite (test) {
     test.assertEquals(speed.v, cas[1], "for " + cas[0]);
   }
   
-  test.done();
+  test.done();*/
 });

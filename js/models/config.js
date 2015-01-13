@@ -35,6 +35,7 @@ var Config = function() {
     inKey = inValue;
   }
   function userSpeed(velocityMPS){
+    console.log("Config.CONFIG.speed", Config.CONFIG.speed);
     var a = {};
     if (velocityMPS === null || velocityMPS<0 || isNaN(velocityMPS) || velocityMPS === Infinity) {
       if (Config.CONFIG.speed === IMPERIAL_UNITS) {
