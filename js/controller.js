@@ -297,8 +297,8 @@ var Controller = function() {
       }
     }
     // console.log("USER_DISTANCE", Config.USER_DISTANCE);
-    Config.CONFIG = inSettings;
-    console.log("Config.CONFIG", Config.CONFIG);
+    Config.CO = inSettings;
+    console.log("Config.CO", Config.CO);
 
     var a = Config.userSmallDistance(null);
     document.getElementById("home-acc").innerHTML = "&#177; " + a.v;

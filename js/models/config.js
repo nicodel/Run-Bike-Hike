@@ -24,7 +24,14 @@ var Config = function() {
    *  geocaching: 1
    *  degrees: 2
    */
-
+  var CONFIG = {
+    screen: false,
+    language: "en",
+    distance: "0",
+    speed: "0",
+    position: "0",
+    frequency: "auto"
+    };
   var METRIC_UNITS = "0";
   var IMPERIAL_UNITS = "1";
 
@@ -35,7 +42,7 @@ var Config = function() {
     inKey = inValue;
   }
   function userSpeed(velocityMPS){
-    console.log("Config.CONFIG.speed", Config.CONFIG.speed);
+    // console.log("Config.CONFIG.screen", JSON.stringify(Config.CONFIG.screen));
     var a = {};
     if (velocityMPS === null || velocityMPS<0 || isNaN(velocityMPS) || velocityMPS === Infinity) {
       if (Config.CONFIG.speed === IMPERIAL_UNITS) {
@@ -106,7 +113,7 @@ var Config = function() {
   }
   function userSmallDistance(distanceM, canNegative){
     var a = {};
-    if ((distanceM === null) || ((distanceM < 0) && (!canNegative))) {
+    if ((distanceM === null) || ((distanceM < 0) && (!canNegative)) || isNaN(distanceM) || distanceM === Infinity) {
       if (Config.CONFIG.distance === IMPERIAL_UNITS){
          a.u = "ft";
        }
@@ -135,7 +142,7 @@ var Config = function() {
   function userDistance (distanceM, canNegative){
     var tmp;
     var a = {};
-    if ((distanceM === null) || ((distanceM < 0) && (!canNegative))) {
+    if ((distanceM === null) || ((distanceM < 0) && (!canNegative)) || isNaN(distanceM) || distanceM === Infinity) {
       if (Config.CONFIG.distance === IMPERIAL_UNITS) {
         a.u = "miles";
       }
@@ -180,6 +187,7 @@ var Config = function() {
   }
 
   return {
+    CONFIG: CONFIG,
     change: change,
     userSpeed: userSpeed,
     userSpeedInteger: userSpeedInteger,
