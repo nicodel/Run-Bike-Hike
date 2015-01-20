@@ -3,7 +3,7 @@
 
 // casperjs test test-config.js --includes=../js/models/config.js --verbose
 
-casper.test.begin("Testing Config", 36, function suite (test) {
+casper.test.begin("Config - Tests unitaires", 36, function suite (test) {
   "use strict";
   test.info("Config.userSpeed - km/h");
   test.assertEquals(Config.userSpeed(null), {v:"--", u:"km/h"}, "null");
@@ -72,3 +72,8 @@ casper.test.begin("Testing Config", 36, function suite (test) {
  
   test.done();
 });
+/*casper.test.begin("Config - Tests fonctionnels", 1, function suite (test) {
+  "use strict";
+  test.info("HomeView.updateInfos");
+  test.done();
+});*/
