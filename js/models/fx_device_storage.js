@@ -30,7 +30,7 @@ var FxDeviceStorage = function() {
     }
     return available_storages;
   }
-  
+
   function getDefault() {
     return navigator.getDeviceStorage("sdcard");
   }
@@ -57,7 +57,7 @@ var FxDeviceStorage = function() {
         }
       };
       req.onerror = function(e) {
-        errorCallback(e.error.name);
+        errorCallback(e.target.error.name);
         // if (e.target.error.name === "NotFoundError") {
           // errorCallback(_("import-missing"));
         // }

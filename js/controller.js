@@ -439,11 +439,10 @@ var Controller = function() {
   }
 
   function __getFilesFromPathError(inError) {
-    var e;
     if (inError === "NotFoundError") {
-      e = _("import-missing");
+      inError = _("import-missing");
     }
-    utils.status.show(e);
+    utils.status.show(inError);
   }
 
   function importFile(inPath) {
