@@ -23,6 +23,16 @@ document.querySelector("#btn-start-stop").addEventListener ("click", function ()
 document.querySelector("#btn-settings").addEventListener ("click", function () {
   "use strict";
   document.getElementById("views").showCard(0);
+  var ab = document.getElementsByClassName("about");
+  for (var k = 0; k < ab.length; k++) {
+    var e = ab[k].childNodes;
+    for(var j = 0; j < e.length; j++){
+      if (e[j].tagName === "A") {
+        console.log("adding _blank to", e[j]);
+        e[j].target = "_blank";
+      }
+    }
+  }
 });
 /* Home View Pause/Play tracking button */
 document.querySelector("#btn-pause").addEventListener ("click", function () {
