@@ -187,6 +187,19 @@ var Controller = function() {
     //console.log("__getConfigSuccess ", Object.keys(inSettings));
     settings = inSettings;
     // document.webL10n.setLanguage(inSettings.language);
+    var ab = document.getElementsByClassName("about");
+    console.log("ab", ab);
+    for (var k = 0; k < ab.length; k++) {
+      var e = ab[k].childNodes;
+      console.log("e",e);
+      for(var j = 0; j < e.length; j++){
+        var al = e[j];
+        if (al.tagName === "A") {
+          console.log("adding _blank to", al);
+          al.target = "_blank";
+        }
+      }
+    }
 
     if (inSettings.screen) {
       var lock = window.navigator.requestWakeLock('screen');
@@ -221,6 +234,7 @@ var Controller = function() {
     } else {
       FxDeviceStorage.setUserStorage(inSettings.storage);
     }
+
     __updateConfigValues(inSettings);
 
   }
