@@ -203,7 +203,6 @@ var Controller = function() {
       console.log("frequency value is not default!");
       __changeFrequency(parseInt(inSettings.frequency, 10));
     }
-
     var storages = FxDeviceStorage.getAvailableStorages();
     var select = document.getElementById("storage");
     if (select.length === 0) {
@@ -221,8 +220,8 @@ var Controller = function() {
     } else {
       FxDeviceStorage.setUserStorage(inSettings.storage);
     }
-    __updateConfigValues(inSettings);
 
+    __updateConfigValues(inSettings);
   }
   function __getConfigError(inEvent) { console.log("__getConfigError ", inEvent); }
 
@@ -439,11 +438,10 @@ var Controller = function() {
   }
 
   function __getFilesFromPathError(inError) {
-    var e;
     if (inError === "NotFoundError") {
-      e = _("import-missing");
+      inError = _("import-missing");
     }
-    utils.status.show(e);
+    utils.status.show(inError);
   }
 
   function importFile(inPath) {
