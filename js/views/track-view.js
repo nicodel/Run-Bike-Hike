@@ -339,9 +339,6 @@ var TrackView = function() {
     var BASE_URL = "open.mapquestapi.com/staticmap/v4/getmap?";
 
     var KEY = "key=Fmjtd%7Cluur21u720%2Cr5%3Do5-90tx9a";
-    // var KEY = "key=" + encodeURI("Fmjtd%7Cluu82l6b25%2C80%3Do5-94r0d4");
-    // var KEY = "key=" + encodeURI("Fmjtd%7Cluu82l6b25%2Cba%3Do5-94r0d0");
-    // var KEY = "key=Fmjtd%7Cluu82l6b25%2Cba%3Do5-94r0d0";
 
     var loc = "http://" + BASE_URL + KEY + SIZE + TYPE + BESTFIT + PATH;
 
