@@ -17,6 +17,7 @@ A GPS recording web app.
 * Pull request #91: Fix generated names and duration in impored tracks.
 * Pull request #88: Adding decimal into the calcumation ressult of average speed.
 * Pull request #84: Fixing removing child nodes on track list.
+* Fix Issue #94: Mapquest request failure after API changes.
 
 ### v0.1.11 - 15/12/2014
 * New language: Español.

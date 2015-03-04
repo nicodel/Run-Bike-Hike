@@ -38,6 +38,9 @@
     "en": {
       "name": "Run, Bike, Hike...",
       "description": "Run, Bike, Hike... allow you to record your running or biking sessions, so you can follow your sporting progress. You can be a running expert or an occasional hiker, Run, Bike, Hike... is giving simple and essentials functionalities. During tracking, you can see the elapsed time, the distance traveled, the altitude. And once record is made, you can see your track on a map, your average speed, maximum altitude. Speed and altitude evolution are shown on a graph giving you a better understanding of given efforts. Tracks can also be send trough email, or save on your device as GPX files."
+    },
+    "de": {
+      "description": "Egal ob Laufexperte oder gelegentlicher Wanderer, Laufen, Radfahren, Wandern... bietet Ihnen einfache und wesentliche Funktionalitäten. Während der GPS-Aufzeichnung, sehen Sie die verstrichene Zeit, die zurückgelegte Strecke, die Höhe... Und sobald der Datensatz gespeichert wurde, sehen Sie Ihre Strecke auf der Karte, Ihre durchschnittliche Geschwindigkeit, maximale Höhe... Geschwindigkeit und Höhenverlauf werden in einem übersichtlichen Diagramm angezeigt. Die Strecken können sowohl als e-Mail versendet oder auf Ihrem Gerät als GPX-Dateien gespeichert werden."
     }
   },
   "default_locale": "en"
