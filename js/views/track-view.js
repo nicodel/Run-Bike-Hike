@@ -336,7 +336,7 @@ var TrackView = function() {
     var BESTFIT = "&bestfit=" + p1.lat + ","+ p1.lon + ","+ p2.lat + "," + p2.lon;
     var SIZE = "&size=" + MAP_WIDTH + "," + MAP_HEIGHT;
     var TYPE = "&type=map&imagetype=jpeg";
-    var BASE_URL = "www.mapquestapi.com/staticmap/v4/getmap?";
+    var BASE_URL = "open.mapquestapi.com/staticmap/v4/getmap?";
 
     var KEY = "key=Fmjtd%7Cluur21u720%2Cr5%3Do5-90tx9a";
     // var KEY = "key=" + encodeURI("Fmjtd%7Cluu82l6b25%2C80%3Do5-94r0d4");
@@ -354,7 +354,7 @@ var TrackView = function() {
       // document.querySelector("#map-img").classList.remove("absolute");
     };
     // document.getElementById("map-img").src = loc;
-    console.log("loc:", loc);
+    // console.log("loc:", loc);
 
     // Following based on @robertnyman article on hacks.mozilla.org https://hacks.mozilla.org/2012/02/storing-images-and-files-in-indexeddb/
     var xhr = new XMLHttpRequest(), blob;
