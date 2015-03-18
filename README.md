@@ -10,6 +10,9 @@ A GPS recording web app.
 
 ## Release notes
 
+### v0.1.13 -
+* Fix issue: More than 2 storage units.
+
 ### v0.1.12 -
 * New language: German.
 * Add feature #67: Better managment of device with multiple storage.
