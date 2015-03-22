@@ -10,6 +10,9 @@ A GPS recording web app.
 
 ## Release notes
 
+### v0.1.14 -
+* Fix issue: Maq Quest API new token.
+
 ### v0.1.13 -
 * Fix issue: More than 2 storage units.
 

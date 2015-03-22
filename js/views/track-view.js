@@ -54,7 +54,7 @@ var TrackView = function() {
       var d = inTrack.duration / 60000;
       document.getElementById("trk-dur").innerHTML = d.toFixed() + " min";
     }
- 
+
     var t = inTrack;
     console.log("t", t);
     // console.log("t.map", t.map);
@@ -336,9 +336,11 @@ var TrackView = function() {
     var BESTFIT = "&bestfit=" + p1.lat + ","+ p1.lon + ","+ p2.lat + "," + p2.lon;
     var SIZE = "&size=" + MAP_WIDTH + "," + MAP_HEIGHT;
     var TYPE = "&type=map&imagetype=jpeg";
-    var BASE_URL = "http://www.mapquestapi.com/staticmap/v4/getmap?key=Fmjtd%7Cluur21u720%2Cr5%3Do5-90tx9a&";
+    var BASE_URL = "open.mapquestapi.com/staticmap/v4/getmap?";
 
-    var loc = BASE_URL + SIZE + TYPE + BESTFIT + PATH;
+    var KEY = "key=Fmjtd%7Cluur21u720%2Cr5%3Do5-90tx9a";
+
+    var loc = "http://" + BASE_URL + KEY + SIZE + TYPE + BESTFIT + PATH;
 
     document.getElementById("map-img").width = SCREEN_WIDTH;
     document.getElementById("map-img").onload = function () {
