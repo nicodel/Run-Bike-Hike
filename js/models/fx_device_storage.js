@@ -16,17 +16,12 @@ var FxDeviceStorage = function() {
    */
   function getAvailableStorages() {
     var storages = navigator.getDeviceStorages("sdcard");
-    var sdcard = navigator.getDeviceStorage("sdcard");
-    if (storages.length === 1) {
-      available_storages.push({"id": 0, "name": "sdcard"});
-    } else if (storages.length === 2) {
-      for (var i = 0; i < storages.length; i++) {
-        if (storages[i].storageName === sdcard.storageName) {
-          available_storages.push({"id": i, "name": "sdcard"});
-        } else {
-          available_storages.push({"id": i, "name": "internal"});
-        }
+    for (var i = 0; i < storages.length; i++) {
+      var name = storages[i].storageName;
+      if(storages[i].default) {
+        name = name + " " +  _("storage-default");
       }
+      available_storages.push({"id": i, "name": name});
     }
     return available_storages;
   }

@@ -10,6 +10,12 @@ A GPS recording web app.
 
 ## Release notes
 
+### v0.1.14 -
+* Fix issue: Maq Quest API new token.
+
+### v0.1.13 -
+* Fix issue: More than 2 storage units.
+
 ### v0.1.12 -
 * New language: German.
 * Add feature #67: Better managment of device with multiple storage.
@@ -17,6 +23,7 @@ A GPS recording web app.
 * Pull request #91: Fix generated names and duration in impored tracks.
 * Pull request #88: Adding decimal into the calcumation ressult of average speed.
 * Pull request #84: Fixing removing child nodes on track list.
+* Fix Issue #94: Mapquest request failure after API changes.
 
 ### v0.1.11 - 15/12/2014
 * New language: Español.
