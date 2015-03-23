@@ -136,7 +136,7 @@ var Controller = function() {
       document.getElementById('home-chrono').className = "text-red home-value align-center text-huger text-thin new-line";
       document.getElementById('home-dist').className = "text-red home-value align-center text-huge text-thin";
       Chrono.pauseIt();
-      // tracking = false;
+      Tracks.newSegment();
       pause = true;
    }
   }
