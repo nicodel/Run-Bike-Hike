@@ -20,9 +20,6 @@ var TrackView = function() {
   var LINE_WIDTH = 2;
   var TEXT_STYLE = "8pt bold 'Fira Sans',sans-serif";
   var TEXT_COLOR = "#333";
-  // var VALUE_COLOR = "#008000";
-  // var ACCURACY_COLOR = "#805A5A";
-  // var ACCURACY_FILL_COLOR = "#C89696";
   var ALT_LINE_COLOR = "#008000"; // Green
   var ALT_FILL_COLOR = "rgba(0,128,0,0.3)"; // Green
   var SP_LINE_COLOR = "#4169E1"; // RoyalBlue
@@ -71,8 +68,6 @@ var TrackView = function() {
       var row = t.data[i];
       var alt_int = parseInt(row.altitude, 10);
       var speed_int = parseInt(row.speed, 10);
-      // console.log("speed_int ", speed_int);
-      // console.log("t.max_speed ", t.max_speed);
       if (t.min_alt === 0 || alt_int < t.min_alt) {
         t.min_alt = alt_int;
       }
@@ -82,9 +77,6 @@ var TrackView = function() {
       if (t.max_speed === 0 || speed_int > t.max_speed) {
         t.max_speed = speed_int;
       }
-      // if (t.min_speed === 0 || speed_int < t.min_speed) {
-      //   t.min_speed = speed_int;
-      // }
       var dt = new Date(t.data[i].date).getTime();
       // console.log("dt ", dt);
       if (t.start === null || dt < t.start) {
@@ -93,7 +85,6 @@ var TrackView = function() {
       if (t.end === null || dt > t.end) {
         t.end = dt;
       }
-      // t.av_speed = t.av_speed + speed_int;
     }
     t.av_speed = inTrack.distance / inTrack.duration * 1000;
     localizedValue = Config.userSpeed(t.av_speed);
@@ -120,10 +111,7 @@ var TrackView = function() {
       console.log("map does not exist");
       /*var mapToSave = */__buildMap2(inTrack, saveMapCallback);
       // console.log("mapToSave.map", mapToSave.map);
-      // saveMapCallback(mapToSave);
     }
-    // __buildSpeedGraph(t);
-    // __buildAltitudeGraph(t);
     __buildGraphs(t);
   }
 
@@ -212,10 +200,6 @@ var TrackView = function() {
       c.fillText(hour, __getXPixel(i,data) - (i+xspace > data.length ? 15 : 0), SCREEN_HEIGHT - yPadding + 27);
       // draw vertical lines
       c.beginPath();
-      // c.strokeStyle  = "rgba(150,150,150, 0.5)";
-      // c.lineWidth = 1;
-      // c.moveTo(__getXPixel(i,data),0);
-      // c.lineTo(__getXPixel(i,data),SCREEN_HEIGHT - xPadding);
       c.moveTo(__getXPixel(i,data),SCREEN_HEIGHT - yPadding + 15);
       c.lineTo(__getXPixel(i,data),SCREEN_HEIGHT - yPadding + 20);
       c.stroke();
@@ -308,10 +292,7 @@ var TrackView = function() {
     }
 
     var MAX_POINTS = 100;
-    // var BLACK = "0x000000";
     var BLUE = "0x0AFF00";
-    // var RED = "0xFF0000";
-    // var GREEN = "0x0027FF";
     var PATH = "&polyline=color:" + BLUE + "|width:3|";
     var j = 0;
     var y;
@@ -344,13 +325,9 @@ var TrackView = function() {
     document.getElementById("map-img").width = SCREEN_WIDTH;
     document.getElementById("map-img").onload = function () {
       document.querySelector("#map-text").classList.add("hidden");
-      // document.getElementById("spinner-box").removeChild(document.getElementById("track-spinner"));
       document.querySelector("#track-spinner").classList.add("hidden");
       document.querySelector("#map-img").classList.remove("hidden");
-      // document.querySelector("#map-img").classList.remove("absolute");
     };
-    // document.getElementById("map-img").src = loc;
-    // console.log("loc:", loc);
 
     // Following based on @robertnyman article on hacks.mozilla.org https://hacks.mozilla.org/2012/02/storing-images-and-files-in-indexeddb/
     var xhr = new XMLHttpRequest(), blob;
@@ -367,7 +344,6 @@ var TrackView = function() {
         saveMapCallback(inTrack);
       }
     }, false);
-    // xhr.overrideMimeType("text/html; charset=ISO-8859-1");
     xhr.send();
   }
 
@@ -389,13 +365,8 @@ var TrackView = function() {
     var t = 0;
     for (t=0 ; t<4 ; t++) {
       var alt = Config.userSmallDistance(parseInt(alt_x,10));
-      // var speed = Config.userSpeed(parseInt(speed_x,10));
-      // var speed = Config.userSpeed(speed_x);
-      c.fillStyle = ALT_LINE_COLOR;
       c.fillText(alt.v, xPadding - 10, __getYPixel(alt_y, inRangeAlt) - 6);
       c.fillStyle = SP_LINE_COLOR;
-      // console.log("1-speed.v", speed.v);
-      // c.fillText(speed.v, xPadding - 10, __getYPixel(speed_y, inRangeSp) + 6);
       c.fillText(speed_x, xPadding - 10, __getYPixel(speed_y, inRangeSp) + 6);
       c.beginPath();
       c.moveTo(xPadding, __getYPixel(alt_y, inRangeAlt));
@@ -407,14 +378,10 @@ var TrackView = function() {
       alt_x += inSpaceAlt;
       speed_y += inSpaceSp;
       speed_x += inSpaceSp;
-      // console.log("2-speed.v", speed.v);
     }
     c.beginPath();
     c.moveTo( xPadding,SCREEN_HEIGHT - yPadding + 15);
     c.lineTo(SCREEN_WIDTH - 5,SCREEN_HEIGHT - yPadding + 15);
-    // c.moveTo(xPadding, 0);
-    // c.lineTo(xPadding, SCREEN_HEIGHT - yPadding);
-    // c.lineTo(SCREEN_WIDTH, SCREEN_HEIGHT - yPadding);
     c.lineWidth = 0.1;
     c.strokeStyle = "black";
     c.stroke();
@@ -428,37 +395,6 @@ var TrackView = function() {
   function __getYPixel(val,range) {
     return SCREEN_HEIGHT - (((SCREEN_HEIGHT - yPadding) / range) * val) - yPadding;
   }
-/*  function __getCenter(inTrack) {
-    var x = 0;
-    var y = 0;
-    var z = 0;
-    // Convert lat/lon (must be in radians) to Cartesian coordinates for each location
-    for (var i = 0; i < inTrack.data.length; i++) {
-      //convert to from decimal degrees to radians
-      var lat = parseInt(inTrack.data[i].latitude) * Math.PI / 180;
-      var lon = parseInt(inTrack.data[i].longitude) * Math.PI / 180;
-      var X = Math.cos(lat) * Math.cos(lon);
-      var Y = Math.cos(lat) * Math.sin(lon);
-      var Z = Math.sin(lat);
-      x = x + X;
-      y = y + Y;
-      z = z + Z;
-    }
-    // Compute average x, y and z coordinates
-    x = x / inTrack.data.length;
-    y = y / inTrack.data.length;
-    z = z / inTrack.data.length;
-    // Convert average x, y, z coordinate to latitude and longitude
-    var clon = Math.atan2(y, x);
-    var hyp = Math.sqrt(x * x + y * y);
-    var clat = Math.atan2(z, hyp);
-    // convert from radians to decimal degrees
-    // console.log("clat, clon", clat + " " + clon);
-    clat = clat * 180 / Math.PI;
-    clon = clon * 180 / Math.PI;
-    // console.log("clat, clon", clat + " " + clon);
-    return {lat: clat, lon: clon};
-  }*/
   function __getDistance (lat1, lon1, lat2, lon2) {
     var radius = 6371 * 1000; // Earth radius (mean) in metres {6371, 6367}
 
