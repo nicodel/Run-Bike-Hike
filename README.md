@@ -10,6 +10,9 @@ A GPS recording web app.
 
 ## Release notes
 
+### v0.1.15 -
+* Fix issue #93: Replace single quote by double quote to allow exported files to be imported in RunKeeper.
+
 ### v0.1.14 -
 * Fix issue: Maq Quest API new token.
 
