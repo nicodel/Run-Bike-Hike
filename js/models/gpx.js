@@ -106,7 +106,7 @@ var GPX = function() {
               point.vertAccuracy = tag[0].textContent;
             }
             // console.log('point', point);
-            track.data.push(point);
+            track.data[j].push(point);
           }
         } else {
           failureCallback('Could not parse trkpt from file');
