@@ -57,7 +57,7 @@ var Tracks = function() {
   }
 
   function newSegment() {
-    segment =+ 1;
+    segment += 1;
     console.log('segment', segment);
   }
 
@@ -66,7 +66,7 @@ var Tracks = function() {
     current_track.data[segment].push(inNode);
     current_track.distance = inDistance;
     current_track.duration = inDuration;
-    nb_point =+ 1;
+    nb_point += 1;
     console.log('current_track', current_track);
   }
 
