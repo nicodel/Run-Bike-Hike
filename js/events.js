@@ -40,22 +40,6 @@ document.querySelector("#btn-pause").addEventListener ("click", function () {
   Controller.pauseRecording();
 });
 
-
-/*----------------- Infos View -----------------*/
-/* Infos View Stop button */
-// document.querySelector("#btn-stop").addEventListener ("click", function () {
-//     document.getElementById("views").showCard(3);
-// });
-
-/* Infos Map button */
-// document.querySelector("#btn-map").addEventListener ("click", function () {
-//   console.log("flipping!");
-//   document.getElementById("infos-flipbox").toggle();
-//   Controller.flippingTrack(document.getElementById("infos-flipbox").flipped);
-// });
-
-
-
 /*-------- Stop tracking confirmation ------------*/
 /* Stop tracking Confirm button */
 document.querySelector("#btn-confirm-stop").addEventListener ("click", function () {
@@ -248,10 +232,19 @@ document.querySelector("#btn-clear-rename").addEventListener('mousedown', functi
 /* Track View Share button */
 document.querySelector("#btn-share").addEventListener("click", function() {
   "use strict";
-  console.Log("exporting");
-  document.getElementById("views").showCard(7);
-  // setting it to default
-  document.querySelector('[name="radio-share"]').value = "on-device";
+  if (FxDeviceStorage.disponible) {
+    console.Log("exporting");
+    // setting it to default
+    document.querySelector('[name="radio-share"]').value = "on-device";
+  } else {
+    for (var i = 0; i < document.getElementsByName("radio-share").length; i++) {
+      var node = document.getElementsByName("radio-share")[i];
+      if (node.value === "on-device") {
+        node.setAtttribute("disabled", true);
+      }
+    }
+  }
+    document.getElementById("views").showCard(7);
 });
 
 document.forms['share-form'].addEventListener("click", function() {

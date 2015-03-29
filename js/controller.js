@@ -203,22 +203,30 @@ var Controller = function() {
       console.log("frequency value is not default!");
       __changeFrequency(parseInt(inSettings.frequency, 10));
     }
-    var storages = FxDeviceStorage.getAvailableStorages();
     var select = document.getElementById("storage");
-    if (select.length === 0) {
-      for (var i = 0; i < storages.length; i++) {
-        var o = document.createElement("option");
-        o.value = storages[i].id;
-        o.innerHTML = storages[i].name;
-        o.setAttribute("data-l10n-id", storages[i].name);
-        select.appendChild(o);
+    if (FxDeviceStorage.disponible) {
+      var storages = FxDeviceStorage.getAvailableStorages();
+      if (select.length === 0) {
+        for (var i = 0; i < storages.length; i++) {
+          var o = document.createElement("option");
+          o.value = storages[i].id;
+          o.innerHTML = storages[i].name;
+          o.setAttribute("data-l10n-id", storages[i].name);
+          select.appendChild(o);
+        }
       }
-    }
-    if (!inSettings.storage) {
-      console.log("storage is not present in settings");
-      savingSettings("storage", "0");
+      if (!inSettings.storage) {
+        console.log("storage is not present in settings");
+        savingSettings("storage", "0");
+      } else {
+        FxDeviceStorage.setUserStorage(inSettings.storage);
+      }
     } else {
-      FxDeviceStorage.setUserStorage(inSettings.storage);
+      var o2 = document.createElement("option");
+      o2.innerHTML = 'no storage available';
+      o2.setAttribute("data-l10n-id", "no-storage-available");
+      select.appendChild(o2);
+      select.setAttribute("disabled", true);
     }
 
     __updateConfigValues(inSettings);
