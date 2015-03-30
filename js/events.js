@@ -131,7 +131,7 @@ document.querySelector("#btn-tracks-back").addEventListener ("click", function (
 document.querySelector("#btn-import").addEventListener ("click", function () {
   "use strict";
   document.querySelector("#btn-confirm-import").setAttribute("disabled", "disabled");
-  Controller.searchFiles();
+  // Controller.searchFiles();
   document.getElementById("views").showCard(8);
 });
 /* Import Cancel button */
