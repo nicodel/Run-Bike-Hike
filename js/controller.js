@@ -204,7 +204,7 @@ var Controller = function() {
       __changeFrequency(parseInt(inSettings.frequency, 10));
     }
     var select = document.getElementById("storage");
-    if (FxDeviceStorage.disponible) {
+    if (FxDeviceStorage.compatible) {
       var storages = FxDeviceStorage.getAvailableStorages();
       if (select.length === 0) {
         for (var i = 0; i < storages.length; i++) {
@@ -433,6 +433,10 @@ var Controller = function() {
     // console.log(inMessage);
   }
 
+  function showInput() {
+    importView.showInput();
+  }
+
   function searchFiles() {
     FxDeviceStorage.getFilesFromPath("rbh/import", "gpx",
         __getFilesFromPathSuccess,
@@ -450,6 +454,10 @@ var Controller = function() {
       inError = _("import-missing");
     }
     utils.status.show(inError);
+  }
+
+  function enableImport() {
+    importView.enableImport();
   }
 
   function importFile(inPath) {
@@ -515,7 +523,9 @@ var Controller = function() {
     getTrackInfo: getTrackInfo,
     editTrack: editTrack,
     shareTrack: shareTrack,
+    showInput: showInput,
     searchFiles: searchFiles,
+    enableImport: enableImport,
     importFile: importFile,
     resetImportList: resetImportList
   };

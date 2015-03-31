@@ -58,12 +58,13 @@ var GPX = function() {
     var trkseg = t.getElementsByTagName('trkseg');
     var trkpt, tag;
     if (trkseg.length > 0) {
-      for (var i = 0; i < trkseg.length; i++) {
-        trkpt = trkseg[i].getElementsByTagName('trkpt');
+      for (var seg_nb = 0; seg_nb < trkseg.length; seg_nb++) {
+        track.data[seg_nb] = [];
+        trkpt = trkseg[seg_nb].getElementsByTagName('trkpt');
         if (trkpt.length > 0) {
-          for (var j = 0; j < trkpt.length; j++) {
+          for (var pt_nb = 0; pt_nb < trkpt.length; pt_nb++) {
             var point = {};
-            var p = trkpt[j];
+            var p = trkpt[pt_nb];
             point.latitude = p.getAttribute('lat');
             point.longitude = p.getAttribute('lon');
             distance = __getDistance(point.latitude, point.longitude);
@@ -74,7 +75,7 @@ var GPX = function() {
                 track.date = point.date;
                 missing_time = false;
               }
-              if (i === 0 && j === 0) {
+              if (seg_nb === 0 && pt_nb === 0) {
                 tstart = new Date(point.date);
               }
               tend = new Date (point.date);
@@ -106,7 +107,7 @@ var GPX = function() {
               point.vertAccuracy = tag[0].textContent;
             }
             // console.log('point', point);
-            track.data[j].push(point);
+            track.data[seg_nb].push(point);
           }
         } else {
           failureCallback('Could not parse trkpt from file');
