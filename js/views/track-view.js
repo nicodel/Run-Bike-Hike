@@ -134,6 +134,7 @@ var TrackView = function() {
     var alt_min_y = 0;
     var localizedValue;
     var i, j;
+    var nb_points = 0;
     for(j = 0 ; j < data.length ; j++) {
       var row = data[j];
       for (i = 0; i < row.length; i++) {
@@ -146,8 +147,9 @@ var TrackView = function() {
         if(parseInt(row[i].vertAccuracy, 10) > max_acc) {
           max_acc = parseInt(row[i].vertAccuracy, 10);
         }
-        max_acc = max_acc / 2;
+        nb_points++;
       }
+      max_acc = max_acc / 2;
     }
     // sp_max_y: represents the highest speed value
     // sp_min_y: represents the smallest speed value
@@ -166,7 +168,7 @@ var TrackView = function() {
     console.log("alt", alt_range + "-" + alt_yspace);
     var c = __createRectCanvas("graphs-canvas", alt_range, alt_yspace, sp_range, sp_yspace);
 
-    var espace = parseInt(data.length / (SCREEN_WIDTH - xPadding - 5), 10);
+    var espace = parseInt(nb_points / (SCREEN_WIDTH - xPadding - 5), 10);
     if (espace === 0) {
       espace = 1;
     } else {
@@ -186,15 +188,16 @@ var TrackView = function() {
 
     // Write X Axis text and lines
     var xspace;
-    if (data.length <= SPACE_BTW_POINTS) {
-      xspace = data.length;
+    if (nb_points <= SPACE_BTW_POINTS) {
+      xspace = nb_points;
     } else {
-      xspace = data.length / SPACE_BTW_POINTS;
+      xspace = parseInt(nb_points / SPACE_BTW_POINTS, 10);
     }
-    // console.log("xspace",xspace);
+    console.log("xspace",xspace);
     var timestamp, date, hour = "";
-    for (j = 0; j < data.length; j+=xspace) {
-      for (i = 0; i < data[j].length; i++) {
+    var pt = 0;
+    for (j = 0; j < data.length; j++) {
+      for (i = 0; i < data[j].length; i+=xspace) {
         i = parseInt(i,10);
         timestamp = Date.parse(data[j][i].date);
         if (isNaN(timestamp)) {
@@ -205,12 +208,14 @@ var TrackView = function() {
         }
         c.textAlign = "center";
         c.fillStyle = "gray";
-        c.fillText(hour, __getXPixel(i,data) - (i+xspace > data.length ? 15 : 0), SCREEN_HEIGHT - yPadding + 27);
+        console.log('next', pt + xspace);
+        c.fillText(hour, __getXPixel(pt, data[j]) - (pt + xspace > nb_points ? 15 : 0), SCREEN_HEIGHT - yPadding + 27);
         // draw vertical lines
         c.beginPath();
-        c.moveTo(__getXPixel(i,data),SCREEN_HEIGHT - yPadding + 15);
-        c.lineTo(__getXPixel(i,data),SCREEN_HEIGHT - yPadding + 20);
+        c.moveTo(__getXPixel(pt, data[j]), SCREEN_HEIGHT - yPadding + 15);
+        c.lineTo(__getXPixel(pt, data[j]), SCREEN_HEIGHT - yPadding + 20);
         c.stroke();
+        pt+=xspace;
       }
     }
 
@@ -243,7 +248,7 @@ var TrackView = function() {
     for(j = 1; j < data.length; j+=espace) {
       for (i = 0; i < data[j].length; i++) {
         localizedValue = Config.userSpeedInteger(data[j][i].speed);
-        x = __getXPixel(i,data);
+        x = __getXPixel(i,data[j]);
         c.lineTo(x, __getYPixel(localizedValue, sp_range));
       }
     }
