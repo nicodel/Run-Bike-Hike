@@ -208,7 +208,6 @@ var TrackView = function() {
         }
         c.textAlign = "center";
         c.fillStyle = "gray";
-        console.log('next', pt + xspace);
         c.fillText(hour, __getXPixel(pt, data[j]) - (pt + xspace > nb_points ? 15 : 0), SCREEN_HEIGHT - yPadding + 27);
         // draw vertical lines
         c.beginPath();
@@ -223,17 +222,19 @@ var TrackView = function() {
     c.strokeStyle = ALT_LINE_COLOR;
     c.lineWidth = LINE_WIDTH;
     c.beginPath();
-    c.moveTo(__getXPixel(0,data), __getYPixel(data[0].altitude, alt_range));
+    c.moveTo(__getXPixel(0,data), __getYPixel(data[0][0].altitude, alt_range));
     var x;
-    for(j = 1; j < data.length; j+=espace) {
-      for (i = 0; i < data[j].length; i++) {
-        x = __getXPixel(i,data);
+    pt = 0;
+    for(j = 0; j < data.length; j++) {
+      for (i = 1; i < data[j].length; i+=espace) {
+        x = __getXPixel(pt,data[j]);
         c.lineTo(x, __getYPixel(data[j][i].altitude, alt_range));
+        pt+=espace;
       }
     }
     c.lineTo(x,SCREEN_HEIGHT - yPadding);
-    c.lineTo(__getXPixel(0,data),SCREEN_HEIGHT - yPadding);
-    c.lineTo(__getXPixel(0,data), __getYPixel(data[0].altitude, alt_range));
+    c.lineTo(__getXPixel(0, data[0]), SCREEN_HEIGHT - yPadding);
+    c.lineTo(__getXPixel(0, data[0]), __getYPixel(data[0][0].altitude, alt_range));
     c.fillStyle = ALT_FILL_COLOR;
     c.fill();
     c.stroke();
@@ -245,11 +246,13 @@ var TrackView = function() {
     c.beginPath();
     localizedValue = Config.userSpeedInteger(data[0].speed);
     c.moveTo(__getXPixel(0,data), __getYPixel(localizedValue, sp_range));
-    for(j = 1; j < data.length; j+=espace) {
-      for (i = 0; i < data[j].length; i++) {
+    pt = 0;
+    for(j = 0; j < data.length; j++) {
+      for (i = 1; i < data[j].length; i+=espace) {
         localizedValue = Config.userSpeedInteger(data[j][i].speed);
-        x = __getXPixel(i,data[j]);
+        x = __getXPixel(pt, data[j]);
         c.lineTo(x, __getYPixel(localizedValue, sp_range));
+        pt+=espace;
       }
     }
     c.lineTo(x,SCREEN_HEIGHT - yPadding);
