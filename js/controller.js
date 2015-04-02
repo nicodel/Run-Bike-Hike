@@ -469,6 +469,7 @@ var Controller = function() {
         __openFileError);
   }
   function __openFileSuccess(inFile) {
+    console.log('inFile', inFile);
     GPX.load(inFile,
         __GPXloadSuccess,
         __GPXloadError);
@@ -478,7 +479,7 @@ var Controller = function() {
   }
 
   function __GPXloadSuccess(inTrack) {
-    // console.log("success load track", inTrack);
+    console.log("success load track", inTrack);
     current_track = Tracks.importFromFile(inTrack);
     Tracks.reset();
     var track = Tracks.close();

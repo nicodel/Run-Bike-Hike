@@ -56,7 +56,8 @@ var GPX = function() {
     }
 
     var trkseg = t.getElementsByTagName('trkseg');
-    var trkpt, tag;
+    var trkpt;
+    var tag;
     if (trkseg.length > 0) {
       for (var seg_nb = 0; seg_nb < trkseg.length; seg_nb++) {
         track.data[seg_nb] = [];

@@ -65,25 +65,28 @@ var TrackView = function() {
 
     //~ get min, max altitude, max speed, start and end time
     for (i=0; i<t.data.length; i++) {
-      var row = t.data[i];
-      var alt_int = parseInt(row.altitude, 10);
-      var speed_int = parseInt(row.speed, 10);
-      if (t.min_alt === 0 || alt_int < t.min_alt) {
-        t.min_alt = alt_int;
-      }
-      if (t.max_alt === 0 || alt_int > t.max_alt) {
-        t.max_alt = alt_int;
-      }
-      if (t.max_speed === 0 || speed_int > t.max_speed) {
-        t.max_speed = speed_int;
-      }
-      var dt = new Date(t.data[i].date).getTime();
-      // console.log("dt ", dt);
-      if (t.start === null || dt < t.start) {
-        t.start = dt;
-      }
-      if (t.end === null || dt > t.end) {
-        t.end = dt;
+      var seg = t.data[i];
+      for (var j = 0; j < seg.length; j++) {
+        var row = seg[j];
+        var alt_int = parseInt(row.altitude, 10);
+        var speed_int = parseInt(row.speed, 10);
+        if (t.min_alt === 0 || alt_int < t.min_alt) {
+          t.min_alt = alt_int;
+        }
+        if (t.max_alt === 0 || alt_int > t.max_alt) {
+          t.max_alt = alt_int;
+        }
+        if (t.max_speed === 0 || speed_int > t.max_speed) {
+          t.max_speed = speed_int;
+        }
+        var dt = new Date(t.data[i].date).getTime();
+        // console.log("dt ", dt);
+        if (t.start === null || dt < t.start) {
+          t.start = dt;
+        }
+        if (t.end === null || dt > t.end) {
+          t.end = dt;
+        }
       }
     }
     t.av_speed = inTrack.distance / inTrack.duration * 1000;
@@ -129,18 +132,22 @@ var TrackView = function() {
     var max_acc = 0;
     var alt_max_y = 0;
     var alt_min_y = 0;
-    var localizedValue, i = 0;
-    for(i=0 ; i<data.length ; i++) {
-      if(parseInt(data[i].altitude, 10) > alt_max_y) {
-        alt_max_y = parseInt(data[i].altitude, 10);
+    var localizedValue;
+    var i, j;
+    for(j = 0 ; j < data.length ; j++) {
+      var row = data[j];
+      for (i = 0; i < row.length; i++) {
+        if(parseInt(row[i].altitude, 10) > alt_max_y) {
+          alt_max_y = parseInt(row[i].altitude, 10);
+        }
+        if(parseInt(row[i].altitude, 10) < alt_min_y) {
+          alt_min_y = parseInt(row[i].altitude, 10);
+        }
+        if(parseInt(row[i].vertAccuracy, 10) > max_acc) {
+          max_acc = parseInt(row[i].vertAccuracy, 10);
+        }
+        max_acc = max_acc / 2;
       }
-      if(parseInt(data[i].altitude, 10) < alt_min_y) {
-        alt_min_y = parseInt(data[i].altitude, 10);
-      }
-      if(parseInt(data[i].vertAccuracy, 10) > max_acc) {
-        max_acc = parseInt(data[i].vertAccuracy, 10);
-      }
-      max_acc = max_acc / 2;
     }
     // sp_max_y: represents the highest speed value
     // sp_min_y: represents the smallest speed value
@@ -186,23 +193,25 @@ var TrackView = function() {
     }
     // console.log("xspace",xspace);
     var timestamp, date, hour = "";
-    for (i=0; i<data.length; i+=xspace) {
-      i = parseInt(i,10);
-      timestamp = Date.parse(data[i].date);
-      if (isNaN(timestamp)) {
-        hour = "";
-      } else {
-        date = new Date(timestamp);
-        hour = ("0" + date.getHours()).slice(-2) + ":" + ("0" + date.getMinutes()).slice(-2);
+    for (j = 0; j < data.length; j+=xspace) {
+      for (i = 0; i < data[j].length; i++) {
+        i = parseInt(i,10);
+        timestamp = Date.parse(data[j][i].date);
+        if (isNaN(timestamp)) {
+          hour = "";
+        } else {
+          date = new Date(timestamp);
+          hour = ("0" + date.getHours()).slice(-2) + ":" + ("0" + date.getMinutes()).slice(-2);
+        }
+        c.textAlign = "center";
+        c.fillStyle = "gray";
+        c.fillText(hour, __getXPixel(i,data) - (i+xspace > data.length ? 15 : 0), SCREEN_HEIGHT - yPadding + 27);
+        // draw vertical lines
+        c.beginPath();
+        c.moveTo(__getXPixel(i,data),SCREEN_HEIGHT - yPadding + 15);
+        c.lineTo(__getXPixel(i,data),SCREEN_HEIGHT - yPadding + 20);
+        c.stroke();
       }
-      c.textAlign = "center";
-      c.fillStyle = "gray";
-      c.fillText(hour, __getXPixel(i,data) - (i+xspace > data.length ? 15 : 0), SCREEN_HEIGHT - yPadding + 27);
-      // draw vertical lines
-      c.beginPath();
-      c.moveTo(__getXPixel(i,data),SCREEN_HEIGHT - yPadding + 15);
-      c.lineTo(__getXPixel(i,data),SCREEN_HEIGHT - yPadding + 20);
-      c.stroke();
     }
 
     // Draw Altitude points
@@ -211,9 +220,11 @@ var TrackView = function() {
     c.beginPath();
     c.moveTo(__getXPixel(0,data), __getYPixel(data[0].altitude, alt_range));
     var x;
-    for(i=1;i<data.length;i+=espace) {
-      x = __getXPixel(i,data);
-      c.lineTo(x, __getYPixel(data[i].altitude, alt_range));
+    for(j = 1; j < data.length; j+=espace) {
+      for (i = 0; i < data[j].length; i++) {
+        x = __getXPixel(i,data);
+        c.lineTo(x, __getYPixel(data[j][i].altitude, alt_range));
+      }
     }
     c.lineTo(x,SCREEN_HEIGHT - yPadding);
     c.lineTo(__getXPixel(0,data),SCREEN_HEIGHT - yPadding);
@@ -229,10 +240,12 @@ var TrackView = function() {
     c.beginPath();
     localizedValue = Config.userSpeedInteger(data[0].speed);
     c.moveTo(__getXPixel(0,data), __getYPixel(localizedValue, sp_range));
-    for(i=1;i<data.length;i+=espace) {
-      localizedValue = Config.userSpeedInteger(data[i].speed);
-      x = __getXPixel(i,data);
-      c.lineTo(x, __getYPixel(localizedValue, sp_range));
+    for(j = 1; j < data.length; j+=espace) {
+      for (i = 0; i < data[j].length; i++) {
+        localizedValue = Config.userSpeedInteger(data[j][i].speed);
+        x = __getXPixel(i,data);
+        c.lineTo(x, __getYPixel(localizedValue, sp_range));
+      }
     }
     c.lineTo(x,SCREEN_HEIGHT - yPadding);
     c.lineTo(__getXPixel(0,data),SCREEN_HEIGHT - yPadding);
@@ -248,22 +261,27 @@ var TrackView = function() {
     // get the min and max longitude/ latitude
     // and build the path
     var minLat, minLon, maxLat, maxLon;
-    for (i = 0; i< inTrack.data.length; i++){
-      var point = {
-        lat: inTrack.data[i].latitude / 1,
-        lon: inTrack.data[i].longitude / 1
-      };
-      if (minLat === undefined || minLat > point.lat) {
-        minLat = point.lat;
-      }
-      if (maxLat === undefined || maxLat < point.lat) {
-        maxLat = point.lat;
-      }
-      if (minLon === undefined || minLon > point.lon) {
-        minLon = point.lon;
-      }
-      if (maxLon === undefined || maxLon < point.lon) {
-        maxLon = point.lon;
+    var i, j;
+    var nb_points = 0;
+    for (j = 0; j < inTrack.data.length; j++){
+      for (i = 0; i < inTrack.data[j].length; i++) {
+        var point = {
+          lat: inTrack.data[j][i].latitude / 1,
+          lon: inTrack.data[j][i].longitude / 1
+        };
+        if (minLat === undefined || minLat > point.lat) {
+          minLat = point.lat;
+        }
+        if (maxLat === undefined || maxLat < point.lat) {
+          maxLat = point.lat;
+        }
+        if (minLon === undefined || minLon > point.lon) {
+          minLon = point.lon;
+        }
+        if (maxLon === undefined || maxLon < point.lon) {
+          maxLon = point.lon;
+        }
+        nb_points++;
       }
     }
     // Calculate the Bouncing Box
@@ -293,27 +311,36 @@ var TrackView = function() {
 
     var MAX_POINTS = 100;
     var BLUE = "0x0AFF00";
-    var PATH = "&polyline=color:" + BLUE + "|width:3|";
-    var j = 0;
+    var PATH = "&polyline=";//polyline=color:" + BLUE + "|width:3|";
+    var k = 0;
     var y;
-    if (inTrack.data.length > MAX_POINTS) {
-      y = parseInt(inTrack.data.length / MAX_POINTS, 10);
+    if (nb_points > MAX_POINTS) {
+      y = parseInt(nb_points / MAX_POINTS, 10);
       // console.log("y: ", y);
-      if (y * inTrack.data.length > MAX_POINTS) {
-        y = y + 1;
+      if (y * nb_points > MAX_POINTS) {
+        y++;
       }
     } else {
       y = 1;
     }
-    for (var i = 0; i < inTrack.data.length; i = i + y) {
-      if (i === inTrack.data.length - 1) {
-        PATH = PATH + inTrack.data[i].latitude + "," + inTrack.data[i].longitude;
-      } else {
-        PATH = PATH + inTrack.data[i].latitude + "," + inTrack.data[i].longitude + ",";
+    for (var s = 0; s < inTrack.data.length; s++) {
+      var seg = inTrack.data[s];
+      var SEGMENT = "color:" + BLUE + "|width:3|";
+      for (var p = 0; p < seg.length; p = p + y) {
+        if (p === seg.length - 1) {
+          SEGMENT = SEGMENT + seg[p].latitude + "," + seg[p].longitude;
+        } else {
+          SEGMENT = SEGMENT + seg[p].latitude + "," + seg[p].longitude + ",";
+        }
       }
-      j++;
+      if (s === inTrack.data.length - 1) {
+        PATH = PATH + SEGMENT;
+      } else {
+        PATH = PATH + SEGMENT + "|";
+      }
+      k++;
     }
-    // console.log("PATH: ", PATH);
+    console.log("PATH: ", PATH);
     var BESTFIT = "&bestfit=" + p1.lat + ","+ p1.lon + ","+ p2.lat + "," + p2.lon;
     var SIZE = "&size=" + MAP_WIDTH + "," + MAP_HEIGHT;
     var TYPE = "&type=map&imagetype=jpeg";
