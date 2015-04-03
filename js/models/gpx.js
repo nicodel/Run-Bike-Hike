@@ -31,11 +31,16 @@ var GPX = function() {
     };
     var missing_time,
         tstart,
-        tend;
+        tend,
+        time;
     var metadata = x.getElementsByTagName('metadata');
-    var time = metadata[0].getElementsByTagName('time');
-    if (time.length > 0) {
+    if (metadata.length > 0) {
+      time = metadata[0].getElementsByTagName('time');
+      if (time.length > 0) {
       track.date = time[0].textContent;
+      } else {
+        missing_time = true;
+      }
     } else {
       missing_time = true;
     }
@@ -54,12 +59,19 @@ var GPX = function() {
     } else {
       track.name = __named();
     }
+    time = t.getElementsByTagName('name');
+    if (time.length > 0) {
+      track.date = time[0].textContent;
+    } else {
+      missing_time = true;
+    }
 
     var trkseg = t.getElementsByTagName('trkseg');
     var trkpt;
     var tag;
     if (trkseg.length > 0) {
       for (var seg_nb = 0; seg_nb < trkseg.length; seg_nb++) {
+        console.log('track.data', track.data);
         track.data[seg_nb] = [];
         trkpt = trkseg[seg_nb].getElementsByTagName('trkpt');
         if (trkpt.length > 0) {
