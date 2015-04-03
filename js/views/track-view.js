@@ -319,7 +319,7 @@ var TrackView = function() {
 
     var MAX_POINTS = 100;
     var BLUE = "0x0AFF00";
-    var PATH = "&polyline=";//polyline=color:" + BLUE + "|width:3|";
+    var PATH = "";//&polyline=color:" + BLUE + "|width:3|";
     var k = 0;
     var y;
     if (nb_points > MAX_POINTS) {
@@ -333,19 +333,15 @@ var TrackView = function() {
     }
     for (var s = 0; s < inTrack.data.length; s++) {
       var seg = inTrack.data[s];
-      var SEGMENT = "color:" + BLUE + "|width:3|";
+      var SEGMENT = "&polyline=color:" + BLUE + "|width:3|";
       for (var p = 0; p < seg.length; p = p + y) {
-        if (p === seg.length - 1) {
+        if (p + y >= seg.length - 1) {
           SEGMENT = SEGMENT + seg[p].latitude + "," + seg[p].longitude;
         } else {
           SEGMENT = SEGMENT + seg[p].latitude + "," + seg[p].longitude + ",";
         }
       }
-      if (s === inTrack.data.length - 1) {
-        PATH = PATH + SEGMENT;
-      } else {
-        PATH = PATH + SEGMENT + "|";
-      }
+      PATH = PATH + SEGMENT;
       k++;
     }
     console.log("PATH: ", PATH);
