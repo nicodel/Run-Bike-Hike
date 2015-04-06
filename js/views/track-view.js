@@ -164,8 +164,8 @@ var TrackView = function() {
     // calculate
     var alt_yspace = parseInt(alt_range / 4, 10);
     var sp_yspace = parseInt(sp_range / 4, 10);
-    console.log("speed", sp_range + "-" + sp_yspace);
-    console.log("alt", alt_range + "-" + alt_yspace);
+    // console.log("speed", sp_range + "-" + sp_yspace);
+    // console.log("alt", alt_range + "-" + alt_yspace);
     var c = __createRectCanvas("graphs-canvas", alt_range, alt_yspace, sp_range, sp_yspace);
 
     var espace = parseInt(nb_points / (SCREEN_WIDTH - xPadding - 5), 10);
@@ -193,7 +193,7 @@ var TrackView = function() {
     } else {
       xspace = parseInt(nb_points / SPACE_BTW_POINTS, 10);
     }
-    console.log("xspace",xspace);
+    // console.log("xspace",xspace);
     var timestamp, date, hour = "";
     var pt = 0;
     for (j = 0; j < data.length; j++) {
@@ -316,7 +316,6 @@ var TrackView = function() {
     if (larger === 0) {
       return;
     }
-
     var MAX_POINTS = 100;
     var BLUE = "0x0AFF00";
     var PATH = "";//&polyline=color:" + BLUE + "|width:3|";
@@ -334,17 +333,30 @@ var TrackView = function() {
     for (var s = 0; s < inTrack.data.length; s++) {
       var seg = inTrack.data[s];
       var SEGMENT = "&polyline=color:" + BLUE + "|width:3|";
-      for (var p = 0; p < seg.length; p = p + y) {
-        if (p + y >= seg.length - 1) {
-          SEGMENT = SEGMENT + seg[p].latitude + "," + seg[p].longitude;
-        } else {
-          SEGMENT = SEGMENT + seg[p].latitude + "," + seg[p].longitude + ",";
+      /*
+       * In case the segment of track is smaller than the trackpoint interval,
+       * we display every point of this small segment.
+       */
+      if (seg.length <= y) {
+        for (var m = 0; m < seg.length; m++) {
+          if (m === 0) {
+            SEGMENT = SEGMENT + seg[m].latitude + "," + seg[m].longitude;
+          } else {
+            SEGMENT = SEGMENT + "," + seg[m].latitude + "," + seg[m].longitude;
+          }
+        }
+      } else {
+        for (var p = 0; p < seg.length; p = p + y) {
+          if (p === 0) {
+            SEGMENT = SEGMENT + seg[p].latitude + "," + seg[p].longitude;
+          } else {
+            SEGMENT = SEGMENT + "," + seg[p].latitude + "," + seg[p].longitude;
+          }
         }
       }
       PATH = PATH + SEGMENT;
       k++;
     }
-    console.log("PATH: ", PATH);
     var BESTFIT = "&bestfit=" + p1.lat + ","+ p1.lon + ","+ p2.lat + "," + p2.lon;
     var SIZE = "&size=" + MAP_WIDTH + "," + MAP_HEIGHT;
     var TYPE = "&type=map&imagetype=jpeg";
@@ -352,6 +364,7 @@ var TrackView = function() {
     var KEY = "key=Fmjtd%7Cluur21u720%2Cr5%3Do5-90tx9a";
 
     var loc = "http://" + BASE_URL + KEY + SIZE + TYPE + BESTFIT + PATH;
+    // console.log('url', loc);
 
     document.getElementById("map-img").width = SCREEN_WIDTH;
     document.getElementById("map-img").onload = function () {
@@ -365,7 +378,7 @@ var TrackView = function() {
     xhr.open('GET', loc, true);
     xhr.responseType = "blob";
     xhr.addEventListener("load", function() {
-      console.log("xhr", xhr);
+      // console.log("xhr", xhr);
       if (xhr.status === 200) {
         blob = xhr.response;
         var URL = window.URL || window.webkitURL;
