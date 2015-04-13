@@ -116,6 +116,7 @@ var TrackView = function() {
       // console.log("mapToSave.map", mapToSave.map);
     }
     __buildGraphs(t);
+    __buildGraphs2(t);
   }
 
   function updateName(inName) {
@@ -263,6 +264,162 @@ var TrackView = function() {
     c.stroke();
 
     c.closePath();
+  }
+
+  function __buildGraphs2(inData) {
+    var value;
+    var time;
+    var hour;
+    var i;
+    // Get the total duration of the track, including pauses
+    var duration = inData.duration;
+
+    // Calculate the number of seconds (= number of points)
+    var nb_points = duration / 1000;
+
+    // Calculate altitude range
+    var alt_range = inData.max_alt - inData.min_alt;
+    alt_range = alt_range + (alt_range /3);
+    // Calculate display space between altitude values
+    var alt_yspace = parseInt(alt_range / 3);
+    // Caluclate speed range
+    var sp_range = inData.max_speed - inData.min_speed;
+    sp_range = sp_range * 2;
+    // Calculate display space between speed values
+    var sp_yspace = parseInt(sp_range / 4, 10);
+
+    // Create the Canvas
+    var c = __createRectCanvas("graphs-canvas-2", alt_range, alt_yspace, sp_range, sp_yspace);
+
+    // Write the legends
+    // 1: Altitude
+    // 2: Speed
+    c.fillStyle = ALT_LINE_COLOR;
+    value = Config.userSmallDistance(null);
+    c.fillText(_("altitude") + " (" + value.u + ")", xPadding + 50, 8);
+    c.fillStyle = SP_LINE_COLOR;
+    value = Config.userSpeed(null);
+    c.fillText(_("speed") + " (" + value.u + ")", xPadding + 50, 20);
+    c.stroke();
+
+    // Calculate display space between time values
+    var xspace;
+    SPACE_BTW_POINTS = 15;
+    if (nb_points <= SPACE_BTW_POINTS) {
+      xspace = nb_points;
+    } else {
+      xspace = parseInt(nb_points / SPACE_BTW_POINTS, 10);
+    }
+    /* Draw the time values based on tyhe first time recorded and the duration (nb_points)
+    * TODO Manage tracks that does not contain time values
+    */
+    // Get the first recorder time and convert it to a value in milliseconds since 1970...
+    var date = new Date(inData.data[0][0].date).valueOf();
+    console.log("time", time);
+    for (i = 0; i < nb_points; i += xspace) {
+      // increase hour by a xspace seconds
+      time = new Date(date + (i * 1000));
+      // Get time value to a prettier format
+      hour = ("0" + time.getHours()).slice(-2) + ":" + ("0" + time.getMinutes()).slice(-2);
+      // Define syles for display
+      c.textAlign = "center";
+      c.fillStyle = "gray";
+      // Write time value to the canvas
+      // c.fillText(hour, __getXPixel(pt, data[seg]) - (pt + xspace > nb_points ? 15 : 0), SCREEN_HEIGHT - yPadding + 27);
+      var x_coord = xPadding + i;
+      var y_coord = SCREEN_HEIGHT - yPadding + 27;
+      c.fillText(hour, x_coord, y_coord);
+      console.log("hour" + hour + " at " + x_coord + "/" + y_coord);
+      // draw vertical small lines
+      c.beginPath();
+      c.moveTo(xPadding + i, SCREEN_HEIGHT - yPadding + 15);
+      c.lineTo(xPadding + i, SCREEN_HEIGHT - yPadding + 20);
+      c.stroke();
+
+    }
+    /*
+     * Draw the ALTITUDE points
+     */
+    // choose the line color
+    c.strokeStyle = ALT_LINE_COLOR;
+    // choose the line width
+    c.lineWidth = LINE_WIDTH;
+    // we record the first date of the track
+    var initial_time = new Date(inData.data[0][0].date).valueOf();
+    var y;
+    var x;
+    for (var seg = 0; seg < inData.data.length; seg++) {
+      var segment = inData.data[seg];
+      c.beginPath();
+      // we record the initial X coordinate (based on time) for this segment
+      var segment_initial_x = (new Date(segment[0].date).valueOf() - initial_time) / 1000;
+      // we record the initial Y coordinate (based on altitude) for this segment
+      var segment_initial_y = __getYPixel(segment[0].altitude, alt_range);
+      // move to original Altitude point of the current segment
+      c.moveTo(segment_initial_x + xPadding, segment_initial_y);
+      for (i = 0; i < segment.length; i++) {
+        x = ((new Date(segment[i].date).valueOf() - initial_time) / 1000) + xPadding;
+        y = __getYPixel(segment[i].altitude, alt_range);
+        c.lineTo(x, y, alt_range);
+      }
+      c.lineTo(x, SCREEN_HEIGHT - yPadding);
+      c.lineTo(segment_initial_x + xPadding, SCREEN_HEIGHT - yPadding);
+      c.lineTo(segment_initial_x + xPadding, segment_initial_y);
+      c.fillStyle = ALT_FILL_COLOR;
+      c.fill();
+      c.stroke();
+    }
+
+
+
+/*    // Draw Altitude points
+    c.strokeStyle = ALT_LINE_COLOR;
+    c.lineWidth = LINE_WIDTH;
+    c.beginPath();
+    c.moveTo(__getXPixel(0,data), __getYPixel(data[0][0].altitude, alt_range));
+    var x;
+    pt = 0;
+    for(j = 0; j < data.length; j++) {
+      for (i = 1; i < data[j].length; i+=espace) {
+        x = __getXPixel(pt,data[j]);
+        c.lineTo(x, __getYPixel(data[j][i].altitude, alt_range));
+        pt+=espace;
+      }
+    }
+    c.lineTo(x,SCREEN_HEIGHT - yPadding);
+    c.lineTo(__getXPixel(0, data[0]), SCREEN_HEIGHT - yPadding);
+    c.lineTo(__getXPixel(0, data[0]), __getYPixel(data[0][0].altitude, alt_range));
+    c.fillStyle = ALT_FILL_COLOR;
+    c.fill();
+    c.stroke();
+*/
+
+    /*var timestamp, date, hour = "";
+    var pt = 0;
+    for (seg = 0; seg < data.length; seg++) {
+      for (i = 0; i < data[seg].length; i += xspace) {
+        i = parseInt(i,10);
+        timestamp = Date.parse(data[seg][i].date);
+        if (isNaN(timestamp)) {
+          hour = "";
+        } else {
+          date = new Date(timestamp);
+          hour = ("0" + date.getHours()).slice(-2) + ":" + ("0" + date.getMinutes()).slice(-2);
+        }
+        c.textAlign = "center";
+        c.fillStyle = "gray";
+        c.fillText(hour, __getXPixel(pt, data[seg]) - (pt + xspace > nb_points ? 15 : 0), SCREEN_HEIGHT - yPadding + 27);
+        console.log("hour:" + hour + " at " + (__getXPixel(pt, data[seg]) - (pt + xspace > nb_points ? 15 : 0)) + "/" + (SCREEN_HEIGHT - yPadding + 27));
+        // draw vertical lines
+        c.beginPath();
+        c.moveTo(__getXPixel(pt, data[seg]), SCREEN_HEIGHT - yPadding + 15);
+        c.lineTo(__getXPixel(pt, data[seg]), SCREEN_HEIGHT - yPadding + 20);
+        c.stroke();
+        pt += xspace;
+      }
+    }*/
+
+
   }
 
   function __buildMap2(inTrack, saveMapCallback) {
