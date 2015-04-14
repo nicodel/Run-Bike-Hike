@@ -271,15 +271,15 @@ var TrackView = function() {
     var time;
     var hour;
     var i;
+    /*
+     * TODO Manage tracks without any timeline
+     */
     // Get the total duration of the track, including pauses
     var duration = inData.duration;
-
     // Calculate the number of seconds (= number of points)
     var nb_points = duration / 1000;
-
     // Calculate altitude range
-    var alt_range = inData.max_alt - inData.min_alt;
-    alt_range = alt_range + (alt_range /3);
+    var alt_range = inData.max_alt + (inData.max_alt /3);
     // Calculate display space between altitude values
     var alt_yspace = parseInt(alt_range / 3);
     // Caluclate speed range
@@ -353,6 +353,7 @@ var TrackView = function() {
     var segment_initial_y;
     // we calculate the ratio needed to display all data in available width
     var ratio = SCREEN_WIDTH / nb_points;
+    console.log('ratio', ratio);
     for (var seg = 0; seg < inData.data.length; seg++) {
       segment = inData.data[seg];
       c.beginPath();
