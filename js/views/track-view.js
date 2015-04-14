@@ -348,15 +348,18 @@ var TrackView = function() {
     var initial_time = new Date(inData.data[0][0].date).valueOf();
     var y;
     var x;
+    var segment;
+    var segment_initial_x;
+    var segment_initial_y;
     // we calculate the ratio needed to display all data in available width
     var ratio = SCREEN_WIDTH / nb_points;
     for (var seg = 0; seg < inData.data.length; seg++) {
-      var segment = inData.data[seg];
+      segment = inData.data[seg];
       c.beginPath();
       // we record the initial X coordinate (based on time) for this segment
-      var segment_initial_x = ((new Date(segment[0].date).valueOf() - initial_time) / 1000) * ratio;
+      segment_initial_x = ((new Date(segment[0].date).valueOf() - initial_time) / 1000) * ratio;
       // we record the initial Y coordinate (based on altitude) for this segment
-      var segment_initial_y = __getYPixel(segment[0].altitude, alt_range);
+      segment_initial_y = __getYPixel(segment[0].altitude, alt_range);
       // move to original Altitude point of the current segment
       c.moveTo(segment_initial_x + xPadding, segment_initial_y);
       for (i = 0; i < segment.length; i++) {
@@ -372,6 +375,34 @@ var TrackView = function() {
       c.stroke();
     }
 
+    /*
+       Draw the SPEED points
+     */
+    // choose the line color
+    c.strokeStyle = SP_LINE_COLOR;
+    // choose the line width
+    c.lineWidth = LINE_WIDTH;
+    for (seg = 0; seg < inData.data.length; seg++) {
+      segment = inData.data[seg];
+      c.beginPath();
+      // we record the initial X coordinate (based on time) for this segment
+      segment_initial_x = ((new Date(segment[0].date).valueOf() - initial_time) / 1000) * ratio;
+      // we record the initial Y coordinate (based on altitude) for this segment
+      segment_initial_y = __getYPixel(segment[0].speed, sp_range);
+      // move to original Altitude point of the current segment
+      c.moveTo(segment_initial_x + xPadding, segment_initial_y);
+      for (i = 0; i < segment.length; i++) {
+        x = (((new Date(segment[i].date).valueOf() - initial_time) / 1000) * ratio) + xPadding;
+        y = __getYPixel(segment[i].speed, sp_range);
+        c.lineTo(x, y, sp_range);
+      }
+      c.lineTo(x, SCREEN_HEIGHT - yPadding);
+      c.lineTo(segment_initial_x + xPadding, SCREEN_HEIGHT - yPadding);
+      c.lineTo(segment_initial_x + xPadding, segment_initial_y);
+      c.fillStyle = SP_FILL_COLOR;
+      c.fill();
+      c.stroke();
+    }
 
 
 /*    // Draw Altitude points
