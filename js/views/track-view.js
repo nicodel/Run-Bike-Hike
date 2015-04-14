@@ -348,17 +348,19 @@ var TrackView = function() {
     var initial_time = new Date(inData.data[0][0].date).valueOf();
     var y;
     var x;
+    // we calculate the ratio needed to display all data in available width
+    var ratio = SCREEN_WIDTH / nb_points;
     for (var seg = 0; seg < inData.data.length; seg++) {
       var segment = inData.data[seg];
       c.beginPath();
       // we record the initial X coordinate (based on time) for this segment
-      var segment_initial_x = (new Date(segment[0].date).valueOf() - initial_time) / 1000;
+      var segment_initial_x = ((new Date(segment[0].date).valueOf() - initial_time) / 1000) * ratio;
       // we record the initial Y coordinate (based on altitude) for this segment
       var segment_initial_y = __getYPixel(segment[0].altitude, alt_range);
       // move to original Altitude point of the current segment
       c.moveTo(segment_initial_x + xPadding, segment_initial_y);
       for (i = 0; i < segment.length; i++) {
-        x = ((new Date(segment[i].date).valueOf() - initial_time) / 1000) + xPadding;
+        x = (((new Date(segment[i].date).valueOf() - initial_time) / 1000) * ratio) + xPadding;
         y = __getYPixel(segment[i].altitude, alt_range);
         c.lineTo(x, y, alt_range);
       }
