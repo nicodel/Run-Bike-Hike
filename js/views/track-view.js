@@ -670,8 +670,11 @@ var TrackView = function() {
           previous = x;
           x = x + xPadding;
           c.lineTo(x, y, range);
-        } else if (i === segment.length -1) {
+        } else if (seg === inData.data.length -1 && i === segment.length - 1) {
           x = SCREEN_WIDTH - 6;
+          c.lineTo(x, y, range);
+        } else if (i === segment.length - 1){
+          x = x + xPadding;
           c.lineTo(x, y, range);
         }
       }
