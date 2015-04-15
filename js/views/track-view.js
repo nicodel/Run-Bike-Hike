@@ -216,6 +216,7 @@ var TrackView = function() {
         c.lineTo(__getXPixel(pt, data[j]), SCREEN_HEIGHT - yPadding + 20);
         c.stroke();
         pt+=xspace;
+        console.log('x', __getXPixel(pt, data[j]));
       }
     }
 
@@ -328,17 +329,25 @@ var TrackView = function() {
       c.textAlign = "center";
       c.fillStyle = "gray";
       // calculate x coordinate. if last value, we move it to the left by 15
-      var x_coord = xPadding + (i * ratio) - (i + xspace > nb_points ? 15 : 0);
+      var x_coord = xPadding + (i * ratio);
       var y_coord = SCREEN_HEIGHT - yPadding + 27;
-      // Write time value to the canvas
-      c.fillText(hour, x_coord, y_coord);
-      // draw vertical small lines
-      c.beginPath();
-      c.moveTo(x_coord, SCREEN_HEIGHT - yPadding + 15);
-      console.log('X2', x_coord);
-      c.lineTo(x_coord, SCREEN_HEIGHT - yPadding + 20);
-      c.stroke();
-
+      if (i + xspace > nb_points) {
+        // Write time value to the canvas
+        c.fillText(hour, parseInt(x_coord - 15), y_coord);
+        console.log('last one', SCREEN_WIDTH - 20);
+        // draw vertical small lines
+        c.beginPath();
+        c.moveTo(SCREEN_WIDTH - 6, SCREEN_HEIGHT - yPadding + 15);
+        c.lineTo(SCREEN_WIDTH - 6, SCREEN_HEIGHT - yPadding + 20);
+        c.stroke();
+      } else {
+        c.fillText(hour, x_coord, y_coord);
+        // draw vertical small lines
+        c.beginPath();
+        c.moveTo(x_coord, SCREEN_HEIGHT - yPadding + 15);
+        c.lineTo(x_coord, SCREEN_HEIGHT - yPadding + 20);
+        c.stroke();
+      }
     }
     /*
      * Draw the ALTITUDE points
@@ -354,6 +363,7 @@ var TrackView = function() {
     var segment;
     var segment_initial_x;
     var segment_initial_y;
+    var previous = 0;
     for (var seg = 0; seg < inData.data.length; seg++) {
       segment = inData.data[seg];
       c.beginPath();
@@ -364,9 +374,17 @@ var TrackView = function() {
       // move to original Altitude point of the current segment
       c.moveTo(segment_initial_x + xPadding, segment_initial_y);
       for (i = 0; i < segment.length; i++) {
-        x = (((new Date(segment[i].date).valueOf() - initial_time) / 1000) * ratio) + xPadding;
+        x = ((new Date(segment[i].date).valueOf() - initial_time) / 1000) * ratio;
         y = __getYPixel(segment[i].altitude, alt_range);
-        c.lineTo(x, y, alt_range);
+        // we only display the current point if it is distant of 1 pixel from the previous one
+        if (x > previous + 1) {
+          previous = x;
+          x = x + xPadding;
+          c.lineTo(x, y, alt_range);
+        } else if (i === segment.length -1) {
+          x = SCREEN_WIDTH - 6;
+          c.lineTo(x, y, alt_range);
+        }
       }
       c.lineTo(x, SCREEN_HEIGHT - yPadding);
       c.lineTo(segment_initial_x + xPadding, SCREEN_HEIGHT - yPadding);
@@ -377,7 +395,7 @@ var TrackView = function() {
     }
 
     /*
-       Draw the SPEED points
+     * Draw the SPEED points
      */
     // choose the line color
     c.strokeStyle = SP_LINE_COLOR;
@@ -404,56 +422,6 @@ var TrackView = function() {
       c.fill();
       c.stroke();
     }
-
-
-/*    // Draw Altitude points
-    c.strokeStyle = ALT_LINE_COLOR;
-    c.lineWidth = LINE_WIDTH;
-    c.beginPath();
-    c.moveTo(__getXPixel(0,data), __getYPixel(data[0][0].altitude, alt_range));
-    var x;
-    pt = 0;
-    for(j = 0; j < data.length; j++) {
-      for (i = 1; i < data[j].length; i+=espace) {
-        x = __getXPixel(pt,data[j]);
-        c.lineTo(x, __getYPixel(data[j][i].altitude, alt_range));
-        pt+=espace;
-      }
-    }
-    c.lineTo(x,SCREEN_HEIGHT - yPadding);
-    c.lineTo(__getXPixel(0, data[0]), SCREEN_HEIGHT - yPadding);
-    c.lineTo(__getXPixel(0, data[0]), __getYPixel(data[0][0].altitude, alt_range));
-    c.fillStyle = ALT_FILL_COLOR;
-    c.fill();
-    c.stroke();
-*/
-
-    /*var timestamp, date, hour = "";
-    var pt = 0;
-    for (seg = 0; seg < data.length; seg++) {
-      for (i = 0; i < data[seg].length; i += xspace) {
-        i = parseInt(i,10);
-        timestamp = Date.parse(data[seg][i].date);
-        if (isNaN(timestamp)) {
-          hour = "";
-        } else {
-          date = new Date(timestamp);
-          hour = ("0" + date.getHours()).slice(-2) + ":" + ("0" + date.getMinutes()).slice(-2);
-        }
-        c.textAlign = "center";
-        c.fillStyle = "gray";
-        c.fillText(hour, __getXPixel(pt, data[seg]) - (pt + xspace > nb_points ? 15 : 0), SCREEN_HEIGHT - yPadding + 27);
-        console.log("hour:" + hour + " at " + (__getXPixel(pt, data[seg]) - (pt + xspace > nb_points ? 15 : 0)) + "/" + (SCREEN_HEIGHT - yPadding + 27));
-        // draw vertical lines
-        c.beginPath();
-        c.moveTo(__getXPixel(pt, data[seg]), SCREEN_HEIGHT - yPadding + 15);
-        c.lineTo(__getXPixel(pt, data[seg]), SCREEN_HEIGHT - yPadding + 20);
-        c.stroke();
-        pt += xspace;
-      }
-    }*/
-
-
   }
 
   function __buildMap2(inTrack, saveMapCallback) {
