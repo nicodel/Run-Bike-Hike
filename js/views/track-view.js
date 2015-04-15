@@ -353,7 +353,7 @@ var TrackView = function() {
      * Draw the ALTITUDE points
      */
     // choose the line color
-    c.strokeStyle = ALT_LINE_COLOR;
+    /*c.strokeStyle = ALT_LINE_COLOR;
     // choose the line width
     c.lineWidth = LINE_WIDTH;
     // we record the first date of the track
@@ -392,12 +392,13 @@ var TrackView = function() {
       c.fillStyle = ALT_FILL_COLOR;
       c.fill();
       c.stroke();
-    }
+    }*/
+    __drawPoints(c, inData, alt_range, ratio, "altitude", ALT_LINE_COLOR, ALT_FILL_COLOR);
 
     /*
      * Draw the SPEED points
      */
-    // choose the line color
+    /*// choose the line color
     c.strokeStyle = SP_LINE_COLOR;
     // choose the line width
     c.lineWidth = LINE_WIDTH;
@@ -421,7 +422,8 @@ var TrackView = function() {
       c.fillStyle = SP_FILL_COLOR;
       c.fill();
       c.stroke();
-    }
+    }*/
+    __drawPoints(c, inData, alt_range, ratio, "speed", SP_LINE_COLOR, SP_FILL_COLOR);
   }
 
   function __buildMap2(inTrack, saveMapCallback) {
@@ -633,6 +635,55 @@ var TrackView = function() {
       lat : (latRad / (Math.PI / 180)),
       lon : (lonRad / (Math.PI / 180))
     };
+  }
+
+  function __drawPoints(c, inData, range, ratio, value, LINE_COLOR, FILL_COLOR) {
+    /*
+     * Draw the ALTITUDE points
+     */
+    // choose the line color
+    c.strokeStyle = LINE_COLOR;
+    // choose the line width
+    c.lineWidth = LINE_WIDTH;
+    // we record the first date of the track
+    var initial_time = new Date(inData.data[0][0].date).valueOf();
+    var y;
+    var x;
+    var segment;
+    var segment_initial_x;
+    var segment_initial_y;
+    var previous = 0;
+    for (var seg = 0; seg < inData.data.length; seg++) {
+      segment = inData.data[seg];
+      c.beginPath();
+      // we record the initial X coordinate (based on time) for this segment
+      segment_initial_x = ((new Date(segment[0].date).valueOf() - initial_time) / 1000) * ratio;
+      // we record the initial Y coordinate for this segment
+      segment_initial_y = __getYPixel(segment[0][value], range);
+      // move to original point of the current segment
+      c.moveTo(segment_initial_x + xPadding, segment_initial_y);
+      for (var i = 0; i < segment.length; i++) {
+        x = ((new Date(segment[i].date).valueOf() - initial_time) / 1000) * ratio;
+        y = __getYPixel(segment[i][value], range);
+        // we only display the current point if it is distant of 1 pixel from the previous one
+        if (x > previous + 1) {
+          previous = x;
+          x = x + xPadding;
+          c.lineTo(x, y, range);
+        } else if (i === segment.length -1) {
+          x = SCREEN_WIDTH - 6;
+          c.lineTo(x, y, range);
+        }
+      }
+      c.lineTo(x, SCREEN_HEIGHT - yPadding);
+      c.lineTo(segment_initial_x + xPadding, SCREEN_HEIGHT - yPadding);
+      c.lineTo(segment_initial_x + xPadding, segment_initial_y);
+      c.fillStyle = FILL_COLOR;
+      c.fill();
+      c.stroke();
+    }
+
+
   }
 
   return {
