@@ -79,8 +79,8 @@ var TrackView = function() {
         if (t.max_speed === 0 || speed_int > t.max_speed) {
           t.max_speed = speed_int;
         }
-        var dt = new Date(t.data[i].date).getTime();
-        // console.log("dt ", dt);
+        // TODO Manage the segment/tracks with no time values
+        var dt = new Date(row.date).getTime();
         if (t.start === null || dt < t.start) {
           t.start = dt;
         }
@@ -282,12 +282,17 @@ var TrackView = function() {
     // Calculate altitude range
     var alt_range = inData.max_alt + (inData.max_alt /3);
     // Calculate display space between altitude values
-    var alt_yspace = parseInt(alt_range / 3);
+    var alt_yspace = parseInt(alt_range / 4);
     // Caluclate speed range
-    var sp_range = inData.max_speed - inData.min_speed;
-    sp_range = sp_range * 2;
-    // Calculate display space between speed values
-    var sp_yspace = parseInt(sp_range / 4, 10);
+    var sp_range = 0;
+    var sp_yspace = 0;
+    if (inData.max_speed !== 0 || inData.min_speed !== 0) {
+      sp_range = Config.userSpeedInteger(inData.max_speed) -
+        Config.userSpeedInteger(inData.min_speed);
+      sp_range = sp_range * 2;
+      // Calculate display space between speed values
+      sp_yspace = parseInt(sp_range / 4, 10);
+    }
 
     // Create the Canvas
     var c = __createRectCanvas("graphs-canvas-2", alt_range, alt_yspace, sp_range, sp_yspace);
@@ -295,6 +300,7 @@ var TrackView = function() {
     // Write the legends
     // 1: Altitude
     // 2: Speed
+    // TODO Manage when speed or altitude are not available in points
     c.fillStyle = ALT_LINE_COLOR;
     value = Config.userSmallDistance(null);
     c.fillText(_("altitude") + " (" + value.u + ")", xPadding + 50, 8);
@@ -423,7 +429,7 @@ var TrackView = function() {
       c.fill();
       c.stroke();
     }*/
-    __drawPoints(c, inData, alt_range, ratio, "speed", SP_LINE_COLOR, SP_FILL_COLOR);
+    __drawPoints(c, inData, sp_range, ratio, "speed", SP_LINE_COLOR, SP_FILL_COLOR);
   }
 
   function __buildMap2(inTrack, saveMapCallback) {
@@ -553,6 +559,7 @@ var TrackView = function() {
   }
 
   function __createRectCanvas(inElementId, inRangeAlt, inSpaceAlt, inRangeSp, inSpaceSp) {
+    console.log('createRectCanvas inputs', inElementId, inRangeAlt, inSpaceAlt, inRangeSp, inSpaceSp);
     var graph = document.getElementById(inElementId);
     var c = graph.getContext("2d");
     c.clearRect(0, 0, SCREEN_WIDTH - 5, SCREEN_HEIGHT);
@@ -638,14 +645,11 @@ var TrackView = function() {
   }
 
   function __drawPoints(c, inData, range, ratio, value, LINE_COLOR, FILL_COLOR) {
-    /*
-     * Draw the ALTITUDE points
-     */
-    // choose the line color
+    // set the line color
     c.strokeStyle = LINE_COLOR;
-    // choose the line width
+    // set the line width
     c.lineWidth = LINE_WIDTH;
-    // we record the first date of the track
+    // record the first date of the track
     var initial_time = new Date(inData.data[0][0].date).valueOf();
     var y;
     var x;
@@ -656,16 +660,16 @@ var TrackView = function() {
     for (var seg = 0; seg < inData.data.length; seg++) {
       segment = inData.data[seg];
       c.beginPath();
-      // we record the initial X coordinate (based on time) for this segment
+      // record the initial X coordinate (based on time) for this segment
       segment_initial_x = ((new Date(segment[0].date).valueOf() - initial_time) / 1000) * ratio;
-      // we record the initial Y coordinate for this segment
+      // record the initial Y coordinate for this segment
       segment_initial_y = __getYPixel(segment[0][value], range);
       // move to original point of the current segment
       c.moveTo(segment_initial_x + xPadding, segment_initial_y);
       for (var i = 0; i < segment.length; i++) {
         x = ((new Date(segment[i].date).valueOf() - initial_time) / 1000) * ratio;
         y = __getYPixel(segment[i][value], range);
-        // we only display the current point if it is distant of 1 pixel from the previous one
+        // only display the current point if it is distant of 1 pixel from the previous one
         if (x > previous + 2) {
           previous = x;
           x = x + xPadding;
