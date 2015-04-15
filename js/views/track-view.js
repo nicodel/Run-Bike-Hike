@@ -666,7 +666,7 @@ var TrackView = function() {
         x = ((new Date(segment[i].date).valueOf() - initial_time) / 1000) * ratio;
         y = __getYPixel(segment[i][value], range);
         // we only display the current point if it is distant of 1 pixel from the previous one
-        if (x > previous + 1) {
+        if (x > previous + 2) {
           previous = x;
           x = x + xPadding;
           c.lineTo(x, y, range);
