@@ -213,7 +213,6 @@ var TrackView = function() {
         // draw vertical lines
         c.beginPath();
         c.moveTo(__getXPixel(pt, data[j]), SCREEN_HEIGHT - yPadding + 15);
-        console.log('X', __getXPixel(pt, data[j]));
         c.lineTo(__getXPixel(pt, data[j]), SCREEN_HEIGHT - yPadding + 20);
         c.stroke();
         pt+=xspace;
@@ -328,12 +327,11 @@ var TrackView = function() {
       // Define syles for display
       c.textAlign = "center";
       c.fillStyle = "gray";
-      // Write time value to the canvas
-      // c.fillText(hour, __getXPixel(pt, data[seg]) - (pt + xspace > nb_points ? 15 : 0), SCREEN_HEIGHT - yPadding + 27);
-      var x_coord = xPadding + (i * ratio);
+      // calculate x coordinate. if last value, we move it to the left by 15
+      var x_coord = xPadding + (i * ratio) - (i + xspace > nb_points ? 15 : 0);
       var y_coord = SCREEN_HEIGHT - yPadding + 27;
+      // Write time value to the canvas
       c.fillText(hour, x_coord, y_coord);
-      console.log("hour" + hour + " at " + x_coord + "/" + y_coord);
       // draw vertical small lines
       c.beginPath();
       c.moveTo(x_coord, SCREEN_HEIGHT - yPadding + 15);
