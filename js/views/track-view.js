@@ -213,6 +213,7 @@ var TrackView = function() {
         // draw vertical lines
         c.beginPath();
         c.moveTo(__getXPixel(pt, data[j]), SCREEN_HEIGHT - yPadding + 15);
+        console.log('X', __getXPixel(pt, data[j]));
         c.lineTo(__getXPixel(pt, data[j]), SCREEN_HEIGHT - yPadding + 20);
         c.stroke();
         pt+=xspace;
@@ -304,13 +305,16 @@ var TrackView = function() {
 
     // Calculate display space between time values
     var xspace;
-    SPACE_BTW_POINTS = 15;
     if (nb_points <= SPACE_BTW_POINTS) {
       xspace = nb_points;
     } else {
       xspace = parseInt(nb_points / SPACE_BTW_POINTS, 10);
     }
-    /* Draw the time values based on tyhe first time recorded and the duration (nb_points)
+    // we calculate the ratio needed to display all data in available width
+    var ratio = (SCREEN_WIDTH - xPadding -5) / nb_points;
+    console.log('ratio', ratio);
+
+    /* Draw the time values based on the first time recorded and the duration (nb_points)
     * TODO Manage tracks that does not contain time values
     */
     // Get the first recorder time and convert it to a value in milliseconds since 1970...
@@ -326,14 +330,15 @@ var TrackView = function() {
       c.fillStyle = "gray";
       // Write time value to the canvas
       // c.fillText(hour, __getXPixel(pt, data[seg]) - (pt + xspace > nb_points ? 15 : 0), SCREEN_HEIGHT - yPadding + 27);
-      var x_coord = xPadding + i;
+      var x_coord = xPadding + (i * ratio);
       var y_coord = SCREEN_HEIGHT - yPadding + 27;
       c.fillText(hour, x_coord, y_coord);
       console.log("hour" + hour + " at " + x_coord + "/" + y_coord);
       // draw vertical small lines
       c.beginPath();
-      c.moveTo(xPadding + i, SCREEN_HEIGHT - yPadding + 15);
-      c.lineTo(xPadding + i, SCREEN_HEIGHT - yPadding + 20);
+      c.moveTo(x_coord, SCREEN_HEIGHT - yPadding + 15);
+      console.log('X2', x_coord);
+      c.lineTo(x_coord, SCREEN_HEIGHT - yPadding + 20);
       c.stroke();
 
     }
@@ -351,9 +356,6 @@ var TrackView = function() {
     var segment;
     var segment_initial_x;
     var segment_initial_y;
-    // we calculate the ratio needed to display all data in available width
-    var ratio = SCREEN_WIDTH / nb_points;
-    console.log('ratio', ratio);
     for (var seg = 0; seg < inData.data.length; seg++) {
       segment = inData.data[seg];
       c.beginPath();
