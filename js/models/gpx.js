@@ -238,7 +238,7 @@ var GPX = function() {
       for (var i = 0; i < track.data.length; i++) {
         var row = track.data[i];
         data += '<trkpt lat="' + row.latitude + '" lon="' + row.longitude + '">\n';
-        data += '\t<time>' + row.date + '</time>\n';
+        data += (row.date) ? '\t<time>' + row.date + '</time>\n' : '';
         data += ((row.altitude) && (row.altitude !== 'null'))?'\t<ele>' + row.altitude + '</ele>\n' : '';
         data += (row.speed>=0) ? '\t<speed>' +row.speed+ '</speed>\n' : '';
         data += (row.accuracy>0)?'\t<hdop>' + row.accuracy + '</hdop>\n' : '';
