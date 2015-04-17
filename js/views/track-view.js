@@ -663,6 +663,8 @@ var TrackView = function() {
     var segment_initial_x;
     var segment_initial_y;
     var previous = 0;
+    var zero = SCREEN_HEIGHT - yPadding;
+    console.log('zero', zero);
     for (var seg = 0; seg < inData.data.length; seg++) {
       segment = inData.data[seg];
       c.beginPath();
@@ -679,6 +681,10 @@ var TrackView = function() {
         } else {
           y = __getYPixel(segment[i][value], range);
         }
+        // don't let it go under 0 (or yPadding in our case)
+        /*if (y < zero) {
+          y = zero;
+        }*/
         // only display the current point if it is distant of 1 pixel from the previous one
         if (x > previous + 2) {
           previous = x;
@@ -692,8 +698,8 @@ var TrackView = function() {
           c.lineTo(x, y, range);
         }
       }
-      c.lineTo(x, SCREEN_HEIGHT - yPadding);
-      c.lineTo(segment_initial_x + xPadding, SCREEN_HEIGHT - yPadding);
+      c.lineTo(x, zero);
+      c.lineTo(segment_initial_x + xPadding, zero);
       c.lineTo(segment_initial_x + xPadding, segment_initial_y);
       c.fillStyle = FILL_COLOR;
       c.fill();
