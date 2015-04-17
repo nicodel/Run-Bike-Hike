@@ -134,6 +134,9 @@ var GPX = function() {
     } else {
       track.duration = 0;
     }
+    if (missing_time) {
+      track.duration = null;
+    }
     track.distance = distance;
     successCallback(track);
   };

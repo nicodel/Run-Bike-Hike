@@ -68,24 +68,40 @@ var TrackView = function() {
       var seg = t.data[i];
       for (var j = 0; j < seg.length; j++) {
         var row = seg[j];
-        var alt_int = parseInt(row.altitude, 10);
-        var speed_int = parseInt(row.speed, 10);
-        if (t.min_alt === 0 || alt_int < t.min_alt) {
-          t.min_alt = alt_int;
+        // check if speed values are available within track
+        if (row.speed) {
+          var speed_int = parseInt(row.speed, 10);
+          if (t.max_speed === 0 || speed_int > t.max_speed) {
+            t.max_speed = speed_int;
+          }
+        } else {
+          t.max_speed = null;
         }
-        if (t.max_alt === 0 || alt_int > t.max_alt) {
-          t.max_alt = alt_int;
+        // check if altitude values are available within track
+        if (row.altitude) {
+          var alt_int = parseInt(row.altitude, 10);
+          if (t.min_alt === 0 || alt_int < t.min_alt) {
+            t.min_alt = alt_int;
+          }
+          if (t.max_alt === 0 || alt_int > t.max_alt) {
+            t.max_alt = alt_int;
+          }
+        } else {
+          t.max_alt = null;
+          t.min_alt = null;
         }
-        if (t.max_speed === 0 || speed_int > t.max_speed) {
-          t.max_speed = speed_int;
-        }
-        // TODO Manage the segment/tracks with no time values
-        var dt = new Date(row.date).getTime();
-        if (t.start === null || dt < t.start) {
-          t.start = dt;
-        }
-        if (t.end === null || dt > t.end) {
-          t.end = dt;
+        // check if date information are available within track
+        if (row.date) {
+          var dt = new Date(row.date).getTime();
+          if (t.start === null || dt < t.start) {
+            t.start = dt;
+          }
+          if (t.end === null || dt > t.end) {
+            t.end = dt;
+          }
+        } else {
+          t.start = null;
+          t.end = null;
         }
       }
     }
@@ -279,14 +295,18 @@ var TrackView = function() {
     var duration = inData.duration;
     // Calculate the number of seconds (= number of points)
     var nb_points = duration / 1000;
-    // Calculate altitude range
-    var alt_range = inData.max_alt + (inData.max_alt /3);
-    // Calculate display space between altitude values
-    var alt_yspace = parseInt(alt_range / 4);
+    // Calculate altitude range only if altitude available
+    var alt_range = 0;
+    var alt_yspace = 0;
+    if (inData.max_alt) {
+      alt_range = inData.max_alt + (inData.max_alt /3);
+      // Calculate display space between altitude values
+      alt_yspace = parseInt(alt_range / 4);
+    }
     // Caluclate speed range
     var sp_range = 0;
     var sp_yspace = 0;
-    if (inData.max_speed !== 0 || inData.min_speed !== 0) {
+    if (inData.max_speed) {
       sp_range = Config.userSpeedInteger(inData.max_speed) -
         Config.userSpeedInteger(inData.min_speed);
       sp_range = sp_range * 2;
@@ -300,13 +320,17 @@ var TrackView = function() {
     // Write the legends
     // 1: Altitude
     // 2: Speed
-    // TODO Manage when speed or altitude are not available in points
-    c.fillStyle = ALT_LINE_COLOR;
-    value = Config.userSmallDistance(null);
-    c.fillText(_("altitude") + " (" + value.u + ")", xPadding + 50, 8);
-    c.fillStyle = SP_LINE_COLOR;
-    value = Config.userSpeed(null);
-    c.fillText(_("speed") + " (" + value.u + ")", xPadding + 50, 20);
+    // only display altitude information if altitude information are available
+    if (inData.max_alt) {
+      c.fillStyle = ALT_LINE_COLOR;
+      value = Config.userSmallDistance(null);
+      c.fillText(_("altitude") + " (" + value.u + ")", xPadding + 50, 8);
+    }
+    if (inData.max_speed) {
+      c.fillStyle = SP_LINE_COLOR;
+      value = Config.userSpeed(null);
+      c.fillText(_("speed") + " (" + value.u + ")", xPadding + 50, 20);
+    }
     c.stroke();
 
     // Calculate display space between time values
@@ -705,8 +729,6 @@ var TrackView = function() {
       c.fill();
       c.stroke();
     }
-
-
   }
 
   return {
