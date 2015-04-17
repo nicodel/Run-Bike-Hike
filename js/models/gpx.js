@@ -37,7 +37,7 @@ var GPX = function() {
     if (metadata.length > 0) {
       time = metadata[0].getElementsByTagName('time');
       if (time.length > 0) {
-      track.date = time[0].textContent;
+        track.date = time[0].textContent;
       } else {
         missing_time = true;
       }
@@ -59,13 +59,13 @@ var GPX = function() {
     } else {
       track.name = __named();
     }
-    time = t.getElementsByTagName('name');
+/*    time = t.getElementsByTagName('name');
     if (time.length > 0) {
       track.date = time[0].textContent;
     } else {
       missing_time = true;
     }
-
+*/
     var trkseg = t.getElementsByTagName('trkseg');
     var trkpt;
     var tag;
