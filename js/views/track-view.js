@@ -379,87 +379,13 @@ var TrackView = function() {
         c.stroke();
       }
     }
-    /*
-     * Draw the ALTITUDE points
-     */
-    // choose the line color
-    /*c.strokeStyle = ALT_LINE_COLOR;
-    // choose the line width
-    c.lineWidth = LINE_WIDTH;
-    // we record the first date of the track
-    var initial_time = new Date(inData.data[0][0].date).valueOf();
-    var y;
-    var x;
-    var segment;
-    var segment_initial_x;
-    var segment_initial_y;
-    var previous = 0;
-    for (var seg = 0; seg < inData.data.length; seg++) {
-      segment = inData.data[seg];
-      c.beginPath();
-      // we record the initial X coordinate (based on time) for this segment
-      segment_initial_x = ((new Date(segment[0].date).valueOf() - initial_time) / 1000) * ratio;
-      // we record the initial Y coordinate (based on altitude) for this segment
-      segment_initial_y = __getYPixel(segment[0].altitude, alt_range);
-      // move to original Altitude point of the current segment
-      c.moveTo(segment_initial_x + xPadding, segment_initial_y);
-      for (i = 0; i < segment.length; i++) {
-        x = ((new Date(segment[i].date).valueOf() - initial_time) / 1000) * ratio;
-        y = __getYPixel(segment[i].altitude, alt_range);
-        // we only display the current point if it is distant of 1 pixel from the previous one
-        if (x > previous + 1) {
-          previous = x;
-          x = x + xPadding;
-          c.lineTo(x, y, alt_range);
-        } else if (i === segment.length -1) {
-          x = SCREEN_WIDTH - 6;
-          c.lineTo(x, y, alt_range);
-        }
-      }
-      c.lineTo(x, SCREEN_HEIGHT - yPadding);
-      c.lineTo(segment_initial_x + xPadding, SCREEN_HEIGHT - yPadding);
-      c.lineTo(segment_initial_x + xPadding, segment_initial_y);
-      c.fillStyle = ALT_FILL_COLOR;
-      c.fill();
-      c.stroke();
-    }*/
-    __drawPoints(c, inData, alt_range, ratio, "altitude", ALT_LINE_COLOR, ALT_FILL_COLOR);
-
-    /*
-     * Draw the SPEED points
-     */
-    /*// choose the line color
-    c.strokeStyle = SP_LINE_COLOR;
-    // choose the line width
-    c.lineWidth = LINE_WIDTH;
-    var initial_time = new Date(inData.data[0][0].date).valueOf();
-    var y;
-    var x;
-    var segment;
-    var segment_initial_x;
-    var segment_initial_y;
-    for (var seg = 0; seg < inData.data.length; seg++) {
-      segment = inData.data[seg];
-      c.beginPath();
-      // we record the initial X coordinate (based on time) for this segment
-      segment_initial_x = ((new Date(segment[0].date).valueOf() - initial_time) / 1000) * ratio;
-      // we record the initial Y coordinate (based on altitude) for this segment
-      segment_initial_y = __getYPixel(segment[0].speed, sp_range);
-      // move to original Altitude point of the current segment
-      c.moveTo(segment_initial_x + xPadding, segment_initial_y);
-      for (i = 0; i < segment.length; i++) {
-        x = (((new Date(segment[i].date).valueOf() - initial_time) / 1000) * ratio) + xPadding;
-        y = __getYPixel(segment[i].speed, sp_range);
-        c.lineTo(x, y, sp_range);
-      }
-      c.lineTo(x, SCREEN_HEIGHT - yPadding);
-      c.lineTo(segment_initial_x + xPadding, SCREEN_HEIGHT - yPadding);
-      c.lineTo(segment_initial_x + xPadding, segment_initial_y);
-      c.fillStyle = SP_FILL_COLOR;
-      c.fill();
-      c.stroke();
-    }*/
-    __drawPoints(c, inData, sp_range, ratio, "speed", SP_LINE_COLOR, SP_FILL_COLOR);
+    if (inData.start) {
+      __drawPoints(c, inData, alt_range, ratio, "altitude", ALT_LINE_COLOR, ALT_FILL_COLOR);
+      __drawPoints(c, inData, sp_range, ratio, "speed", SP_LINE_COLOR, SP_FILL_COLOR);
+    } else {
+      __drawTimelessPoints(c, inData, alt_range, nb_points, "altitude", ALT_LINE_COLOR, ALT_FILL_COLOR);
+      __drawTimelessPoints(c, inData, sp_range, nb_points, "speed", SP_LINE_COLOR, SP_FILL_COLOR);
+    }
   }
 
   function __buildMap2(inTrack, saveMapCallback) {
@@ -688,7 +614,6 @@ var TrackView = function() {
     var segment_initial_y;
     var previous = 0;
     var zero = SCREEN_HEIGHT - yPadding;
-    console.log('zero', zero);
     for (var seg = 0; seg < inData.data.length; seg++) {
       segment = inData.data[seg];
       c.beginPath();
@@ -729,6 +654,101 @@ var TrackView = function() {
       c.fill();
       c.stroke();
     }
+  }
+
+  function __drawTimelessPoints(c, inData, range, nb_points, value, LINE_COLOR, FILL_COLOR) {
+    // set the line color
+    c.strokeStyle = LINE_COLOR;
+    // set the line width
+    c.lineWidth = LINE_WIDTH;
+    // record the first date of the track
+    var initial_time = new Date(inData.data[0][0].date).valueOf();
+    var y;
+    var x;
+    var segment;
+    var segment_initial_x;
+    var segment_initial_y;
+    var zero = SCREEN_HEIGHT - yPadding;
+    var ratio;
+
+    if (nb_points <= SPACE_BTW_POINTS) {
+      ratio = nb_points;
+    } else {
+      ratio = parseInt(nb_points / SPACE_BTW_POINTS, 10);
+    }
+    var r = (1 / ratio) * 2;
+    console.log('r', r);
+
+    for(var seg = 0; seg < inData.data.length; seg++) {
+      segment = inData.data[seg];
+      c.beginPath();
+      // record the initial X coordinate (based on time) for this segment
+      segment_initial_x = ((new Date(segment[0].date).valueOf() - initial_time) / 1000) * ratio;
+      // record the initial Y coordinate for this segment
+      segment_initial_y = __getYPixel(segment[0][value], range);
+      // move to original point of the current segment
+      c.moveTo(segment_initial_x + xPadding, segment_initial_y);
+
+      for (var i = 1; i < segment.length; i+=ratio) {
+        x = __getXPixel(i, segment);
+        // x = __getXPixel(pt,data[j]);
+        if (value === "speed") {
+          y = __getYPixel(Config.userSpeedInteger(segment[i][value]), range);
+        } else {
+          y = __getYPixel(segment[i][value], range);
+        }
+        c.lineTo(x, __getYPixel(segment[i][value], range));
+      }
+      c.lineTo(x, zero);
+      c.lineTo(segment_initial_x + xPadding, zero);
+      c.lineTo(segment_initial_x + xPadding, segment_initial_y);
+      c.fillStyle = FILL_COLOR;
+      c.fill();
+      c.stroke();
+
+    }
+
+
+/*
+
+    for (var seg = 0; seg < inData.data.length; seg++) {
+      segment = inData.data[seg];
+      c.beginPath();
+      // record the initial X coordinate (based on time) for this segment
+      segment_initial_x = ((new Date(segment[0].date).valueOf() - initial_time) / 1000) * ratio;
+      // record the initial Y coordinate for this segment
+      segment_initial_y = __getYPixel(segment[0][value], range);
+      // move to original point of the current segment
+      c.moveTo(segment_initial_x + xPadding, segment_initial_y);
+      for (var i = 0; i < segment.length; i++) {
+        x = ((new Date(segment[i].date).valueOf() - initial_time) / 1000) * ratio;
+        if (value === "speed") {
+          y = __getYPixel(Config.userSpeedInteger(segment[i][value]), range);
+        } else {
+          y = __getYPixel(segment[i][value], range);
+        }
+        // don't let it go under 0 (or yPadding in our case)
+        // only display the current point if it is distant of 1 pixel from the previous one
+        if (x > previous + 2) {
+          previous = x;
+          x = x + xPadding;
+          c.lineTo(x, y, range);
+        } else if (seg === inData.data.length - 1 && i === segment.length - 1) {
+          x = SCREEN_WIDTH - 6;
+          c.lineTo(x, y, range);
+        } else if (i === segment.length - 1){
+          x = x + xPadding;
+          c.lineTo(x, y, range);
+        }
+      }
+      c.lineTo(x, zero);
+      c.lineTo(segment_initial_x + xPadding, zero);
+      c.lineTo(segment_initial_x + xPadding, segment_initial_y);
+      c.fillStyle = FILL_COLOR;
+      c.fill();
+      c.stroke();
+    }
+*/
   }
 
   return {
