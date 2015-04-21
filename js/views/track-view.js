@@ -351,14 +351,18 @@ var TrackView = function() {
     /* Draw the time values based on the first time recorded and the duration (nb_points)
     * TODO Manage tracks that does not contain time values, and replace them with distance
     */
-    // Get the first recorder time and convert it to a value in milliseconds since 1970...
-    var date = new Date(inData.data[0][0].date).valueOf();
-    console.log("time", time);
+    var date;
+    if (inData.start) {
+      // Get the first recorder time and convert it to a value in milliseconds since 1970...
+      date = new Date(inData.data[0][0].date).valueOf();
+    }
     for (i = 0; i < nb_points; i += xspace) {
-      // increase hour by a xspace seconds
-      time = new Date(date + (i * 1000));
-      // Get time value to a prettier format
-      hour = ("0" + time.getHours()).slice(-2) + ":" + ("0" + time.getMinutes()).slice(-2);
+      if (inData.start) {
+        // increase hour by a xspace seconds
+        time = new Date(date + (i * 1000));
+        // Get time value to a prettier format
+        hour = ("0" + time.getHours()).slice(-2) + ":" + ("0" + time.getMinutes()).slice(-2);
+      }
       // Define syles for display
       c.textAlign = "center";
       c.fillStyle = "gray";
@@ -366,8 +370,10 @@ var TrackView = function() {
       var x_coord = xPadding + (i * ratio);
       var y_coord = SCREEN_HEIGHT - yPadding + 27;
       if (i + xspace > nb_points) {
-        // Write time value to the canvas
-        c.fillText(hour, parseInt(x_coord - 15), y_coord);
+        if (inData.start) {
+          // Write time value to the canvas
+          c.fillText(hour, parseInt(x_coord - 15), y_coord);
+        }
         console.log('last one', SCREEN_WIDTH - 20);
         // draw vertical small lines
         c.beginPath();
@@ -375,7 +381,9 @@ var TrackView = function() {
         c.lineTo(SCREEN_WIDTH - 6, SCREEN_HEIGHT - yPadding + 20);
         c.stroke();
       } else {
-        c.fillText(hour, x_coord, y_coord);
+        if (inData.start) {
+          c.fillText(hour, x_coord, y_coord);
+        }
         // draw vertical small lines
         c.beginPath();
         c.moveTo(x_coord, SCREEN_HEIGHT - yPadding + 15);
