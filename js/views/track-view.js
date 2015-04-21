@@ -133,7 +133,7 @@ var TrackView = function() {
       /*var mapToSave = */__buildMap2(inTrack, saveMapCallback);
       // console.log("mapToSave.map", mapToSave.map);
     }
-    __buildGraphs(t);
+    // __buildGraphs(t);
     __buildGraphs2(t, nb_points);
   }
 
@@ -142,7 +142,7 @@ var TrackView = function() {
     document.getElementById("tr-name").innerHTML = inName;
   }
 
-  function __buildGraphs(inData) {
+/*  function __buildGraphs(inData) {
     var data = inData.data;
     // calculate the axis values in order to draw the canvas graph
     // max_acc: represents the poorest accuracy on altitude
@@ -283,7 +283,7 @@ var TrackView = function() {
     c.stroke();
 
     c.closePath();
-  }
+  }*/
 
   function __buildGraphs2(inData, inNbPt) {
     var value;
@@ -291,9 +291,6 @@ var TrackView = function() {
     var hour;
     var i;
     var nb_points;
-    /*
-     * TODO Manage tracks without any timeline
-     */
     if (inData.start) {
       // Get the total duration of the track, including pauses
       var duration = inData.duration;
@@ -322,7 +319,7 @@ var TrackView = function() {
     }
 
     // Create the Canvas
-    var c = __createRectCanvas("graphs-canvas-2", alt_range, alt_yspace, sp_range, sp_yspace);
+    var c = __createRectCanvas("graphs-canvas", alt_range, alt_yspace, sp_range, sp_yspace);
 
     // Write the legends
     // 1: Altitude
@@ -352,7 +349,7 @@ var TrackView = function() {
     console.log('ratio', ratio);
 
     /* Draw the time values based on the first time recorded and the duration (nb_points)
-    * TODO Manage tracks that does not contain time values
+    * TODO Manage tracks that does not contain time values, and replace them with distance
     */
     // Get the first recorder time and convert it to a value in milliseconds since 1970...
     var date = new Date(inData.data[0][0].date).valueOf();
@@ -637,10 +634,6 @@ var TrackView = function() {
         } else {
           y = __getYPixel(segment[i][value], range);
         }
-        // don't let it go under 0 (or yPadding in our case)
-        /*if (y < zero) {
-          y = zero;
-        }*/
         // only display the current point if it is distant of 1 pixel from the previous one
         if (x > previous + 2) {
           previous = x;
