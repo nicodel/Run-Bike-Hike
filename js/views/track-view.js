@@ -28,6 +28,7 @@ var TrackView = function() {
   function display(inTrack, saveMapCallback) {
     var i = 0,
       localizedValue = {};
+    var nb_points= 0;
     console.log("inTrack in display", inTrack);
     //reset old ressources
     document.getElementById("trk-date").innerHTML = "";
@@ -67,6 +68,7 @@ var TrackView = function() {
     for (i=0; i<t.data.length; i++) {
       var seg = t.data[i];
       for (var j = 0; j < seg.length; j++) {
+        nb_points++;
         var row = seg[j];
         // check if speed values are available within track
         if (row.speed) {
@@ -132,7 +134,7 @@ var TrackView = function() {
       // console.log("mapToSave.map", mapToSave.map);
     }
     __buildGraphs(t);
-    __buildGraphs2(t);
+    __buildGraphs2(t, nb_points);
   }
 
   function updateName(inName) {
@@ -283,18 +285,23 @@ var TrackView = function() {
     c.closePath();
   }
 
-  function __buildGraphs2(inData) {
+  function __buildGraphs2(inData, inNbPt) {
     var value;
     var time;
     var hour;
     var i;
+    var nb_points;
     /*
      * TODO Manage tracks without any timeline
      */
-    // Get the total duration of the track, including pauses
-    var duration = inData.duration;
-    // Calculate the number of seconds (= number of points)
-    var nb_points = duration / 1000;
+    if (inData.start) {
+      // Get the total duration of the track, including pauses
+      var duration = inData.duration;
+      // Calculate the number of seconds (= number of points)
+      nb_points = duration / 1000;
+    } else {
+      nb_points = inNbPt;
+    }
     // Calculate altitude range only if altitude available
     var alt_range = 0;
     var alt_yspace = 0;
@@ -661,29 +668,28 @@ var TrackView = function() {
     c.strokeStyle = LINE_COLOR;
     // set the line width
     c.lineWidth = LINE_WIDTH;
-    // record the first date of the track
-    var initial_time = new Date(inData.data[0][0].date).valueOf();
     var y;
     var x;
     var segment;
     var segment_initial_x;
     var segment_initial_y;
     var zero = SCREEN_HEIGHT - yPadding;
+    // calculate space bteween points
     var ratio;
-
+    var screen_available = SCREEN_WIDTH - xPadding - 5;
     if (nb_points <= SPACE_BTW_POINTS) {
-      ratio = nb_points;
+      ratio = 1;
+    } else if (nb_points < screen_available) {
+      ratio = parseInt(screen_available / nb_points, 10);
     } else {
-      ratio = parseInt(nb_points / SPACE_BTW_POINTS, 10);
+      ratio = parseInt(nb_points / screen_available, 10) * SPACE_BTW_POINTS;
     }
-    var r = (1 / ratio) * 2;
-    console.log('r', r);
 
     for(var seg = 0; seg < inData.data.length; seg++) {
       segment = inData.data[seg];
       c.beginPath();
       // record the initial X coordinate (based on time) for this segment
-      segment_initial_x = ((new Date(segment[0].date).valueOf() - initial_time) / 1000) * ratio;
+      segment_initial_x = 0;
       // record the initial Y coordinate for this segment
       segment_initial_y = __getYPixel(segment[0][value], range);
       // move to original point of the current segment
@@ -705,50 +711,7 @@ var TrackView = function() {
       c.fillStyle = FILL_COLOR;
       c.fill();
       c.stroke();
-
     }
-
-
-/*
-
-    for (var seg = 0; seg < inData.data.length; seg++) {
-      segment = inData.data[seg];
-      c.beginPath();
-      // record the initial X coordinate (based on time) for this segment
-      segment_initial_x = ((new Date(segment[0].date).valueOf() - initial_time) / 1000) * ratio;
-      // record the initial Y coordinate for this segment
-      segment_initial_y = __getYPixel(segment[0][value], range);
-      // move to original point of the current segment
-      c.moveTo(segment_initial_x + xPadding, segment_initial_y);
-      for (var i = 0; i < segment.length; i++) {
-        x = ((new Date(segment[i].date).valueOf() - initial_time) / 1000) * ratio;
-        if (value === "speed") {
-          y = __getYPixel(Config.userSpeedInteger(segment[i][value]), range);
-        } else {
-          y = __getYPixel(segment[i][value], range);
-        }
-        // don't let it go under 0 (or yPadding in our case)
-        // only display the current point if it is distant of 1 pixel from the previous one
-        if (x > previous + 2) {
-          previous = x;
-          x = x + xPadding;
-          c.lineTo(x, y, range);
-        } else if (seg === inData.data.length - 1 && i === segment.length - 1) {
-          x = SCREEN_WIDTH - 6;
-          c.lineTo(x, y, range);
-        } else if (i === segment.length - 1){
-          x = x + xPadding;
-          c.lineTo(x, y, range);
-        }
-      }
-      c.lineTo(x, zero);
-      c.lineTo(segment_initial_x + xPadding, zero);
-      c.lineTo(segment_initial_x + xPadding, segment_initial_y);
-      c.fillStyle = FILL_COLOR;
-      c.fill();
-      c.stroke();
-    }
-*/
   }
 
   return {
