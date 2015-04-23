@@ -26,9 +26,8 @@ var TrackView = function() {
   var SP_FILL_COLOR = "rgba(65,105,225, 0.3)"; // RoyalBlue
 
   function display(inTrack, saveMapCallback) {
-    var i = 0,
-      localizedValue = {};
-    var nb_points= 0;
+    var i = 0;
+    var localizedValue = {};
     console.log("inTrack in display", inTrack);
     //reset old ressources
     document.getElementById("trk-date").innerHTML = "";
@@ -63,12 +62,13 @@ var TrackView = function() {
     t.av_speed = 0;
     t.start = null;
     t.end = null;
+    t.nb_points = 0;
 
     //~ get min, max altitude, max speed, start and end time
     for (i=0; i<t.data.length; i++) {
       var seg = t.data[i];
       for (var j = 0; j < seg.length; j++) {
-        nb_points++;
+        t.nb_points++;
         var row = seg[j];
         // check if speed values are available within track
         if (row.speed) {
@@ -134,7 +134,7 @@ var TrackView = function() {
       // console.log("mapToSave.map", mapToSave.map);
     }
     // __buildGraphs(t);
-    __buildGraphs2(t, nb_points);
+    __buildGraphs2(t);
   }
 
   function updateName(inName) {
@@ -285,7 +285,7 @@ var TrackView = function() {
     c.closePath();
   }*/
 
-  function __buildGraphs2(inData, inNbPt) {
+  function __buildGraphs2(inData) {
     var value;
     var time;
     var hour;
@@ -297,7 +297,7 @@ var TrackView = function() {
       // Calculate the number of seconds (= number of points)
       nb_points = duration / 1000;
     } else {
-      nb_points = inNbPt;
+      nb_points = inData.nb_points;
     }
     // Calculate altitude range only if altitude available
     var alt_range = 0;
