@@ -62,7 +62,10 @@ var Tracks = function() {
   }
 
   function addNode(inNode, inDistance, inDuration) {
-    // console.log("inNode", inNode);
+    // check if current segment exist within data
+    if (!current_track.data[segment]) {
+      current_track.data[segment] = [];
+    }
     current_track.data[segment].push(inNode);
     current_track.distance = inDistance;
     current_track.duration = inDuration;
