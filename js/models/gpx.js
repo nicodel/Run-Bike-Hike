@@ -33,9 +33,13 @@ var GPX = function() {
         tstart,
         tend;
     var metadata = x.getElementsByTagName('metadata');
-    var time = metadata[0].getElementsByTagName('time');
-    if (time.length > 0) {
-      track.date = time[0].textContent;
+    if (metadata.length > 0) {
+      var time = metadata[0].getElementsByTagName('time');
+      if (time.length > 0) {
+        track.date = time[0].textContent;
+      } else {
+        missing_time = true;
+      }
     } else {
       missing_time = true;
     }
