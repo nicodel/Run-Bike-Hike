@@ -246,14 +246,14 @@ document.querySelector("#btn-clear-rename").addEventListener('mousedown', functi
 document.querySelector("#btn-share").addEventListener("click", function() {
   "use strict";
   if (FxDeviceStorage.compatible) {
-    console.Log("exporting");
+    console.log("exporting");
     // setting it to default
     document.querySelector('[name="radio-share"]').value = "on-device";
   } else {
     for (var i = 0; i < document.getElementsByName("radio-share").length; i++) {
       var node = document.getElementsByName("radio-share")[i];
       if (node.value === "on-device") {
-        node.setAtttribute("disabled", true);
+        node.setAttribute("disabled", true);
       }
     }
   }
