@@ -31,11 +31,10 @@ var GPX = function() {
     };
     var missing_time,
         tstart,
-        tend,
-        time;
+        tend;
     var metadata = x.getElementsByTagName('metadata');
     if (metadata.length > 0) {
-      time = metadata[0].getElementsByTagName('time');
+      var time = metadata[0].getElementsByTagName('time');
       if (time.length > 0) {
         track.date = time[0].textContent;
       } else {
