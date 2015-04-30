@@ -1,0 +1,17 @@
+#!/bin/bash
+if [ -d tmp ]
+then
+  rm -R tmp
+fi
+
+mkdir tmp
+mkdir tmp/lib
+mkdir tmp/img
+mkdir tmp/locales
+mkdir tmp/font
+
+if [ ! -d builds ]
+then
+  mkdir builds
+fi
+

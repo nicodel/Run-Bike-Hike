@@ -1,0 +1,20 @@
+#!/bin/bash
+uglifyjs  js/views/home-view.js \
+          js/views/infos-view.js \
+          js/views/tracks-view.js \
+          js/views/import-view.js \
+          js/views/track-view.js \
+          js/views/status.js \
+          js/models/chrono.js \
+          js/models/config.js \
+          js/models/share.js \
+          js/models/gpx.js \
+          js/models/fx_device_storage.js \
+          js/models/db.js \
+          js/models/tracks.js \
+          js/events.js \
+          js/controller.js \
+          js/app.js \
+          --mangle \
+          --compress \
+          -o tmp/app.js
