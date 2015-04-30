@@ -22,7 +22,6 @@
     "url": "https://github.com/nicodel/Run-Bike-Hike/issues"
   },
   "devDependencies": {
-    "node-zip": "^1.1.0",
     "uglifycss": "0.0.14",
     "uglifyjs": "^2.4.10"
   }
