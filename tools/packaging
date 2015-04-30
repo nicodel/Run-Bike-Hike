@@ -1,0 +1,3 @@
+#!/bin/bash
+zip -r builds/runbikehike_v$1.zip tmp/*
+
