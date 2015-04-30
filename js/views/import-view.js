@@ -25,7 +25,9 @@ var importView = function() {
     msg.innerHTML = _("import-track-path", {name: _(inName)});
   }
 
-
+  /**
+   * reset the list of selecteable files
+   */
   function resetList() {
     var sel = document.getElementById("select-file");
     sel.innerHTML = "";
@@ -42,12 +44,26 @@ var importView = function() {
    document.getElementById("import-spinner-area").className = "align-center hidden behind";
    document.getElementById("import-form").className = "light";
   }
+  /*
+   * In case of non firefoxos device, we hide the select element (linked to
+   * getDeviceStorage), and show input element.
+   */
+  function showInput() {
+    document.getElementById("select-file").className = "hidden";
+    document.getElementById("input-file").className = "";
+  }
+
+  function enableImport() {
+    document.getElementById("btn-confirm-import").removeAttribute("disabled");
+  }
 
   return {
     updateSelectFilesList:  updateSelectFilesList,
     updateStorageName:      updateStorageName,
     resetList:              resetList,
     showSpinner:            showSpinner,
-    hideSpinner:            hideSpinner
+    hideSpinner:            hideSpinner,
+    showInput:              showInput,
+    enableImport:           enableImport
   };
 }();

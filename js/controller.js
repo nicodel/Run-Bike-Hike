@@ -136,7 +136,7 @@ var Controller = function() {
       document.getElementById('home-chrono').className = "text-red home-value align-center text-huger text-thin new-line";
       document.getElementById('home-dist').className = "text-red home-value align-center text-huge text-thin";
       Chrono.pauseIt();
-      // tracking = false;
+      Tracks.newSegment();
       pause = true;
    }
   }
@@ -203,22 +203,30 @@ var Controller = function() {
       console.log("frequency value is not default!");
       __changeFrequency(parseInt(inSettings.frequency, 10));
     }
-    var storages = FxDeviceStorage.getAvailableStorages();
     var select = document.getElementById("storage");
-    if (select.length === 0) {
-      for (var i = 0; i < storages.length; i++) {
-        var o = document.createElement("option");
-        o.value = storages[i].id;
-        o.innerHTML = storages[i].name;
-        o.setAttribute("data-l10n-id", storages[i].name);
-        select.appendChild(o);
+    if (FxDeviceStorage.compatible) {
+      var storages = FxDeviceStorage.getAvailableStorages();
+      if (select.length === 0) {
+        for (var i = 0; i < storages.length; i++) {
+          var o = document.createElement("option");
+          o.value = storages[i].id;
+          o.innerHTML = storages[i].name;
+          o.setAttribute("data-l10n-id", storages[i].name);
+          select.appendChild(o);
+        }
       }
-    }
-    if (!inSettings.storage) {
-      console.log("storage is not present in settings");
-      savingSettings("storage", "0");
+      if (!inSettings.storage) {
+        console.log("storage is not present in settings");
+        savingSettings("storage", "0");
+      } else {
+        FxDeviceStorage.setUserStorage(inSettings.storage);
+      }
     } else {
-      FxDeviceStorage.setUserStorage(inSettings.storage);
+      var o2 = document.createElement("option");
+      o2.innerHTML = 'no storage available';
+      o2.setAttribute("data-l10n-id", "no-storage-available");
+      select.appendChild(o2);
+      select.setAttribute("disabled", true);
     }
 
     __updateConfigValues(inSettings);
@@ -425,6 +433,10 @@ var Controller = function() {
     // console.log(inMessage);
   }
 
+  function showInput() {
+    importView.showInput();
+  }
+
   function searchFiles() {
     FxDeviceStorage.getFilesFromPath("rbh/import", "gpx",
         __getFilesFromPathSuccess,
@@ -444,6 +456,10 @@ var Controller = function() {
     utils.status.show(inError);
   }
 
+  function enableImport() {
+    importView.enableImport();
+  }
+
   function importFile(inPath) {
     console.log("import file", inPath);
     importView.resetList();
@@ -453,6 +469,7 @@ var Controller = function() {
         __openFileError);
   }
   function __openFileSuccess(inFile) {
+    console.log('inFile', inFile);
     GPX.load(inFile,
         __GPXloadSuccess,
         __GPXloadError);
@@ -462,7 +479,7 @@ var Controller = function() {
   }
 
   function __GPXloadSuccess(inTrack) {
-    // console.log("success load track", inTrack);
+    console.log("success load track", inTrack);
     current_track = Tracks.importFromFile(inTrack);
     Tracks.reset();
     var track = Tracks.close();
@@ -507,7 +524,9 @@ var Controller = function() {
     getTrackInfo: getTrackInfo,
     editTrack: editTrack,
     shareTrack: shareTrack,
+    showInput: showInput,
     searchFiles: searchFiles,
+    enableImport: enableImport,
     importFile: importFile,
     resetImportList: resetImportList
   };

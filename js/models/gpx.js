@@ -58,16 +58,25 @@ var GPX = function() {
     } else {
       track.name = __named();
     }
-
+/*    time = t.getElementsByTagName('name');
+    if (time.length > 0) {
+      track.date = time[0].textContent;
+    } else {
+      missing_time = true;
+    }
+*/
     var trkseg = t.getElementsByTagName('trkseg');
-    var trkpt, tag;
+    var trkpt;
+    var tag;
     if (trkseg.length > 0) {
-      for (var i = 0; i < trkseg.length; i++) {
-        trkpt = trkseg[i].getElementsByTagName('trkpt');
+      for (var seg_nb = 0; seg_nb < trkseg.length; seg_nb++) {
+        console.log('track.data', track.data);
+        track.data[seg_nb] = [];
+        trkpt = trkseg[seg_nb].getElementsByTagName('trkpt');
         if (trkpt.length > 0) {
-          for (var j = 0; j < trkpt.length; j++) {
+          for (var pt_nb = 0; pt_nb < trkpt.length; pt_nb++) {
             var point = {};
-            var p = trkpt[j];
+            var p = trkpt[pt_nb];
             point.latitude = p.getAttribute('lat');
             point.longitude = p.getAttribute('lon');
             distance = __getDistance(point.latitude, point.longitude);
@@ -78,7 +87,7 @@ var GPX = function() {
                 track.date = point.date;
                 missing_time = false;
               }
-              if (i === 0 && j === 0) {
+              if (seg_nb === 0 && pt_nb === 0) {
                 tstart = new Date(point.date);
               }
               tend = new Date (point.date);
@@ -110,7 +119,7 @@ var GPX = function() {
               point.vertAccuracy = tag[0].textContent;
             }
             // console.log('point', point);
-            track.data.push(point);
+            track.data[seg_nb].push(point);
           }
         } else {
           failureCallback('Could not parse trkpt from file');
@@ -123,6 +132,9 @@ var GPX = function() {
       track.duration = tend - tstart;
     } else {
       track.duration = 0;
+    }
+    if (missing_time) {
+      track.duration = null;
     }
     track.distance = distance;
     successCallback(track);
@@ -204,17 +216,40 @@ var GPX = function() {
     data += '<time>' + new Date().toISOString() + '</time>';
     data += '</metadata>';
     data += '<trk>\n<name>' + name + '</name>\n<trkseg>\n';
-    for (var i = 0; i < inTrack.data.length; i++) {
-      var row = inTrack.data[i];
-      data += '<trkpt lat="' + row.latitude + '" lon="' + row.longitude + '">\n';
-      data += '\t<time>' + row.date + '</time>\n';
-      data += ((row.altitude) && (row.altitude !== 'null'))?'\t<ele>' + row.altitude + '</ele>\n' : '';
-      data += (row.speed>=0) ? '\t<speed>' +row.speed+ '</speed>\n' : '';
-      data += (row.accuracy>0)?'\t<hdop>' + row.accuracy + '</hdop>\n' : '';
-      data += (row.vertAccuracy>0)?'\t<vdop>' + row.vertAccuracy + '</vdop>\n' : '';
-      data += '</trkpt>\n';
+    var track = inTrack.data;
+    // Checking if the track was recorded before or after RBH support multi-segment within a track.
+    if (!track.latitude) {
+      // old track
+      for (var s = 0; s < track.data.length; s++) {
+        var seg = track.data[s];
+        data += '<trkseg>\n';
+        for (var j = 0; j < seg.length; j++) {
+          data += '<trkpt lat="' + row.latitude + '" lon="' + row.longitude + '">\n';
+          data += '\t<time>' + row.date + '</time>\n';
+          data += ((row.altitude) && (row.altitude !== 'null'))?'\t<ele>' + row.altitude + '</ele>\n' : '';
+          data += (row.speed>=0) ? '\t<speed>' +row.speed+ '</speed>\n' : '';
+          data += (row.accuracy>0)?'\t<hdop>' + row.accuracy + '</hdop>\n' : '';
+          data += (row.vertAccuracy>0)?'\t<vdop>' + row.vertAccuracy + '</vdop>\n' : '';
+          data += '</trkpt>\n';
+        }
+        data += '</trkseg>\n';
+      }
+    } else {
+      // new track
+        data += '<trkseg>\n';
+      for (var i = 0; i < track.data.length; i++) {
+        var row = track.data[i];
+        data += '<trkpt lat="' + row.latitude + '" lon="' + row.longitude + '">\n';
+        data += (row.date) ? '\t<time>' + row.date + '</time>\n' : '';
+        data += ((row.altitude) && (row.altitude !== 'null'))?'\t<ele>' + row.altitude + '</ele>\n' : '';
+        data += (row.speed>=0) ? '\t<speed>' +row.speed+ '</speed>\n' : '';
+        data += (row.accuracy>0)?'\t<hdop>' + row.accuracy + '</hdop>\n' : '';
+        data += (row.vertAccuracy>0)?'\t<vdop>' + row.vertAccuracy + '</vdop>\n' : '';
+        data += '</trkpt>\n';
+      }
+        data += '</trkseg>\n';
     }
-    data += '</trkseg>\n</trk>\n';
+    data += '</trk>\n';
     data += '</gpx>\n';
     // console.log('export done', data);
     return data;

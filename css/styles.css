@@ -66,7 +66,7 @@ button.big {
 
 .separateur-bottom {
   border-bottom: 0.1rem solid #C3C3C3;
-  padding-bottom: 2rem;
+  margin-bottom: 2rem;
 }
 
 .absolute {

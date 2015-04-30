@@ -4,10 +4,16 @@
 
 var FxDeviceStorage = function() {
   "use strict";
-  var user_storage = navigator.getDeviceStorage("sdcard");
-  var storage_id = 0;
-  var storage_name = user_storage.storageName;
-  var available_storages = [];
+
+  var compatible = true;
+  if (typeof navigator.getDeviceStorage === 'function') {
+    var user_storage = (navigator.getDeviceStorage("sdcard") || false);
+    var storage_id = 0;
+    var storage_name = user_storage.storageName;
+    var available_storages = [];
+  } else {
+    compatible = false;
+  }
 
   /**
    * Get the list of device available storages
@@ -65,9 +71,32 @@ var FxDeviceStorage = function() {
   /* replace sdcard.js get() */
   function openFile(inPath, successCallback, errorCallback) {
     if (typeof(successCallback) === "function") {
-      var req = user_storage.get(inPath);
-      req.onsuccess = function () {
-        var file = this.result;
+      if (compatible) {
+        var req = user_storage.get(inPath);
+        req.onsuccess = function () {
+          var file = this.result;
+          var reader = new FileReader();
+          reader.onloadend = function() {
+            var p = new DOMParser();
+            successCallback(p.parseFromString(reader.result, "text/xml"));
+          };
+          reader.onerror = function(e) {
+            errorCallback(_("error-reading-file",
+                {
+                  file: file.match(/[^/]+$/i)[0],
+                  error: e.target.result
+                }));
+          };
+          reader.readAsText(file);
+          // successCallback(file);
+        };
+        req.onerror = function () {
+          // errorCallback(_("unable-get-file", {file:inPath, error:this.error}));
+          errorCallback(inPath, this.error);
+        };
+      } else {
+        console.log('selected file', inPath);
+        var file = inPath[0];
         var reader = new FileReader();
         reader.onloadend = function() {
           var p = new DOMParser();
@@ -75,18 +104,13 @@ var FxDeviceStorage = function() {
         };
         reader.onerror = function(e) {
           errorCallback(_("error-reading-file",
-                {
-                  file: file.match(/[^/]+$/i)[0],
-                  error: e.target.result
-                }));
+              {
+                file: file.match(/[^/]+$/i)[0],
+                error: e.target.result
+              }));
         };
         reader.readAsText(file);
-        // successCallback(file);
-      };
-      req.onerror = function () {
-        // errorCallback(_("unable-get-file", {file:inPath, error:this.error}));
-        errorCallback(inPath, this.error);
-      };
+      }
     } else  {
       errorCallback("openFile() successCallback should be a function");
     }
@@ -130,6 +154,7 @@ var FxDeviceStorage = function() {
   }
 
   return {
+    compatible:           compatible,
     getAvailableStorages: getAvailableStorages,
     getDefault:           getDefault,
     getFilesFromPath:     getFilesFromPath,

@@ -26,8 +26,8 @@ var TrackView = function() {
   var SP_FILL_COLOR = "rgba(65,105,225, 0.3)"; // RoyalBlue
 
   function display(inTrack, saveMapCallback) {
-    var i = 0,
-      localizedValue = {};
+    var i = 0;
+    var localizedValue = {};
     console.log("inTrack in display", inTrack);
     //reset old ressources
     document.getElementById("trk-date").innerHTML = "";
@@ -62,28 +62,49 @@ var TrackView = function() {
     t.av_speed = 0;
     t.start = null;
     t.end = null;
+    t.nb_points = 0;
 
     //~ get min, max altitude, max speed, start and end time
     for (i=0; i<t.data.length; i++) {
-      var row = t.data[i];
-      var alt_int = parseInt(row.altitude, 10);
-      var speed_int = parseInt(row.speed, 10);
-      if (t.min_alt === 0 || alt_int < t.min_alt) {
-        t.min_alt = alt_int;
-      }
-      if (t.max_alt === 0 || alt_int > t.max_alt) {
-        t.max_alt = alt_int;
-      }
-      if (t.max_speed === 0 || speed_int > t.max_speed) {
-        t.max_speed = speed_int;
-      }
-      var dt = new Date(t.data[i].date).getTime();
-      // console.log("dt ", dt);
-      if (t.start === null || dt < t.start) {
-        t.start = dt;
-      }
-      if (t.end === null || dt > t.end) {
-        t.end = dt;
+      var seg = t.data[i];
+      for (var j = 0; j < seg.length; j++) {
+        t.nb_points++;
+        var row = seg[j];
+        // check if speed values are available within track
+        if (row.speed) {
+          var speed_int = parseInt(row.speed, 10);
+          if (t.max_speed === 0 || speed_int > t.max_speed) {
+            t.max_speed = speed_int;
+          }
+        } else {
+          t.max_speed = null;
+        }
+        // check if altitude values are available within track
+        if (row.altitude) {
+          var alt_int = parseInt(row.altitude, 10);
+          if (t.min_alt === 0 || alt_int < t.min_alt) {
+            t.min_alt = alt_int;
+          }
+          if (t.max_alt === 0 || alt_int > t.max_alt) {
+            t.max_alt = alt_int;
+          }
+        } else {
+          t.max_alt = null;
+          t.min_alt = null;
+        }
+        // check if date information are available within track
+        if (row.date) {
+          var dt = new Date(row.date).getTime();
+          if (t.start === null || dt < t.start) {
+            t.start = dt;
+          }
+          if (t.end === null || dt > t.end) {
+            t.end = dt;
+          }
+        } else {
+          t.start = null;
+          t.end = null;
+        }
       }
     }
     t.av_speed = inTrack.distance / inTrack.duration * 1000;
@@ -121,149 +142,145 @@ var TrackView = function() {
   }
 
   function __buildGraphs(inData) {
-    var data = inData.data;
-    // calculate the axis values in order to draw the canvas graph
-    // max_acc: represents the poorest accuracy on altitude
-    // alt_max_y: represents the highest altitude value
-    // alt_min_y: represents the smallest altitude value
-    var max_acc = 0;
-    var alt_max_y = 0;
-    var alt_min_y = 0;
-    var localizedValue, i = 0;
-    for(i=0 ; i<data.length ; i++) {
-      if(parseInt(data[i].altitude, 10) > alt_max_y) {
-        alt_max_y = parseInt(data[i].altitude, 10);
-      }
-      if(parseInt(data[i].altitude, 10) < alt_min_y) {
-        alt_min_y = parseInt(data[i].altitude, 10);
-      }
-      if(parseInt(data[i].vertAccuracy, 10) > max_acc) {
-        max_acc = parseInt(data[i].vertAccuracy, 10);
-      }
-      max_acc = max_acc / 2;
-    }
-    // sp_max_y: represents the highest speed value
-    // sp_min_y: represents the smallest speed value
-    var sp_max_y = Config.userSpeedInteger(inData.max_speed);
-    var sp_min_y = Config.userSpeedInteger(inData.min_speed);
-
-    // Write Y Axis text
-    var alt_range = alt_max_y - alt_min_y;
-    alt_range = alt_range + (alt_range / 3);
-    var sp_range = sp_max_y - sp_min_y;
-    sp_range = sp_range * 2;
-    // calculate
-    var alt_yspace = parseInt(alt_range / 4, 10);
-    var sp_yspace = parseInt(sp_range / 4, 10);
-    console.log("speed", sp_range + "-" + sp_yspace);
-    console.log("alt", alt_range + "-" + alt_yspace);
-    var c = __createRectCanvas("graphs-canvas", alt_range, alt_yspace, sp_range, sp_yspace);
-
-    var espace = parseInt(data.length / (SCREEN_WIDTH - xPadding - 5), 10);
-    if (espace === 0) {
-      espace = 1;
+    var value;
+    var time;
+    var hour;
+    var i;
+    var nb_points;
+    if (inData.start) {
+      // Get the total duration of the track, including pauses
+      var duration = inData.duration;
+      // Calculate the number of seconds (= number of points)
+      nb_points = duration / 1000;
     } else {
-      espace = espace * SPACE_BTW_POINTS; // increase spacing between points so that the chart looks smoother.
+      nb_points = inData.nb_points;
     }
+    // Calculate altitude range only if altitude available
+    var alt_range = 0;
+    var alt_yspace = 0;
+    if (inData.max_alt) {
+      alt_range = inData.max_alt + (inData.max_alt /3);
+      // Calculate display space between altitude values
+      alt_yspace = parseInt(alt_range / 4);
+    }
+    // Caluclate speed range
+    var sp_range = 0;
+    var sp_yspace = 0;
+    if (inData.max_speed) {
+      sp_range = Config.userSpeedInteger(inData.max_speed) -
+        Config.userSpeedInteger(inData.min_speed);
+      sp_range = sp_range * 2;
+      // Calculate display space between speed values
+      sp_yspace = parseInt(sp_range / 4, 10);
+    }
+
+    // Create the Canvas
+    var c = __createRectCanvas("graphs-canvas", alt_range, alt_yspace, sp_range, sp_yspace);
 
     // Write the legends
     // 1: Altitude
     // 2: Speed
-    c.fillStyle = ALT_LINE_COLOR;
-    localizedValue = Config.userSmallDistance(null);
-    c.fillText(_("altitude") + " (" + localizedValue.u + ")", xPadding + 50, 8);
-    c.fillStyle = SP_LINE_COLOR;
-    localizedValue = Config.userSpeed(null);
-    c.fillText(_("speed") + " (" + localizedValue.u + ")", xPadding + 50, 20);
+    // only display altitude information if altitude information are available
+    if (inData.max_alt) {
+      c.fillStyle = ALT_LINE_COLOR;
+      value = Config.userSmallDistance(null);
+      c.fillText(_("altitude") + " (" + value.u + ")", xPadding + 50, 8);
+    }
+    if (inData.max_speed) {
+      c.fillStyle = SP_LINE_COLOR;
+      value = Config.userSpeed(null);
+      c.fillText(_("speed") + " (" + value.u + ")", xPadding + 50, 20);
+    }
     c.stroke();
 
-    // Write X Axis text and lines
+    // Calculate display space between time values
     var xspace;
-    if (data.length <= SPACE_BTW_POINTS) {
-      xspace = data.length;
+    if (nb_points <= SPACE_BTW_POINTS) {
+      xspace = nb_points;
     } else {
-      xspace = data.length / SPACE_BTW_POINTS;
+      xspace = parseInt(nb_points / SPACE_BTW_POINTS, 10);
     }
-    // console.log("xspace",xspace);
-    var timestamp, date, hour = "";
-    for (i=0; i<data.length; i+=xspace) {
-      i = parseInt(i,10);
-      timestamp = Date.parse(data[i].date);
-      if (isNaN(timestamp)) {
-        hour = "";
-      } else {
-        date = new Date(timestamp);
-        hour = ("0" + date.getHours()).slice(-2) + ":" + ("0" + date.getMinutes()).slice(-2);
+    // we calculate the ratio needed to display all data in available width
+    var ratio = (SCREEN_WIDTH - xPadding -5) / nb_points;
+    console.log('ratio', ratio);
+
+    /* Draw the time values based on the first time recorded and the duration (nb_points)
+    * TODO Manage tracks that does not contain time values, and replace them with distance
+    */
+    var date;
+    if (inData.start) {
+      // Get the first recorder time and convert it to a value in milliseconds since 1970...
+      date = new Date(inData.data[0][0].date).valueOf();
+    }
+    for (i = 0; i < nb_points; i += xspace) {
+      if (inData.start) {
+        // increase hour by a xspace seconds
+        time = new Date(date + (i * 1000));
+        // Get time value to a prettier format
+        hour = ("0" + time.getHours()).slice(-2) + ":" + ("0" + time.getMinutes()).slice(-2);
       }
+      // Define syles for display
       c.textAlign = "center";
       c.fillStyle = "gray";
-      c.fillText(hour, __getXPixel(i,data) - (i+xspace > data.length ? 15 : 0), SCREEN_HEIGHT - yPadding + 27);
-      // draw vertical lines
-      c.beginPath();
-      c.moveTo(__getXPixel(i,data),SCREEN_HEIGHT - yPadding + 15);
-      c.lineTo(__getXPixel(i,data),SCREEN_HEIGHT - yPadding + 20);
-      c.stroke();
+      // calculate x coordinate. if last value, we move it to the left by 15
+      var x_coord = xPadding + (i * ratio);
+      var y_coord = SCREEN_HEIGHT - yPadding + 27;
+      if (i + xspace > nb_points) {
+        if (inData.start) {
+          // Write time value to the canvas
+          c.fillText(hour, parseInt(x_coord - 15), y_coord);
+        }
+        console.log('last one', SCREEN_WIDTH - 20);
+        // draw vertical small lines
+        c.beginPath();
+        c.moveTo(SCREEN_WIDTH - 6, SCREEN_HEIGHT - yPadding + 15);
+        c.lineTo(SCREEN_WIDTH - 6, SCREEN_HEIGHT - yPadding + 20);
+        c.stroke();
+      } else {
+        if (inData.start) {
+          c.fillText(hour, x_coord, y_coord);
+        }
+        // draw vertical small lines
+        c.beginPath();
+        c.moveTo(x_coord, SCREEN_HEIGHT - yPadding + 15);
+        c.lineTo(x_coord, SCREEN_HEIGHT - yPadding + 20);
+        c.stroke();
+      }
     }
-
-    // Draw Altitude points
-    c.strokeStyle = ALT_LINE_COLOR;
-    c.lineWidth = LINE_WIDTH;
-    c.beginPath();
-    c.moveTo(__getXPixel(0,data), __getYPixel(data[0].altitude, alt_range));
-    var x;
-    for(i=1;i<data.length;i+=espace) {
-      x = __getXPixel(i,data);
-      c.lineTo(x, __getYPixel(data[i].altitude, alt_range));
+    if (inData.start) {
+      __drawPoints(c, inData, alt_range, ratio, "altitude", ALT_LINE_COLOR, ALT_FILL_COLOR);
+      __drawPoints(c, inData, sp_range, ratio, "speed", SP_LINE_COLOR, SP_FILL_COLOR);
+    } else {
+      __drawTimelessPoints(c, inData, alt_range, nb_points, "altitude", ALT_LINE_COLOR, ALT_FILL_COLOR);
+      __drawTimelessPoints(c, inData, sp_range, nb_points, "speed", SP_LINE_COLOR, SP_FILL_COLOR);
     }
-    c.lineTo(x,SCREEN_HEIGHT - yPadding);
-    c.lineTo(__getXPixel(0,data),SCREEN_HEIGHT - yPadding);
-    c.lineTo(__getXPixel(0,data), __getYPixel(data[0].altitude, alt_range));
-    c.fillStyle = ALT_FILL_COLOR;
-    c.fill();
-    c.stroke();
-
-    // Draw Speed points
-    c.strokeStyle = SP_LINE_COLOR;
-    c.globalAlpha = 1;
-    c.lineWidth = LINE_WIDTH;
-    c.beginPath();
-    localizedValue = Config.userSpeedInteger(data[0].speed);
-    c.moveTo(__getXPixel(0,data), __getYPixel(localizedValue, sp_range));
-    for(i=1;i<data.length;i+=espace) {
-      localizedValue = Config.userSpeedInteger(data[i].speed);
-      x = __getXPixel(i,data);
-      c.lineTo(x, __getYPixel(localizedValue, sp_range));
-    }
-    c.lineTo(x,SCREEN_HEIGHT - yPadding);
-    c.lineTo(__getXPixel(0,data),SCREEN_HEIGHT - yPadding);
-    c.lineTo(__getXPixel(0,data), __getYPixel(Config.userSpeedInteger(data[0].speed), sp_range));
-    c.fillStyle = SP_FILL_COLOR;
-    c.fill();
-    c.stroke();
-
-    c.closePath();
   }
 
   function __buildMap2(inTrack, saveMapCallback) {
     // get the min and max longitude/ latitude
     // and build the path
     var minLat, minLon, maxLat, maxLon;
-    for (i = 0; i< inTrack.data.length; i++){
-      var point = {
-        lat: inTrack.data[i].latitude / 1,
-        lon: inTrack.data[i].longitude / 1
-      };
-      if (minLat === undefined || minLat > point.lat) {
-        minLat = point.lat;
-      }
-      if (maxLat === undefined || maxLat < point.lat) {
-        maxLat = point.lat;
-      }
-      if (minLon === undefined || minLon > point.lon) {
-        minLon = point.lon;
-      }
-      if (maxLon === undefined || maxLon < point.lon) {
-        maxLon = point.lon;
+    var i, j;
+    var nb_points = 0;
+    for (j = 0; j < inTrack.data.length; j++){
+      for (i = 0; i < inTrack.data[j].length; i++) {
+        var point = {
+          lat: inTrack.data[j][i].latitude / 1,
+          lon: inTrack.data[j][i].longitude / 1
+        };
+        if (minLat === undefined || minLat > point.lat) {
+          minLat = point.lat;
+        }
+        if (maxLat === undefined || maxLat < point.lat) {
+          maxLat = point.lat;
+        }
+        if (minLon === undefined || minLon > point.lon) {
+          minLon = point.lon;
+        }
+        if (maxLon === undefined || maxLon < point.lon) {
+          maxLon = point.lon;
+        }
+        nb_points++;
       }
     }
     // Calculate the Bouncing Box
@@ -290,30 +307,47 @@ var TrackView = function() {
     if (larger === 0) {
       return;
     }
-
     var MAX_POINTS = 100;
     var BLUE = "0x0AFF00";
-    var PATH = "&polyline=color:" + BLUE + "|width:3|";
-    var j = 0;
+    var PATH = "";//&polyline=color:" + BLUE + "|width:3|";
+    var k = 0;
     var y;
-    if (inTrack.data.length > MAX_POINTS) {
-      y = parseInt(inTrack.data.length / MAX_POINTS, 10);
+    if (nb_points > MAX_POINTS) {
+      y = parseInt(nb_points / MAX_POINTS, 10);
       // console.log("y: ", y);
-      if (y * inTrack.data.length > MAX_POINTS) {
-        y = y + 1;
+      if (y * nb_points > MAX_POINTS) {
+        y++;
       }
     } else {
       y = 1;
     }
-    for (var i = 0; i < inTrack.data.length; i = i + y) {
-      if (i === inTrack.data.length - 1) {
-        PATH = PATH + inTrack.data[i].latitude + "," + inTrack.data[i].longitude;
+    for (var s = 0; s < inTrack.data.length; s++) {
+      var seg = inTrack.data[s];
+      var SEGMENT = "&polyline=color:" + BLUE + "|width:3|";
+      /*
+       * In case the segment of track is smaller than the trackpoint interval,
+       * we display every point of this small segment.
+       */
+      if (seg.length <= y) {
+        for (var m = 0; m < seg.length; m++) {
+          if (m === 0) {
+            SEGMENT = SEGMENT + seg[m].latitude + "," + seg[m].longitude;
+          } else {
+            SEGMENT = SEGMENT + "," + seg[m].latitude + "," + seg[m].longitude;
+          }
+        }
       } else {
-        PATH = PATH + inTrack.data[i].latitude + "," + inTrack.data[i].longitude + ",";
+        for (var p = 0; p < seg.length; p = p + y) {
+          if (p === 0) {
+            SEGMENT = SEGMENT + seg[p].latitude + "," + seg[p].longitude;
+          } else {
+            SEGMENT = SEGMENT + "," + seg[p].latitude + "," + seg[p].longitude;
+          }
+        }
       }
-      j++;
+      PATH = PATH + SEGMENT;
+      k++;
     }
-    // console.log("PATH: ", PATH);
     var BESTFIT = "&bestfit=" + p1.lat + ","+ p1.lon + ","+ p2.lat + "," + p2.lon;
     var SIZE = "&size=" + MAP_WIDTH + "," + MAP_HEIGHT;
     var TYPE = "&type=map&imagetype=jpeg";
@@ -321,6 +355,7 @@ var TrackView = function() {
     var KEY = "key=Fmjtd%7Cluur21u720%2Cr5%3Do5-90tx9a";
 
     var loc = "http://" + BASE_URL + KEY + SIZE + TYPE + BESTFIT + PATH;
+    // console.log('url', loc);
 
     document.getElementById("map-img").width = SCREEN_WIDTH;
     document.getElementById("map-img").onload = function () {
@@ -334,7 +369,7 @@ var TrackView = function() {
     xhr.open('GET', loc, true);
     xhr.responseType = "blob";
     xhr.addEventListener("load", function() {
-      console.log("xhr", xhr);
+      // console.log("xhr", xhr);
       if (xhr.status === 200) {
         blob = xhr.response;
         var URL = window.URL || window.webkitURL;
@@ -348,6 +383,7 @@ var TrackView = function() {
   }
 
   function __createRectCanvas(inElementId, inRangeAlt, inSpaceAlt, inRangeSp, inSpaceSp) {
+    console.log('createRectCanvas inputs', inElementId, inRangeAlt, inSpaceAlt, inRangeSp, inSpaceSp);
     var graph = document.getElementById(inElementId);
     var c = graph.getContext("2d");
     c.clearRect(0, 0, SCREEN_WIDTH - 5, SCREEN_HEIGHT);
@@ -430,6 +466,109 @@ var TrackView = function() {
       lat : (latRad / (Math.PI / 180)),
       lon : (lonRad / (Math.PI / 180))
     };
+  }
+
+  function __drawPoints(c, inData, range, ratio, value, LINE_COLOR, FILL_COLOR) {
+    // set the line color
+    c.strokeStyle = LINE_COLOR;
+    // set the line width
+    c.lineWidth = LINE_WIDTH;
+    // record the first date of the track
+    var initial_time = new Date(inData.data[0][0].date).valueOf();
+    var y;
+    var x;
+    var segment;
+    var segment_initial_x;
+    var segment_initial_y;
+    var previous = 0;
+    var zero = SCREEN_HEIGHT - yPadding;
+    for (var seg = 0; seg < inData.data.length; seg++) {
+      segment = inData.data[seg];
+      c.beginPath();
+      // record the initial X coordinate (based on time) for this segment
+      segment_initial_x = ((new Date(segment[0].date).valueOf() - initial_time) / 1000) * ratio;
+      // record the initial Y coordinate for this segment
+      segment_initial_y = __getYPixel(segment[0][value], range);
+      // move to original point of the current segment
+      c.moveTo(segment_initial_x + xPadding, segment_initial_y);
+      for (var i = 0; i < segment.length; i++) {
+        x = ((new Date(segment[i].date).valueOf() - initial_time) / 1000) * ratio;
+        if (value === "speed") {
+          y = __getYPixel(Config.userSpeedInteger(segment[i][value]), range);
+        } else {
+          y = __getYPixel(segment[i][value], range);
+        }
+        // only display the current point if it is distant of 1 pixel from the previous one
+        if (x > previous + 2) {
+          previous = x;
+          x = x + xPadding;
+          c.lineTo(x, y, range);
+        } else if (seg === inData.data.length - 1 && i === segment.length - 1) {
+          x = SCREEN_WIDTH - 6;
+          c.lineTo(x, y, range);
+        } else if (i === segment.length - 1){
+          x = x + xPadding;
+          c.lineTo(x, y, range);
+        }
+      }
+      c.lineTo(x, zero);
+      c.lineTo(segment_initial_x + xPadding, zero);
+      c.lineTo(segment_initial_x + xPadding, segment_initial_y);
+      c.fillStyle = FILL_COLOR;
+      c.fill();
+      c.stroke();
+    }
+  }
+
+  function __drawTimelessPoints(c, inData, range, nb_points, value, LINE_COLOR, FILL_COLOR) {
+    // set the line color
+    c.strokeStyle = LINE_COLOR;
+    // set the line width
+    c.lineWidth = LINE_WIDTH;
+    var y;
+    var x;
+    var segment;
+    var segment_initial_x;
+    var segment_initial_y;
+    var zero = SCREEN_HEIGHT - yPadding;
+    // calculate space bteween points
+    var ratio;
+    var screen_available = SCREEN_WIDTH - xPadding - 5;
+    if (nb_points <= SPACE_BTW_POINTS) {
+      ratio = 1;
+    } else if (nb_points < screen_available) {
+      ratio = parseInt(screen_available / nb_points, 10);
+    } else {
+      ratio = parseInt(nb_points / screen_available, 10) * SPACE_BTW_POINTS;
+    }
+
+    for(var seg = 0; seg < inData.data.length; seg++) {
+      segment = inData.data[seg];
+      c.beginPath();
+      // record the initial X coordinate (based on time) for this segment
+      segment_initial_x = 0;
+      // record the initial Y coordinate for this segment
+      segment_initial_y = __getYPixel(segment[0][value], range);
+      // move to original point of the current segment
+      c.moveTo(segment_initial_x + xPadding, segment_initial_y);
+
+      for (var i = 1; i < segment.length; i+=ratio) {
+        x = __getXPixel(i, segment);
+        // x = __getXPixel(pt,data[j]);
+        if (value === "speed") {
+          y = __getYPixel(Config.userSpeedInteger(segment[i][value]), range);
+        } else {
+          y = __getYPixel(segment[i][value], range);
+        }
+        c.lineTo(x, __getYPixel(segment[i][value], range));
+      }
+      c.lineTo(x, zero);
+      c.lineTo(segment_initial_x + xPadding, zero);
+      c.lineTo(segment_initial_x + xPadding, segment_initial_y);
+      c.fillStyle = FILL_COLOR;
+      c.fill();
+      c.stroke();
+    }
   }
 
   return {

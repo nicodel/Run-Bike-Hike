@@ -1,5 +1,6 @@
 /* jshint browser: true, strict: true, devel: true */
-/* global Controller, TracksView */
+/* global Controller, TracksView, FxDeviceStorage */
+
 /******************
  * EVENT LISTENER *
 *******************/
@@ -39,22 +40,6 @@ document.querySelector("#btn-pause").addEventListener ("click", function () {
   "use strict";
   Controller.pauseRecording();
 });
-
-
-/*----------------- Infos View -----------------*/
-/* Infos View Stop button */
-// document.querySelector("#btn-stop").addEventListener ("click", function () {
-//     document.getElementById("views").showCard(3);
-// });
-
-/* Infos Map button */
-// document.querySelector("#btn-map").addEventListener ("click", function () {
-//   console.log("flipping!");
-//   document.getElementById("infos-flipbox").toggle();
-//   Controller.flippingTrack(document.getElementById("infos-flipbox").flipped);
-// });
-
-
 
 /*-------- Stop tracking confirmation ------------*/
 /* Stop tracking Confirm button */
@@ -147,7 +132,11 @@ document.querySelector("#btn-tracks-back").addEventListener ("click", function (
 document.querySelector("#btn-import").addEventListener ("click", function () {
   "use strict";
   document.querySelector("#btn-confirm-import").setAttribute("disabled", "disabled");
-  Controller.searchFiles();
+  if (FxDeviceStorage.compatible) {
+    Controller.searchFiles();
+  } else {
+    Controller.showInput();
+  }
   document.getElementById("views").showCard(8);
 });
 /* Import Cancel button */
@@ -159,7 +148,11 @@ document.querySelector("#btn-cancel-import").addEventListener("click", function(
 /* Import Confirm button */
 document.querySelector("#btn-confirm-import").addEventListener("click", function() {
   "use strict";
-  Controller.importFile(document.querySelector("#select-file").value);
+  if (FxDeviceStorage.compatible) {
+    Controller.importFile(document.querySelector("#select-file").value);
+  } else {
+    Controller.importFile(document.getElementById("input-file").files);
+  }
 });
 document.querySelector("#select-file").onchange = function() {
   "use strict";
@@ -167,12 +160,16 @@ document.querySelector("#select-file").onchange = function() {
   if (this[id].value === "empty") {
     document.getElementById("btn-confirm-import").setAttribute("disabled", "disabled");
   } else {
-    document.getElementById("btn-confirm-import").removeAttribute("disabled");
+    Controller.enableImport();
   }
 };
 document.getElementById("import-form").onsubmit = function() {
   "use strict";
   return false;
+};
+document.getElementById("input-file").onchange = function() {
+  "use strict";
+  Controller.enableImport();
 };
 
 /*----------------- Track Detail View -----------------*/
@@ -248,10 +245,19 @@ document.querySelector("#btn-clear-rename").addEventListener('mousedown', functi
 /* Track View Share button */
 document.querySelector("#btn-share").addEventListener("click", function() {
   "use strict";
-  console.Log("exporting");
-  document.getElementById("views").showCard(7);
-  // setting it to default
-  document.querySelector('[name="radio-share"]').value = "on-device";
+  if (FxDeviceStorage.compatible) {
+    console.log("exporting");
+    // setting it to default
+    document.querySelector('[name="radio-share"]').value = "on-device";
+  } else {
+    for (var i = 0; i < document.getElementsByName("radio-share").length; i++) {
+      var node = document.getElementsByName("radio-share")[i];
+      if (node.value === "on-device") {
+        node.setAttribute("disabled", true);
+      }
+    }
+  }
+    document.getElementById("views").showCard(7);
 });
 
 document.forms['share-form'].addEventListener("click", function() {

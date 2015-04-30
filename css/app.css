@@ -192,3 +192,7 @@ ul li > label.pack-switch {
   height: 100%;
   background: none repeat scroll 0% 0% rgba(248, 248, 255, 0.7);
 }
+
+#graphs-canvas {
+  margin-bottom: 30px;
+}

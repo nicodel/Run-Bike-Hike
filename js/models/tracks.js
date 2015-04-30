@@ -5,6 +5,7 @@ var Tracks = function() {
   "use strict";
 
   var current_track = {};
+  var segment = 0;
   var start_date;
   var distance = 0;
   var olat = null;
@@ -13,6 +14,7 @@ var Tracks = function() {
 
   function open() {
     current_track = {};
+    segment = 0;
     // Get start date
     var d = new Date();
     current_track.date = d.toISOString();
@@ -54,12 +56,21 @@ var Tracks = function() {
     return current_track;
   }
 
+  function newSegment() {
+    segment += 1;
+    console.log('segment', segment);
+  }
+
   function addNode(inNode, inDistance, inDuration) {
-    // console.log("inNode", inNode);
-    current_track.data.push(inNode);
+    // check if current segment exist within data
+    if (!current_track.data[segment]) {
+      current_track.data[segment] = [];
+    }
+    current_track.data[segment].push(inNode);
     current_track.distance = inDistance;
     current_track.duration = inDuration;
-    nb_point =+ 1;
+    nb_point += 1;
+    console.log('current_track', current_track);
   }
 
   function getDistance(lat, lon) {
@@ -119,14 +130,15 @@ var Tracks = function() {
   }
 
   return {
-    open: open,
-    addNode: addNode,
-    getDuration: getDuration,
-    getDistance: getDistance,
-    reset: reset,
-    close: close,
+    open:           open,
+    newSegment:     newSegment,
+    addNode:        addNode,
+    getDuration:    getDuration,
+    getDistance:    getDistance,
+    reset:          reset,
+    close:          close,
     importFromFile: importFromFile,
-    resumed: resumed
+    resumed:        resumed
   };
 }();
 // });
