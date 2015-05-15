@@ -72,7 +72,7 @@ var TrackView = function() {
         var row = seg[j];
         // check if speed values are available within track
         if (row.speed) {
-          var speed_int = parseInt(row.speed, 10);
+          var speed_int = parseFloat(row.speed);
           if (t.max_speed === 0 || speed_int > t.max_speed) {
             t.max_speed = speed_int;
           }
@@ -81,7 +81,7 @@ var TrackView = function() {
         }
         // check if altitude values are available within track
         if (row.altitude) {
-          var alt_int = parseInt(row.altitude, 10);
+          var alt_int = parseFloat(row.altitude);
           if (t.min_alt === 0 || alt_int < t.min_alt) {
             t.min_alt = alt_int;
           }
