@@ -1,19 +1,19 @@
 #!/bin/bash
-cp index.html tmp/.
+cp index.html public/.
 # Modify index.html by replacing old css and js files by the minify once
 ## Removing JS files lines from index.html"
-# cat tmp/index.html |grep 'src="js'
-sed -i 's/src="js\/app.js/src="app.js/g' tmp/index.html
+# cat public/index.html |grep 'src="js'
+sed -i 's/src="js\/app.js/src="app.js/g' public/index.html
 ## Replacing with single JS file"
-# cat tmp/index.html |grep 'src="app.js'
+# cat public/index.html |grep 'src="app.js'
 
 ## Removing CSS files lines from index.html"
-# cat tmp/index.html |grep 'href="css'
-sed -i 's/href="css\/app.css/href="app.css/g' tmp/index.html
+# cat public/index.html |grep 'href="css'
+sed -i 's/href="css\/app.css/href="app.css/g' public/index.html
 ## Replacing with single CSS file"
-# cat tmp/index.html |grep 'href="app.css'
+# cat public/index.html |grep 'href="app.css'
 
 #remove old lines
-sed -i '/src="js/d' tmp/index.html
-sed -i '/href="css/d' tmp/index.html
+sed -i '/src="js/d' public/index.html
+sed -i '/href="css/d' public/index.html
 

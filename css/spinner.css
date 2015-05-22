@@ -1,6 +1,6 @@
 /* Spinner */
 progress:not([value]) {
-  background: url(../img/spinner/default.png) no-repeat center center / 100% auto;
+  background: url(img/spinner/default.png) no-repeat center center / 100% auto;
   animation: 0.9s rotate infinite steps(30);
   width: 2.9rem;
   height: 2.9rem;

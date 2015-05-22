@@ -139,7 +139,7 @@ x-layout > [data-type="settings"] ul li .button {
 }
 x-layout > [data-type="settings"] ul li .button.icon-dialog:before {
   background-color: transparent;
-  background-image: url('../img/button-dialog.png');
+  background-image: url('img/button-dialog.png');
   background-repeat: no-repeat;
   background-position: 100% 0%;
   background-size: auto auto;

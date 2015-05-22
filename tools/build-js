@@ -17,4 +17,4 @@ uglifyjs  js/views/home-view.js \
           js/app.js \
           --mangle \
           --compress \
-          -o tmp/app.js
+          -o public/app.js

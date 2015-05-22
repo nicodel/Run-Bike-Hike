@@ -1,0 +1,7 @@
+#! /bin/bash
+cp manifest.webapp public/.
+cp locales/* public/locales/.
+cp -a css/font/* public/font/.
+cp -a lib/* public/lib/.
+cp -a img/* public/img/.
+

@@ -83,8 +83,8 @@ section button.icon {
   min-width: 45px;
 }
 section button.icon.icon-pause {
-  background-image: url("../img/icon-pause.png");
+  background-image: url("img/icon-pause.png");
 }
 section button.icon.icon-play {
-  background-image: url("../img/icon-play.png");
+  background-image: url("img/icon-play.png");
 }

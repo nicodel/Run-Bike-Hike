@@ -1,14 +1,14 @@
 #!/bin/bash
-if [ -d tmp ]
+if [ -d public ]
 then
-  rm -R tmp
+  rm -R public
 fi
 
-mkdir tmp
-mkdir tmp/lib
-mkdir tmp/img
-mkdir tmp/locales
-mkdir tmp/font
+mkdir public
+mkdir public/lib
+mkdir public/img
+mkdir public/locales
+mkdir public/font
 
 if [ ! -d builds ]
 then

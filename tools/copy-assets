@@ -1,8 +1,0 @@
-#!/bin/bash
-# Copy files as originals to ../tmp/
-cp ../manifest.webapp ../tmp/.
-cp ../locales/* ../tmp/locales/.
-cp -a ../css/font/* ../tmp/font/.
-cp -a ../lib/* ../tmp/lib/.
-cp -a ../img/* ../tmp/img/.
-

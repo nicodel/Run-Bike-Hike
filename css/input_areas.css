@@ -80,7 +80,7 @@ form p textarea + button[type="reset"] {
   font-size: 0;
   opacity: 0;
   pointer-events: none;
-  background: url(../img/clear.png) no-repeat 50% 50% / auto auto;
+  background: url(img/clear.png) no-repeat 50% 50% / auto auto;
 }
 
 /* To avoid colission with BB butons */
@@ -142,7 +142,7 @@ input[type="datetime-local"] {
   height: 4rem;
   color: #333;
   border-radius: 0;
-  background: #fff url(../img/input_areas/dialog.svg) no-repeat calc(100% - 1rem) calc(100% - 1rem);
+  background: #fff url(img/input_areas/dialog.svg) no-repeat calc(100% - 1rem) calc(100% - 1rem);
 }
 
 fieldset legend {
@@ -171,7 +171,7 @@ input[type="date"][disabled],
 input[type="time"][disabled],
 input[type="datetime"][disabled],
 input[type="datetime-local"][disabled] {
-  background-image: url(../img/input_areas/dialog_disabled.svg);
+  background-image: url(img/input_areas/dialog_disabled.svg);
   background-color: transparent
 }
 
@@ -204,7 +204,7 @@ input[type="datetime-local"]:active {
 .skin-dark input[type="datetime"]:active,
 .skin-dark input[type="datetime-local"]:active {
   background-color: #00aacc;
-  background-image: url(../img/input_areas/dialog_active.svg);
+  background-image: url(img/input_areas/dialog_active.svg);
 }
 
 

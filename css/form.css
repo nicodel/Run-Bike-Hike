@@ -1,8 +1,8 @@
 /* Main dialog setup */
 form {
   background:
-    url(../img/pattern-confirm.png) repeat left top,
-    url(../img/gradient-confirm.png) no-repeat left top / 100% 100%;
+    url(img/pattern-confirm.png) repeat left top,
+    url(img/gradient-confirm.png) no-repeat left top / 100% 100%;
   overflow: hidden;
   position: absolute;
   z-index: 100;
@@ -19,7 +19,7 @@ form {
 }
 
 form.light {
-  background: url(../img/pattern-confirm.png) repeat left top / 100% 100%;
+  background: url(img/pattern-confirm.png) repeat left top / 100% 100%;
 }
 
 form:before {
@@ -68,7 +68,7 @@ form menu {
   white-space: nowrap;
   margin: 0;
   padding: 1.5rem;
-  background: #2d2d2d url(../img/pattern-confirm.png) repeat left top;
+  background: #2d2d2d url(img/pattern-confirm.png) repeat left top;
   display: block;
   overflow: hidden;
   position: absolute;
@@ -78,7 +78,7 @@ form menu {
 }
 
 form.light menu {
-  background: url(../img/pattern-confirm.png) repeat left top;
+  background: url(img/pattern-confirm.png) repeat left top;
 }
 /*form menu button::-moz-focus-inner {
   border: none;

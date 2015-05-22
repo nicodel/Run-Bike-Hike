@@ -26,37 +26,37 @@ x-appbar > button.icon:active {
 }
 
 x-appbar > button.icon.icon-menu {
-  background-image: url("../img/menu.png");
+  background-image: url("img/menu.png");
 }
 
 x-appbar > button.icon.icon-list {
-  background-image: url("../img/icon-list.png");
+  background-image: url("img/icon-list.png");
 }
 
 x-appbar > button.icon.icon-import {
-  background-image: url("../img/icon-import.png");
+  background-image: url("img/icon-import.png");
 }
 
 x-appbar > button.icon.icon-back {
-  background-image: url("../img/icon-back.png");
+  background-image: url("img/icon-back.png");
 }
 
 x-appbar > button.icon.icon-forward {
-  background-image: url("../img/icon-forward.png");
+  background-image: url("img/icon-forward.png");
 }
 
 x-appbar > button.icon.icon-settings {
-  background-image: url("../img/icon-settings.png");
+  background-image: url("img/icon-settings.png");
 }
 
 x-appbar > button.icon.icon-delete {
-  background-image: url("../img/icon-delete.png");
+  background-image: url("img/icon-delete.png");
 }
 
 x-appbar > button.icon.icon-share {
-  background-image: url("../img/icon-share.png");
+  background-image: url("img/icon-share.png");
 }
 
 x-appbar > button.icon.icon-edit {
-  background-image: url("../img/icon-edit.png");
+  background-image: url("img/icon-edit.png");
 }

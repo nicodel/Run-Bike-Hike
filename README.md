@@ -8,6 +8,11 @@ A GPS recording web app.
 * Stable : [Firefox marketplace](https://marketplace.firefox.com/app/run-bike-hike)
 * Under development : [Github](http://nicodel.github.io/Run-Bike-Hike)
 
+## Build from source
+
+Run, Bike, Hike... is now based on npm for testing sources and building packages. In order to install all necessary packages, you need to run `npm install`.
+You will only be able to run Run, Bike, Hike... in a browser from `/public` folder.
+
 ## Release notes
 
 ### v0.1.15 -
