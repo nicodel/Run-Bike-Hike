@@ -196,3 +196,8 @@ ul li > label.pack-switch {
 #graphs-canvas {
   margin-bottom: 30px;
 }
+
+/*#map {
+  width: calc(100% - 10px);
+  height: 320px;
+}*/

@@ -1,4 +1,4 @@
-/* jshint browser: true, strict: true, devel: true */
+/* jshint browser: true, strict: true, devel: true, bitwise: false */
 /* exported TrackView */
 /* global _, Config */
 
@@ -9,8 +9,10 @@ var TrackView = function() {
   var SCREEN_WIDTH = parseInt(window.innerWidth,10);
   var SCREEN_HEIGHT = parseInt(SCREEN_WIDTH * 2 / 3,10);
   // Only getting a big size map, that will be stored in db
-  var MAP_WIDTH = 648; // 720px * 0.9
-  var MAP_HEIGHT = 432; // 720px * 3 / 2
+  // var MAP_WIDTH = 648; // 720px * 0.9
+  // var MAP_HEIGHT = 432; // 720px * 3 / 2
+  var MAP_WIDTH = SCREEN_WIDTH - 10;
+  var MAP_HEIGHT = MAP_WIDTH;
   // console.log("width", SCREEN_WIDTH);
   // console.log("height", SCREEN_HEIGHT);
   var xPadding = 35;
@@ -33,7 +35,7 @@ var TrackView = function() {
     document.getElementById("trk-date").innerHTML = "";
     document.getElementById("trk-dist").innerHTML = "";
     document.getElementById("trk-dur").innerHTML = "";
-    document.getElementById("map-img").src = "";
+    // document.getElementById("map-img").src = "";
 
     var tr = document.getElementById("tr-name");
     tr.innerHTML = inTrack.name;
@@ -117,7 +119,7 @@ var TrackView = function() {
     localizedValue = Config.userSmallDistance(t.min_alt);
     document.getElementById("trk-min-alt").innerHTML = localizedValue.v + " " + localizedValue.u;
 
-    if (t.map) {
+    /*if (t.map) {
       console.log("map exist");
       var img = document.getElementById("map-img");
       img.width = SCREEN_WIDTH;
@@ -130,9 +132,10 @@ var TrackView = function() {
       img.classList.remove("hidden");
     } else {
       console.log("map does not exist");
-      /*var mapToSave = */__buildMap2(inTrack, saveMapCallback);
+      __buildMap2(inTrack, saveMapCallback);
       // console.log("mapToSave.map", mapToSave.map);
-    }
+    }*/
+    __buildMap2(inTrack, saveMapCallback);
     __buildGraphs(t);
   }
 
@@ -257,17 +260,16 @@ var TrackView = function() {
   }
 
   function __buildMap2(inTrack, saveMapCallback) {
-    // get the min and max longitude/ latitude
-    // and build the path
-    var minLat, minLon, maxLat, maxLon;
-    var i, j;
+    var coordinates = [];
+    var point, i, j, minLat, maxLat, minLon, maxLon;
     var nb_points = 0;
     for (j = 0; j < inTrack.data.length; j++){
       for (i = 0; i < inTrack.data[j].length; i++) {
-        var point = {
+        point = {
           lat: inTrack.data[j][i].latitude / 1,
           lon: inTrack.data[j][i].longitude / 1
         };
+        coordinates.push(point);
         if (minLat === undefined || minLat > point.lat) {
           minLat = point.lat;
         }
@@ -280,10 +282,12 @@ var TrackView = function() {
         if (maxLon === undefined || maxLon < point.lon) {
           maxLon = point.lon;
         }
+      }
         nb_points++;
       }
     }
-    // Calculate the Bouncing Box
+    var center_point = __getCentralPoint(coordinates);
+/*    // Calculate the Bouncing Box
     var p1 = {lon: minLon, lat: maxLat};
     var p2 = {lon: maxLon, lat: minLat};
     var realHeight = __getDistance(p1.lat, p1.lon, p2.lat, p1.lon);
@@ -306,7 +310,7 @@ var TrackView = function() {
     }
     if (larger === 0) {
       return;
-    }
+    }*/
     var MAX_POINTS = 100;
     var BLUE = "0x0AFF00";
     var PATH = "";//&polyline=color:" + BLUE + "|width:3|";
@@ -348,7 +352,34 @@ var TrackView = function() {
       PATH = PATH + SEGMENT;
       k++;
     }
-    var BESTFIT = "&bestfit=" + p1.lat + ","+ p1.lon + ","+ p2.lat + "," + p2.lon;
+    // http://api.tiles.mapbox.com/v4/{mapid}/{lon},{lat},{z}/{width}x{height}.{format}?access_token=<your access token>
+    var TOKEN = 'pk.eyJ1Ijoibmljb2RlbCIsImEiOiI3MzkyZDRjMTcyNTMwNDdmYzI3YjkwNjYyMzU2NTQxMCJ9.mfE8TMuIfqtdkeNzcXVXoQ';
+    var LON_LAT_ZOOM = center_point.lon + "," + center_point.lat + "," + 11;
+    var POLYLINE = "path-5+f44+f44(" + __polylineEncode(coordinates) + ")";
+
+    var loc = "http://api.tiles.mapbox.com/v4/nicodel.f5f50fd7/" + POLYLINE + "/" + LON_LAT_ZOOM + "/" + MAP_WIDTH + "x" + MAP_HEIGHT + ".png?access_token=" + TOKEN;
+
+/*
+    document.getElementById("map").setAttribute("style", "{height:" + MAP_HEIGHT + "; width:" + MAP_WIDTH + ";}");
+    var map = L.map('map', {
+      center: [center_point.lat, center_point.lon],
+      zoom: 13
+    });
+    L.tileLayer('https://{s}.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={token}',{
+      // attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+      maxZoom: 22,
+      id: 'nicodel.f5f50fd7',
+      token: 'pk.eyJ1Ijoibmljb2RlbCIsImEiOiI3MzkyZDRjMTcyNTMwNDdmYzI3YjkwNjYyMzU2NTQxMCJ9.mfE8TMuIfqtdkeNzcXVXoQ'
+    }).addTo(map);
+    L.polyline(coordinates, {color: 'red'}).addTo(map);
+*/
+/*L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+        attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+            maxZoom: 18,
+                id: 'your.mapbox.project.id',
+                    accessToken: 'your.mapbox.public.access.token'
+                    }).addTo(map)})*/
+/*    var BESTFIT = "&bestfit=" + p1.lat + ","+ p1.lon + ","+ p2.lat + "," + p2.lon;
     var SIZE = "&size=" + MAP_WIDTH + "," + MAP_HEIGHT;
     var TYPE = "&type=map&imagetype=jpeg";
     var BASE_URL = "open.mapquestapi.com/staticmap/v4/getmap?";
@@ -356,7 +387,7 @@ var TrackView = function() {
 
     var loc = "http://" + BASE_URL + KEY + SIZE + TYPE + BESTFIT + PATH;
     // console.log('url', loc);
-
+*/
     document.getElementById("map-img").width = SCREEN_WIDTH;
     document.getElementById("map-img").onload = function () {
       document.querySelector("#map-text").classList.add("hidden");
@@ -431,7 +462,7 @@ var TrackView = function() {
   function __getYPixel(val,range) {
     return SCREEN_HEIGHT - (((SCREEN_HEIGHT - yPadding) / range) * val) - yPadding;
   }
-  function __getDistance (lat1, lon1, lat2, lon2) {
+/*  function __getDistance (lat1, lon1, lat2, lon2) {
     var radius = 6371 * 1000; // Earth radius (mean) in metres {6371, 6367}
 
     var lat1Rad = lat1*( Math.PI / 180);
@@ -466,7 +497,7 @@ var TrackView = function() {
       lat : (latRad / (Math.PI / 180)),
       lon : (lonRad / (Math.PI / 180))
     };
-  }
+  }*/
 
   function __drawPoints(c, inData, range, ratio, value, LINE_COLOR, FILL_COLOR) {
     // set the line color
@@ -570,6 +601,77 @@ var TrackView = function() {
       c.stroke();
     }
   }
+
+  var __getCentralPoint = function(coords) {
+    var x = 0;
+    var y = 0;
+    var z = 0;
+    var point, lat, lon;
+    var total = coords.length;
+    if (total === 1) {
+      return coords;
+    }
+    for (var i = 0; i < total; i++) {
+      point = coords[i];
+      lat = point.lat * Math.PI / 180;
+      lon = point.lon * Math.PI / 180;
+      x = x + Math.cos(lat) * Math.cos(lon);
+      y = y + Math.sin(lat) * Math.sin(lon);
+      z = z + Math.sin(lat);
+    }
+    x = x / total;
+    y = y / total;
+    z = z / total;
+    var square_root = Math.sqrt(x * x + y * y);
+    var center = {
+      lat: Math.atan2(z, square_root) * 180 / Math.PI,
+      lon: Math.atan2(y, z) * 180 / Math.PI
+    };
+    return center;
+  };
+
+  var __encode = function(coordinate, factor) {
+    coordinate = Math.round(coordinate * factor);
+    coordinate <<= 1;
+    if (coordinate < 0) {
+      coordinate = ~coordinate;
+    }
+    var output = '';
+    while (coordinate >= 0x20) {
+      output += String.fromCharCode((0x20 | (coordinate & 0x1f)) + 63);
+      coordinate >>= 5;
+    }
+    output += String.fromCharCode(coordinate + 63);
+    return output;
+  };
+
+  var __polylineEncode = function(coordinates, precision) {
+    if (!coordinates.length) {
+      return '';
+    }
+    var factor = Math.pow(10, precision || 5),
+      output = __encode(coordinates[0].lat, factor) + __encode(coordinates[0].lon, factor);
+    var nb_points = coordinates.length;
+    var max_points = 50;
+    var r;
+    if (coordinates.length > max_points) {
+      r = parseInt(nb_points / max_points, 10);
+      if (r * nb_points > max_points) {
+        r++;
+      } else {
+        r = 1;
+      }
+    }
+    console.log('range', r);
+    for (var i = 1; i < 50 /*coordinates.length*/; i = i + r) {
+      var a = coordinates[i], b = coordinates[i - 1];
+      output += __encode(a.lat - b.lat, factor);
+      output += __encode(a.lon - b.lon, factor);
+      console.log('coordinates', coordinates);
+    }
+    console.log('output', output);
+    return output;
+  };
 
   return {
     display: display,
