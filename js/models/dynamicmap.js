@@ -4,7 +4,16 @@
 
 var DynamicMap = function() {
   'use strict';
-  var map = L.map('map');
+
+  var map_options = {
+    zoomControl: false
+  };
+  var polyline_options = {
+    color: 'blue',
+    weight: 3
+  };
+
+  var map = L.map('map', map_options);
 
   var getMap = function(track) {
 
@@ -13,7 +22,6 @@ var DynamicMap = function() {
     }).addTo(map);
     var layers = new L.FeatureGroup();
     var pt, point, seg, segment, coordinates, polyline;
-    var polylines = [];
     for (seg = 0; seg < track.data.length; seg++){
       segment = track.data[seg];
       coordinates = [];
@@ -24,10 +32,9 @@ var DynamicMap = function() {
         );
         coordinates.push(point);
       }
-      polyline = new L.Polyline(coordinates, {color: 'blue'});
-      polylines.push(polyline);
+      polyline = new L.Polyline(coordinates, polyline_options);
+      layers.addLayer(polyline);
     }
-    layers.addLayer(polyline);
     map.fitBounds(layers.getBounds());
 
     layers.addTo(map);
@@ -39,7 +46,7 @@ var DynamicMap = function() {
   var removeMap = function() {
     map.remove();
     console.log('new map', map);
-    map = L.map('map');
+    map = L.map('map', map_options);
   };
 
   return {
