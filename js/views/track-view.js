@@ -11,8 +11,8 @@ var TrackView = function() {
   // Only getting a big size map, that will be stored in db
   // var MAP_WIDTH = 648; // 720px * 0.9
   // var MAP_HEIGHT = 432; // 720px * 3 / 2
-  var MAP_WIDTH = SCREEN_WIDTH - 10;
-  var MAP_HEIGHT = MAP_WIDTH;
+  // var MAP_WIDTH = SCREEN_WIDTH - 10;
+  // var MAP_HEIGHT = MAP_WIDTH * 3 / 2;
   // console.log("width", SCREEN_WIDTH);
   // console.log("height", SCREEN_HEIGHT);
   var xPadding = 35;
@@ -27,7 +27,7 @@ var TrackView = function() {
   var SP_LINE_COLOR = "#4169E1"; // RoyalBlue
   var SP_FILL_COLOR = "rgba(65,105,225, 0.3)"; // RoyalBlue
 
-  function display(inTrack, saveMapCallback) {
+  function display(inTrack) {
     var i = 0;
     var localizedValue = {};
     console.log("inTrack in display", inTrack);
@@ -35,7 +35,7 @@ var TrackView = function() {
     document.getElementById("trk-date").innerHTML = "";
     document.getElementById("trk-dist").innerHTML = "";
     document.getElementById("trk-dur").innerHTML = "";
-    // document.getElementById("map-img").src = "";
+    document.getElementById("map-img").src = "";
 
     var tr = document.getElementById("tr-name");
     tr.innerHTML = inTrack.name;
@@ -119,24 +119,47 @@ var TrackView = function() {
     localizedValue = Config.userSmallDistance(t.min_alt);
     document.getElementById("trk-min-alt").innerHTML = localizedValue.v + " " + localizedValue.u;
 
-    /*if (t.map) {
+    if (t.map) {
       console.log("map exist");
       var img = document.getElementById("map-img");
       img.width = SCREEN_WIDTH;
-      img.src = window.URL.createObjectURL(t.map);
+      var URL = window.URL || window.webkitURL;
+      img.src = URL.createObjectURL(t.map);
       img.onload = function() {
         window.URL.revokeObjectURL(this.src);
       };
       document.querySelector("#map-text").classList.add("hidden");
       document.querySelector("#track-spinner").classList.add("hidden");
       img.classList.remove("hidden");
-    } else {
+    }/* else {
       console.log("map does not exist");
       __buildMap2(inTrack, saveMapCallback);
       // console.log("mapToSave.map", mapToSave.map);
     }*/
-    __buildMap2(inTrack, saveMapCallback);
+    // __buildMap2(inTrack, saveMapCallback);
     __buildGraphs(t);
+  }
+
+  function displayMap(blob) {
+    /*
+     * remove spinner and "waiting" text
+     */
+    document.querySelector("#map-text").classList.add("hidden");
+    document.querySelector("#track-spinner").classList.add("hidden");
+    /*
+     * unhide imgage
+     */
+    var img = document.getElementById("map-img");
+    img.classList.remove("hidden");
+    /*
+     * transform blob to displayable image
+     */
+    var URL = window.URL || window.webkitURL;
+    var imgURL = URL.createObjectURL(blob);
+    /*
+     * display map in image
+     */
+    img.src = imgURL;
   }
 
   function updateName(inName) {
@@ -257,160 +280,6 @@ var TrackView = function() {
       __drawTimelessPoints(c, inData, alt_range, nb_points, "altitude", ALT_LINE_COLOR, ALT_FILL_COLOR);
       __drawTimelessPoints(c, inData, sp_range, nb_points, "speed", SP_LINE_COLOR, SP_FILL_COLOR);
     }
-  }
-
-  function __buildMap2(inTrack, saveMapCallback) {
-    var coordinates = [];
-    var point, i, j, minLat, maxLat, minLon, maxLon;
-    var nb_points = 0;
-    for (j = 0; j < inTrack.data.length; j++){
-      for (i = 0; i < inTrack.data[j].length; i++) {
-        point = {
-          lat: inTrack.data[j][i].latitude / 1,
-          lon: inTrack.data[j][i].longitude / 1
-        };
-        coordinates.push(point);
-        if (minLat === undefined || minLat > point.lat) {
-          minLat = point.lat;
-        }
-        if (maxLat === undefined || maxLat < point.lat) {
-          maxLat = point.lat;
-        }
-        if (minLon === undefined || minLon > point.lon) {
-          minLon = point.lon;
-        }
-        if (maxLon === undefined || maxLon < point.lon) {
-          maxLon = point.lon;
-        }
-      }
-        nb_points++;
-      }
-    }
-    var center_point = __getCentralPoint(coordinates);
-/*    // Calculate the Bouncing Box
-    var p1 = {lon: minLon, lat: maxLat};
-    var p2 = {lon: maxLon, lat: minLat};
-    var realHeight = __getDistance(p1.lat, p1.lon, p2.lat, p1.lon);
-    var realWidth = __getDistance(p1.lat, p1.lon, p1.lat, p2.lon);
-    var larger = realWidth > realHeight ? realWidth : realHeight;
-    // we limit the number of points on the map to 200
-    if (larger < 200) {
-      larger = 200;
-    }
-    // add some borders
-    p1 = __movePoint(p1, larger * -0.1, larger * -0.1);
-    p2 = __movePoint(p2, larger * 0.1, larger * 0.1);
-    // make map width always larger
-    if (realWidth < realHeight) {
-      p1 = __movePoint(p1, (realHeight - realWidth) / -2, 0);
-      p2 = __movePoint(p2, (realHeight - realWidth) / +2, 0);
-      realHeight = __getDistance(p1.lat, p1.lon, p2.lat, p1.lon);
-      realWidth = __getDistance(p1.lat, p1.lon, p1.lat, p2.lon);
-      larger = realWidth > realHeight ? realWidth : realHeight;
-    }
-    if (larger === 0) {
-      return;
-    }*/
-    var MAX_POINTS = 100;
-    var BLUE = "0x0AFF00";
-    var PATH = "";//&polyline=color:" + BLUE + "|width:3|";
-    var k = 0;
-    var y;
-    if (nb_points > MAX_POINTS) {
-      y = parseInt(nb_points / MAX_POINTS, 10);
-      // console.log("y: ", y);
-      if (y * nb_points > MAX_POINTS) {
-        y++;
-      }
-    } else {
-      y = 1;
-    }
-    for (var s = 0; s < inTrack.data.length; s++) {
-      var seg = inTrack.data[s];
-      var SEGMENT = "&polyline=color:" + BLUE + "|width:3|";
-      /*
-       * In case the segment of track is smaller than the trackpoint interval,
-       * we display every point of this small segment.
-       */
-      if (seg.length <= y) {
-        for (var m = 0; m < seg.length; m++) {
-          if (m === 0) {
-            SEGMENT = SEGMENT + seg[m].latitude + "," + seg[m].longitude;
-          } else {
-            SEGMENT = SEGMENT + "," + seg[m].latitude + "," + seg[m].longitude;
-          }
-        }
-      } else {
-        for (var p = 0; p < seg.length; p = p + y) {
-          if (p === 0) {
-            SEGMENT = SEGMENT + seg[p].latitude + "," + seg[p].longitude;
-          } else {
-            SEGMENT = SEGMENT + "," + seg[p].latitude + "," + seg[p].longitude;
-          }
-        }
-      }
-      PATH = PATH + SEGMENT;
-      k++;
-    }
-    // http://api.tiles.mapbox.com/v4/{mapid}/{lon},{lat},{z}/{width}x{height}.{format}?access_token=<your access token>
-    var TOKEN = 'pk.eyJ1Ijoibmljb2RlbCIsImEiOiI3MzkyZDRjMTcyNTMwNDdmYzI3YjkwNjYyMzU2NTQxMCJ9.mfE8TMuIfqtdkeNzcXVXoQ';
-    var LON_LAT_ZOOM = center_point.lon + "," + center_point.lat + "," + 11;
-    var POLYLINE = "path-5+f44+f44(" + __polylineEncode(coordinates) + ")";
-
-    var loc = "http://api.tiles.mapbox.com/v4/nicodel.f5f50fd7/" + POLYLINE + "/" + LON_LAT_ZOOM + "/" + MAP_WIDTH + "x" + MAP_HEIGHT + ".png?access_token=" + TOKEN;
-
-/*
-    document.getElementById("map").setAttribute("style", "{height:" + MAP_HEIGHT + "; width:" + MAP_WIDTH + ";}");
-    var map = L.map('map', {
-      center: [center_point.lat, center_point.lon],
-      zoom: 13
-    });
-    L.tileLayer('https://{s}.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={token}',{
-      // attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
-      maxZoom: 22,
-      id: 'nicodel.f5f50fd7',
-      token: 'pk.eyJ1Ijoibmljb2RlbCIsImEiOiI3MzkyZDRjMTcyNTMwNDdmYzI3YjkwNjYyMzU2NTQxMCJ9.mfE8TMuIfqtdkeNzcXVXoQ'
-    }).addTo(map);
-    L.polyline(coordinates, {color: 'red'}).addTo(map);
-*/
-/*L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
-        attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
-            maxZoom: 18,
-                id: 'your.mapbox.project.id',
-                    accessToken: 'your.mapbox.public.access.token'
-                    }).addTo(map)})*/
-/*    var BESTFIT = "&bestfit=" + p1.lat + ","+ p1.lon + ","+ p2.lat + "," + p2.lon;
-    var SIZE = "&size=" + MAP_WIDTH + "," + MAP_HEIGHT;
-    var TYPE = "&type=map&imagetype=jpeg";
-    var BASE_URL = "open.mapquestapi.com/staticmap/v4/getmap?";
-    var KEY = "key=Fmjtd%7Cluur21u720%2Cr5%3Do5-90tx9a";
-
-    var loc = "http://" + BASE_URL + KEY + SIZE + TYPE + BESTFIT + PATH;
-    // console.log('url', loc);
-*/
-    document.getElementById("map-img").width = SCREEN_WIDTH;
-    document.getElementById("map-img").onload = function () {
-      document.querySelector("#map-text").classList.add("hidden");
-      document.querySelector("#track-spinner").classList.add("hidden");
-      document.querySelector("#map-img").classList.remove("hidden");
-    };
-
-    // Following based on @robertnyman article on hacks.mozilla.org https://hacks.mozilla.org/2012/02/storing-images-and-files-in-indexeddb/
-    var xhr = new XMLHttpRequest(), blob;
-    xhr.open('GET', loc, true);
-    xhr.responseType = "blob";
-    xhr.addEventListener("load", function() {
-      // console.log("xhr", xhr);
-      if (xhr.status === 200) {
-        blob = xhr.response;
-        var URL = window.URL || window.webkitURL;
-        var imgURL = URL.createObjectURL(blob);
-        document.getElementById("map-img").src = imgURL;
-        inTrack.map = blob;
-        saveMapCallback(inTrack);
-      }
-    }, false);
-    xhr.send();
   }
 
   function __createRectCanvas(inElementId, inRangeAlt, inSpaceAlt, inRangeSp, inSpaceSp) {
@@ -602,80 +471,10 @@ var TrackView = function() {
     }
   }
 
-  var __getCentralPoint = function(coords) {
-    var x = 0;
-    var y = 0;
-    var z = 0;
-    var point, lat, lon;
-    var total = coords.length;
-    if (total === 1) {
-      return coords;
-    }
-    for (var i = 0; i < total; i++) {
-      point = coords[i];
-      lat = point.lat * Math.PI / 180;
-      lon = point.lon * Math.PI / 180;
-      x = x + Math.cos(lat) * Math.cos(lon);
-      y = y + Math.sin(lat) * Math.sin(lon);
-      z = z + Math.sin(lat);
-    }
-    x = x / total;
-    y = y / total;
-    z = z / total;
-    var square_root = Math.sqrt(x * x + y * y);
-    var center = {
-      lat: Math.atan2(z, square_root) * 180 / Math.PI,
-      lon: Math.atan2(y, z) * 180 / Math.PI
-    };
-    return center;
-  };
-
-  var __encode = function(coordinate, factor) {
-    coordinate = Math.round(coordinate * factor);
-    coordinate <<= 1;
-    if (coordinate < 0) {
-      coordinate = ~coordinate;
-    }
-    var output = '';
-    while (coordinate >= 0x20) {
-      output += String.fromCharCode((0x20 | (coordinate & 0x1f)) + 63);
-      coordinate >>= 5;
-    }
-    output += String.fromCharCode(coordinate + 63);
-    return output;
-  };
-
-  var __polylineEncode = function(coordinates, precision) {
-    if (!coordinates.length) {
-      return '';
-    }
-    var factor = Math.pow(10, precision || 5),
-      output = __encode(coordinates[0].lat, factor) + __encode(coordinates[0].lon, factor);
-    var nb_points = coordinates.length;
-    var max_points = 50;
-    var r;
-    if (coordinates.length > max_points) {
-      r = parseInt(nb_points / max_points, 10);
-      if (r * nb_points > max_points) {
-        r++;
-      } else {
-        r = 1;
-      }
-    }
-    console.log('range', r);
-    for (var i = 1; i < 50 /*coordinates.length*/; i = i + r) {
-      var a = coordinates[i], b = coordinates[i - 1];
-      output += __encode(a.lat - b.lat, factor);
-      output += __encode(a.lon - b.lon, factor);
-      console.log('coordinates', coordinates);
-    }
-    console.log('output', output);
-    return output;
-  };
-
   return {
     display: display,
-    updateName: updateName
+    updateName: updateName,
+    displayMap: displayMap
   };
 
 }();
