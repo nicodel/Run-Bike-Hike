@@ -35,7 +35,7 @@ var TrackView = function() {
     document.getElementById("trk-date").innerHTML = "";
     document.getElementById("trk-dist").innerHTML = "";
     document.getElementById("trk-dur").innerHTML = "";
-    document.getElementById("map-img").src = "";
+    // document.getElementById("map-img").src = "";
 
     var tr = document.getElementById("tr-name");
     tr.innerHTML = inTrack.name;
@@ -118,7 +118,7 @@ var TrackView = function() {
     document.getElementById("trk-max-alt").innerHTML = localizedValue.v + " " + localizedValue.u;
     localizedValue = Config.userSmallDistance(t.min_alt);
     document.getElementById("trk-min-alt").innerHTML = localizedValue.v + " " + localizedValue.u;
-
+/*
     if (t.map) {
       console.log("map exist");
       var img = document.getElementById("map-img");
@@ -131,7 +131,7 @@ var TrackView = function() {
       document.querySelector("#map-text").classList.add("hidden");
       document.querySelector("#track-spinner").classList.add("hidden");
       img.classList.remove("hidden");
-    }/* else {
+    }*//* else {
       console.log("map does not exist");
       __buildMap2(inTrack, saveMapCallback);
       // console.log("mapToSave.map", mapToSave.map);
@@ -140,27 +140,27 @@ var TrackView = function() {
     __buildGraphs(t);
   }
 
-  function displayMap(blob) {
+  // function displayMap(blob) {
     /*
      * remove spinner and "waiting" text
      */
-    document.querySelector("#map-text").classList.add("hidden");
-    document.querySelector("#track-spinner").classList.add("hidden");
+    // document.querySelector("#map-text").classList.add("hidden");
+    // document.querySelector("#track-spinner").classList.add("hidden");
     /*
      * unhide imgage
      */
-    var img = document.getElementById("map-img");
-    img.classList.remove("hidden");
+    // var img = document.getElementById("map-img");
+    // img.classList.remove("hidden");
     /*
      * transform blob to displayable image
      */
-    var URL = window.URL || window.webkitURL;
-    var imgURL = URL.createObjectURL(blob);
+    // var URL = window.URL || window.webkitURL;
+    // var imgURL = URL.createObjectURL(blob);
     /*
      * display map in image
      */
-    img.src = imgURL;
-  }
+    // img.src = imgURL;
+  // }
 
   function updateName(inName) {
     console.log("updating");
@@ -473,8 +473,8 @@ var TrackView = function() {
 
   return {
     display: display,
-    updateName: updateName,
-    displayMap: displayMap
+    updateName: updateName/*,
+    displayMap: displayMap*/
   };
 
 }();
