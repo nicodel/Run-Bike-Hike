@@ -2,7 +2,7 @@
 /* exported Controller */
 /* global _, Chrono, Config, DB, GPX, Share, Tracks,
           HomeView, importView, utils, TracksView, TrackView,
-          FxDeviceStorage, Map */
+          FxDeviceStorage, DynamicMap */
 var Controller = function() {
   "use strict";
 
@@ -357,7 +357,7 @@ var Controller = function() {
     console.log("inTrack display: ", inTrack);
     displayed_track = inTrack;
     if (!inTrack.map) {
-      Map.getMap(inTrack, __saveMap);
+      DynamicMap.getMap(inTrack, __saveMap);
     }
     TrackView.display(inTrack);
   }

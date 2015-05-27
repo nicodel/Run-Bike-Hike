@@ -11,7 +11,7 @@ uglifyjs  js/views/home-view.js \
           js/models/gpx.js \
           js/models/db.js \
           js/models/fx_device_storage.js \
-          js/models/map.js \
+          js/models/dynamicmap.js \
           js/models/tracks.js \
           js/events.js \
           js/controller.js \
