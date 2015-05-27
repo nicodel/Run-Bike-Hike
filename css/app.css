@@ -198,6 +198,5 @@ ul li > label.pack-switch {
 }
 
 #map {
-  width: calc(100% - 10px);
   height: 320px;
 }

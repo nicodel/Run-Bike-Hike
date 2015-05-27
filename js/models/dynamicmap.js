@@ -10,14 +10,14 @@ var DynamicMap = function() {
   };
   var polyline_options = {
     color: 'blue',
-    weight: 3
+    weight: 4
   };
   var marker_options = {
-    clickable: false,
+    clickable: false/*,
     icon: new L.Icon({
-      iconUrl: 'images/marker-icon.png',
-      shadowUrl: 'images/marker-shadow.png'
-    })
+      iconUrl: 'lib/leaflet/images/marker-icon.png',
+      shadowUrl: 'lib/leaflet/images/marker-shadow.png'
+    })*/
   };
 
   var map = L.map('map', map_options);
@@ -30,24 +30,25 @@ var DynamicMap = function() {
     L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: 'Map data &copy; <a href="http://www.osm.org">OpenStreetMap</a>',
     }).addTo(map);
+
     var layers = new L.FeatureGroup();
-    var pt, point, seg, segment, len, coordinates, polyline;
+    var pt, point, seg, segment, len, coordinates, polyline, marker;
     for (seg = 0; seg < track.data.length; seg++){
       segment = track.data[seg];
       coordinates = [];
-      len = segment.lenght;
+      len = segment.length;
       for (pt = 0; pt < len; pt++) {
         point = new L.LatLng(
           segment[pt].latitude,
           segment[pt].longitude
         );
         if (pt === 0 || pt === len -1) {
-          new L.marker(point, marker_options).addTo(map);
-        } else {
-          coordinates.push(point);
+          marker = new L.marker(point, marker_options);
+          layers.addLayer(marker);
         }
+        coordinates.push(point);
       }
-      polyline = new L.Polyline(coordinates, polyline_options);
+      polyline = new L.polyline(coordinates, polyline_options);
       layers.addLayer(polyline);
     }
     map.fitBounds(layers.getBounds());
