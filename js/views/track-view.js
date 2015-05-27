@@ -471,10 +471,15 @@ var TrackView = function() {
     }
   }
 
+  function hideSpinner() {
+   document.querySelector("#map-text").classList.add("hidden");
+   document.querySelector("#track-spinner").classList.add("hidden");
+  }
+
   return {
     display: display,
-    updateName: updateName/*,
-    displayMap: displayMap*/
+    updateName: updateName,
+    hideSpinner:  hideSpinner
   };
 
 }();

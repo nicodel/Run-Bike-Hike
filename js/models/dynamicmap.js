@@ -1,5 +1,5 @@
 /* jshint strict: true, bitwise: false */
-/* global L */
+/* global L, TrackView */
 /* exported DynamicMap */
 
 var DynamicMap = function() {
@@ -14,6 +14,9 @@ var DynamicMap = function() {
   };
 
   var map = L.map('map', map_options);
+  map.on('load', function() {
+    TrackView.hideSpinner();
+  });
 
   var getMap = function(track) {
 
@@ -38,9 +41,6 @@ var DynamicMap = function() {
     map.fitBounds(layers.getBounds());
 
     layers.addTo(map);
-    map.on('load', function(e) {
-      console.log('map load', e);
-    });
   };
 
   var removeMap = function() {
