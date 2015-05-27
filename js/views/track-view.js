@@ -163,7 +163,7 @@ var TrackView = function() {
   // }
 
   function updateName(inName) {
-    console.log("updating");
+    // console.log("updating");
     document.getElementById("tr-name").innerHTML = inName;
   }
 
@@ -256,7 +256,7 @@ var TrackView = function() {
           // Write time value to the canvas
           c.fillText(hour, parseInt(x_coord - 15), y_coord);
         }
-        console.log('last one', SCREEN_WIDTH - 20);
+        // console.log('last one', SCREEN_WIDTH - 20);
         // draw vertical small lines
         c.beginPath();
         c.moveTo(SCREEN_WIDTH - 6, SCREEN_HEIGHT - yPadding + 15);
@@ -283,7 +283,7 @@ var TrackView = function() {
   }
 
   function __createRectCanvas(inElementId, inRangeAlt, inSpaceAlt, inRangeSp, inSpaceSp) {
-    console.log('createRectCanvas inputs', inElementId, inRangeAlt, inSpaceAlt, inRangeSp, inSpaceSp);
+    // console.log('createRectCanvas inputs', inElementId, inRangeAlt, inSpaceAlt, inRangeSp, inSpaceSp);
     var graph = document.getElementById(inElementId);
     var c = graph.getContext("2d");
     c.clearRect(0, 0, SCREEN_WIDTH - 5, SCREEN_HEIGHT);
