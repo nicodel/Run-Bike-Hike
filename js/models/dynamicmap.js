@@ -12,6 +12,13 @@ var DynamicMap = function() {
     color: 'blue',
     weight: 3
   };
+  var marker_options = {
+    clickable: false,
+    icon: new L.Icon({
+      iconUrl: 'images/marker-icon.png',
+      shadowUrl: 'images/marker-shadow.png'
+    })
+  };
 
   var map = L.map('map', map_options);
   map.on('load', function() {
@@ -24,16 +31,21 @@ var DynamicMap = function() {
       attribution: 'Map data &copy; <a href="http://www.osm.org">OpenStreetMap</a>',
     }).addTo(map);
     var layers = new L.FeatureGroup();
-    var pt, point, seg, segment, coordinates, polyline;
+    var pt, point, seg, segment, len, coordinates, polyline;
     for (seg = 0; seg < track.data.length; seg++){
       segment = track.data[seg];
       coordinates = [];
-      for (pt = 0; pt < segment.length; pt++) {
+      len = segment.lenght;
+      for (pt = 0; pt < len; pt++) {
         point = new L.LatLng(
           segment[pt].latitude,
           segment[pt].longitude
         );
-        coordinates.push(point);
+        if (pt === 0 || pt === len -1) {
+          new L.marker(point, marker_options).addTo(map);
+        } else {
+          coordinates.push(point);
+        }
       }
       polyline = new L.Polyline(coordinates, polyline_options);
       layers.addLayer(polyline);
