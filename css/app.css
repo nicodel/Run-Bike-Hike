@@ -200,3 +200,6 @@ ul li > label.pack-switch {
 #map {
   height: 320px;
 }
+.leaflet-control-attribution a {
+  font-size: 1rem;
+}

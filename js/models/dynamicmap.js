@@ -13,11 +13,15 @@ var DynamicMap = function() {
     weight: 4
   };
   var marker_options = {
-    clickable: false/*,
+    clickable: false,
     icon: new L.Icon({
-      iconUrl: 'lib/leaflet/images/marker-icon.png',
-      shadowUrl: 'lib/leaflet/images/marker-shadow.png'
-    })*/
+      iconUrl: 'img/marker-icon.png',
+      iconSize: [25, 41],
+      iconAnchor: [10, 41],
+      shadowUrl: 'img/marker-shadow.png',
+      shadowSize: [41, 41],
+      shadowAnchor: [10, 41]
+    })
   };
 
   var map = L.map('map', map_options);
@@ -28,7 +32,7 @@ var DynamicMap = function() {
   var getMap = function(track) {
 
     L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: 'Map data &copy; <a href="http://www.osm.org">OpenStreetMap</a>',
+      attribution: '<a href="http://www.osm.org">OpenStreetMap</a>',
     }).addTo(map);
 
     var layers = new L.FeatureGroup();
