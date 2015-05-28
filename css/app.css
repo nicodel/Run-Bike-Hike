@@ -196,3 +196,10 @@ ul li > label.pack-switch {
 #graphs-canvas {
   margin-bottom: 30px;
 }
+
+#map {
+  height: 320px;
+}
+.leaflet-control-attribution a {
+  font-size: 1rem;
+}

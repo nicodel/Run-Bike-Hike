@@ -1,4 +1,4 @@
-/* jshint browser: true, strict: true, devel: true */
+/* jshint browser: true, strict: true, devel: true, bitwise: false */
 /* exported TrackView */
 /* global _, Config */
 
@@ -9,8 +9,10 @@ var TrackView = function() {
   var SCREEN_WIDTH = parseInt(window.innerWidth,10);
   var SCREEN_HEIGHT = parseInt(SCREEN_WIDTH * 2 / 3,10);
   // Only getting a big size map, that will be stored in db
-  var MAP_WIDTH = 648; // 720px * 0.9
-  var MAP_HEIGHT = 432; // 720px * 3 / 2
+  // var MAP_WIDTH = 648; // 720px * 0.9
+  // var MAP_HEIGHT = 432; // 720px * 3 / 2
+  // var MAP_WIDTH = SCREEN_WIDTH - 10;
+  // var MAP_HEIGHT = MAP_WIDTH * 3 / 2;
   // console.log("width", SCREEN_WIDTH);
   // console.log("height", SCREEN_HEIGHT);
   var xPadding = 35;
@@ -25,7 +27,7 @@ var TrackView = function() {
   var SP_LINE_COLOR = "#4169E1"; // RoyalBlue
   var SP_FILL_COLOR = "rgba(65,105,225, 0.3)"; // RoyalBlue
 
-  function display(inTrack, saveMapCallback) {
+  function display(inTrack) {
     var i = 0;
     var localizedValue = {};
     console.log("inTrack in display", inTrack);
@@ -33,7 +35,7 @@ var TrackView = function() {
     document.getElementById("trk-date").innerHTML = "";
     document.getElementById("trk-dist").innerHTML = "";
     document.getElementById("trk-dur").innerHTML = "";
-    document.getElementById("map-img").src = "";
+    // document.getElementById("map-img").src = "";
 
     var tr = document.getElementById("tr-name");
     tr.innerHTML = inTrack.name;
@@ -116,28 +118,52 @@ var TrackView = function() {
     document.getElementById("trk-max-alt").innerHTML = localizedValue.v + " " + localizedValue.u;
     localizedValue = Config.userSmallDistance(t.min_alt);
     document.getElementById("trk-min-alt").innerHTML = localizedValue.v + " " + localizedValue.u;
-
+/*
     if (t.map) {
       console.log("map exist");
       var img = document.getElementById("map-img");
       img.width = SCREEN_WIDTH;
-      img.src = window.URL.createObjectURL(t.map);
+      var URL = window.URL || window.webkitURL;
+      img.src = URL.createObjectURL(t.map);
       img.onload = function() {
         window.URL.revokeObjectURL(this.src);
       };
       document.querySelector("#map-text").classList.add("hidden");
       document.querySelector("#track-spinner").classList.add("hidden");
       img.classList.remove("hidden");
-    } else {
+    }*//* else {
       console.log("map does not exist");
-      /*var mapToSave = */__buildMap2(inTrack, saveMapCallback);
+      __buildMap2(inTrack, saveMapCallback);
       // console.log("mapToSave.map", mapToSave.map);
-    }
+    }*/
+    // __buildMap2(inTrack, saveMapCallback);
     __buildGraphs(t);
   }
 
+  // function displayMap(blob) {
+    /*
+     * remove spinner and "waiting" text
+     */
+    // document.querySelector("#map-text").classList.add("hidden");
+    // document.querySelector("#track-spinner").classList.add("hidden");
+    /*
+     * unhide imgage
+     */
+    // var img = document.getElementById("map-img");
+    // img.classList.remove("hidden");
+    /*
+     * transform blob to displayable image
+     */
+    // var URL = window.URL || window.webkitURL;
+    // var imgURL = URL.createObjectURL(blob);
+    /*
+     * display map in image
+     */
+    // img.src = imgURL;
+  // }
+
   function updateName(inName) {
-    console.log("updating");
+    // console.log("updating");
     document.getElementById("tr-name").innerHTML = inName;
   }
 
@@ -230,7 +256,7 @@ var TrackView = function() {
           // Write time value to the canvas
           c.fillText(hour, parseInt(x_coord - 15), y_coord);
         }
-        console.log('last one', SCREEN_WIDTH - 20);
+        // console.log('last one', SCREEN_WIDTH - 20);
         // draw vertical small lines
         c.beginPath();
         c.moveTo(SCREEN_WIDTH - 6, SCREEN_HEIGHT - yPadding + 15);
@@ -256,134 +282,8 @@ var TrackView = function() {
     }
   }
 
-  function __buildMap2(inTrack, saveMapCallback) {
-    // get the min and max longitude/ latitude
-    // and build the path
-    var minLat, minLon, maxLat, maxLon;
-    var i, j;
-    var nb_points = 0;
-    for (j = 0; j < inTrack.data.length; j++){
-      for (i = 0; i < inTrack.data[j].length; i++) {
-        var point = {
-          lat: inTrack.data[j][i].latitude / 1,
-          lon: inTrack.data[j][i].longitude / 1
-        };
-        if (minLat === undefined || minLat > point.lat) {
-          minLat = point.lat;
-        }
-        if (maxLat === undefined || maxLat < point.lat) {
-          maxLat = point.lat;
-        }
-        if (minLon === undefined || minLon > point.lon) {
-          minLon = point.lon;
-        }
-        if (maxLon === undefined || maxLon < point.lon) {
-          maxLon = point.lon;
-        }
-        nb_points++;
-      }
-    }
-    // Calculate the Bouncing Box
-    var p1 = {lon: minLon, lat: maxLat};
-    var p2 = {lon: maxLon, lat: minLat};
-    var realHeight = __getDistance(p1.lat, p1.lon, p2.lat, p1.lon);
-    var realWidth = __getDistance(p1.lat, p1.lon, p1.lat, p2.lon);
-    var larger = realWidth > realHeight ? realWidth : realHeight;
-    // we limit the number of points on the map to 200
-    if (larger < 200) {
-      larger = 200;
-    }
-    // add some borders
-    p1 = __movePoint(p1, larger * -0.1, larger * -0.1);
-    p2 = __movePoint(p2, larger * 0.1, larger * 0.1);
-    // make map width always larger
-    if (realWidth < realHeight) {
-      p1 = __movePoint(p1, (realHeight - realWidth) / -2, 0);
-      p2 = __movePoint(p2, (realHeight - realWidth) / +2, 0);
-      realHeight = __getDistance(p1.lat, p1.lon, p2.lat, p1.lon);
-      realWidth = __getDistance(p1.lat, p1.lon, p1.lat, p2.lon);
-      larger = realWidth > realHeight ? realWidth : realHeight;
-    }
-    if (larger === 0) {
-      return;
-    }
-    var MAX_POINTS = 100;
-    var BLUE = "0x0AFF00";
-    var PATH = "";//&polyline=color:" + BLUE + "|width:3|";
-    var k = 0;
-    var y;
-    if (nb_points > MAX_POINTS) {
-      y = parseInt(nb_points / MAX_POINTS, 10);
-      // console.log("y: ", y);
-      if (y * nb_points > MAX_POINTS) {
-        y++;
-      }
-    } else {
-      y = 1;
-    }
-    for (var s = 0; s < inTrack.data.length; s++) {
-      var seg = inTrack.data[s];
-      var SEGMENT = "&polyline=color:" + BLUE + "|width:3|";
-      /*
-       * In case the segment of track is smaller than the trackpoint interval,
-       * we display every point of this small segment.
-       */
-      if (seg.length <= y) {
-        for (var m = 0; m < seg.length; m++) {
-          if (m === 0) {
-            SEGMENT = SEGMENT + seg[m].latitude + "," + seg[m].longitude;
-          } else {
-            SEGMENT = SEGMENT + "," + seg[m].latitude + "," + seg[m].longitude;
-          }
-        }
-      } else {
-        for (var p = 0; p < seg.length; p = p + y) {
-          if (p === 0) {
-            SEGMENT = SEGMENT + seg[p].latitude + "," + seg[p].longitude;
-          } else {
-            SEGMENT = SEGMENT + "," + seg[p].latitude + "," + seg[p].longitude;
-          }
-        }
-      }
-      PATH = PATH + SEGMENT;
-      k++;
-    }
-    var BESTFIT = "&bestfit=" + p1.lat + ","+ p1.lon + ","+ p2.lat + "," + p2.lon;
-    var SIZE = "&size=" + MAP_WIDTH + "," + MAP_HEIGHT;
-    var TYPE = "&type=map&imagetype=jpeg";
-    var BASE_URL = "open.mapquestapi.com/staticmap/v4/getmap?";
-    var KEY = "key=Fmjtd%7Cluur21u720%2Cr5%3Do5-90tx9a";
-
-    var loc = "http://" + BASE_URL + KEY + SIZE + TYPE + BESTFIT + PATH;
-    // console.log('url', loc);
-
-    document.getElementById("map-img").width = SCREEN_WIDTH;
-    document.getElementById("map-img").onload = function () {
-      document.querySelector("#map-text").classList.add("hidden");
-      document.querySelector("#track-spinner").classList.add("hidden");
-      document.querySelector("#map-img").classList.remove("hidden");
-    };
-
-    // Following based on @robertnyman article on hacks.mozilla.org https://hacks.mozilla.org/2012/02/storing-images-and-files-in-indexeddb/
-    var xhr = new XMLHttpRequest(), blob;
-    xhr.open('GET', loc, true);
-    xhr.responseType = "blob";
-    xhr.addEventListener("load", function() {
-      // console.log("xhr", xhr);
-      if (xhr.status === 200) {
-        blob = xhr.response;
-        var URL = window.URL || window.webkitURL;
-        var imgURL = URL.createObjectURL(blob);
-        document.getElementById("map-img").src = imgURL;
-        inTrack.map = blob;
-        saveMapCallback(inTrack);
-      }
-    }, false);
-    xhr.send();
-  }
-
   function __createRectCanvas(inElementId, inRangeAlt, inSpaceAlt, inRangeSp, inSpaceSp) {
-    console.log('createRectCanvas inputs', inElementId, inRangeAlt, inSpaceAlt, inRangeSp, inSpaceSp);
+    // console.log('createRectCanvas inputs', inElementId, inRangeAlt, inSpaceAlt, inRangeSp, inSpaceSp);
     var graph = document.getElementById(inElementId);
     var c = graph.getContext("2d");
     c.clearRect(0, 0, SCREEN_WIDTH - 5, SCREEN_HEIGHT);
@@ -431,7 +331,7 @@ var TrackView = function() {
   function __getYPixel(val,range) {
     return SCREEN_HEIGHT - (((SCREEN_HEIGHT - yPadding) / range) * val) - yPadding;
   }
-  function __getDistance (lat1, lon1, lat2, lon2) {
+/*  function __getDistance (lat1, lon1, lat2, lon2) {
     var radius = 6371 * 1000; // Earth radius (mean) in metres {6371, 6367}
 
     var lat1Rad = lat1*( Math.PI / 180);
@@ -466,7 +366,7 @@ var TrackView = function() {
       lat : (latRad / (Math.PI / 180)),
       lon : (lonRad / (Math.PI / 180))
     };
-  }
+  }*/
 
   function __drawPoints(c, inData, range, ratio, value, LINE_COLOR, FILL_COLOR) {
     // set the line color
@@ -571,9 +471,15 @@ var TrackView = function() {
     }
   }
 
+  function hideSpinner() {
+   document.querySelector("#map-text").classList.add("hidden");
+   document.querySelector("#track-spinner").classList.add("hidden");
+  }
+
   return {
     display: display,
-    updateName: updateName
+    updateName: updateName,
+    hideSpinner:  hideSpinner
   };
 
 }();

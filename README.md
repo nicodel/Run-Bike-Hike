@@ -15,11 +15,12 @@ You will only be able to run Run, Bike, Hike... in a browser from `/public` fold
 
 ## Release notes
 
-### v0.1.15 -
+### v0.1.15 - 25/05/2015
 * Fix issue #93: Replace single quote by double quote to allow exported files to be imported in RunKeeper.
 * Fix issue #37: Better multi-segments track managment, when importing files recorded with another device.
 * Fix issue #98: Altitude and speed graphs are now displayed with respect of the timeline.
 * Add feature: Timeless tracks details are displayed correctly.
+* Fix issue #106: Replace MapQuest static map service by OpenStreetMap map.
 
 ### v0.1.14 -
 * Fix issue: Maq Quest API new token.

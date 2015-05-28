@@ -2,7 +2,7 @@
 /* exported Controller */
 /* global _, Chrono, Config, DB, GPX, Share, Tracks,
           HomeView, importView, utils, TracksView, TrackView,
-          FxDeviceStorage */
+          FxDeviceStorage, DynamicMap */
 var Controller = function() {
   "use strict";
 
@@ -356,7 +356,10 @@ var Controller = function() {
   function __displayTrack(inTrack) {
     console.log("inTrack display: ", inTrack);
     displayed_track = inTrack;
-    TrackView.display(inTrack, __saveMap);
+    if (!inTrack.map) {
+      DynamicMap.getMap(inTrack, __saveMap);
+    }
+    TrackView.display(inTrack);
   }
 
   function deleteTrack() {
@@ -378,8 +381,10 @@ var Controller = function() {
   function __saveMap(inTrack) {
     console.log("saving inTrack in Controller", inTrack);
     DB.saveMap(__saveMapSuccess, __saveMapError, inTrack);
+    TrackView.displayMap(inTrack.map);
   }
-  function __saveMapSuccess() {}
+  function __saveMapSuccess() {
+  }
   function __saveMapError() {}
 
   function flippingTrack(inFlipped) {

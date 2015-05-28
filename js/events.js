@@ -1,5 +1,5 @@
 /* jshint browser: true, strict: true, devel: true */
-/* global Controller, TracksView, FxDeviceStorage */
+/* global Controller, TracksView, FxDeviceStorage, DynamicMap */
 
 /******************
  * EVENT LISTENER *
@@ -176,6 +176,7 @@ document.getElementById("input-file").onchange = function() {
 /* Track View Back button */
 document.querySelector("#btn-track-back").addEventListener ("click", function () {
   "use strict";
+  DynamicMap.removeMap();
   Controller.displayTracks();
   document.getElementById("views").showCard(3);
 });
