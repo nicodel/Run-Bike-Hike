@@ -347,7 +347,14 @@ var Controller = function() {
   }
 
   function __getTracksSuccess(inTracks) {
-    console.log("inTracks to display are", inTracks);
+    console.log("inTracks to display could be", inTracks);
+    for (var i = 0; i < inTracks.length; i++) {
+      var track = inTracks[i].data;
+      if (track[0].length === undefined) {
+        inTracks[i].data = [];
+        inTracks[i].data[0] = track;
+      }
+    }
     TracksView.display(inTracks, __displayTrack);
   }
 
