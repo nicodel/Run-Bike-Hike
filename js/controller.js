@@ -347,7 +347,14 @@ var Controller = function() {
   }
 
   function __getTracksSuccess(inTracks) {
-    console.log("inTracks to display are", inTracks);
+    console.log("inTracks to display could be", inTracks);
+    for (var i = 0; i < inTracks.length; i++) {
+      var track = inTracks[i].data;
+      if (track[0].length === undefined) {
+        inTracks[i].data = [];
+        inTracks[i].data[0] = track;
+      }
+    }
     TracksView.display(inTracks, __displayTrack);
   }
 
@@ -356,9 +363,7 @@ var Controller = function() {
   function __displayTrack(inTrack) {
     console.log("inTrack display: ", inTrack);
     displayed_track = inTrack;
-    if (!inTrack.map) {
-      DynamicMap.getMap(inTrack, __saveMap);
-    }
+    DynamicMap.getMap(inTrack, __saveMap);
     TrackView.display(inTrack);
   }
 
