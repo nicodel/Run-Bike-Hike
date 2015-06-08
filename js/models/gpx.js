@@ -202,7 +202,6 @@ var GPX = function() {
 
   var create = function(inTrack) {
     var name = inTrack.name.replace(/&/g,'&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-    // console.log('exporting ', name);
     var data = '';
     data += '<?xml version="1.0" encoding="UTF-8"?>\n';
     data += '<gpx version="1.1"\n';
@@ -215,28 +214,29 @@ var GPX = function() {
     data += '<name>' + name + '</name>';
     data += '<time>' + new Date().toISOString() + '</time>';
     data += '</metadata>';
-    data += '<trk>\n<name>' + name + '</name>\n<trkseg>\n';
+    data += '<trk>\n<name>' + name + '</name>\n';
     var track = inTrack.data;
     // Checking if the track was recorded before or after RBH support multi-segment within a track.
-    if (!track.latitude) {
-      // old track
-      for (var s = 0; s < track.data.length; s++) {
-        var seg = track.data[s];
+    if (!track[0].latitude) {
+      // new track
+      for (var s = 0; s < track.length; s++) {
+        var seg = track[s];
         data += '<trkseg>\n';
         for (var j = 0; j < seg.length; j++) {
-          data += '<trkpt lat="' + row.latitude + '" lon="' + row.longitude + '">\n';
-          data += '\t<time>' + row.date + '</time>\n';
-          data += ((row.altitude) && (row.altitude !== 'null'))?'\t<ele>' + row.altitude + '</ele>\n' : '';
-          data += (row.speed>=0) ? '\t<speed>' +row.speed+ '</speed>\n' : '';
-          data += (row.accuracy>0)?'\t<hdop>' + row.accuracy + '</hdop>\n' : '';
-          data += (row.vertAccuracy>0)?'\t<vdop>' + row.vertAccuracy + '</vdop>\n' : '';
+          var pt = seg[j];
+          data += '<trkpt lat="' + pt.latitude + '" lon="' + pt.longitude + '">\n';
+          data += '\t<time>' + pt.date + '</time>\n';
+          data += ((pt.altitude) && (pt.altitude !== 'null'))?'\t<ele>' + pt.altitude + '</ele>\n' : '';
+          data += (pt.speed>=0) ? '\t<speed>' +pt.speed+ '</speed>\n' : '';
+          data += (pt.accuracy>0)?'\t<hdop>' + pt.accuracy + '</hdop>\n' : '';
+          data += (pt.vertAccuracy>0)?'\t<vdop>' + pt.vertAccuracy + '</vdop>\n' : '';
           data += '</trkpt>\n';
         }
         data += '</trkseg>\n';
       }
     } else {
-      // new track
-        data += '<trkseg>\n';
+      // old track
+      data += '<trkseg>\n';
       for (var i = 0; i < track.data.length; i++) {
         var row = track.data[i];
         data += '<trkpt lat="' + row.latitude + '" lon="' + row.longitude + '">\n';
@@ -247,11 +247,10 @@ var GPX = function() {
         data += (row.vertAccuracy>0)?'\t<vdop>' + row.vertAccuracy + '</vdop>\n' : '';
         data += '</trkpt>\n';
       }
-        data += '</trkseg>\n';
+      data += '</trkseg>\n';
     }
     data += '</trk>\n';
     data += '</gpx>\n';
-    // console.log('export done', data);
     return data;
   };
 
