@@ -124,10 +124,12 @@ var FxDeviceStorage = function() {
     var req = user_storage.addNamed(blob, path);
 
     req.onsuccess = function() {
+      console.log('success', this.result);
       successCallback(this.result);
     };
 
     req.onerror = function() {
+      console.log('error', this.error.name);
       errorCallback(this.error.name);
       // if (this.error.name === "NoModificationAllowedError") {
         // errorCallback(_('track-share-local-failure') + " " + _('track-share-local-failure-exist'));
