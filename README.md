@@ -15,9 +15,9 @@ You will only be able to run Run, Bike, Hike... in a browser from `/public` fold
 
 ## Release notes
 
-### v0.1.17 - ??
+### v0.1.17 - 18/06/2015
 * Fix issue #97: Exporting tracks to file regression bug was fixed.
-* Fix issue #104: In track details view, map can get over graphs on some display.
+* Fix issue #104: In track detail view, map would get over graphs on some display. Corrected.
 * Fix issue #110: Distance is not rounded anymore, if greater than 10.
 
 ### v0.1.16 - 04/06/2015
