@@ -77,6 +77,9 @@ button.big {
   display: none;
 }
 
+.disable {
+  opacity: 0.4;
+}
 .move-right {
   transform: translateX(100%);
   transition: transform 0.4s;
