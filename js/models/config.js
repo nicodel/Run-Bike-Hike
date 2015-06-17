@@ -147,14 +147,14 @@ var Config = function() {
 
     if (Config.CONFIG.distance === METRIC_UNITS){
       tmp = (distanceM / 1000);
-      a.v = (tmp >= 10? tmp.toFixed(0): tmp.toFixed(1));
+      a.v = tmp.toFixed(1);
       a.u = "km";
       return a;
     }
     if (Config.CONFIG.distance === IMPERIAL_UNITS){
       /* FIXME: I'am not sure that it is right */
       tmp = (distanceM / 1609.344);
-      a.v = (tmp >= 10? tmp.toFixed(0): tmp.toFixed(1));
+      a.v = tmp.toFixed(1);
       a.u = "miles";
       return a;
     }
