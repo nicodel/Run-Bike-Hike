@@ -9,7 +9,7 @@
     "build:css": "./tools/build-css > public/app.css",
     "build:html": "./tools/build-html",
     "build:cp": "./tools/build-cp",
-    "packaging": "./tools/packaging 0.1.17",
+    "packaging": "./tools/packaging 0.1.18",
     "dev": "npm run pre:build && npm run build:js && npm run build:css && npm run build:html && npm run build:cp",
     "build": "npm run pre:build && npm run build:js && npm run build:css && npm run build:html && npm run build:cp && npm run packaging",
     "test": "echo \"Error: no test specified\" && exit 1"

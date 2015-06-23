@@ -15,6 +15,9 @@ You will only be able to run Run, Bike, Hike... in a browser from `/public` fold
 
 ## Release notes
 
+### v0.1.18 - 23/06/2015
+* Fix issue #97: Exporting tracks to file regression bug was fixed.
+
 ### v0.1.17 - 18/06/2015
 * Fix issue #97: Exporting tracks to file regression bug was fixed.
 * Fix issue #104: In track detail view, map would get over graphs on some display. Corrected.
