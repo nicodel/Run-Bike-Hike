@@ -15,6 +15,9 @@ You will only be able to run Run, Bike, Hike... in a browser from `/public` fold
 
 ## Release notes
 
+### v0.1.19 - ??
+* Fixing spanish localization issues.
+
 ### v0.1.18 - 23/06/2015
 * Fix issue #97: Exporting tracks to file regression bug was fixed.
 
