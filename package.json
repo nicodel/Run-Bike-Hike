@@ -1,6 +1,6 @@
 {
   "name": "Run-Bike-Hike",
-  "version": "0.1.17",
+  "version": "0.1.18",
   "description": "Run, Bike, Hike... allow you to record your running or biking sessions, so you can follow your sporting progress.",
   "main": "index.js",
   "scripts": {
