@@ -1,0 +1,9 @@
+.reports-view h1,
+.reports-view div,
+.reports-view select {
+  margin-left: 5%;
+}
+.reports-view div.dc-chart {
+  width: 90%;
+  height: 340px;
+}

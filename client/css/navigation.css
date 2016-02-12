@@ -1,0 +1,44 @@
+nav {
+  width: 20%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 0;
+  background: #2B303A none repeat scroll 0% 0%;
+}
+nav h1,
+nav h2 {
+  margin-top: 3rem;
+  font-size: 2rem;
+}
+nav li,
+nav h2 {
+  /* color: white; */
+  color: #AFB0B3;
+  /* border-bottom: 2px solid #343A45; */
+  cursor: pointer;
+}
+nav ul {
+  margin-top: 2rem;
+  font-size: 1rem;
+}
+nav li {
+  width: 100%;
+}
+/* nav li a div { */
+nav li {
+  height: 3rem;
+}
+nav li:hover,
+nav li.active {
+  background: #303641 none repeat scroll 0% 0%;
+}
+
+nav li span.fa,
+nav h2 span {
+  margin-right: 0.5rem;
+  margin-left: 1rem;
+}

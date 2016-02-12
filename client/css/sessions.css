@@ -1,0 +1,30 @@
+.sessions-view h1,
+.sessions-view ul {
+  margin-left: 5%;
+}
+.sessions-view ul.sessions-list li {
+  width: 90%;
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid #00BFF3;
+  background-color: #00BFF3;
+}
+.sessions-view li .information {
+  display: inline-block;
+}
+.sessions-view li .information {
+  margin-right: 1rem;
+  margin-left: 1rem;
+  vertical-align: 0.7rem;
+}
+.sessions-view img.activity {
+  width: 48px;
+  height: 48px;
+}
+.sessions-view .summary-container {
+  padding: 1rem;
+  height: 4rem;
+}
+.sessions-view .selector {
+  margin-bottom: 1rem;
+}

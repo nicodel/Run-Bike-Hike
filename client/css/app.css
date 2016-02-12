@@ -1,0 +1,49 @@
+body {
+  width: 100%;
+  height: 100%;
+  background-color: #F9F9F9;
+  font-family: 'Fira Sans';
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+section {
+  position: fixed;
+  top: 0;
+  bottom: 100%;
+  z-index: 1;
+  padding-top: 3rem;
+  height: calc(100% - 3rem);
+  overflow-y: auto;
+  width: 80%;
+  left: 20%;
+}
+section[disabled='true'] {
+  left: 300%;
+}
+
+section h1 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  margin-left: 5%;
+}
+
+section h2 {
+  font-size: 1.5rem;
+}
+
+.map {
+  height: 480px;
+  width: 480px;
+}
+/* section.add-view h1,
+section.dashboard-view ul,
+section.sessions-view ul,
+section.reports-view h1,
+section.preferences-view h1 {
+  margin-top: 3rem;
+} */
+

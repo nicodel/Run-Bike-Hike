@@ -1,5 +1,0 @@
-#!/bin/bash
-cd public/
-zip -r -q ../builds/runbikehike_v$1.zip *
-cd ..
-

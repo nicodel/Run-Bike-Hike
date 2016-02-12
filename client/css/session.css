@@ -1,0 +1,100 @@
+.session-view h1,
+.session-view div {
+  width: 90%;
+  margin-left: 5%;
+}
+.session-view div.dc-chart,
+.session-view div.map {
+  margin: 0;
+  width: 100%
+}
+.session-totals-container,
+.accordeon section.map {
+  border: 1px solid #DDD;
+  background-color: #F1F1F1;
+}
+.session-totals-container {
+  height: 28rem;
+  padding: 0.5rem;
+  margin-left: 5%;
+}
+.session-totals-container div {
+  margin: 1rem;
+}
+
+.accordeon {
+  margin: 10px auto;
+  padding: 10px;
+}
+.accordeon section {
+  overflow: hidden;
+  margin: 3px;
+  position: static;
+  width: 100%;
+}
+.accordeon section input[type="checkbox"] {
+  display: none;
+}
+.accordeon section label {
+  font-size: 1.2rem;
+  font-weight: bold;
+  display: block;
+  background-color: #020c80;
+  color: white;
+  cursor: pointer;
+  clear: both;
+  padding: 0.5rem;
+}
+.accordeon section label:hover {
+  background-color: #2430b6;
+}
+.accordeon section:hover {
+  background: grey;
+}
+.accordeon section table {
+  display: none;
+}
+.accordeon section input[type="checkbox"]:checked ~ table {
+  display: block;
+}
+.accordeon section input[type="checkbox"] ~ label span.fa-chevron-down,
+.accordeon section input[type="checkbox"]:checked ~ label span.fa-chevron-right {
+  display: none;
+}
+.accordeon section input[type="checkbox"]:checked ~ label span.fa-chevron-down,
+.accordeon section input[type="checkbox"] ~ label span.fa-chevron-right {
+  display: block;
+}
+h3 {
+  background-color: cadetblue;
+}
+.map {
+  width: 600px;
+  height: 500px;
+}
+table {
+  font-size: 1.2rem;
+}
+table th {
+  padding: 0.5rem 0 0.5rem 0;
+  background-color: #020c80;
+  color: #FFFFFF;
+  font-weight: bold;
+}
+table tr {
+  text-align: center;
+}
+table tr:nth-child(odd) {
+  background-color: #B3B6BA;
+}
+table tr td.dc-table-label {
+  border: none;
+  padding: 0;
+}
+table tr td {
+  padding: 0.5rem 0 0.5rem 0;
+  width: 5%;
+}
+.session-view div.dc-chart {
+  height: 340px;
+}

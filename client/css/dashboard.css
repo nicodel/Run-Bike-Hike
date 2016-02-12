@@ -1,0 +1,64 @@
+.dashboard-view .indicator {
+  width: 40%;
+  padding: 1rem;
+  height: 4rem;
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  color: #FFFFFF;
+}
+.dashboard-view .indicator.align-left {
+  margin-left: 5%;
+}
+.dashboard-view .indicator.align-right {
+  margin-right: 5%;
+}
+.dashboard-view .indicator.green {
+  background-color: #00A651;
+  border: 1px solid #00A651;
+}
+.dashboard-view .indicator.red {
+  background-color: #F26C4F;
+  border: 1px solid #F26C4F;
+}
+.dashboard-view .indicator.blue {
+  background-color: #0072BC;
+  border: 1px solid #0072BC;
+}
+
+.dashboard-view ul.dashboard li {
+  width: 90%;
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  margin-left: 5%;
+  /*border: 1px solid #b8e6da;*/
+  border: 1px solid #00BFF3;
+  background-color: #00BFF3;
+}
+.dashboard-view .selector {
+  margin-left: 5%;
+  margin-bottom: 1rem;
+}
+
+.dashboard-view .summary-container {
+  padding: 1rem;
+  height: 4rem;
+}
+
+.dashboard-view li .information {
+  display: inline-block;
+}
+
+.dashboard-view li .information {
+  margin-right: 1rem;
+  margin-left: 1rem;
+  vertical-align: 0.7rem;
+}
+
+.dashboard-view img.activity {
+  width: 4rem;
+  /* height: 48px; */
+}
+.dashboard-view .time {
+  /* float: right; */
+}
+

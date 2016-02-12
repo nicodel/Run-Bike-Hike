@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf8">
+  <title>Sports Log - engineless</title>
+  <!-- <link rel="shortcut icon" sizes="128x128" href="img/" type="image/png"> -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/leaflet.css">
+  <link rel="stylesheet" href="css/dc.css">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/fonts.css">
+  <link rel="stylesheet" href="css/new.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="stylesheet" href="css/font-awesome.min.css">
+  <link rel="stylesheet" href="css/navigation.css">
+  <link rel="stylesheet" href="css/session.css">
+  <link rel="stylesheet" href="css/preferences.css">
+  <link rel="stylesheet" href="css/reports.css">
+  <link rel="stylesheet" href="css/sessions.css">
+  <link rel="stylesheet" href="css/app.css">
+
+</head>
+
+<body id="app">
+  <nav>
+    <h2 id="new-session-btn">
+      <span class="fa fa-plus-square"></span>
+    </h2>
+    <ul>
+      <li id="dashboard-btn" class="active">
+        <div><span class="fa fa-home fa-2x"></span><span class="text-small">Tableau de bord</span></div>
+      </li>
+      <li id="sessions-btn">
+        <div><span class="fa fa-list-ul fa-2x"></span><span class="text-small">Séances</span></div>
+      </li>
+      <li id="reports-btn">
+        <div><span class="fa fa-bar-chart fa-2x"></span><span class="text-small">Rapports</span></div>
+      </li>
+      <li id="preferences-btn">
+        <div><span class="fa fa-cog fa-2x"></span><span class="text-small">Préférences</span></div>
+      </li>
+    </ul>
+  </nav>
+  <section id="new-session-view" disabled="true" class="new-session-view">
+<div>
+  <h1>Add a new session</h1>
+  <button id="confirm-add-btn">Add</button>
+  <h2>Select an activity</h2>
+  <form id="select-activity">
+
+    <label for="walking">
+      <input type="radio" name="select-activity" value="walking" id="walking" />
+      <img src="img/activities/walking.svg" alt="walking" />
+    </label>
+
+    <label for="running">
+      <input type="radio" name="select-activity" value="running" id="running" />
+      <img src="img/activities/running.svg" alt="running" />
+    </label>
+
+    <label for="racing">
+      <input type="radio" name="select-activity" value="racing" id="racing" />
+      <img src="img/activities/racing.svg" alt="racing" />
+    </label>
+
+    <label for="swimming">
+      <input type="radio" name="select-activity" value="swimming" id="swimming" />
+      <img src="img/activities/swimming.svg" alt="swimming" />
+    </label>
+
+    <label for="regular_biking">
+      <input type="radio" name="select-activity" value="regular_biking" id="regular_biking" />
+      <img src="img/activities/regular_biking.svg" alt="regular_biking" />
+    </label>
+
+    <label for="mountain_biking">
+      <input type="radio" name="select-activity" value="mountain_biking" id="mountain_biking" />
+      <img src="img/activities/mountain_biking.svg" alt="mountain_biking" />
+    </label>
+
+    <label for="time_trial_biking">
+      <input type="radio" name="select-activity" value="time_trial_biking" id="time_trial_biking" />
+      <img src="img/activities/time_trial_biking.svg" alt="time_trial_biking" />
+    </label>
+
+    <label for="trekking">
+      <input type="radio" name="select-activity" value="trekking" id="trekking" />
+      <img src="img/activities/trekking.svg" alt="hiking" />
+    </label>
+
+    <label for="skiing">
+      <input type="radio" name="select-activity" value="skiing" id="skiing" />
+      <img src="img/activities/skiing.svg" alt="skiing" />
+    </label>
+
+    <label for="paddling">
+      <input type="radio" name="select-activity" value="paddling" id="paddling" />
+      <img src="img/activities/paddling.svg" alt="paddling" />
+    </label>
+
+    <label for="climbing">
+      <input type="radio" name="select-activity" value="climbing" id="climbing" />
+      <img src="img/activities/climbing.svg" alt="climbing" />
+    </label>
+
+    <label for="weight_act">
+      <input type="radio" name="select-activity" value="weight_act" id="weight_act" />
+      <img src="img/activities/weight_act.svg" alt="weight" />
+    </label>
+
+  </form>
+  <!-- <form id="import-form" class="hidden behind">
+    <input id="import-file" type="file"></input>
+    <button id="import-btn" disabled='disabled'>Importer</button>
+    </form> -->
+
+  </div>
+  </section>
+  <section id="dashboard-view" disabled="false" class="dashboard-view">
+    <h1>Dashboard</h1>
+    <div id="indicators"></div>
+    <ul class="selector new-line align-left">
+      <li class="align-left">
+        <span>Sort by</span>
+      </li>
+      <li class="align-left">
+        <select id="dashboard-sort-attribute">
+          <option value='date'>Date</option>
+          <option value='activity'>Activity</option>
+        </select>
+      </li>
+      <li class="align-left">
+        <select id="dashboard-sort-ascending">
+          <option value='true'>Ascending</option>
+          <option value='false'>Descending</option>
+        </select>
+      </li>
+    </ul>
+    <ul class="new-line dashboard" id="dashboard"></ul>
+  </section>
+
+  <section id="sessions-view" disabled="true" class="sessions-view">
+    <h1>Sessions</h1>
+    <ul class="selector new-line align-left">
+      <li class="align-left">
+        <span>Sort by</span>
+      </li>
+      <li class="align-left">
+        <select id="sessions-sort-attribute">
+          <option value='date'>Date</option>
+          <option value='activity'>Activity</option>
+        </select>
+      </li>
+      <li class="align-left">
+        <select id="sessions-sort-ascending">
+          <option value='true'>Ascending</option>
+          <option value='false'>Descending</option>
+        </select>
+      </li>
+    </ul>
+
+    <ul id="sessions-list" class="sessions-list new-line">
+    </ul>
+  </section>
+
+  <section id="session-view" disabled="true" class="session-view">
+    <h1>Session</h1>
+  </section>
+
+  <section id="reports-view" disabled="true" class="reports-view">
+    <h1>Rapports</h1>
+
+    <select id='reports-select-date'>
+      <option value='current-year' selected>Current year</option>
+      <option value='last-12-months'>Last 12 months</option>
+      <option value='last-6-months'>Last 6 months</option>
+      <option value='last-3-months'>Last 3 months</option>
+      <option value='current-month'>Last month</option>
+      <option value='current-week'>Last week</option>
+    </select>
+    <div id='reports-weight-graph' class='graph'></div>
+    <div id='reports-calories-graph' class='graph new-line'></div>
+    <div id='reports-distance-graph' class='graph new-line'></div>
+    <div id='reports-duration-graph' class='graph new-line'></div>
+  </section>
+
+  <section id="preferences-view" disabled="true" class="preferences-view">
+    <h1>Préférences</h1>
+    <ul>
+      <li><span>Langue</span>
+        <select id="language">
+          <option value="en">English</option>
+          <option value="fr">Français</option>
+        </select>
+      </li>
+      <li><span>Unité de mesure</span>
+        <select name="unité de mesure" id="unit">
+          <option value="metric" selected>Métrique</option>
+          <option value="imperial">Impérial</option>
+        </select>
+      </li>
+      <li><span>Sexe</span>
+        <select name="sexe" id="gender">
+          <option value="female">Femme</option>
+          <option value="male">Homme</option>
+        </select>
+      </li>
+      <li><span>Height (in cm)</span>
+        <input id="height" type="text" />
+      </li>
+      <li><span>Weight (in kg)</span>
+        <input id="weight" type="text" />
+      </li>
+      <li><span>Année de naissance</span>
+        <select name="birthyear" id="birthyear">
+          <option value="1900">1900</option>
+          <option value="1901">1901</option>
+          <option value="1902">1902</option>
+          <option value="1903">1903</option>
+          <option value="1904">1904</option>
+          <option value="1905">1905</option>
+          <option value="1906">1906</option>
+          <option value="1907">1907</option>
+          <option value="1908">1908</option>
+          <option value="1909">1909</option>
+          <option value="1910">1910</option>
+          <option value="1911">1911</option>
+          <option value="1912">1912</option>
+          <option value="1913">1913</option>
+          <option value="1914">1914</option>
+          <option value="1915">1915</option>
+          <option value="1916">1916</option>
+          <option value="1917">1917</option>
+          <option value="1918">1918</option>
+          <option value="1919">1919</option>
+          <option value="1920">1920</option>
+          <option value="1921">1921</option>
+          <option value="1922">1922</option>
+          <option value="1923">1923</option>
+          <option value="1924">1924</option>
+          <option value="1925">1925</option>
+          <option value="1926">1926</option>
+          <option value="1927">1927</option>
+          <option value="1928">1928</option>
+          <option value="1929">1929</option>
+          <option value="1930">1930</option>
+          <option value="1931">1931</option>
+          <option value="1932">1932</option>
+          <option value="1933">1933</option>
+          <option value="1934">1934</option>
+          <option value="1935">1935</option>
+          <option value="1936">1936</option>
+          <option value="1937">1937</option>
+          <option value="1938">1938</option>
+          <option value="1939">1939</option>
+          <option value="1940">1940</option>
+          <option value="1941">1941</option>
+          <option value="1942">1942</option>
+          <option value="1943">1943</option>
+          <option value="1944">1944</option>
+          <option value="1945">1945</option>
+          <option value="1946">1946</option>
+          <option value="1947">1947</option>
+          <option value="1948">1948</option>
+          <option value="1949">1949</option>
+          <option value="1950">1950</option>
+          <option value="1951">1951</option>
+          <option value="1952">1952</option>
+          <option value="1953">1953</option>
+          <option value="1954">1954</option>
+          <option value="1955">1955</option>
+          <option value="1956">1956</option>
+          <option value="1957">1957</option>
+          <option value="1958">1958</option>
+          <option value="1959">1959</option>
+          <option value="1960">1960</option>
+          <option value="1961">1961</option>
+          <option value="1962">1962</option>
+          <option value="1963">1963</option>
+          <option value="1964">1964</option>
+          <option value="1965">1965</option>
+          <option value="1966">1966</option>
+          <option value="1967">1967</option>
+          <option value="1968">1968</option>
+          <option value="1969">1969</option>
+          <option value="1970">1970</option>
+          <option value="1971">1971</option>
+          <option value="1972">1972</option>
+          <option value="1973">1973</option>
+          <option value="1974">1974</option>
+          <option value="1975">1975</option>
+          <option value="1976">1976</option>
+          <option value="1977">1977</option>
+          <option value="1978">1978</option>
+          <option value="1979">1979</option>
+          <option value="1980">1980</option>
+          <option value="1981">1981</option>
+          <option value="1982">1982</option>
+          <option value="1983">1983</option>
+          <option value="1984">1984</option>
+          <option value="1985">1985</option>
+          <option value="1986">1986</option>
+          <option value="1987">1987</option>
+          <option value="1988">1988</option>
+          <option value="1989">1989</option>
+          <option value="1990">1990</option>
+          <option value="1991">1991</option>
+          <option value="1992">1992</option>
+          <option value="1993">1993</option>
+          <option value="1994">1994</option>
+          <option value="1995">1995</option>
+          <option value="1996">1996</option>
+          <option value="1997">1997</option>
+          <option value="1998">1998</option>
+          <option value="1999">1999</option>
+          <option value="2000">2000</option>
+          <option value="2001">2001</option>
+          <option value="2002">2002</option>
+          <option value="2003">2003</option>
+          <option value="2004">2004</option>
+          <option value="2005">2005</option>
+          <option value="2006">2006</option>
+          <option value="2007">2007</option>
+          <option value="2008">2008</option>
+          <option value="2009">2009</option>
+          <option value="2010">2010</option>
+          <option value="2011">2011</option>
+          <option value="2012">2012</option>
+          <option value="2013">2013</option>
+          <option value="2014">2014</option>
+          <option value="2015">2015</option>
+        </select>
+        <input type="date" name="naissance" id="birthyear">
+      </li>
+    </ul>
+    <button id="save-preferences-btn">Sauvegarder</button>
+  </section>
+  <!-- <script type="text/javascript" src="js/lib/exoskeleton.js"></script>
+  <script type="text/javascript" src="js/lib/backbone.nativeview.js"></script>
+  <script type="text/javascript" src="js/lib/leaflet.js"></script>
+
+  <script type="text/javascript" src="js/utils/gpx.js"></script>
+  <script type="text/javascript" src="js/utils/map.js"></script>
+  <script type="text/javascript" src="js/collections/dashboard-entries.js"></script>
+  <script type="text/javascript" src="js/collections/sessions.js"></script>
+  <script type="text/javascript" src="js/models/dashboard-entry.js"></script>
+  <script type="text/javascript" src="js/models/preferences.js"></script>
+  <script type="text/javascript" src="js/models/session.js"></script>
+  <script type="text/javascript" src="js/views/new-session.js"></script>
+  <script type="text/javascript" src="js/views/preferences.js"></script>
+  <script type="text/javascript" src="js/views/main.js"></script> -->
+
+  <script type="text/template" id="new-session-template-1">
+    <h2>Import a GPX file</h2>
+    <div class="form input">
+      <input id="import-file" type="file"></input>
+      <button id="import-btn" disabled='disabled'>Importer</button>
+    </div>
+    <h2>Session values</h2>
+    <div class="form">
+      <div class="width-half text-small align-left">Date (dd/mm/yyy)
+        <input id="new-session-date" class="width-half align-right text-small text-right" type="date" value="<%= date %>" />
+      </div>
+      <div class="width-half text-small align-left">Start time (hh:mm)
+        <input id="new-session-time" class="width-half align-right text-small text-right" type="time" value="<%= time %>" />
+      </div>
+      <div class="width-half text-small align-left">Distance (<span id="new-session-distance-unit"><%= distance_unit %></span>)
+        <input id="new-session-distance" class="width-half align-right text-small text-right" type="number" step="0.01" value="<%= distance %>" />
+      </div>
+      <div class="width-half text-small align-left">Duration (hh:mm:ss)
+        <span class="align-right">
+          <input id="new-session-duration-hour" class="duration text-small text-right" type="number" value="<%= durationH %>" />
+          <span>:</span>
+          <input id="new-session-duration-min" class="duration text-small text-right" type="number" value="<%= durationM %>" />
+          <span>:</span>
+          <input id="new-session-duration-sec" class="duration text-small text-right" type="number" value="<%= durationS %>" />
+        </span>
+      </div>
+      <div class="width-half text-small align-left">Altitude max. (<span id="new-session-alt-unit-max"><%= alt_unit %></span>)
+        <input id="new-session-alt-max" class="width-half align-right text-small text-right" type="number" disabled value="<%= alt_max %>" />
+      </div>
+      <div class="width-half text-small align-left">Altitude min. (<span id="new-session-alt-unit-min"><%= alt_unit %></span>)
+        <input id="new-session-alt-min" class="width-half align-right text-small text-right" type="number" disabled value="<%= alt_min %>" />
+      </div>
+      <div class="width-half text-small align-left">Average Speed (<span id="new-session-speed-unit"><%= speed_unit %></span>)
+        <input id="new-session-avg-speed" class="width-half align-right text-small text-right" type="number" disabled value="<%= avg_speed %>" />
+      </div>
+      <div class="width-half text-small align-left">Calories (kcal)
+        <input id="new-session-calories" class="width-half align-right text-small text-right" type="number" disabled value="<%= calories %>" />
+      </div>
+    </div>
+    <div id="new-map-container" class="new-line hidden behind">
+      <h2>Map</h2>
+      <div id='new-map' class="map"></div>
+    </div>
+  </script>
+
+  <script type="text/template" id="new-session-template-2">
+    <form id="body-form" class="body-form">
+      <div class="width-half text-small align-left">Date
+        <input id="new-body-date" class="align-right" type="date" value="<%= date %>" />
+      </div>
+      <div class="width-half text-small align-left">Weight
+        <input id="new-body-value" class="align-right" type="number" value="<%= value %>" />
+      </div>
+    </form>
+  </script>
+
+  <script type="text/template" id="new-session-template-3">
+    <div class="form">
+      <div class="width-half text-small align-left">Date (dd/mm/yyy)
+        <input id="new-session-date" class="align-right" type="date" value="<%= date %>" />
+      </div>
+      <div class="width-half text-small align-left">Start time (hh:mm)
+        <input id="new-session-time" class="align-right" type="time" value="<%= time %>" />
+      </div>
+      <div class="width-half text-small align-left">Distance (<span id="new-session-distance-unit"><%= distance_unit %></span>)
+        <input id="new-session-distance" class="align-right" type="number" step="0.01" value="<%= distance %>" />
+      </div>
+      <div class="width-half text-small align-left">Duration
+        <div class="align-right">
+          <input id="new-session-duration-hour" class="duration" type="number" value="<%= durationH %>" />
+          <span>:</span>
+          <input id="new-session-duration-min" class="duration" type="number" value="<%= durationM %>" />
+          <span>:</span>
+          <input id="new-session-duration-sec" class="duration" type="number" value="<%= durationS %>" />
+        </div>
+      </div>
+      <div class="width-half text-small align-left">Average Speed (<span id="new-session-speed-unit"><%= speed_unit %></span>)
+        <input id="new-session-avg-speed" class="align-right" type="number" disabled value="<%= avg_speed %>" />
+      </div>
+      <div class="width-half text-small align-left">Calories (kcal)
+        <input id="new-session-calories" class="align-right" type="number" disabled value="<%= calories %>" />
+      </div>
+    </div>
+  </script>
+
+  <script type="text/template" id="session-summary-template-1">
+    <a href="#" class="session-summary-click" session_id="<%= session_cid %>">
+      <div class="summary-container" session_id="<%= session_cid %>">
+        <img src="img/activities/<%= activity %>.svg" alt="<%= activity %>" class="activity" session_id="<%= session_cid %>">
+        <div class="distance information" session_id="<%= session_cid %>">
+          <span class="fa fa-road fa-2x" session_id="<%= session_cid %>"></span>
+          <span class="text-big" session_id="<%= session_cid %>"><%= distance %></span>
+        </div>
+        <div class="duration information" session_id="<%= session_cid %>">
+          <span class="fa fa-clock-o fa-2x" session_id="<%= session_cid %>"></span>
+          <span class="text-big" session_id="<%= session_cid %>"><%= duration %></span>
+        </div>
+        <div class="speed information" session_id="<%= session_cid %>">
+          <span class="fa fa-tachometer fa-2x" session_id="<%= session_cid %>"></span>
+          <span class="text-big" session_id="<%= session_cid %>"><%= avg_speed %></span>
+        </div>
+        <div class="time information text-big" session_id="<%= session_cid %>"><%= date %></div>
+      </div>
+    </a>
+  </script>
+
+  <script type="text/template" id="session-summary-template-2">
+    <a href="#" class="session-summary-click" session_id="<%= session_cid %>">
+      <div class="summary-container" session_id="<%= session_cid %>">
+        <img src="img/activities/<%= activity %>.svg" alt="<%= activity %>" class="activity" session_id="<%= session_cid %>">
+        <div class="body measure information text-big" session_id="<%= session_cid %>"><%= value %></div>
+        <div class="time information text-big" session_id="<%= session_cid %>"><%= date %></div>
+      </div>
+    </a>
+  </script>
+
+  <script type="text/template" id="indicators-template">
+    <div class="indicator green align-left">
+      <span id="dashboard-sessions-number" class="text-big"><%= sessions %></span>
+      <span class="text-big"> Sessions</span>
+    </div>
+    <div class="indicator red align-right">
+      <span class="fa fa-fire fa-2x"></span>
+      <span id="dashboard-calories" class="text-big"><%= calories %></span>
+      <span class="text-big">Burned calories</span>
+    </div>
+    <div class="indicator blue align-left">
+      <span class="fa fa-road fa-2x"></span>
+      <span id="dashboard-distance" class="text-big"><%= distance %></span>
+    </div>
+    <div class="indicator blue align-right">
+      <span class="fa fa-clock-o fa-2x"></span>
+      <span id="dashboard-duration" class="text-big"><%= duration %></span>
+    </div>
+  </script>
+
+  <script type="text/template" id="session-details-template">
+  <div class="session-totals-container">
+  <div class="width-half text-1-4 align-left">Date
+    <span id="session-date" class="align-right"><%= date %></span>
+  </div>
+
+  <div class="width-half text-1-4 align-left">Start time
+    <span id="session-date" class="align-right"><%= time %></span>
+  </div>
+  <div class="width-half text-1-4 align-left">Distance
+    <span id="session-date" class="align-right"><%= distance %></span>
+  </div>
+
+  <div class="width-half text-1-4 align-left">Duration
+    <span id="session-date" class="align-right"><%= duration %></span>
+  </div>
+
+  <div class="width-half text-1-4 align-left">Altitude max.
+    <span id="session-date" class="align-right"><%= alt_max %></span>
+  </div>
+
+  <div class="width-half text-1-4 align-left">Altitude min.
+    <span id="session-date" class="align-right"><%= alt_min %></span>
+  </div>
+
+  <div class="width-half text-1-4 align-left">Average speed.
+    <span id="session-date" class="align-right"><%= avg_speed %></span>
+  </div>
+
+  <div class="width-half text-1-4 align-left">Calories
+    <span id="session-date" class="align-right"><%= calories %></span>
+  </div>
+
+  </div>
+  <div class='accordeon'>
+    <section class="map">
+      <h2>Map</h2>
+      <div id='session-map' class="map"></div>
+      <input type="checkbox" id="geo" />
+      <label for="geo">Geographical detailled values
+        <span class="fa fa-chevron-right align-right"></span>
+        <span class="fa fa-chevron-down align-right"></span>
+      </label>
+      <table id="geo_table"></table>
+    </section>
+
+    <section>
+      <h2>Altitude</h2>
+      <div id="alt_graph"></div>
+      <input type="checkbox" id="alt" />
+      <label for ="alt">Altitude detailled values
+        <span class="fa fa-chevron-right align-right"></span>
+        <span class="fa fa-chevron-down align-right"></span>
+      </label>
+      <table id="alt_table"></table>
+    </section>
+
+    <section>
+      <h2>Speed</h2>
+      <div id="speed_graph"></div>
+      <input type="checkbox" id="speed" />
+      <label for="speed">Speed detailled values
+        <span class="fa fa-chevron-right align-right"></span>
+        <span class="fa fa-chevron-down align-right"></span>
+      </label>
+      <table id="speed_table"></table>
+    </section>
+  </div>
+  </script>
+
+  <script type="text/template" id="body-details-template">
+    <div class="width-half text-1-4 align-left">Date
+      <span id="body-date" class="align-right"><%= date %></span>
+    </div>
+
+    <div class="width-half text-1-4 align-left">Value
+      <span id="body-value" class="align-right"><%= value %></span>
+    </div>
+  </script>
+
+
+  <script type="text/template" id="session-details-template-2">
+  <div class="session-totals-container">
+  <div class="width-half text-1-4 align-left">Date
+    <span id="session-date" class="align-right"><%= date %></span>
+  </div>
+
+  <div class="width-half text-1-4 align-left">Start time
+    <span id="session-date" class="align-right"><%= time %></span>
+  </div>
+  <div class="width-half text-1-4 align-left">Distance
+    <span id="session-date" class="align-right"><%= distance %></span>
+  </div>
+
+  <div class="width-half text-1-4 align-left">Duration
+    <span id="session-date" class="align-right"><%= duration %></span>
+  </div>
+
+  <div class="width-half text-1-4 align-left">Average speed.
+    <span id="session-date" class="align-right"><%= avg_speed %></span>
+  </div>
+
+  <div class="width-half text-1-4 align-left">Calories
+    <span id="session-date" class="align-right"><%= calories %></span>
+  </div>
+
+  </div>
+  </script>
+
+
+
+
+
+  <script type="text/javascript" src="js/lib/microtemplates.js"></script>
+  <script type="text/javascript" src="js/lib/exoskeleton.js"></script>
+  <script type="text/javascript" src="js/lib/backbone.nativeajax.js"></script>
+  <script type="text/javascript" src="js/lib/backbone.nativeview.js"></script>
+  <script type="text/javascript" src="js/lib/leaflet.js"></script>
+  <script type="text/javascript" src="js/lib/d3.js"></script>
+  <script type="text/javascript" src="js/lib/crossfilter.js"></script>
+  <script type="text/javascript" src="js/lib/dc.js"></script>
+
+  <script type="text/javascript" src="js/utils/gpx.js"></script>
+  <script type="text/javascript" src="js/utils/map.js"></script>
+  <script type="text/javascript" src="js/utils/helpers.js"></script>
+
+  <script type="text/javascript" src="js/factories/models/athletics.js"></script>
+  <script type="text/javascript" src="js/factories/models/body.js"></script>
+  <script type="text/javascript" src="js/factories/models/cycling.js"></script>
+  <script type="text/javascript" src="js/factories/models/mountaineering.js"></script>
+  <script type="text/javascript" src="js/factories/models/sliding.js"></script>
+  <script type="text/javascript" src="js/factories/models/swimming.js"></script>
+  <script type="text/javascript" src="js/factories/models/watersport.js"></script>
+
+  <script type="text/javascript" src="js/factories/views/dashboard_summary_1.js"></script>
+  <script type="text/javascript" src="js/factories/views/dashboard_summary_2.js"></script>
+  <script type="text/javascript" src="js/factories/views/detailled_1.js"></script>
+  <script type="text/javascript" src="js/factories/views/detailled_2.js"></script>
+  <script type="text/javascript" src="js/factories/views/detailled_3.js"></script>
+  <script type="text/javascript" src="js/factories/views/new_1.js"></script>
+  <script type="text/javascript" src="js/factories/views/new_2.js"></script>
+  <script type="text/javascript" src="js/factories/views/new_3.js"></script>
+  <script type="text/javascript" src="js/factories/views/sessions_summary_1.js"></script>
+  <script type="text/javascript" src="js/factories/views/sessions_summary_2.js"></script>
+
+  <script type="text/javascript" src="js/factories/activities/climbing.js"></script>
+  <script type="text/javascript" src="js/factories/activities/mountain_biking.js"></script>
+  <script type="text/javascript" src="js/factories/activities/paddling.js"></script>
+  <script type="text/javascript" src="js/factories/activities/racing.js"></script>
+  <script type="text/javascript" src="js/factories/activities/regular_biking.js"></script>
+  <script type="text/javascript" src="js/factories/activities/running.js"></script>
+  <script type="text/javascript" src="js/factories/activities/skiing.js"></script>
+  <script type="text/javascript" src="js/factories/activities/swimming.js"></script>
+  <script type="text/javascript" src="js/factories/activities/time_trial_biking.js"></script>
+  <script type="text/javascript" src="js/factories/activities/trekking.js"></script>
+  <script type="text/javascript" src="js/factories/activities/walking.js"></script>
+  <script type="text/javascript" src="js/factories/activities/weight_act.js"></script>
+
+  <script type="text/javascript" src="js/factories/factory.js"></script>
+
+  <script type="text/javascript" src="js/models/doc.js"></script>
+  <script type="text/javascript" src="js/models/preferences.js"></script>
+
+  <script type="text/javascript" src="js/collections/docs.js"></script>
+
+  <script type="text/javascript" src="js/views/indicators.js"></script>
+  <script type="text/javascript" src="js/views/dashboard.js"></script>
+  <script type="text/javascript" src="js/views/new-session.js"></script>
+  <script type="text/javascript" src="js/views/preferences.js"></script>
+  <script type="text/javascript" src="js/views/reports.js"></script>
+  <script type="text/javascript" src="js/views/sessions.js"></script>
+  <script type="text/javascript" src="js/views/main.js"></script>
+
+  <script type="text/javascript" src="js/router.js"></script>
+  <script type="text/javascript" src="js/app.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf8">
+  <title>Sports Log</title>
+  <!-- <link rel="shortcut icon" sizes="128x128" href="img/" type="image/png"> -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/leaflet.css">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/new.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="stylesheet" href="css/font-awesome.css">
+  <link rel="stylesheet" href="css/navigation.css">
+  <link rel="stylesheet" href="css/preferences.css">
+  <link rel="stylesheet" href="css/sessions.css">
+  <link rel="stylesheet" href="css/app.css">
+
+</head>
+
+<body id="app">
+  <nav>
+    <h2><a href="#" id="new-session-btn" class="fa fa-plus-square"></a></h2>
+    <ul>
+      <li><a href="#" id="dashboard-btn"><span class="fa fa-home"></span><span>Tableau de bord</span></a>
+      </li>
+      <li><a href="#" id="sessions-btn"><span class="fa fa-list-ul"></span><span>Séances</span></a>
+      </li>
+      <li><a href="#" id="reports-btn"><span class="fa fa-bar-chart"></span><span>Rapports</span></a>
+      </li>
+      <li><a href="#" id="preferences-btn"><span class="fa fa-cog"></span><span>Préférences</span></a>
+      </li>
+    </ul>
+  </nav>
+  <section id="new-session-view" disabled="true" class="new-session-view">
+<div>
+  <h1>Add a new session</h1>
+  <button id="confirm-add-btn">Add</button>
+  <h2>Select an activity</h2>
+  <form id="select-activity">
+
+    <label for="walking">
+      <input type="radio" name="select-activity" value="walking" id="walking" />
+      <img src="img/activities/walking.svg" alt="walking" />
+    </label>
+
+    <label for="running">
+      <input type="radio" name="select-activity" value="running" id="running" />
+      <img src="img/activities/running.svg" alt="running" />
+    </label>
+
+    <label for="racing">
+      <input type="radio" name="select-activity" value="racing" id="racing" />
+      <img src="img/activities/racing.svg" alt="racing" />
+    </label>
+
+    <label for="swimming">
+      <input type="radio" name="select-activity" value="swimming" id="swimming" />
+      <img src="img/activities/swimming.svg" alt="swimming" />
+    </label>
+
+    <label for="regular_biking">
+      <input type="radio" name="select-activity" value="regular_biking" id="regular_biking" />
+      <img src="img/activities/regular_biking.svg" alt="regular_biking" />
+    </label>
+
+    <label for="mountain_biking">
+      <input type="radio" name="select-activity" value="mountain_biking" id="mountain_biking" />
+      <img src="img/activities/mountain_biking.svg" alt="mountain_biking" />
+    </label>
+
+    <label for="time_trial_biking">
+      <input type="radio" name="select-activity" value="time_trial_biking" id="time_trial_biking" />
+      <img src="img/activities/time_trial_biking.svg" alt="time_trial_biking" />
+    </label>
+
+    <label for="trekking">
+      <input type="radio" name="select-activity" value="trekking" id="trekking" />
+      <img src="img/activities/trekking.svg" alt="hiking" />
+    </label>
+
+    <label for="skiing">
+      <input type="radio" name="select-activity" value="skiing" id="skiing" />
+      <img src="img/activities/skiing.svg" alt="skiing" />
+    </label>
+
+    <label for="paddling">
+      <input type="radio" name="select-activity" value="paddling" id="paddling" />
+      <img src="img/activities/paddling.svg" alt="paddling" />
+    </label>
+
+    <label for="climbing">
+      <input type="radio" name="select-activity" value="climbing" id="climbing" />
+      <img src="img/activities/climbing.svg" alt="climbing" />
+    </label>
+
+    <label for="weight">
+      <input type="radio" name="select-activity" value="weight" id="weight" />
+      <img src="img/activities/weight.png" alt="weight" />
+    </label>
+
+  </form>
+  <form id="import-form" class="hidden behind">
+    <input id="import-file" type="file"></input>
+    <button id="import-btn" disabled='disabled'>Importer</button>
+  </form>
+  <form id="weight-form" class="hidden behind">
+    <div class="width-half text-small align-left">Date
+      <input id="new-weight-date" class="align-right" placeHolder="Date" type="text" />
+    </div>
+    <div class="width-half text-small align-left">Weight
+      <input id="new-weight" class="align-right" placeHolder="Weight" type="text" />
+    </div>
+  </form>
+  <div id="new-activity-details" class="hidden behind">
+    <div class="width-half text-small align-left">Date
+      <input id="new-session-date" class="align-right" placeHolder="Date" type="text" />
+    </div>
+    <div class="width-half text-small align-left">Start time
+      <input id="new-session-time" class="align-right" placeHolder="Time" type="text" />
+    </div>
+    <div class="width-half text-small align-left">Distance
+      <input id="new-session-distance" class="align-right" placeHolder="Distance" type="text" />
+    </div>
+    <div class="width-half text-small align-left">Duration
+      <input id="new-session-duration" class="align-right" placeHolder="Duration" type="text" />
+    </div>
+
+    <div class="width-half text-small align-left">Altitude max.
+      <input id="new-session-alt-max" class="align-right" placeHolder="Altitude max" type="text" disabled />
+    </div>
+
+    <div class="width-half text-small align-left">Altitude min.
+      <input id="new-session-alt-min" class="align-right" placeHolder="Altitude min" type="text" disabled />
+    </div>
+
+
+    <div class="width-half text-small align-left">Average Speed
+      <input id="new-session-avg-speed" class="align-right" placeHolder="Average speed" type="text" disabled />
+    </div>
+    <div class="width-half text-small align-left">Calories
+      <input id="new-session-calories" class="align-right" placeHolder="Calories" type="text" disabled />
+    </div>
+
+  </div>
+
+  <div id="new-map-container" class="new-line hidden behind">
+    <h2>Map</h2>
+    <div id='new-map' class="map"></div>
+  </div>
+
+  </div>
+  </section>
+  <section id="dashboard-view" disabled="false" class="dashboard-view">
+    <h1>Dashboard</h1>
+    <div id="indicators">
+
+    </div>
+    <ul class="new-line" id="dashboard">
+
+      <!-- <li><img src="img/activities/running.svg" alt="running" class="activity">
+        <div class="time">06/07/20/15 9:16</div>
+        <div class="distance"><span class="fa fa-road"></span><span>10,2 km</span>
+        </div>
+        <div class="duration"><span>&#9201;</span><span>58 min</span>
+        </div>
+        <div class="speed"><span class="fa fa-tachometer"></span><span>8,24 km/h</span>
+        </div>
+      </li>
+      <li>
+        <div>Félicitations, vous avez parcouru une distance totale de 80km</div>
+      </li> -->
+
+    </ul>
+  </section>
+  <section id="sessions-view" disabled="true" class="sessions-view">
+    <h1>Sessions</h1>
+    <ul>
+    </ul>
+  </section>
+
+  <section id="session-view" disabled="true" class="session-view">
+    <ul></ul>
+  </section>
+
+  <section id="reports-view" disabled="true" class="reports-view">
+    <h1>Rapports</h1>
+  </section>
+  <section id="preferences-view" disabled="true" class="preferences-view">
+    <h1>Préférences</h1>
+    <ul>
+      <li><span>Langue</span>
+        <select id="language">
+          <option value="en">English</option>
+          <option value="fr">Français</option>
+        </select>
+      </li>
+      <li><span>Unité de mesure</span>
+        <select name="unité de mesure" id="unit">
+          <option value="metric" selected>Métrique</option>
+          <option value="imperial">Impérial</option>
+        </select>
+      </li>
+      <li><span>Sexe</span>
+        <select name="sexe" id="gender">
+          <option value="female">Femme</option>
+          <option value="male">Homme</option>
+        </select>
+      </li>
+      <li><span>Année de naissance</span>
+        <select name="birthyear" id="birthyear">
+          <option value="1970">1970</option>
+          <option value="1971">1971</option>
+          <option value="1972">1972</option>
+          <option value="1973">1973</option>
+          <option value="1974">1974</option>
+          <option value="1975">1975</option>
+          <option value="1976">1976</option>
+        </select>
+        <input type="date" name="naissance" id="birthyear">
+      </li>
+    </ul>
+    <!-- <button id="save&#45;preferences&#45;btn">Sauvegarder</button> -->
+  </section>
+  <!-- <script type="text/javascript" src="js/lib/exoskeleton.js"></script>
+  <script type="text/javascript" src="js/lib/backbone.nativeview.js"></script>
+  <script type="text/javascript" src="js/lib/leaflet.js"></script>
+
+  <script type="text/javascript" src="js/utils/gpx.js"></script>
+  <script type="text/javascript" src="js/utils/map.js"></script>
+  <script type="text/javascript" src="js/collections/dashboard-entries.js"></script>
+  <script type="text/javascript" src="js/collections/sessions.js"></script>
+  <script type="text/javascript" src="js/models/dashboard-entry.js"></script>
+  <script type="text/javascript" src="js/models/preferences.js"></script>
+  <script type="text/javascript" src="js/models/session.js"></script>
+  <script type="text/javascript" src="js/views/new-session.js"></script>
+  <script type="text/javascript" src="js/views/preferences.js"></script>
+  <script type="text/javascript" src="js/views/main.js"></script> -->
+
+  <script type="text/javascript" src="js/app.js"></script>
+
+
+</body>
+</html>
+

@@ -1,0 +1,13 @@
+.preferences-view h1,
+.preferences-view li,
+.preferences-view button {
+  margin-left: 5%;
+}
+
+.preferences-view h1 {
+  font-size: 2rem;
+  margin-bottom: 3rem;
+}
+.preferences-view li {
+  margin-bottom: 1rem;
+}

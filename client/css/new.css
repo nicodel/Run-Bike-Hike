@@ -1,0 +1,75 @@
+.new-session-view h2 {
+  /* margin-bottom: 2rem; */
+  margin-top: 2rem;
+  margin-left: 5%;
+}
+
+#confirm-add-btn {
+  float: right;
+  margin-right: 3rem;
+}
+
+.new-session-view form,
+.new-session-view div {
+  margin: 1rem;
+}
+.new-session-view form,
+.new-session-view div.form {
+  margin-left: 5%;
+  padding: 0.5rem;
+  width: 90%;
+  border: 1px solid #DDD;
+  background-color: #F1F1F1;
+}
+.new-session-view div.form {
+  height: 15em;
+}
+.new-session-view div.input {
+  height: auto;
+}
+.new-session-view form.body-form {
+  height: 4rem;
+}
+/*.new-session-view label {
+  margin: 0.5rem;
+}*/
+.new-session-view label img {
+  width: 56px;
+}
+.new-session-view label > input {
+  visibility: hidden;
+  position: absolute;
+}
+.new-session-view label > input + img {
+  cursor: pointer;
+  padding: 0.5rem;
+/*   border: 1px solid blue; */
+}
+.new-session-view label > input:checked + img {
+  background-color: #DDD;
+}
+.new-session-view input {
+  border: 1px solid #DDD;
+}
+
+.new-session-view input.duration {
+  width: 2.5rem;
+}
+
+/*#new-activity-details label,
+#new-activity-details input {
+  font-size: 1.8rem;
+}
+#new-activity-details label {
+  float: left;
+}
+#new-activity-details input {
+  width: 10rem;
+  float: input;
+}
+#new-activity-details .duration {
+  width: 2.5rem;
+}
+#new-activity-details span {
+  font-size: 2rem;
+}*/
