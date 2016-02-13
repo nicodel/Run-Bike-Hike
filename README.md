@@ -33,7 +33,7 @@ npm start
 If you want to hack on Run, Bike, Hike..., be sure to have installed [Mocha](https://mochajs.org) on your
 machine. It is used for testing.
 
-```npm install -g mocha```
+```npm install -g mocha americano```
 
 (of course, install dependencies for the application)
 

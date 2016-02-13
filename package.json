@@ -1,5 +1,5 @@
 {
-  "name": "Run-Bike-Hike",
+  "name": "runbikehike",
   "version": "0.2.0",
   "description": "Run, Bike, Hike... allow you to record your running or biking sessions, so you can follow your sporting progress.",
   "main": "server.js",
@@ -24,10 +24,18 @@
   "bugs": {
     "url": "https://github.com/nicodel/Run-Bike-Hike/issues"
   },
+  "cozy-displayName": "Run, Bike, Hike...",
+  "icon-path": "img/icon128.png",
   "dependencies": {
     "americano": "^0.4.2",
+    "backbone.nativeajax": "^0.4.1",
+    "backbone.nativeview": "^0.3.3",
     "body-parser": "^1.13.2",
     "cozydb": "0.1.3",
+    "crossfilter": "^1.3.12",
+    "d3": "^3.5.6",
+    "dc": "^2.0.0-beta.14",
+    "exoskeleton": "^0.7.0",
     "express": "^4.13.1",
     "microtemplates": "^0.1.0",
     "pouchdb": "^5.1.0",
@@ -42,8 +50,5 @@
     "ghooks": "^1.0.1",
     "jshint": "^2.9.1-rc1",
     "uglify-js": "^2.6.1"
-  },
-  "name": "runbikehike",
-  "cozy-displayName": "Run, Bike, Hike...",
-  "icon-path": "img/icon128.png"
+  }
 }
