@@ -5,7 +5,7 @@ var americano = require('americano');
 
 var port = process.env.port || 9250;
 americano.start({
-  name    : 'sportslog',
+  name    : 'runbikehike',
   port    : port,
   dbName  : 'docs'
 });
