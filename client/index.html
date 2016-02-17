@@ -8,6 +8,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
+
+  <!-- Localization -->
+  <link rel="prefetch" type="application/l10n" href="locales/locales.ini" />
+
   <link rel="stylesheet" href="css/reset.css">
   <link rel="stylesheet" href="css/leaflet.css">
   <link rel="stylesheet" href="css/dc.css">
@@ -32,24 +36,24 @@
     </h2>
     <ul>
       <li id="dashboard-btn" class="active">
-        <div><span class="fa fa-home fa-2x"></span><span class="text-small">Tableau de bord</span></div>
+        <div><span class="fa fa-home fa-2x"></span><span data-l10n-id="dashboard" class="text-small"></span></div>
       </li>
       <li id="sessions-btn">
-        <div><span class="fa fa-list-ul fa-2x"></span><span class="text-small">Séances</span></div>
+        <div><span class="fa fa-list-ul fa-2x"></span><span data-l10n-id="sessions" class="text-small"></span></div>
       </li>
       <li id="reports-btn">
-        <div><span class="fa fa-bar-chart fa-2x"></span><span class="text-small">Rapports</span></div>
+        <div><span class="fa fa-bar-chart fa-2x"></span><span data-l10n-id="reports" class="text-small"></span></div>
       </li>
       <li id="preferences-btn">
-        <div><span class="fa fa-cog fa-2x"></span><span class="text-small">Préférences</span></div>
+        <div><span class="fa fa-cog fa-2x"></span><span data-l10n-id="preferences" class="text-small"></span></div>
       </li>
     </ul>
   </nav>
   <section id="new-session-view" disabled="true" class="new-session-view">
 <div>
-  <h1>Add a new session</h1>
-  <button id="confirm-add-btn">Add</button>
-  <h2>Select an activity</h2>
+  <h1 data-l10n-id="add-new-session"></h1>
+  <button data-l10n-id="add" id="confirm-add-btn"></button>
+  <h2 data-l10n-id="select-activity"></h2>
   <form id="select-activity">
 
     <label for="walking">
@@ -121,16 +125,16 @@
   </div>
   </section>
   <section id="dashboard-view" disabled="false" class="dashboard-view">
-    <h1>Dashboard</h1>
+    <h1 data-l10n-id="dashboard"></h1>
     <div id="indicators"></div>
     <ul class="selector new-line align-left">
       <li class="align-left">
-        <span>Sort by</span>
+        <span data-l10n-id="sort-by"></span>
       </li>
       <li class="align-left">
         <select id="dashboard-sort-attribute">
-          <option value='date'>Date</option>
-          <option value='activity'>Activity</option>
+          <option data-l10n-id="date" value='date'></option>
+          <option data-l10n-id="activity" value='activity'></option>
         </select>
       </li>
       <li class="align-left">
@@ -144,21 +148,21 @@
   </section>
 
   <section id="sessions-view" disabled="true" class="sessions-view">
-    <h1>Sessions</h1>
+    <h1 data-l10n-id="sessions"></h1>
     <ul class="selector new-line align-left">
       <li class="align-left">
-        <span>Sort by</span>
+        <span data-l10n-id="sort-by"></span>
       </li>
       <li class="align-left">
         <select id="sessions-sort-attribute">
-          <option value='date'>Date</option>
-          <option value='activity'>Activity</option>
+          <option value='date'></option>
+          <option value='activity'></option>
         </select>
       </li>
       <li class="align-left">
         <select id="sessions-sort-ascending">
-          <option value='true'>Ascending</option>
-          <option value='false'>Descending</option>
+          <option data-l10n-id="ascending" value='true'></option>
+          <option data-l10n-id="descending" value='false'></option>
         </select>
       </li>
     </ul>
@@ -168,19 +172,19 @@
   </section>
 
   <section id="session-view" disabled="true" class="session-view">
-    <h1>Session</h1>
+    <h1 data-l10n-id="session"></h1>
   </section>
 
   <section id="reports-view" disabled="true" class="reports-view">
-    <h1>Rapports</h1>
+    <h1 data-l10n-id="reports"></h1>
 
     <select id='reports-select-date'>
-      <option value='current-year' selected>Current year</option>
-      <option value='last-12-months'>Last 12 months</option>
-      <option value='last-6-months'>Last 6 months</option>
-      <option value='last-3-months'>Last 3 months</option>
-      <option value='current-month'>Last month</option>
-      <option value='current-week'>Last week</option>
+      <option data-l10n-id="current-year" value='current-year' selected></option>
+      <option data-l10n-id="last-12-months" value='last-12-months'></option>
+      <option data-l10n-id="last-6-months" value='last-6-months'></option>
+      <option data-l10n-id="last-3-months" value='last-3-months'></option>
+      <option data-l10n-id="current-month" value='current-month'></option>
+      <option data-l10n-id="current-week" value='current-week'></option>
     </select>
     <div id='reports-weight-graph' class='graph'></div>
     <div id='reports-calories-graph' class='graph new-line'></div>
@@ -189,33 +193,33 @@
   </section>
 
   <section id="preferences-view" disabled="true" class="preferences-view">
-    <h1>Préférences</h1>
+    <h1 data-l10n-id="preferences"></h1>
     <ul>
       <li><span>Langue</span>
         <select id="language">
-          <option value="en">English</option>
-          <option value="fr">Français</option>
+          <option data-l10n-id="english" value="en"></option>
+          <option data-l10n-id="francais" value="fr"></option>
         </select>
       </li>
-      <li><span>Unité de mesure</span>
+      <li><span data-l10n-id="units"></span>
         <select name="unité de mesure" id="unit">
-          <option value="metric" selected>Métrique</option>
-          <option value="imperial">Impérial</option>
+          <option data-l10n-id="metric" value="metric" selected></option>
+          <option data-l10n-id="imperial" value="imperial"></option>
         </select>
       </li>
-      <li><span>Sexe</span>
+      <li><span data-l10n-id="gender"></span>
         <select name="sexe" id="gender">
-          <option value="female">Femme</option>
-          <option value="male">Homme</option>
+          <option data-l10n-id="woman" value="female"></option>
+          <option data-l10n-id="man" value="male"></option>
         </select>
       </li>
-      <li><span>Height (in cm)</span>
+      <li><span data-l10n-id="height"></span>
         <input id="height" type="text" />
       </li>
-      <li><span>Weight (in kg)</span>
+      <li><span data-l10n-id="weight"></span>
         <input id="weight" type="text" />
       </li>
-      <li><span>Année de naissance</span>
+      <li><span data-l10n-id="birthyear"></span>
         <select name="birthyear" id="birthyear">
           <option value="1900">1900</option>
           <option value="1901">1901</option>
@@ -337,7 +341,7 @@
         <input type="date" name="naissance" id="birthyear">
       </li>
     </ul>
-    <button id="save-preferences-btn">Sauvegarder</button>
+    <button data-l10n-id="save" id="save-preferences-btn"></button>
   </section>
   <!-- <script type="text/javascript" src="js/lib/exoskeleton.js"></script>
   <script type="text/javascript" src="js/lib/backbone.nativeview.js"></script>
@@ -355,23 +359,23 @@
   <script type="text/javascript" src="js/views/main.js"></script> -->
 
   <script type="text/template" id="new-session-template-1">
-    <h2>Import a GPX file</h2>
+    <h2 data-l10n-id="import-gpx-file"></h2>
     <div class="form input">
       <input id="import-file" type="file"></input>
-      <button id="import-btn" disabled='disabled'>Importer</button>
+      <button data-l10n-id="import" id="import-btn" disabled='disabled'></button>
     </div>
-    <h2>Session values</h2>
+    <h2 data-l10n-id="session-values"></h2>
     <div class="form">
-      <div class="width-half text-small align-left">Date (dd/mm/yyy)
+      <div data-l10n-id="date-format" class="width-half text-small align-left">
         <input id="new-session-date" class="width-half align-right text-small text-right" type="date" value="<%= date %>" />
       </div>
-      <div class="width-half text-small align-left">Start time (hh:mm)
+      <div data-l10n-id="start-time-format" class="width-half text-small align-left">
         <input id="new-session-time" class="width-half align-right text-small text-right" type="time" value="<%= time %>" />
       </div>
-      <div class="width-half text-small align-left">Distance (<span id="new-session-distance-unit"><%= distance_unit %></span>)
+      <div data-l10n-id="distance-format" class="width-half text-small align-left">
         <input id="new-session-distance" class="width-half align-right text-small text-right" type="number" step="0.01" value="<%= distance %>" />
       </div>
-      <div class="width-half text-small align-left">Duration (hh:mm:ss)
+      <div data-l10n-id="duration-format" class="width-half text-small align-left">
         <span class="align-right">
           <input id="new-session-duration-hour" class="duration text-small text-right" type="number" value="<%= durationH %>" />
           <span>:</span>
@@ -380,31 +384,32 @@
           <input id="new-session-duration-sec" class="duration text-small text-right" type="number" value="<%= durationS %>" />
         </span>
       </div>
-      <div class="width-half text-small align-left">Altitude max. (<span id="new-session-alt-unit-max"><%= alt_unit %></span>)
+      <div data-l10n-id="altitude-max-format" class="width-half text-small align-left">
         <input id="new-session-alt-max" class="width-half align-right text-small text-right" type="number" disabled value="<%= alt_max %>" />
       </div>
-      <div class="width-half text-small align-left">Altitude min. (<span id="new-session-alt-unit-min"><%= alt_unit %></span>)
+      <div data-l10n-id="altitude-min-format" class="width-half text-small align-left">
         <input id="new-session-alt-min" class="width-half align-right text-small text-right" type="number" disabled value="<%= alt_min %>" />
       </div>
-      <div class="width-half text-small align-left">Average Speed (<span id="new-session-speed-unit"><%= speed_unit %></span>)
+      <div data-l10n-id="average-speed-format" class="width-half text-small align-left">
+      // <divdata-l10n-id="average-speed" class="width-half text-small align-left">Average Speed (<span id="new-session-speed-unit"><%= speed_unit %></span>)
         <input id="new-session-avg-speed" class="width-half align-right text-small text-right" type="number" disabled value="<%= avg_speed %>" />
       </div>
-      <div class="width-half text-small align-left">Calories (kcal)
+      <div data-l10n-id="calories-format" class="width-half text-small align-left">
         <input id="new-session-calories" class="width-half align-right text-small text-right" type="number" disabled value="<%= calories %>" />
       </div>
     </div>
     <div id="new-map-container" class="new-line hidden behind">
-      <h2>Map</h2>
+      <h2 data-l10n-id="map"></h2>
       <div id='new-map' class="map"></div>
     </div>
   </script>
 
   <script type="text/template" id="new-session-template-2">
     <form id="body-form" class="body-form">
-      <div class="width-half text-small align-left">Date
+      <div data-l10n-id="date" class="width-half text-small align-left">
         <input id="new-body-date" class="align-right" type="date" value="<%= date %>" />
       </div>
-      <div class="width-half text-small align-left">Weight
+      <div data-l10n-id="weight" class="width-half text-small align-left">
         <input id="new-body-value" class="align-right" type="number" value="<%= value %>" />
       </div>
     </form>
@@ -412,16 +417,17 @@
 
   <script type="text/template" id="new-session-template-3">
     <div class="form">
-      <div class="width-half text-small align-left">Date (dd/mm/yyy)
+      <div data-l10n-id="date-format" class="width-half text-small align-left">
         <input id="new-session-date" class="align-right" type="date" value="<%= date %>" />
       </div>
-      <div class="width-half text-small align-left">Start time (hh:mm)
+      <div data-l10n-id="start-time-format" class="width-half text-small align-left">
         <input id="new-session-time" class="align-right" type="time" value="<%= time %>" />
       </div>
-      <div class="width-half text-small align-left">Distance (<span id="new-session-distance-unit"><%= distance_unit %></span>)
+      // <div data-l10n-id="distance-unit" class="width-half text-small align-left">Distance (<span id="new-session-distance-unit"><%= distance_unit %></span>)
+      <div data-l10n-id="distance-unit" class="width-half text-small align-left">
         <input id="new-session-distance" class="align-right" type="number" step="0.01" value="<%= distance %>" />
       </div>
-      <div class="width-half text-small align-left">Duration
+      <div data-l10n-id="duration-format" class="width-half text-small align-left">
         <div class="align-right">
           <input id="new-session-duration-hour" class="duration" type="number" value="<%= durationH %>" />
           <span>:</span>
@@ -430,10 +436,10 @@
           <input id="new-session-duration-sec" class="duration" type="number" value="<%= durationS %>" />
         </div>
       </div>
-      <div class="width-half text-small align-left">Average Speed (<span id="new-session-speed-unit"><%= speed_unit %></span>)
+      <div data-l10n-id="average-speed-format" class="width-half text-small align-left">
         <input id="new-session-avg-speed" class="align-right" type="number" disabled value="<%= avg_speed %>" />
       </div>
-      <div class="width-half text-small align-left">Calories (kcal)
+      <div data-l10n-id="calories-format" class="width-half text-small align-left">
         <input id="new-session-calories" class="align-right" type="number" disabled value="<%= calories %>" />
       </div>
     </div>
@@ -473,12 +479,12 @@
   <script type="text/template" id="indicators-template">
     <div class="indicator green align-left">
       <span id="dashboard-sessions-number" class="text-big"><%= sessions %></span>
-      <span class="text-big"> Sessions</span>
+      <span data-l10n-id="sessions" class="text-big"></span>
     </div>
     <div class="indicator red align-right">
       <span class="fa fa-fire fa-2x"></span>
       <span id="dashboard-calories" class="text-big"><%= calories %></span>
-      <span class="text-big">Burned calories</span>
+      <span data-l10n-id="burned-calories" class="text-big"></span>
     </div>
     <div class="indicator blue align-left">
       <span class="fa fa-road fa-2x"></span>
@@ -492,44 +498,44 @@
 
   <script type="text/template" id="session-details-template">
   <div class="session-totals-container">
-  <div class="width-half text-1-4 align-left">Date
+  <div data-l10n-id="date" class="width-half text-1-4 align-left">
     <span id="session-date" class="align-right"><%= date %></span>
   </div>
 
-  <div class="width-half text-1-4 align-left">Start time
+  <div data-l10n-id="start-time" class="width-half text-1-4 align-left">
     <span id="session-date" class="align-right"><%= time %></span>
   </div>
-  <div class="width-half text-1-4 align-left">Distance
+  <div data-l10n-id="distance" class="width-half text-1-4 align-left">
     <span id="session-date" class="align-right"><%= distance %></span>
   </div>
 
-  <div class="width-half text-1-4 align-left">Duration
+  <div data-l10n-id="duration" class="width-half text-1-4 align-left">
     <span id="session-date" class="align-right"><%= duration %></span>
   </div>
 
-  <div class="width-half text-1-4 align-left">Altitude max.
+  <div data-l10n-id="altitude-max" class="width-half text-1-4 align-left">
     <span id="session-date" class="align-right"><%= alt_max %></span>
   </div>
 
-  <div class="width-half text-1-4 align-left">Altitude min.
+  <div data-l10n-id="altitude-min" class="width-half text-1-4 align-left">
     <span id="session-date" class="align-right"><%= alt_min %></span>
   </div>
 
-  <div class="width-half text-1-4 align-left">Average speed.
+  <div data-l10n-id="average-speed" class="width-half text-1-4 align-left">
     <span id="session-date" class="align-right"><%= avg_speed %></span>
   </div>
 
-  <div class="width-half text-1-4 align-left">Calories
+  <div data-l10n-id="calories" class="width-half text-1-4 align-left">
     <span id="session-date" class="align-right"><%= calories %></span>
   </div>
 
   </div>
   <div class='accordeon'>
     <section class="map">
-      <h2>Map</h2>
+      <h2 data-l10n-id="map"></h2>
       <div id='session-map' class="map"></div>
       <input type="checkbox" id="geo" />
-      <label for="geo">Geographical detailled values
+      <label data-l10n-id="geographical-detailled-values" for="geo">
         <span class="fa fa-chevron-right align-right"></span>
         <span class="fa fa-chevron-down align-right"></span>
       </label>
@@ -540,7 +546,7 @@
       <h2>Altitude</h2>
       <div id="alt_graph"></div>
       <input type="checkbox" id="alt" />
-      <label for ="alt">Altitude detailled values
+      <label data-l10n-id="altitude-detailled-values" for ="alt">
         <span class="fa fa-chevron-right align-right"></span>
         <span class="fa fa-chevron-down align-right"></span>
       </label>
@@ -551,7 +557,7 @@
       <h2>Speed</h2>
       <div id="speed_graph"></div>
       <input type="checkbox" id="speed" />
-      <label for="speed">Speed detailled values
+      <label data-l1On-id="speed-detailled-values" for="speed">
         <span class="fa fa-chevron-right align-right"></span>
         <span class="fa fa-chevron-down align-right"></span>
       </label>
@@ -561,11 +567,11 @@
   </script>
 
   <script type="text/template" id="body-details-template">
-    <div class="width-half text-1-4 align-left">Date
+    <div data-l10n-id="date" class="width-half text-1-4 align-left">Date
       <span id="body-date" class="align-right"><%= date %></span>
     </div>
 
-    <div class="width-half text-1-4 align-left">Value
+    <div data-l10n-id="value" class="width-half text-1-4 align-left">
       <span id="body-value" class="align-right"><%= value %></span>
     </div>
   </script>
@@ -573,26 +579,26 @@
 
   <script type="text/template" id="session-details-template-2">
   <div class="session-totals-container">
-  <div class="width-half text-1-4 align-left">Date
+  <div data-l10n-id="date" class="width-half text-1-4 align-left">
     <span id="session-date" class="align-right"><%= date %></span>
   </div>
 
-  <div class="width-half text-1-4 align-left">Start time
+  <div data-l10n-id="start-time" class="width-half text-1-4 align-left">
     <span id="session-date" class="align-right"><%= time %></span>
   </div>
-  <div class="width-half text-1-4 align-left">Distance
+  <div data-l10n-id="distance" class="width-half text-1-4 align-left">
     <span id="session-date" class="align-right"><%= distance %></span>
   </div>
 
-  <div class="width-half text-1-4 align-left">Duration
+  <div data-l10n-id="duration" class="width-half text-1-4 align-left">
     <span id="session-date" class="align-right"><%= duration %></span>
   </div>
 
-  <div class="width-half text-1-4 align-left">Average speed.
+  <div data-l10n-id="average-speed" class="width-half text-1-4 align-left">
     <span id="session-date" class="align-right"><%= avg_speed %></span>
   </div>
 
-  <div class="width-half text-1-4 align-left">Calories
+  <div data-l10n-id="calories" class="width-half text-1-4 align-left">
     <span id="session-date" class="align-right"><%= calories %></span>
   </div>
 
@@ -603,7 +609,7 @@
 
 
 
-  <script type="text/javascript" src="js/lib/webL10n/l10n.js"></script>
+  <script type="text/javascript" src="js/lib/l10n.js"></script>
   <script type="text/javascript" src="js/lib/microtemplates.js"></script>
   <script type="text/javascript" src="js/lib/exoskeleton.js"></script>
   <script type="text/javascript" src="js/lib/backbone.nativeajax.js"></script>

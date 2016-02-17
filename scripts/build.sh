@@ -5,6 +5,8 @@ mkdir -p ./www/img
 rsync -a --delete ./client/img/ ./www/img/
 mkdir -p ./www/fonts
 rsync -a --delete ./client/fonts/ ./www/fonts/
+mkdir -p ./www/locales
+rsync -a --delete ./client/locales ./www/locales/
 cp package.json ./www/
 
 echo "Migrating HTML file..."
