@@ -1,5 +1,5 @@
 /* jshint browser: true */
-/* globals Backbone, microtemplate, Preferences, utils */
+/* globals _, Backbone, microtemplate, Preferences, utils */
 'use strict';
 
 var views = views || {};
@@ -37,18 +37,21 @@ views.new_3 = Backbone.NativeView.extend({
     var duration = utils.Helpers.formatDuration(this.model.get('duration'));
     var speed = utils.Helpers.speedMsToChoice(pref_unit, this.model.get('avg_speed'));
     this.el.innerHTML = this.template({
+      'lb_date'       : _('date-format'),
       'date'          : utils.Helpers.formatDate(this.model.get('date')),
+      'lb_time'       : _('start-time-format'),
       'time'          : utils.Helpers.formatTime(this.model.get('date')),
+      'lb_distance'   : _('distance-format'),
       'distance'      : distance.value,
       'distance_unit' : distance.unit,
+      'lb_duration'   : _('duration-format'),
       'durationH'     : duration.hour,
       'durationM'     : duration.min,
       'durationS'     : duration.sec,
-      'alt_max'       : this.model.get('alt_max'),
-      'alt_min'       : this.model.get('alt_min'),
-      'alt_unit'      : 'm',
+      'lb_avg_speed'  : _('average-speed'),
       'avg_speed'     : speed.value,
       'speed_unit'    : speed.unit,
+      'lb_calories'   : _('calories'),
       'calories'      : this.model.get('calories')
     });
     console.log('new view rendered');

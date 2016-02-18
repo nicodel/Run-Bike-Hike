@@ -72,21 +72,30 @@ views.new_1 = Backbone.NativeView.extend({
     var duration = utils.Helpers.formatDuration(this.model.get('duration'));
     var speed = utils.Helpers.speedMsToChoice(pref_unit, this.model.get('avg_speed'));
     this.el.innerHTML = this.template({
+      'lb_import_file': _('import-gpx-file'),
+      'lb_import'     : _('import'),
       'lb_date'       : _('date-format'),
       'date'          : utils.Helpers.formatDate(this.model.get('date')),
       'lb_time'       : _('start-time-format'),
       'time'          : utils.Helpers.formatTime(this.model.get('date')),
-      'distance'      : distance.value,
+      'lb_distance'   : _('distance-format'),
       'distance_unit' : distance.unit,
+      'distance'      : distance.value,
+      'lb_duration'   : _('duration-format'),
       'durationH'     : duration.hour,
       'durationM'     : duration.min,
       'durationS'     : duration.sec,
+      'lb_alt_max'    : _('altitude-max'),
       'alt_max'       : this.model.get('alt_max'),
+      'lb_alt_min'    : _('altitude-min'),
       'alt_min'       : this.model.get('alt_min'),
       'alt_unit'      : 'm',
+      'lb_avg_speed'  : _('average-speed'),
       'avg_speed'     : speed.value,
       'speed_unit'    : speed.unit,
-      'calories'      : this.model.get('calories')
+      'lb_calories'   : _('calories'),
+      'calories'      : this.model.get('calories'),
+      'lb_map'        : _('map')
     });
     // console.log('new view rendered');
     return this;

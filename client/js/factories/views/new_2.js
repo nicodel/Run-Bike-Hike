@@ -1,5 +1,5 @@
 /* jshint browser: true */
-/* globals Backbone, microtemplate, utils */
+/* globals _, Backbone, microtemplate, utils */
 'use strict';
 
 var views = views || {};
@@ -23,8 +23,10 @@ views.new_2 = Backbone.NativeView.extend({
   },
   render: function() {
     this.el.innerHTML = this.template({
-      'date'  : utils.Helpers.formatDate(this.model.get('date')),
-      'value' : this.model.get('value'),
+      'lb_date'   : _('date-format'),
+      'date'      : utils.Helpers.formatDate(this.model.get('date')),
+      'lb_weight' : _('weight'),
+      'value'     : this.model.get('value'),
     });
     // console.log('new view rendered');
     return this;

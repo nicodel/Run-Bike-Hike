@@ -359,23 +359,23 @@
   <script type="text/javascript" src="js/views/main.js"></script> -->
 
   <script type="text/template" id="new-session-template-1">
-    <h2 data-l10n-id="import-gpx-file"></h2>
+    <h2><%= lb_import_file %></h2>
     <div class="form input">
       <input id="import-file" type="file"></input>
-      <button data-l10n-id="import" id="import-btn" disabled='disabled'></button>
+      <button id="import-btn" disabled='disabled'><%= lb_import %></button>
     </div>
     <h2 data-l10n-id="session-values"></h2>
     <div class="form">
-      <div data-l10n-id="date-format" class="width-half text-small align-left">
+      <div class="width-half text-small align-left"><%= lb_date %>
         <input id="new-session-date" class="width-half align-right text-small text-right" type="date" value="<%= date %>" />
       </div>
-      <div data-l10n-id="start-time-format" class="width-half text-small align-left">
+      <div class="width-half text-small align-left"><%= lb_time %>
         <input id="new-session-time" class="width-half align-right text-small text-right" type="time" value="<%= time %>" />
       </div>
-      <div data-l10n-id="distance-format" class="width-half text-small align-left">
+      <div class="width-half text-small align-left"><%= lb_distance %> (<%= distance_unit %>)
         <input id="new-session-distance" class="width-half align-right text-small text-right" type="number" step="0.01" value="<%= distance %>" />
       </div>
-      <div data-l10n-id="duration-format" class="width-half text-small align-left">
+      <div class="width-half text-small align-left"><%= lb_duration %>
         <span class="align-right">
           <input id="new-session-duration-hour" class="duration text-small text-right" type="number" value="<%= durationH %>" />
           <span>:</span>
@@ -384,32 +384,31 @@
           <input id="new-session-duration-sec" class="duration text-small text-right" type="number" value="<%= durationS %>" />
         </span>
       </div>
-      <div data-l10n-id="altitude-max-format" class="width-half text-small align-left">
+      <div class="width-half text-small align-left"><%= lb_alt_max %> (<%= alt_unit %>)
         <input id="new-session-alt-max" class="width-half align-right text-small text-right" type="number" disabled value="<%= alt_max %>" />
       </div>
-      <div data-l10n-id="altitude-min-format" class="width-half text-small align-left">
+      <div class="width-half text-small align-left"><%= lb_alt_min %> (<%= alt_unit %>)
         <input id="new-session-alt-min" class="width-half align-right text-small text-right" type="number" disabled value="<%= alt_min %>" />
       </div>
-      <div data-l10n-id="average-speed-format" class="width-half text-small align-left">
-      // <divdata-l10n-id="average-speed" class="width-half text-small align-left">Average Speed (<span id="new-session-speed-unit"><%= speed_unit %></span>)
+      <div class="width-half text-small align-left"><%= lb_avg_speed %> (<%= speed_unit %>)
         <input id="new-session-avg-speed" class="width-half align-right text-small text-right" type="number" disabled value="<%= avg_speed %>" />
       </div>
-      <div data-l10n-id="calories-format" class="width-half text-small align-left">
+      <div class="width-half text-small align-left"><%= lb_calories %>
         <input id="new-session-calories" class="width-half align-right text-small text-right" type="number" disabled value="<%= calories %>" />
       </div>
     </div>
     <div id="new-map-container" class="new-line hidden behind">
-      <h2 data-l10n-id="map"></h2>
+      <h2><%= lb_map %></h2>
       <div id='new-map' class="map"></div>
     </div>
   </script>
 
   <script type="text/template" id="new-session-template-2">
     <form id="body-form" class="body-form">
-      <div data-l10n-id="date" class="width-half text-small align-left">
+      <div class="width-half text-small align-left"><%= lb_date %>
         <input id="new-body-date" class="align-right" type="date" value="<%= date %>" />
       </div>
-      <div data-l10n-id="weight" class="width-half text-small align-left">
+      <div class="width-half text-small align-left"><%= lb_weight %>
         <input id="new-body-value" class="align-right" type="number" value="<%= value %>" />
       </div>
     </form>
@@ -417,17 +416,17 @@
 
   <script type="text/template" id="new-session-template-3">
     <div class="form">
-      <div data-l10n-id="date-format" class="width-half text-small align-left">
+      <div class="width-half text-small align-left"><%= lb_date %>
         <input id="new-session-date" class="align-right" type="date" value="<%= date %>" />
       </div>
-      <div data-l10n-id="start-time-format" class="width-half text-small align-left">
+      <div class="width-half text-small align-left"><%= lb_time %>
         <input id="new-session-time" class="align-right" type="time" value="<%= time %>" />
       </div>
-      // <div data-l10n-id="distance-unit" class="width-half text-small align-left">Distance (<span id="new-session-distance-unit"><%= distance_unit %></span>)
+      <div class="width-half text-small align-left"><%= lb_distance %>
       <div data-l10n-id="distance-unit" class="width-half text-small align-left">
         <input id="new-session-distance" class="align-right" type="number" step="0.01" value="<%= distance %>" />
       </div>
-      <div data-l10n-id="duration-format" class="width-half text-small align-left">
+      <div class="width-half text-small align-left"><%= lb_duration %>
         <div class="align-right">
           <input id="new-session-duration-hour" class="duration" type="number" value="<%= durationH %>" />
           <span>:</span>
@@ -436,10 +435,10 @@
           <input id="new-session-duration-sec" class="duration" type="number" value="<%= durationS %>" />
         </div>
       </div>
-      <div data-l10n-id="average-speed-format" class="width-half text-small align-left">
+      <div class="width-half text-small align-left"><%= lb_avg_speed %>
         <input id="new-session-avg-speed" class="align-right" type="number" disabled value="<%= avg_speed %>" />
       </div>
-      <div data-l10n-id="calories-format" class="width-half text-small align-left">
+      <div class="width-half text-small align-left"><%= lb_calories %>
         <input id="new-session-calories" class="align-right" type="number" disabled value="<%= calories %>" />
       </div>
     </div>
