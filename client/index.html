@@ -18,6 +18,7 @@
   <link rel="stylesheet" href="css/styles.css">
   <link rel="stylesheet" href="css/fonts.css">
   <link rel="stylesheet" href="css/buttons.css">
+  <link rel="stylesheet" href="css/spinner.css">
   <link rel="stylesheet" href="css/new.css">
   <link rel="stylesheet" href="css/dashboard.css">
   <link rel="stylesheet" href="css/font-awesome.min.css">
@@ -58,7 +59,7 @@
   <section id="new-session-view" disabled="true" class="new-session-view">
 <div>
   <h1 data-l10n-id="add-new-session"></h1>
-  <button data-l10n-id="add" id="confirm-add-btn"></button>
+  <button data-l10n-id="add" id="confirm-add-btn" class="big positive"></button>
   <h2 data-l10n-id="select-activity"></h2>
   <form id="select-activity">
 
@@ -131,7 +132,7 @@
   </div>
   </section>
   <section id="tracking-view" disabled="true" class="tracking-view">
-    <ul>
+    <ul class="margin-left-5">
       <li>
         <div data-l10n-id="elapsed-time" class="home-title text-big text-thin">Elapsed time</div>
         <div id="home-chrono" class="home-value align-center text-huger text-thin new-line">0:00:00</div>
@@ -396,7 +397,7 @@
         <input type="date" name="naissance" id="birthyear">
       </li>
     </ul>
-    <button data-l10n-id="save" id="save-preferences-btn"></button>
+    <button data-l10n-id="save" id="save-preferences-btn" class="big positive"></button>
   </section>
   <!-- <script type="text/javascript" src="js/lib/exoskeleton.js"></script>
   <script type="text/javascript" src="js/lib/backbone.nativeview.js"></script>
@@ -417,7 +418,7 @@
     <h2><%= lb_import_file %></h2>
     <div class="form input">
       <input id="import-file" type="file"></input>
-      <button id="import-btn" disabled='disabled'><%= lb_import %></button>
+      <button id="import-btn" disabled="disabled" class="small"><%= lb_import %></button>
     </div>
     <h2 data-l10n-id="session-values"></h2>
     <div class="form">
