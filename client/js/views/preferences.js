@@ -42,6 +42,7 @@ var PreferencesView = Backbone.NativeView.extend({
     } else if (preference.nodeName === 'INPUT') {
       this.model.set(preference.id, parseFloat(preference.value, 10));
     }
+    document.webL10n.setLanguage(preference.value);
     this.model.save();
   },
 
