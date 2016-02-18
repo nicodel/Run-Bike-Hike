@@ -38,7 +38,7 @@
     "exoskeleton": "^0.7.0",
     "express": "^4.13.1",
     "microtemplates": "^0.1.0",
-    "pouchdb": "^5.1.0",
+    "pouchdb": "5.1.0",
     "ejs": "^2.3.4",
     "webl10n": "^1.0.0"
   },
