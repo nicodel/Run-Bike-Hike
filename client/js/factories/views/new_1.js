@@ -1,5 +1,5 @@
 /* jshint browser: true */
-/* globals Backbone, microtemplate, Preferences, utils */
+/* globals _, Backbone, microtemplate, Preferences, utils */
 'use strict';
 
 var views = views || {};
@@ -72,7 +72,9 @@ views.new_1 = Backbone.NativeView.extend({
     var duration = utils.Helpers.formatDuration(this.model.get('duration'));
     var speed = utils.Helpers.speedMsToChoice(pref_unit, this.model.get('avg_speed'));
     this.el.innerHTML = this.template({
+      'lb_date'       : _('date-format'),
       'date'          : utils.Helpers.formatDate(this.model.get('date')),
+      'lb_time'       : _('start-time-format'),
       'time'          : utils.Helpers.formatTime(this.model.get('date')),
       'distance'      : distance.value,
       'distance_unit' : distance.unit,
