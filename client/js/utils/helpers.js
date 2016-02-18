@@ -31,6 +31,25 @@ utils.Helpers = function() {
     return distance;
   }
 
+  function formatSmallDistance(choice, value, canNegative) {
+    var distance = {};
+    if (value === null || value === undefined  || (value < 0 && !canNegative)) {
+      distance.value = '--';
+    } else {
+      if (choice === 'metric') {
+        distance.value = (value * 1.0).toFixed(0);
+        distance.unit = 'm';
+      } else if (choice === 'imperial') {
+        distance.value = (value * 3.2808).toFixed(0);
+        distance.unit = 'ft';
+      } else {
+        distance.value = value.toFixed(1);
+        distance.unit = 'm';
+      }
+    }
+    return distance;
+  }
+
   function inputDistanceToM(choice, value) {
     var distance = 0;
     if (choice === 'metric') {
@@ -410,8 +429,39 @@ utils.Helpers = function() {
     }
   }
 
+  function formatDegree(degree){
+    var minutes = (degree - Math.floor(degree)) * 60;
+    var seconds = (minutes - Math.floor(minutes )) * 60;
+    return Math.floor(degree) + "°" + (minutes<10?"0":"") + Math.floor(minutes) + "'" + (seconds<10?"0":"") + seconds.toFixed(2) + "\"";
+  }
+  function __formatDegreeLikeGeocaching (degree){
+    var minutes = (degree - Math.floor(degree)) * 60;
+    return Math.floor(degree) + "°" + (minutes<10?"0":"") + minutes.toFixed(3) + "'";
+  }
+
+  function formatLatitude(degree){
+    if (Config.CONFIG.position === DEGREES_POS_FORMAT) {
+      return degree;
+    }
+    if (Config.CONFIG.position === GEOCACHING_POS_FORMAT) {
+      return (degree>0? "N":"S") +" "+ __formatDegreeLikeGeocaching( Math.abs(degree) );
+    }
+    return formatDegree( Math.abs(degree) ) + (degree>0? "N":"S");
+  }
+
+  function formatLongitude(degree){
+  if (Config.CONFIG.position === DEGREES_POS_FORMAT) {
+    return degree;
+  }
+  if (Config.CONFIG.position === GEOCACHING_POS_FORMAT) {
+    return (degree>0? "E":"W") +" "+ __formatDegreeLikeGeocaching( Math.abs(degree) );
+  }
+  return formatDegree( Math.abs(degree) ) + (degree>0? "E":"W");
+  }
+
   return {
     distanceMeterToChoice : distanceMeterToChoice,
+    formatSmallDistance   : formatSmallDistance,
     distanceChoiceToMeter : distanceChoiceToMeter,
     speedMsToChoice       : speedMsToChoice,
     speedChoiceToMs       : speedChoiceToMs,
@@ -423,6 +473,8 @@ utils.Helpers = function() {
     formatDuration        : formatDuration,
     calculateCalories     : calculateCalories,
     checkDate             : checkDate,
-    checkTime             : checkTime
+    checkTime             : checkTime,
+    formatLatitude        : formatLatitude,
+    formatLongitude       : formatLongitude
   };
 }();

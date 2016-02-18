@@ -17,6 +17,7 @@
   <link rel="stylesheet" href="css/dc.css">
   <link rel="stylesheet" href="css/styles.css">
   <link rel="stylesheet" href="css/fonts.css">
+  <link rel="stylesheet" href="css/buttons.css">
   <link rel="stylesheet" href="css/new.css">
   <link rel="stylesheet" href="css/dashboard.css">
   <link rel="stylesheet" href="css/font-awesome.min.css">
@@ -34,6 +35,10 @@
     <h2 id="new-session-btn">
       <span class="fa fa-plus-square"></span>
     </h2>
+    <h2 id="tracking-btn">
+      <span class="fa fa-plus-square"></span>
+    </h2>
+
     <ul>
       <li id="dashboard-btn" class="active">
         <div><span class="fa fa-home fa-2x"></span><span data-l10n-id="dashboard" class="text-small"></span></div>
@@ -123,6 +128,55 @@
     </form> -->
 
   </div>
+  </section>
+  <section id="tracking-view" disabled="true" class="tracking-view">
+    <ul>
+      <li>
+        <div data-l10n-id="elapsed-time" class="home-title text-big text-thin">Elapsed time</div>
+        <div id="home-chrono" class="home-value align-center text-huger text-thin new-line">0:00:00</div>
+        <button data-l10n-id="pause" id="btn-pause" class="hidden recommend small icon icon-pause">Pause</button>
+      </li>
+      <li>
+        <div data-l10n-id="distance" class="home-title text-big text-thin">Distance
+        <span id="dist-unit"></span></div>
+        <div id="home-dist" class="home-value align-center text-huge text-thin">--</div>
+      </li>
+      <li>
+        <div data-l10n-id="speed" class="home-title text-big text-thin">Speed
+        <span id="speed-unit"></span></div>
+        <div id="home-speed" class="home-value align-center text-huge text-thin">--</div>
+      </li>
+      <li class="bottom">
+        <div data-l10n-id="altitude"  class="new-line home-title text-small text-thin">Altitude
+        <span id="alt-unit"></span></div>
+        <div id="home-alt" class="new-line home-value align-center text-big text-thin">?</div>
+
+        <div data-l10n-id="accuracy" class="new-line home-title text-small text-thin">Accuracy
+        <span id="acc-unit"></span></div>
+        <div id="home-acc" class="new-line home-value align-center text-big text-thin">?</div>
+      </li>
+      <li class="bottom">
+        <div data-l10n-id="latitude" class="new-line home-title text-small text-thin">Latitude</div>
+        <div id="home-lat" class="new-line home-value-right text-small text-thin">?</div>
+
+        <div data-l10n-id="longitude" class="new-line home-title text-small text-thin">Longitude</div>
+        <div id="home-lon" class="new-line home-value-right text-small text-thin">?</div>
+
+        <div data-l10n-id="direction" class="new-line home-title text-small text-thin">Direction</div>
+        <div id="home-dir" class="new-line home-value-right text-small text-thin">?</div>
+      </li>
+      <li class="button">
+        <button data-l10n-id="start" id="btn-start-stop" class="recommend big">Start</button>
+      </li>
+      <li id="message" class="front">
+        <div id="message-area" class="align-center">
+          <progress id="spinner"></progress>
+          <p data-l10n-id="retreiving" id="msg" class="text-big align-center">Retrieving GPS signal. It may take some time...</p>
+          <p data-l10n-id="accmsg" id="accmsg" class="hidden text-big align-center"></p>
+          <p id="errmsg" class="hidden text-big align-center"></p>
+        </div>
+      </li>
+    </ul>
   </section>
   <section id="dashboard-view" disabled="false" class="dashboard-view">
     <h1 data-l10n-id="dashboard"></h1>
@@ -615,6 +669,8 @@
   <script type="text/javascript" src="js/lib/dc.js"></script>
 
   <script type="text/javascript" src="js/utils/gpx.js"></script>
+  <script type="text/javascript" src="js/utils/tracks.js"></script>
+  <script type="text/javascript" src="js/utils/chrono.js"></script>
   <script type="text/javascript" src="js/utils/map.js"></script>
   <script type="text/javascript" src="js/utils/helpers.js"></script>
 
@@ -660,6 +716,7 @@
   <script type="text/javascript" src="js/views/indicators.js"></script>
   <script type="text/javascript" src="js/views/dashboard.js"></script>
   <script type="text/javascript" src="js/views/new-session.js"></script>
+  <script type="text/javascript" src="js/views/tracking.js"></script>
   <script type="text/javascript" src="js/views/preferences.js"></script>
   <script type="text/javascript" src="js/views/reports.js"></script>
   <script type="text/javascript" src="js/views/sessions.js"></script>

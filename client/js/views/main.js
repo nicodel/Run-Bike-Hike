@@ -1,7 +1,7 @@
 /* jshint browser: true */
 /* globals
  Backbone, Factory, IndicatorsView, DashboardView, PreferencesView,
- SessionsView, ReportsView, NewSession, Preferences, Doc, Docs
+ Tracking, SessionsView, ReportsView, NewSession, Preferences, Doc, Docs
 */
 /* exported MainView */
 'use strict';
@@ -11,6 +11,7 @@ var MainView = Backbone.NativeView.extend({
 
   events: {
     'click #new-session-btn'        : 'showNewSession',
+    'click #tracking-btn'           : 'showTracking',
     'click #dashboard-btn'          : 'showDashboard',
     'click #sessions-btn'           : 'showSessions',
     'click #reports-btn'            : 'showReports',
@@ -22,6 +23,7 @@ var MainView = Backbone.NativeView.extend({
   dom: {
     dashboard_view    : document.getElementById('dashboard-view'),
     session_view      : document.getElementById('session-view'),
+    tracking_view     : document.getElementById('tracking-view'),
     new_session_view  : document.getElementById('new-session-view'),
     sessions_view     : document.getElementById('sessions-view'),
     reports_view      : document.getElementById('reports-view'),
@@ -67,6 +69,14 @@ var MainView = Backbone.NativeView.extend({
       model: new Doc()
     });
     this._viewSection(this.dom.new_session_view);
+  },
+
+  showTracking: function() {
+    console.log('Tracking will start soon');
+    new Tracking({
+      model: new Doc()
+    });
+    this._viewSection(this.dom.tracking_view);
   },
 
   showDashboard: function() {
