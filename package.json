@@ -40,7 +40,8 @@
     "microtemplates": "^0.1.0",
     "pouchdb": "5.1.0",
     "ejs": "^2.3.4",
-    "webl10n": "^1.0.0"
+    "webl10n": "^1.0.0",
+    "i18n-abide": "0.0.25"
   },
   "devDependencies": {
     "mocha": "^2.2.5",
