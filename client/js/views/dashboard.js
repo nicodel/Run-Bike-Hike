@@ -38,6 +38,7 @@ var DashboardView = Backbone.NativeView.extend({
   sortCollection: function() {
     var that = this;
     this.collection.comparator = function(doc) {
+      console.log('sorting collection', doc);
       var activity = doc.get('activity');
       var timestamp = doc.get('date');
 

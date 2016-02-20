@@ -531,6 +531,17 @@
     </a>
   </script>
 
+  <script type="text/template" id="dashboard_message">
+    <a ref="#" class="session-summary-click" session_id="<%= session_cid %>">
+      <div class="summary-container" session_id="<%= session_cid %>">
+        <img src="img/icon60.png" session_id="<%= session_cid %>">
+        <p session_id="<%= session_cid %>"><%= text %></p>
+        <div class="time information text-big" session_id="<%= session_cid %>"><%= date %></div>
+      </div>
+    </a>
+  </script>
+
+
   <script type="text/template" id="indicators-template">
     <div class="indicator green align-left">
       <span id="dashboard-sessions-number" class="text-big"><%= sessions %></span>
@@ -676,6 +687,7 @@
   <script type="text/javascript" src="js/utils/map.js"></script>
   <script type="text/javascript" src="js/utils/helpers.js"></script>
 
+  <script type="text/javascript" src="js/factories/models/message.js"></script>
   <script type="text/javascript" src="js/factories/models/athletics.js"></script>
   <script type="text/javascript" src="js/factories/models/body.js"></script>
   <script type="text/javascript" src="js/factories/models/cycling.js"></script>
@@ -684,6 +696,7 @@
   <script type="text/javascript" src="js/factories/models/swimming.js"></script>
   <script type="text/javascript" src="js/factories/models/watersport.js"></script>
 
+  <script type="text/javascript" src="js/factories/views/dashboard_message.js"></script>
   <script type="text/javascript" src="js/factories/views/dashboard_summary_1.js"></script>
   <script type="text/javascript" src="js/factories/views/dashboard_summary_2.js"></script>
   <script type="text/javascript" src="js/factories/views/detailled_1.js"></script>
@@ -695,6 +708,7 @@
   <script type="text/javascript" src="js/factories/views/sessions_summary_1.js"></script>
   <script type="text/javascript" src="js/factories/views/sessions_summary_2.js"></script>
 
+  <script type="text/javascript" src="js/factories/activities/message.js"></script>
   <script type="text/javascript" src="js/factories/activities/climbing.js"></script>
   <script type="text/javascript" src="js/factories/activities/mountain_biking.js"></script>
   <script type="text/javascript" src="js/factories/activities/paddling.js"></script>

@@ -16,6 +16,7 @@ var Docs = cozydb.getModel('docs', {
   'map'       : Boolean,
   'activity'  : String,
   'type'      : String,
+  'text'      : String,
   'family'    : String,
   'data'      : cozydb.NoSchema,
   'value'     : String

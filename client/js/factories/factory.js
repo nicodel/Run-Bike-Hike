@@ -16,8 +16,8 @@ var Factory = (function() {
     });
   };
   var getDashboardSummaryView = function(model) {
+    console.log('FACTORY - display dashboard summary view for', model);
     var View = activities[model.get('activity')].summary_view_dashboard;
-    // console.log('FACTORY - display dashboard summary view for', model);
     return new View({
       model: model
     });
