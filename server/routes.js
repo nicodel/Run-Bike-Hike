@@ -4,18 +4,9 @@
 var express     = require('express');
 var router      = express.Router();
 var bodyParser  = require('body-parser');
-var i18n        = require('l1_n-abide');
 
 var Docs        = require('./controllers/docs');
 var Preferences = require('./controllers/preferences');
-
-router.use (i18n.abide({
-  supported_languages   : ['en', 'fr', 'es'],
-  default_lang          : 'en',
-  translation_type      : 'plist',
-  translation_dorectory : 'locales',
-  locale_on_url         : false
-}));
 
 router.use(function(req, res, next) {
   console.log('%s %s %s', req.method, req.url, req.path, req.body);
