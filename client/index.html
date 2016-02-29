@@ -516,7 +516,7 @@
           <span class="fa fa-tachometer fa-2x" session_id="<%= session_cid %>"></span>
           <span class="text-big" session_id="<%= session_cid %>"><%= avg_speed %></span>
         </div>
-        <div class="time information text-big" session_id="<%= session_cid %>"><%= date %></div>
+        <div class="time information text-small" session_id="<%= session_cid %>"><%= date %></div>
       </div>
     </a>
   </script>
@@ -526,7 +526,7 @@
       <div class="summary-container" session_id="<%= session_cid %>">
         <img src="img/activities/<%= activity %>.svg" alt="<%= activity %>" class="activity" session_id="<%= session_cid %>">
         <div class="body measure information text-big" session_id="<%= session_cid %>"><%= value %></div>
-        <div class="time information text-big" session_id="<%= session_cid %>"><%= date %></div>
+        <div class="time information text-small" session_id="<%= session_cid %>"><%= date %></div>
       </div>
     </a>
   </script>
@@ -534,9 +534,9 @@
   <script type="text/template" id="dashboard_message">
     <a ref="#" class="session-summary-click" session_id="<%= session_cid %>">
       <div class="summary-container" session_id="<%= session_cid %>">
-        <img src="img/icon60.png" session_id="<%= session_cid %>">
-        <p session_id="<%= session_cid %>"><%= text %></p>
-        <div class="time information text-big" session_id="<%= session_cid %>"><%= date %></div>
+        <img claa="inline-block" src="img/icon60.png" session_id="<%= session_cid %>">
+        <p class="inline-block" session_id="<%= session_cid %>"><%= text %></p>
+        <div class="time information text-small inline-block" session_id="<%= session_cid %>"><%= date %></div>
       </div>
     </a>
   </script>
