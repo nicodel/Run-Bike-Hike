@@ -42,3 +42,16 @@ nav h2 span {
   margin-right: 0.5rem;
   margin-left: 1rem;
 }
+nav li span {
+  font-size: 1.1rem;
+}
+
+@media (max-width: 960px) {
+  nav {
+    width: 62px;
+  }
+
+  nav li span {
+    display: none;
+  }
+}
