@@ -61,3 +61,16 @@
 .dashboard-view .time {
   /* float: right; */
 }
+
+@media (max-width: 960px) {
+  .dashboard-view .indicator {
+    padding: 0.5rem;
+  }
+  .dashboard-view .indicator span {
+    font-size: 1.5rem;
+  }
+  .dashboard-view .information,
+  .dashboard-view .information span {
+    font-size: 1.5rem;
+  }
+}
