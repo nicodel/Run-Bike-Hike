@@ -37,6 +37,12 @@ button.big {
 .text-thinner {
   font-weight: 100;
 }
+.inline {
+  display: inline;
+}
+.inline-block {
+  display: inline-block;
+}
 .text-right {
   text-align: right;
 }

@@ -58,3 +58,10 @@ section.preferences-view h1 {
   padding: 10% 0;
   background: rgba(248, 248, 255, 0.9);
 }
+
+@media (max-width: 960px) {
+  section {
+    width: calc(100% - 62px);
+    left: 62px;
+  }
+}

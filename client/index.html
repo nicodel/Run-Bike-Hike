@@ -33,7 +33,7 @@
 
 <body id="app">
   <nav>
-    <img src="img/icon128.png" alt="Ru, Bike, Hike... logo" class="align-left">
+    <img src="img/logo_white_128.png" alt="Ru, Bike, Hike... logo" class="align-left">
     <h2 id="new-session-btn" class=" new-line align-left">
       <span class="fa fa-plus-square"></span>
     </h2>
@@ -43,16 +43,16 @@
 
     <ul class="new-line">
       <li id="dashboard-btn" class="active">
-        <div><span class="fa fa-home fa-2x"></span><span data-l10n-id="dashboard" class="text-small"></span></div>
+        <div><span class="fa fa-home fa-2x"></span><span data-l10n-id="dashboard"></span></div>
       </li>
       <li id="sessions-btn">
-        <div><span class="fa fa-list-ul fa-2x"></span><span data-l10n-id="sessions" class="text-small"></span></div>
+        <div><span class="fa fa-list-ul fa-2x"></span><span data-l10n-id="sessions"></span></div>
       </li>
       <li id="reports-btn">
-        <div><span class="fa fa-bar-chart fa-2x"></span><span data-l10n-id="reports" class="text-small"></span></div>
+        <div><span class="fa fa-bar-chart fa-2x"></span><span data-l10n-id="reports"></span></div>
       </li>
       <li id="preferences-btn">
-        <div><span class="fa fa-cog fa-2x"></span><span data-l10n-id="preferences" class="text-small"></span></div>
+        <div><span class="fa fa-cog fa-2x"></span><span data-l10n-id="preferences"></span></div>
       </li>
     </ul>
   </nav>
@@ -516,7 +516,7 @@
           <span class="fa fa-tachometer fa-2x" session_id="<%= session_cid %>"></span>
           <span class="text-big" session_id="<%= session_cid %>"><%= avg_speed %></span>
         </div>
-        <div class="time information text-big" session_id="<%= session_cid %>"><%= date %></div>
+        <div class="time information text-small" session_id="<%= session_cid %>"><%= date %></div>
       </div>
     </a>
   </script>
@@ -526,7 +526,7 @@
       <div class="summary-container" session_id="<%= session_cid %>">
         <img src="img/activities/<%= activity %>.svg" alt="<%= activity %>" class="activity" session_id="<%= session_cid %>">
         <div class="body measure information text-big" session_id="<%= session_cid %>"><%= value %></div>
-        <div class="time information text-big" session_id="<%= session_cid %>"><%= date %></div>
+        <div class="time information text-small" session_id="<%= session_cid %>"><%= date %></div>
       </div>
     </a>
   </script>
@@ -534,9 +534,9 @@
   <script type="text/template" id="dashboard_message">
     <a ref="#" class="session-summary-click" session_id="<%= session_cid %>">
       <div class="summary-container" session_id="<%= session_cid %>">
-        <img src="img/icon60.png" session_id="<%= session_cid %>">
-        <p session_id="<%= session_cid %>"><%= text %></p>
-        <div class="time information text-big" session_id="<%= session_cid %>"><%= date %></div>
+        <img claa="inline-block" src="img/logo_black_64.png" session_id="<%= session_cid %>">
+        <p class="inline-block" session_id="<%= session_cid %>"><%= text %></p>
+        <div class="time information text-small inline-block" session_id="<%= session_cid %>"><%= date %></div>
       </div>
     </a>
   </script>
