@@ -7,7 +7,7 @@ It allows you to record your running or biking sessions, so you can follow your 
 Run, Bike, Hike... is a web application. It means that it can on any device using any browser. It needs a server in order to store all your data. And the good news is that you can host the server yourself in order to keep your data private.
 Run, Bike, Hike... can be hosted on a [Cozy](https://cozy.io) or on a [Node.js](https://nodejs.org) server.
 
-TODOS: Change the icons for the new sert from icons8.
+TODO: Change the icons for the new sert from icons8.
 <p data-l10n-id="credits" class="about">The sports icons are under CC BY, and made by <a href="http://icons8.com/">icons8.com</a>.</p>
 
 # How to install it in my Cozy instance?
