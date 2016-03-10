@@ -34,14 +34,17 @@
 <body id="app">
   <nav>
     <img src="img/logo_white_128.png" alt="Run, Bike, Hike... logo" class="align-left">
-    <h2 id="new-session-btn" class=" new-line align-left">
+    <!-- <h2 id="new&#45;session&#45;btn" class=" new&#45;line align&#45;left">
       <span class="fa fa-plus-square"></span>
     </h2>
     <h2 id="tracking-btn" class="align-left">
       <span class="fa fa-location-arrow"></span>
-    </h2>
+    </h2> -->
 
     <ul class="new-line">
+      <li id="new-session-btn">
+        <div><span class="fa fa-plus-square fa-2x"></span><span data-l10n-id="new-session"></span></div>
+      </li>
       <li id="dashboard-btn" class="active">
         <div><span class="fa fa-home fa-2x"></span><span data-l10n-id="dashboard"></span></div>
       </li>
@@ -58,7 +61,8 @@
   </nav>
   <section id="new-session-view" disabled="true" class="new-session-view">
 <div>
-  <h1 data-l10n-id="add-new-session"></h1>
+  <h1 data-l10n-id="add-new-session">
+  <button data-l10n-id="or-record-gps" id="switch-to-gps">Or record it with your GPS</button></h1>
   <button data-l10n-id="add" id="confirm-add-btn" class="positive"></button>
   <h2 data-l10n-id="select-activity"></h2>
   <form id="select-activity">

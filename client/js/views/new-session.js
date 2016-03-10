@@ -1,5 +1,5 @@
 /* jshint browser: true */
-/* globals Backbone, Docs, Factory */
+/* globals Backbone, Doc, Docs, Factory, Tracking */
 /* exported NewSessionView */
 'use strict';
 
@@ -9,8 +9,9 @@ var NewSession = Backbone.NativeView.extend({
   subview: '',
 
   events: {
-    'click #select-activity'            : 'activitySelected',
-    'click #confirm-add-btn'            : 'addNewSession'
+    'click #switch-to-gps'    : 'swicthToGps',
+    'click #select-activity'  : 'activitySelected',
+    'click #confirm-add-btn'  : 'addNewSession'
   },
 
   dom: {
@@ -18,6 +19,11 @@ var NewSession = Backbone.NativeView.extend({
   },
 
   template : '',
+
+  swicthToGps: function() {
+    console.log('switch to gps');
+    .trigger('switch-to-gps');
+  },
 
   activitySelected: function(element) {
     // cleaning previous view (if any)

@@ -63,6 +63,7 @@ var MainView = Backbone.NativeView.extend({
     this.listenTo(Docs, 'dashboard-entry-selected', this.showEntry);
     this.listenTo(Docs, 'sessions-entry-selected', this.showSession);
     this.listenTo(Docs, 'add-new', this.showSession);
+    this.listenTo(NewSession, 'switch-to-gps', this.showTracking);
   },
   somethingOnPreferences: function(ev, res) {
     console.log('got something on Preferences', ev, res);
