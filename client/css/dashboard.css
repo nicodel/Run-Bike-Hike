@@ -35,9 +35,11 @@
   background-color: #00BFF3;
 }
 .dashboard-view .selector {
-  margin-left: 5%;
+  margin-right: 5%;
   margin-bottom: 1rem;
+  line-height: 2rem;
 }
+
 
 .dashboard-view .summary-container {
   padding: 1rem;
