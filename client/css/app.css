@@ -15,7 +15,7 @@ section {
   top: 0;
   bottom: 100%;
   z-index: 1;
-  padding-top: 3rem;
+  padding-top: 1rem;
   height: calc(100% - 3rem);
   overflow-y: auto;
   width: 80%;
@@ -29,6 +29,7 @@ section h1 {
   font-size: 2rem;
   margin-bottom: 1rem;
   margin-left: 5%;
+  margin-right: 5%;
 }
 
 section h2 {
