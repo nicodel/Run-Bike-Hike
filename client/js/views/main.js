@@ -27,7 +27,15 @@ var MainView = Backbone.NativeView.extend({
     new_session_view  : document.getElementById('new-session-view'),
     sessions_view     : document.getElementById('sessions-view'),
     reports_view      : document.getElementById('reports-view'),
-    preference_view   : document.getElementById('preferences-view')
+    preference_view   : document.getElementById('preferences-view'),
+    dashboard_btn     : document.getElementById('dashboard-btn'),
+    session_btn       : document.getElementById('session-btn'),
+    tracking_btn      : document.getElementById('tracking-btn'),
+    new_session_btn   : document.getElementById('new-session-btn'),
+    sessions_btn      : document.getElementById('sessions-btn'),
+    reports_btn       : document.getElementById('reports-btn'),
+    preference_btn    : document.getElementById('preferences-btn')
+
   },
 
   PrefModel: '',
@@ -39,6 +47,7 @@ var MainView = Backbone.NativeView.extend({
     Preferences.fetch();
 
     this.active_section = this.dom.dashboard_view;
+    this.active_button = this.dom.dashboard_btn;
     this.showDashboard();
 
     // this.listenTo(PreferencesModel, 'all', this.somethingOnPreferences);
@@ -68,7 +77,7 @@ var MainView = Backbone.NativeView.extend({
     new NewSession({
       model: new Doc()
     });
-    this._viewSection(this.dom.new_session_view);
+    this._viewSection(this.dom.new_session_view, this.dom.new_session_btn);
   },
 
   showTracking: function() {
@@ -76,15 +85,15 @@ var MainView = Backbone.NativeView.extend({
     new Tracking({
       model: new Doc()
     });
-    this._viewSection(this.dom.tracking_view);
+    this._viewSection(this.dom.tracking_view, this.dom.tracking_btn);
   },
 
   showDashboard: function() {
-    this._viewSection(this.dom.dashboard_view);
+    this._viewSection(this.dom.dashboard_view, this.dom.dashboard_btn);
   },
 
   showSessions: function() {
-    this._viewSection(this.dom.sessions_view);
+    this._viewSection(this.dom.sessions_view, this.dom.sessions_btn);
   },
 
   showEntry: function(model) {
@@ -94,9 +103,9 @@ var MainView = Backbone.NativeView.extend({
       this.showSession(model);
     } else if(type === 'body'){
       this.detailled_view = Factory.getDetailledView(model);
-      this._viewSection(this.domsession_view);
+      this._viewSection(this.dom.session_view, this.dom.session_btn);
     } else {
-      console.log('other types of dashbord entries are not managed');
+      console.log('other types of dashboard entries are not managed');
     }
   },
 
@@ -110,7 +119,7 @@ var MainView = Backbone.NativeView.extend({
           that.detailled_view.remove();
         }
         that.detailled_view = Factory.getDetailledView(mod);
-        that._viewSection(that.dom.session_view);
+        that._viewSection(that.dom.session_view, that.dom.session_btn);
       },
       error   : function(model, response) {
         console.log('error', model, response);
@@ -119,21 +128,25 @@ var MainView = Backbone.NativeView.extend({
   },
 
   showReports: function() {
-    this._viewSection(this.dom.reports_view);
+    this._viewSection(this.dom.reports_view, this.dom.reports_btn);
   },
 
   showPreferences: function() {
     new PreferencesView({
       model: Preferences
     });
-    this._viewSection(this.dom.preference_view);
+    this._viewSection(this.dom.preference_view, this.dom.preference_btn);
   },
 
-  _viewSection: function(section) {
+  _viewSection: function(section, button) {
     if (section !== this.active_section) {
       this.active_section.setAttribute('disabled', 'true');
       section.setAttribute('disabled', 'false');
       this.active_section = section;
+
+      this.active_button.className = '';
+      button.className = 'active';
+      this.active_button = button;
     }
   },
 
