@@ -1,13 +1,53 @@
 .preferences-view h1,
-.preferences-view li,
 .preferences-view button {
   margin-left: 5%;
 }
 
 .preferences-view h1 {
   font-size: 2rem;
-  margin-bottom: 3rem;
+}
+.preferences-view ul {
+  max-width: 50%;
+  border: 1px solid grey;
+  border-radius: 1rem;
+  margin-left: 5%;
+  margin-right: 5%;
+  margin-bottom: 1rem;
+  padding-top: 1rem;
 }
 .preferences-view li {
   margin-bottom: 1rem;
+  margin-left: 2rem;
+  line-height: 36px;
+}
+.preferences-view li,
+.preferences-view li select,
+.preferences-view li input {
+  font-size: 1.4rem;
+}
+.preferences-view li input {
+  border: 0;
+  text-align: center;
+  line-height: 36px;
+  max-width: 7rem;
+}
+.preferences-view li .unit {
+  margin-right: 2rem
+}
+.preferences-view li .weight {
+  margin-right: 1rem;
+}
+.preferences-view li .height {
+  margin-right: 1.5rem;
+}
+.preferences-view li .birthyear {
+  max-width: 10rem;
+}
+.preferences-view li select {
+  width: 10rem;
+}
+
+.preferences-view li select,
+.preferences-view li input {
+  margin-right: 2rem;
 }

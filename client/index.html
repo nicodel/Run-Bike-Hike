@@ -252,31 +252,33 @@
     <h1 data-l10n-id="preferences"></h1>
     <ul>
       <li><span>Langue</span>
-        <select id="language">
+        <select id="language" class="align-right">
           <option data-l10n-id="english" value="en"></option>
           <option data-l10n-id="francais" value="fr"></option>
         </select>
       </li>
       <li><span data-l10n-id="units"></span>
-        <select name="unité de mesure" id="unit">
+        <select name="unité de mesure" id="unit" class="align-right">
           <option data-l10n-id="metric" value="metric" selected></option>
           <option data-l10n-id="imperial" value="imperial"></option>
         </select>
       </li>
       <li><span data-l10n-id="gender"></span>
-        <select name="sexe" id="gender">
+        <select name="sexe" id="gender" class="align-right">
           <option data-l10n-id="woman" value="female"></option>
           <option data-l10n-id="man" value="male"></option>
         </select>
       </li>
       <li><span data-l10n-id="height"></span>
-        <input id="height" type="text" />
+        <span data-l10n-id="height-unit" class="unit align-right"></span>
+        <input id="height" type="text" class="weight align-right" />
       </li>
       <li><span data-l10n-id="weight"></span>
-        <input id="weight" type="text" />
+        <span data-l10n-id="weight-unit" class="unit align-right"></span>
+        <input id="weight" type="text" class="height align-right" />
       </li>
       <li><span data-l10n-id="birthyear"></span>
-        <select name="birthyear" id="birthyear">
+        <!-- <select name="birthyear" id="birthyear">
           <option value="1900">1900</option>
           <option value="1901">1901</option>
           <option value="1902">1902</option>
@@ -393,8 +395,8 @@
           <option value="2013">2013</option>
           <option value="2014">2014</option>
           <option value="2015">2015</option>
-        </select>
-        <input type="date" name="naissance" id="birthyear">
+        </select> -->
+        <input type="date" name="naissance" id="birthyear" class="birthyear align-right">
       </li>
     </ul>
     <button data-l10n-id="save" id="save-preferences-btn" class="positive"></button>
