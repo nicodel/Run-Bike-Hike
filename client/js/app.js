@@ -4,7 +4,7 @@
 'use strict';
 
 document.addEventListener('DOMContentLoaded', function() {
-  console.log("document.webL10n.getLanguage()", document.webL10n.getLanguage());
+  // console.log("document.webL10n.getLanguage()", document.webL10n.getLanguage());
   var _ = document.webL10n.get;
   console.log('launching');
   new Router();

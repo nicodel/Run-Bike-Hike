@@ -4,14 +4,14 @@
 
 var Router = Backbone.Router.extend({
   initialize: function() {
-    console.log('starting router');
+    // console.log('starting router');
   },
   routes: {
     ''  : 'main'
   },
 
   main: function() {
-    console.log('starting MainView');
+    // console.log('starting MainView');
     new MainView({});
   }
 });

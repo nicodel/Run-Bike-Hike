@@ -15,7 +15,7 @@ var DashboardView = Backbone.NativeView.extend({
   sortAttribute: 'date',
 
   initialize: function() {
-    console.log('DASHBOARD VIEW - initialize');
+    // console.log('DASHBOARD VIEW - initialize');
     this.collection = Docs;
     this.sortCollection();
 
@@ -38,7 +38,7 @@ var DashboardView = Backbone.NativeView.extend({
   sortCollection: function() {
     var that = this;
     this.collection.comparator = function(doc) {
-      console.log('sorting collection', doc);
+      // console.log('sorting collection', doc);
       var activity = doc.get('activity');
       var timestamp = doc.get('date');
 
@@ -73,7 +73,7 @@ var DashboardView = Backbone.NativeView.extend({
   },
 
   addEntry: function() {
-    console.log('DASHBOARDVIEW - addEntry');
+    // console.log('DASHBOARDVIEW - addEntry');
     this.collection.forEach(function(item) {
       this.renderItem(item);
     }, this);
@@ -100,7 +100,7 @@ var DashboardView = Backbone.NativeView.extend({
 
   itemSelected: function(item) {
     var entry_cid = item.target.getAttribute('session_id');
-    console.log('click dashboard', item.target);
+    // console.log('click dashboard', item.target);
     this.viewsList.forEach(function(view) {
         console.log('clicked', view.model.cid);
       if (view.model.cid === entry_cid) {

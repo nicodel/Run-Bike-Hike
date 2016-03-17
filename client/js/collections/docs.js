@@ -8,13 +8,13 @@ var DocsCollection = Backbone.Collection.extend({
   url: '/docs',
 
   initialize: function() {
-    console.log('DocsCollection initialize');
+    // console.log('DocsCollection initialize');
     // this.listenTo(this, 'all', this.something);
     this.listenTo(this, 'sync', this.synced);
   },
 
   synced: function(ev, res) {
-    console.log('Synced on DocsCollection', ev);
+    // console.log('Synced on DocsCollection', ev);
     if (ev.length === 0) {
       console.log('adding the welcome message');
       var welcome = Factory.getModel(

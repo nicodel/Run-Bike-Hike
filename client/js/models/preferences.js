@@ -9,7 +9,7 @@ var preferencesmodel = Backbone.Model.extend({
   idAttribute: '_id',
 
   initialize: function() {
-    console.log('PreferencesModel initialize', this);
+    // console.log('PreferencesModel initialize', this);
   }
 });
 var Preferences = new preferencesmodel({parse: true});

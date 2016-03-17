@@ -10,7 +10,7 @@ var Doc = Backbone.Model.extend({
   },
 
   initialize: function() {
-    console.log('DocModel initialize', this);
+    // console.log('DocModel initialize', this);
     // this.listenTo(this, 'all', this.something);
   },
 

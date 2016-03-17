@@ -18,7 +18,7 @@ views.dashboard_message = Backbone.NativeView.extend({
   extend: Backbone.Events,
 
   render: function() {
-    console.log('DASHBOARD MESSAGE - this.model', this.model);
+    // console.log('DASHBOARD MESSAGE - this.model', this.model);
     this.el.innerHTML = this.template({
       'session_cid' : this.model.get('session_cid'),
       'date'        : utils.Helpers.formatDate(this.model.get('date')),
