@@ -1,0 +1,9 @@
+.tracking-view ul li {
+  width: calc(50% - 1px);
+  height: 23%;
+  float: left;
+}
+
+.tracking-view ul li:first-child {
+  width: 100%;
+}
