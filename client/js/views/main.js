@@ -30,7 +30,7 @@ var MainView = Backbone.NativeView.extend({
     preference_view   : document.getElementById('preferences-view'),
     dashboard_btn     : document.getElementById('dashboard-btn'),
     session_btn       : document.getElementById('session-btn'),
-    tracking_btn      : document.getElementById('tracking-btn'),
+    tracking_btn      : document.getElementById('switch-to-gps'),
     new_session_btn   : document.getElementById('new-session-btn'),
     sessions_btn      : document.getElementById('sessions-btn'),
     reports_btn       : document.getElementById('reports-btn'),
@@ -63,7 +63,7 @@ var MainView = Backbone.NativeView.extend({
     this.listenTo(Docs, 'dashboard-entry-selected', this.showEntry);
     this.listenTo(Docs, 'sessions-entry-selected', this.showSession);
     this.listenTo(Docs, 'add-new', this.showSession);
-    this.listenTo(NewSession, 'switch-to-gps', this.showTracking);
+    this.listenTo(Docs, 'switch-to-gps', this.showTracking);
   },
   somethingOnPreferences: function(ev, res) {
     console.log('got something on Preferences', ev, res);

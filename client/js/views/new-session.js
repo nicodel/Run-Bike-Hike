@@ -22,7 +22,7 @@ var NewSession = Backbone.NativeView.extend({
 
   swicthToGps: function() {
     console.log('switch to gps');
-    .trigger('switch-to-gps');
+    Docs.trigger('switch-to-gps');
   },
 
   activitySelected: function(element) {
