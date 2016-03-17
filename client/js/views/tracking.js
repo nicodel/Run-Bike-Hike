@@ -58,7 +58,7 @@ var Tracking = Backbone.NativeView.extend({
 
   locationChanged: function(inPosition){
     // console.log("Position found", inPosition);
-    if (inPosition.coords.accuracy < 50) {
+    if (inPosition.coords.accuracy < 500) {
       if (this.tracking && !this.pause) {
         // console.log("tracking");
         this.addNewPoint(inPosition);

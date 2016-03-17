@@ -440,23 +440,25 @@ utils.Helpers = function() {
   }
 
   function formatLatitude(degree){
-    if (Config.CONFIG.position === DEGREES_POS_FORMAT) {
+    /*if (Config.CONFIG.position === DEGREES_POS_FORMAT) {
       return degree;
     }
     if (Config.CONFIG.position === GEOCACHING_POS_FORMAT) {
       return (degree>0? "N":"S") +" "+ __formatDegreeLikeGeocaching( Math.abs(degree) );
     }
-    return formatDegree( Math.abs(degree) ) + (degree>0? "N":"S");
+    return formatDegree( Math.abs(degree) ) + (degree>0? "N":"S");*/
+    return (degree>0? "N":"S") +" "+ __formatDegreeLikeGeocaching( Math.abs(degree) );
   }
 
   function formatLongitude(degree){
-  if (Config.CONFIG.position === DEGREES_POS_FORMAT) {
-    return degree;
-  }
-  if (Config.CONFIG.position === GEOCACHING_POS_FORMAT) {
+    /*if (Config.CONFIG.position === DEGREES_POS_FORMAT) {
+      return degree;
+    }
+    if (Config.CONFIG.position === GEOCACHING_POS_FORMAT) {
+      return (degree>0? "E":"W") +" "+ __formatDegreeLikeGeocaching( Math.abs(degree) );
+    }
+    return formatDegree( Math.abs(degree) ) + (degree>0? "E":"W");*/
     return (degree>0? "E":"W") +" "+ __formatDegreeLikeGeocaching( Math.abs(degree) );
-  }
-  return formatDegree( Math.abs(degree) ) + (degree>0? "E":"W");
   }
 
   return {
