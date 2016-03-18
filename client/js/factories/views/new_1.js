@@ -115,16 +115,16 @@ views.new_1 = Backbone.NativeView.extend({
     document.getElementById('new-session-date').value = utils.Helpers.formatDate(this.model.get('date'));
     document.getElementById('new-session-time').value = utils.Helpers.formatTime(this.model.get('date'));
     document.getElementById('new-session-distance').value = distance.value;
-    document.getElementById('new-session-distance-unit').innerHTML = distance.unit;
+    // document.getElementById('new-session-distance-unit').innerHTML = distance.unit;
     document.getElementById('new-session-duration-hour').value = duration.hour;
     document.getElementById('new-session-duration-min').value = duration.min;
     document.getElementById('new-session-duration-sec').value = duration.sec;
     document.getElementById('new-session-alt-max').value = this.model.get('alt_max');
     document.getElementById('new-session-alt-min').value = this.model.get('alt_min');
-    document.getElementById('new-session-alt-unit-max').innerHTML = 'm';
-    document.getElementById('new-session-alt-unit-min').innerHTML = 'm';
+    // document.getElementById('new-session-alt-unit-max').innerHTML = 'm';
+    // document.getElementById('new-session-alt-unit-min').innerHTML = 'm';
     document.getElementById('new-session-avg-speed').value = speed.value;
-    document.getElementById('new-session-speed-unit').innerHTML = speed.unit;
+    // document.getElementById('new-session-speed-unit').innerHTML = speed.unit;
     document.getElementById('new-session-calories').value =  this.model.get('calories');
   },
 
