@@ -1,5 +1,5 @@
 /* jshint browser: true */
-/* globals _, Backbone, Preferences, utils */
+/* globals _, Backbone, Preferences, Docs, Factory, utils */
 /* exported Tracking */
 'use strict';
 
@@ -7,15 +7,25 @@ var Tracking = Backbone.NativeView.extend({
   el: '#tracking-view',
 
   events: {
-    'click #btn-start-stop' : 'toggleTracking'
+    'click #btn-start-stop' : 'toggleTracking',
+    'click #btn-pause'      : 'pauseRecording'
   },
 
   watchID       : '',
   tracking      : false,
+  pause         : false,
   current_track : '',
   nb_point      : '',
   distance      : '',
   duration      : '',
+
+  dom: {
+    start_stop  : document.getElementById('btn-start-stop'),
+    pause       : document.getElementById('btn-pause'),
+    icon_pause  : document.getElementById('icon-pause'),
+    chrono      : document.getElementById('home-chrono'),
+    distance    : document.getElementById('home-dist')
+  },
 
   initialize: function() {
     console.log('initiate tracking');
@@ -42,18 +52,76 @@ var Tracking = Backbone.NativeView.extend({
   toggleTracking: function() {
     if (this.tracking) {
       // Pause tracking and show recording view
+      utils.Chrono.stop();
+      var track = utils.Tracks.close();
+      this.tracking = false;
+      // Check if any GPS point were recorded
+      if (track.data.length === 0) {
+        console.log('track empty, not saving');
+      } else {
+        // Get a Model
+        var session = Factory.getModel(
+          'running',
+          {'activity': 'running'}
+        );
+        this.model.set(session);
+        // Save to DB
+        var calories = utils.Helpers.calculateCalories(
+          Preferences.get('gender'),
+          Preferences.get('weight'),
+          Preferences.get('height'),
+          new Date().getFullYear() - Preferences.get('birthyear'),
+          track.distance,
+          track.duration,
+          'running'
+        );
+        this.model.set({
+          'name'      : track.name,
+          'duration'  : track.duration,
+          'distance'  : track.distance,
+          'avg_speed' : track.distance / track.duration,
+          'calories'  : calories,
+          'alt_max'   : track.alt_max,
+          'alt_min'   : track.alt_min,
+          'climb_pos' : track.climb_pos,
+          'climb_neg' : track.climb_neg,
+          'map'       : false,
+          'data'      : []
+        });
+        console.log('new session recorded', this.model.attributes);
+        var s = Docs.add(this.model);
+        s.save();
+        Docs.trigger('add-new', s);
+      }
     } else {
       this.tracking = true;
       // Start the calculation of elapsed time
-      utils.Chrono.load(document.getElementById('home-chrono'));
+      utils.Chrono.load(this.dom.chrono);
       utils.Chrono.start();
       // Open new track
       this.current_track = utils.Tracks.open();
       this.nb_point = 0;
-      document.getElementById('btn-start-stop').className = 'danger big';
-      document.getElementById('btn-start-stop').textContent = _('stop');
-      document.getElementById('btn-pause').className='recommend small icon icon-pause';
+      this.dom.start_stop.className = 'danger big';
+      this.dom.start_stop.textContent = _('stop');
+      this.dom.pause.className='icon-pause align-right';
     }
+  },
+  pauseRecording: function() {
+    if (this.pause) {
+      this.dom.icon_pause.className = "fa fa-pause fa-2x";
+      this.dom.chrono.className     = "home-value align-center text-huger text-thin new-line";
+      this.dom.distance.className   = "home-value align-center text-huge text-thin";
+      // Tracks.resumed();
+      utils.Chrono.resume();
+      this.pause = false;
+   } else {
+      this.dom.icon_pause.className = "fa fa-play fa-2x";
+      this.dom.chrono.className     = "text-red home-value align-center text-huger text-thin new-line";
+      this.dom.distance.className   = "text-red home-value align-center text-huge text-thin";
+      utils.Chrono.pauseIt();
+      // Tracks.newSegment();
+      this.pause = true;
+   }
   },
 
   locationChanged: function(inPosition){

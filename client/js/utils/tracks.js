@@ -13,6 +13,11 @@ utils.Tracks = function() {
   var olat = null;
   var olon = null;
   var nb_point = 0;
+  var previous;
+  var alt_min = 0;
+  var alt_max = 0;
+  var climb_pos = 0;
+  var climb_neg = 0;
 
   function open() {
     current_track = {};
@@ -22,7 +27,7 @@ utils.Tracks = function() {
     current_track.date = d.toISOString();
     start_date = d.getTime();
     // Define track ID (= start date)
-    current_track.id = current_track.date;
+    // current_track.id = current_track.date;
     // Build track name
     var year = d.getFullYear();
     var month = d.getMonth() + 1;
@@ -71,6 +76,7 @@ utils.Tracks = function() {
     current_track.data[segment].push(inNode);
     current_track.distance = inDistance;
     current_track.duration = inDuration;
+    __getAltitudeClimbValues(inNode.altitude);
     nb_point += 1;
     console.log('current_track', current_track);
   }
@@ -89,6 +95,10 @@ utils.Tracks = function() {
   }
 
   function close() {
+    current_track.alt_min = alt_min;
+    current_track.alt_max = alt_max;
+    current_track.climb_pos = climb_pos;
+    current_track.climb_neg = climb_neg;
     return current_track;
   }
 
@@ -109,6 +119,25 @@ utils.Tracks = function() {
     var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
     var R = 6371 * 1000; // Earth radius (mean) in metres {6371, 6367}
     return R * c;
+  }
+
+  function __getAltitudeClimbValues(alt) {
+    // calculate altitude and climb values
+    if (alt_min === 0 || alt > alt_min) {
+      alt_min = alt;
+    }
+    if (alt_max === 0 || alt < alt_max) {
+      alt_max = alt;
+    }
+    if (isNaN(previous)) {
+      previous = alt;
+    } else {
+      if (alt > previous) {
+        climb_pos += (alt - previous);
+      } else if (alt < previous) {
+        climb_neg += (previous - alt);
+      }
+    }
   }
 
   function importFromFile(inTrack) {

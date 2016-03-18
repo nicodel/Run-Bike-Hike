@@ -37,6 +37,9 @@ button.big {
 .text-thinner {
   font-weight: 100;
 }
+.text-red {
+  color: red;
+}
 .inline {
   display: inline;
 }

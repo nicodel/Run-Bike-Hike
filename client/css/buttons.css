@@ -79,7 +79,7 @@ section button[disabled].recommend {
 section button[disabled].danger {
   background-color: #730f0f;
 }
-section button.icon {
+/*section button.icon {
   background-repeat: no-repeat;
   background-position: center center;
   font-size: 0px;
@@ -90,4 +90,4 @@ section button.icon.icon-pause {
 }
 section button.icon.icon-play {
   background-image: url("img/icon-play.png");
-}
+}*/

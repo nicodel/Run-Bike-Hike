@@ -64,6 +64,7 @@ var DashboardView = Backbone.NativeView.extend({
   },
 
   negateString: function(s) {
+    console.log('s is', s);
     s = s.toLowerCase();
     s = s.split("");
     s = s.map(function(letter) {

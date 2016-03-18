@@ -19,3 +19,11 @@
 .tracking-view ul li.button {
   text-align: center;
 }
+.icon-pause {
+  background-color: #00caf2;
+  color: #fff;
+  padding: 1rem;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
