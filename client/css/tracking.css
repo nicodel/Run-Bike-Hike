@@ -1,9 +1,21 @@
+
+.tracking-view ul {
+  margin-left: 5%;
+  margin-right: 5%;
+  height: 100%
+}
+
 .tracking-view ul li {
   width: calc(50% - 1px);
-  height: 23%;
+  min-height: 29%;
   float: left;
 }
 
-.tracking-view ul li:first-child {
+.tracking-view ul li:first-child,
+.tracking-view ul li.button {
   width: 100%;
+}
+
+.tracking-view ul li.button {
+  text-align: center;
 }
