@@ -29,7 +29,7 @@ var MainView = Backbone.NativeView.extend({
     reports_view      : document.getElementById('reports-view'),
     preference_view   : document.getElementById('preferences-view'),
     dashboard_btn     : document.getElementById('dashboard-btn'),
-    session_btn       : document.getElementById('session-btn'),
+    // session_btn       : document.getElementById('session-btn'),
     tracking_btn      : document.getElementById('switch-to-gps'),
     new_session_btn   : document.getElementById('new-session-btn'),
     sessions_btn      : document.getElementById('sessions-btn'),
@@ -145,9 +145,11 @@ var MainView = Backbone.NativeView.extend({
       section.setAttribute('disabled', 'false');
       this.active_section = section;
 
-      this.active_button.className = '';
-      button.className = 'active';
-      this.active_button = button;
+      if (button) {
+        this.active_button.className = '';
+        button.className = 'active';
+        this.active_button = button;
+      }
     }
   },
 
