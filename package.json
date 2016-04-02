@@ -25,6 +25,11 @@
     "url": "https://github.com/nicodel/Run-Bike-Hike/issues"
   },
   "cozy-displayName": "Run, Bike, Hike...",
+  "cozy-permissions": {
+    "docs": {
+      "description": "docs contains all the informations"
+    }
+  },
   "icon-path": "img/icon128.png",
   "dependencies": {
     "americano": "^0.4.2",
