@@ -10,7 +10,7 @@
     "check:js": "./scripts/check-js.sh",
     "build": "./scripts/build.sh",
     "dev": "NODE_ENV=dev nodemon --debug ./server.js",
-    "start": "node ./server.js",
+    "start": "node server.js",
     "test": "mocha test/tests.js"
   },
   "config": {
