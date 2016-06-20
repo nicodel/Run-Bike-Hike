@@ -31,6 +31,9 @@ button.big {
 .text-thinner {
   font-weight: 100;
 }
+.text-red {
+  color: #E51E1E;
+}
 .align-left {
   float: left;
   margin-left: 8px;
@@ -63,7 +66,7 @@ button.big {
 
 .separateur-bottom {
   border-bottom: 0.1rem solid #C3C3C3;
-  padding-bottom: 2rem;
+  margin-bottom: 2rem;
 }
 
 .absolute {
@@ -74,6 +77,9 @@ button.big {
   display: none;
 }
 
+.disable {
+  opacity: 0.4;
+}
 .move-right {
   transform: translateX(100%);
   transition: transform 0.4s;

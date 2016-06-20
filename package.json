@@ -1,0 +1,30 @@
+{
+  "name": "Run-Bike-Hike",
+  "version": "0.1.18",
+  "description": "Run, Bike, Hike... allow you to record your running or biking sessions, so you can follow your sporting progress.",
+  "main": "index.js",
+  "scripts": {
+    "pre:build": "./tools/pre-build",
+    "build:js": "./tools/build-js",
+    "build:css": "./tools/build-css > public/app.css",
+    "build:html": "./tools/build-html",
+    "build:cp": "./tools/build-cp",
+    "packaging": "./tools/packaging 0.1.18",
+    "dev": "npm run pre:build && npm run build:js && npm run build:css && npm run build:html && npm run build:cp",
+    "build": "npm run pre:build && npm run build:js && npm run build:css && npm run build:html && npm run build:cp && npm run packaging",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nicodel/Run-Bike-Hike.git"
+  },
+  "author": "Nicolas Delebecque",
+  "license": "MPL2.0 licence",
+  "bugs": {
+    "url": "https://github.com/nicodel/Run-Bike-Hike/issues"
+  },
+  "devDependencies": {
+    "uglifycss": "0.0.14",
+    "uglifyjs": "^2.4.10"
+  }
+}

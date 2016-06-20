@@ -1,8 +1,11 @@
-"use strict;"
-// define(["controller"], function(Controller){
-var DB = function() {
-  window.indexedDB = window.shimIndexedDB  && window.shimIndexedDB.__useShim();
+/* jshint browser: true, strict: true, devel: true */
+/* exported DB */
+window.indexedDB = window.shimIndexedDB  && window.shimIndexedDB.__useShim();
 
+var DB = function() {
+  "use strict";
+
+  var db, g_error;
   var DB_NAME = "RunBikeHike";
   var DB_VERSION = 1; // Use a long long for this value (don't use a float)
   var DB_STORE_TRACKS = "tracks";
@@ -13,7 +16,9 @@ var DB = function() {
     {"key":"language", "value":"none"},
     {"key":"distance", "value":"0"},
     {"key":"speed", "value":"0"},
-    {"key":"position", "value":"0"}
+    {"key":"position", "value":"0"},
+    {"key":"frequency", "value":"auto"},
+    {"key":"storage", "value":"0"}
   ];
 /*  var DEFAULT_CONFIG = {
     screen : false,
@@ -27,11 +32,11 @@ var DB = function() {
     if (typeof(successCallback) === "function") {
       // DB.reset_app(DB_NAME);
       var req = window.indexedDB.open(DB_NAME, DB_VERSION);
-      req.onsuccess = function(e) {
+      req.onsuccess = function() {
         // console.log("DB created successfully: ", req.result);
         db = req.result;
         successCallback(req.result);
-        db.onabort = function(e) {
+        db.onabort = function() {
           db.close();
           db = null;
         };
@@ -41,7 +46,7 @@ var DB = function() {
         errorCallback(e.target.error.name);
         g_error = true;
       };
-      req.onupgradeneeded = function(event) {
+      req.onupgradeneeded = function() {
         //
         // Create tracks store as:
         //
@@ -51,7 +56,7 @@ var DB = function() {
         //
         // Create settings store as:
         //
-        var store = req.result.createObjectStore(DB_STORE_SETTINGS, {keyPath: "key"});
+        store = req.result.createObjectStore(DB_STORE_SETTINGS, {keyPath: "key"});
         store.createIndex("key", "key", {unique: true});
         store.createIndex("value", "value", {unique: false});
       };
@@ -63,7 +68,7 @@ var DB = function() {
     if (typeof successCallback === "function") {
 
       var tx = db.transaction(DB_STORE_TRACKS, "readwrite");
-      tx.oncomplete = function(e) {
+      tx.oncomplete = function() {
         // console.log("add_track transaction completed !");
       };
       tx.onerror = function(e) {
@@ -72,13 +77,13 @@ var DB = function() {
       };
       var store = tx.objectStore(DB_STORE_TRACKS);
       var req = store.add(inTrack);
-      req.onsuccess = function(e) {
+      req.onsuccess = function() {
         // console.log("track_add store store.add successful");
         successCallback(inTrack.name);
         // ??? going back to home ???
         // ui.back_home();
       };
-      req.onerror = function(e) {
+      req.onerror = function() {
         // console.error("track_add store store.add error: ", req.error.name);
         errorCallback(req.error.name);
       };
@@ -115,27 +120,27 @@ var DB = function() {
     req.onerror = function(e) {
       console("reset error: ", e.error.name);
     };
-    req.onsuccess = function(e) {
+    req.onsuccess = function() {
       console.log(DB_NAME + " deleted successful !");
     };
   }
   function deleteTrack(successCallback, errorCallback, inTrack) {
     if (typeof successCallback === "function") {
       var tx = db.transaction(DB_STORE_TRACKS, "readwrite");
-      tx.oncomplete = function(e) {
+      tx.oncomplete = function() {
         console.log("delete_track transaction completed !");
       };
-      tx.onerror = function(e) {
+      tx.onerror = function() {
         console.error("delete_track transaction error: ", tx.error.name);
-        errorCallback(x.error.name);
+        errorCallback(tx.error.name);
       };
       var store = tx.objectStore(DB_STORE_TRACKS);
       var req = store.delete(inTrack.id);
-      req.onsuccess = function(e) {
+      req.onsuccess = function() {
         console.log("track_delete store store.delete successful");
         successCallback(inTrack.name);
       };
-      req.onerror = function(e) {
+      req.onerror = function() {
         console.error("track_delete store store.delete error: ", req.error.name);
         errorCallback(req.error.name);
       };
@@ -155,15 +160,22 @@ var DB = function() {
           settings.push(cursor.value);
           cursor.continue();
         } else {
+          console.log("!settings:", settings);
           if (settings.length === 0) {
-            console.log("no config found, loading the default one !")
+            console.log("no config found, loading the default one !");
             settings = DEFAULT_CONFIG;
             __saveDefaultConfig();
-          };
+          // Adding Frequency settings
+          } else if (settings.length === 5) {
+            __addSettingsParameter("frequency", "auto");
+          } else if (settings.length === 6) {
+            console.log("settings.length === 6", settings);
+            __addSettingsParameter("storage", "0");
+          }
           var prettySettings = {};
           for (var i = 0; i < settings.length; i++) {
             prettySettings[settings[i].key] = settings[i].value;
-          };
+          }
           console.log("loaded settings are:", prettySettings);
           successCallback(prettySettings);
         }
@@ -178,16 +190,16 @@ var DB = function() {
       var tx = db.transaction(DB_STORE_TRACKS, "readwrite");
       var store = tx.objectStore(DB_STORE_TRACKS);
       var req = store.get(inTrack.id);
-      req.onsuccess = function(e) {
+      req.onsuccess = function() {
         var req2 = store.put(inTrack);
-        req2.onsuccess = function(e) {
+        req2.onsuccess = function() {
           console.log("successfully updated");
-        }
+        };
         req2.onerror = function(e) {
           console.log("failure on saving map");
           errorCallback(e.error.name);
-        }
-      }
+        };
+      };
     } else  {
       errorCallback("addTrack successCallback should be a function");
     }
@@ -197,17 +209,17 @@ var DB = function() {
       var tx = db.transaction(DB_STORE_TRACKS, "readwrite");
       var store = tx.objectStore(DB_STORE_TRACKS);
       var req = store.get(inTrack.id);
-      req.onsuccess = function(e) {
+      req.onsuccess = function() {
         var req2 = store.put(inTrack);
-        req2.onsuccess = function(e) {
+        req2.onsuccess = function() {
           console.log("successfully updated");
           successCallback();
-        }
+        };
         req2.onerror = function(e) {
           console.log("failure on updating");
           errorCallback(e.error.name);
-        }
-      }
+        };
+      };
     } else  {
       errorCallback("addTrack successCallback should be a function");
     }
@@ -215,12 +227,11 @@ var DB = function() {
   function __saveDefaultConfig() {
     console.log("saving default config");
     var tx = db.transaction(DB_STORE_SETTINGS, "readwrite");
-    tx.oncomplete = function(e) {
+    tx.oncomplete = function() {
       // console.log("successful creating default config !");
     };
-    tx.onerror = function(e) {
+    tx.onerror = function() {
       // console.error("default config transaction error: ", tx.error.name);
-      errorCallback(x.error.name);
     };
     var store = tx.objectStore([DB_STORE_SETTINGS]);
 /*    var req = store.add(DEFAULT_CONFIG);
@@ -232,14 +243,23 @@ var DB = function() {
     };*/
     for (var i = 0; i < DEFAULT_CONFIG.length; i++) {
       var req = store.add(DEFAULT_CONFIG[i]);
-      req.onsuccess = function(e) {
+      req.onsuccess = function() {
         // body...
         // console.log("added: ", e.target.result);
       };
-      req.onerror = function(e) {
+      req.onerror = function() {
         // console.error("error: ", req.error.name);
       };
-    };
+    }
+  }
+  function __addSettingsParameter(inKey, inValue) {
+    var tx = db.transaction(DB_STORE_SETTINGS, "readwrite");
+    tx.oncomplete = function() {};
+    tx.onerror = function() {};
+    var store = tx.objectStore([DB_STORE_SETTINGS]);
+    var req = store.add({"key":inKey, "value": inValue});
+    req.onsuccess = function() {};
+    req.onerror = function() {};
   }
 
   function updateConfig(successCallback, errorCallback, inKey, inValue) {
@@ -247,23 +267,25 @@ var DB = function() {
       var tx = db.transaction(DB_STORE_SETTINGS, "readwrite");
       var store = tx.objectStore(DB_STORE_SETTINGS);
       var req = store.get(inKey);
-      console.log("req", req);
-      req.onsuccess = function(e) {
-        req.result.value = inValue;
-        console.log("req.result", req.result);
-        var req2 = store.put(req.result);
-        console.log("req2", req2);
-        req2.onsuccess = function(e) {
-          console.log("successfully updated");
-          successCallback();
+      req.onsuccess = function() {
+        console.log("req", req);
+        if (req.result) {
+          req.result.value = inValue;
+          console.log("req.result", req.result);
+          var req2 = store.put(req.result);
+          console.log("req2", req2);
+          req2.onsuccess = function() {
+            console.log("successfully updated");
+            successCallback();
+          };
+         req2.onerror = function(e) {
+           errorCallback(e.error.name);
+         };
         }
-        req2.onerror = function(e) {
-          errorCallback(e.error.name);
-        }
-      }
+      };
       req.onerror = function(e) {
         errorCallback(e.error.name);
-      }
+      };
     } else  {
       errorCallback("updateConfig successCallback should be a function");
     }

@@ -1,0 +1,23 @@
+#!/usr/bin/env node
+var uglifycss = require('uglifycss');
+var uglified = uglifycss.processFiles(
+  [
+    'css/reset.css',
+    'css/fonts.css',
+    'css/x.css',
+    'css/x-layout.css',
+    'css/x-appbar.css',
+    'css/x-toggle.css',
+    'css/form.css',
+    'css/buttons.css',
+    'css/switches.css',
+    'css/spinner.css',
+    'css/status.css',
+    'css/input_areas.css',
+    'css/select.css',
+    'css/app.css',
+    'css/styles.css'
+  ],
+  {}
+);
+console.log(uglified);

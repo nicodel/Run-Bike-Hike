@@ -60,7 +60,7 @@ uglifyjs ../tmp/files_concat.js -mc -o ../tmp/app.js
 echo -e "Done -> ../tmp/app.js"
 
 # Identify CSS files from index.html
-echo -e "\n######################\n## Identify CSS files fron index.html"
+cho -e "\n######################\n## Identify CSS files fron index.html"
 cat ../index.html |grep 'href="css'  | awk '{print $3}'  | cut -c 7- |cut -f1 -d '"' > ../tmp/css_files.txt
 sed -i "s/.*/\.\.\/&/" ../tmp/css_files.txt
 for i in $(cat ../tmp/css_files.txt); do echo -e $i; done

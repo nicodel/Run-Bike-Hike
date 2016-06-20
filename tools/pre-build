@@ -1,0 +1,17 @@
+#!/bin/bash
+if [ -d public ]
+then
+  rm -R public
+fi
+
+mkdir public
+mkdir public/lib
+mkdir public/img
+mkdir public/locales
+mkdir public/font
+
+if [ ! -d builds ]
+then
+  mkdir builds
+fi
+

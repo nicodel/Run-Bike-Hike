@@ -15,6 +15,9 @@
     <!--······························ Brick ································-->
     <link rel="stylesheet" href="lib/brick/brick-1.0.1.byob.min.css"/>
 
+    <!--····························· Leaflet ·······························-->
+    <link rel="stylesheet" href="lib/leaflet/leaflet.css"/>
+
     <!--······························ Reset ································-->
     <link rel="stylesheet" href="css/reset.css"/>
 
@@ -64,8 +67,9 @@
                 <p data-l10n-id="language">Language</p>
                 <select id="language">
                   <option value="en" data-l10n-id="english">English</option>
-                  <!-- <option value="es" data&#45;l10n&#45;id="spanish">Español</option> -->
+                  <option value="es" data-l10n-id="spanish">Español</option>
                   <option value="fr" data-l10n-id="french">Français</option>
+                  <option value="de" data-l10n-id="german">Deutsch</option>
                 </select>
               </li>
               <li>
@@ -91,24 +95,35 @@
                 </select>
               </li>
               <li>
+                <p data-l10n-id="geoposition-frequency">Geoposition frequency</p>
+                <select id="frequency">
+                  <option value="0" data-l10n-id="continuous">Continuous</option>
+                  <option value="1" data-l10n-id="1-second" selected>1 second (default)</option>
+                  <option value="2" data-l10n-id="2-seconds">2 seconds</option>
+                  <option value="5" data-l10n-id="5-seconds">5 seconds</option>
+                  <option value="10" data-l10n-id="10-seconds">10 seconds</option>
+               </select>
+              </li>
+              <li>
+                <p data-l10n-id="settings-storage">Default storage location</p>
+                <select id="storage">
+                </select>
+              </li>
+
+              <li>
                 <h2 data-l10n-id="informations" class="about">Informations</h2>
-                <p data-l10n-id="version" class="about version"><span class="align-left">Run, Bike, Hike...</span><span class="align-right">version 0.1.7</span></p>
-                <p data-l10n-id="contribute" class="about">You can <a href="https://github.com/nicodel/Run-Bike-Hike">contibute</a> to the project.</p>
-                <p data-l10n-id="translate" class="about">You can help <a href="http://beta.babelzilla.org/projects/p/run-bike-hike/">localize it</a> in your language.</p>
+                <p class="about">Run, Bike, Hike...<span data-l10n-id="version" data-l10n-args='{"version":"0.1.18"}' class="align-right"></span></p>
+                <p data-l10n-id="contribute" class="about">You can <a href="https://github.com/nicodel/Run-Bike-Hike">contribute</a> to the project.</p>
+                <p data-l10n-id="translate" class="about">You can help <a href="https://www.transifex.com/projects/p/run-bike-hike/translate/">localize it</a> in your language.</p>
                 <p data-l10n-id="bug" class="about">You can also report a <a href="https://github.com/nicodel/Run-Bike-Hike/issues">bug</a>.</p>
-                <p data-l10n-id="contributors" class="about">The contributors to this project are <a href="https://github.com/nicodel">nicodel</a>, Bonbadil, <a href="https://mathieu.rochette.cc/">mathroc</a>.</p>
-                <p data-l10n-id="credits" class="about">The sports icons are under CC BY, and made by<a href="http://icons8.com/">icons8.com</a>.</p>
+                <p data-l10n-id="contributors" class="about">The contributors to this project are <a href="https://github.com/nicodel">nicodel</a>, Bonbadil, <a target="_blank" href="https://mathieu.rochette.cc/">mathroc</a>.</p>
+                <p data-l10n-id="credits" class="about">The sports icons are under CC BY, and made by <a href="http://icons8.com/">icons8.com</a>.</p>
                 <p data-l10n-id="licence" class="about">This application source code is licenced under the <a href="http://www.mozilla.org/MPL/2.0/">MPL2.0</a> licence.</p>
               </li>
-              <!-- <li> -->
-                <!-- <p>Dev Mode </p> -->
-                <!-- <button id="dev&#45;import" class="danger">Import</button> -->
-              <!-- </li> -->
             </ul>
           </section>
         </x-layout>
       </x-card>
-
 
       <!-- Card 1 :  Home View -->
       <x-card>
@@ -123,7 +138,7 @@
                 <li>
                   <div data-l10n-id="elapsed-time" class="home-title text-big text-thin">Elapsed time</div>
                   <div id="home-chrono" class="home-value align-center text-huger text-thin new-line">0:00:00</div>
-
+                  <button data-l10n-id="pause" id="btn-pause" class="hidden recommend small icon icon-pause">Pause</button>
                 </li>
                 <li>
                   <div data-l10n-id="distance" class="home-title text-big text-thin">Distance
@@ -154,10 +169,9 @@
                   <div data-l10n-id="direction" class="new-line home-title text-small text-thin">Direction</div>
                   <div id="home-dir" class="new-line home-value-right text-small text-thin">?</div>
                 </li>
-                <li id="button">
+                <li class="button">
                   <button data-l10n-id="start" id="btn-start-stop" class="recommend big">Start</button>
                 </li>
-
 
 
                 <li id="message" class="front">
@@ -165,7 +179,7 @@
                     <progress id="spinner"></progress>
                     <p data-l10n-id="retreiving" id="msg" class="text-big align-center">Retreiving GPS signal. It may take some time...</p>
                     <p data-l10n-id="accmsg" id="accmsg" class="hidden text-big align-center"></p>
-                    <p data-l10n-id="error-position" id="errmsg" class="hidden text-big align-center"></p>
+                    <p id="errmsg" class="hidden text-big align-center"></p>
                   </div>
                 </li>
               </ul>
@@ -195,22 +209,12 @@
           <x-appbar>
             <button data-l10n-id="back" id="btn-tracks-back" class="icon icon-back">Back</button>
             <h1 data-l10n-id="recorded-tracks">Recorded tracks</h1>
+            <button data-l10n-id="import" id="btn-import" class="icon icon-import">Import</button>
           </x-appbar>
           <section data-type="list">
-            <ul id="tracks-list">
+            <div id="list-spinner"><progress></progress></div>
+            <ul id="tracks-list" data-state="dirty">
             </ul>
-            <!-- Testing : Start -->
-            <!-- <li>
-            <a id="TR-2014421-15195"><p>
-              <span class="align-left bold clipped">TR-SAMPLE</span>
-              <span class="align-right">21/05/2014</span>
-            </p>
-            <p class="new-line">
-              <span class="align-left">15km</span>
-              <span class="align-right">50min</span>
-            </p></a>
-            </li> -->
-            <!-- Testing : Stop  -->
           </section>
         </x-layout>
       </x-card>
@@ -269,16 +273,18 @@
                   <span id="trk-min-alt" class="bold align-right"></span>
                 </div>
               </li>
-              <li>
+              <li class="separateur-bottom">
                 <div id="spinner-box" class="align-center">
                   <progress id="track-spinner"></progress>
                   <p data-l10n-id="loading-map" id="map-text">Loading map...</p>
                 </div>
-                <img src="" id="map-img" class="hidden" />
+                <!-- <img src="" id="map&#45;img" class="hidden" /> -->
+                <div id='map'></div>
               </li>
-            <li class="separateur-bottom">
-              <canvas id="graphs-canvas"></canvas>
-            </li>
+              <li class="separateur-bottom">
+                <canvas id="graphs-canvas"></canvas>
+              </li>
+
             </ul>
           </section>
         </x-layout>
@@ -324,7 +330,6 @@
               <img id="icon-mountain_biking" src="img/activities/mountain_biking.svg"/>
               <img id="icon-horse_riding" src="img/activities/horse_riding.svg"/>
               <img id="icon-skiing" src="img/activities/skiing.svg"/>
-              <!-- <button type="reset" data-l10n-id="clear" id="btn-clear-icon">Clear</button> -->
             </p>
           </section>
           <menu>
@@ -342,11 +347,14 @@
             <p>
               <span data-l10n-id="choose-how-share-track">Choose how you want to share your track</span>
             </p>
-            <select id="select-share">
-              <option value="email" data-l10n-id="email">Email</option>
-              <!-- <option value="twitter" data&#45;l10n&#45;id="twitter">Twitter</option> -->
-              <option value="local" data-l10n-id="on-device">On device</option>
-            </select>
+            <label class="pack-radio">
+              <input type="radio" value="on-device" name="radio-share" checked>
+              <span data-l10n-id="export-device-storage">Export track in GPX format to device storage</span>
+            </label>
+            <label class="pack-radio disable">
+              <input type="radio" value="on-social" name="radio-share" disabled>
+              <span data-l10n-id="share-social-apps">Be proud to share your track to the social apps installed on your device.</span>
+            </label>
           </section>
           <menu>
             <button id="btn-cancel-share" class="cancel" data-l10n-id="cancel">Cancel</button>
@@ -361,22 +369,22 @@
           <section data-type="file-selector">
             <h1 data-l10n-id="import-track">Import a GPX file</h1>
             <p>
-              <span data-l10n-id="import-track-path">SD-CARD: rbh/import</span>
+              <span id="import-track-path"></span>
             </p>
             <select id="select-file">
               <option value="empty">--</option>
-              <!--- EXAMPLES -->
-              <option value="test/16181.gpx">TRACK-1.gpx</option>
-              <option value="test/17936.gpx">TRACK-2.gpx</option>
-              <option value="test/TR201410011900145.gpx">TRACK-3.gpx</option>
-              <!-- -->
             </select>
+            <input id="input-file" type="file" class="hidden"></input>
+            <p id="import-msg-area"></p>
           </section>
           <menu>
             <button id="btn-cancel-import" class="cancel" data-l10n-id="cancel">Cancel</button>
             <button id="btn-confirm-import" role="button" class="danger" data-l10n-id="import" disabled="disabled">Import</button>
           </menu>
         </form>
+        <div id="import-spinner-area" class="hidden behind">
+          <progress id="import-spinner"class="align-center top40"></progress>
+        </div>
       </x-card>
 
     </x-deck>
@@ -385,19 +393,21 @@
     <!-- Localization -->
     <script type="text/javascript" src="lib/webL10n/l10n.js"></script>
     <script type="text/javascript" src="lib/brick/brick-1.0.1.byob.min.js"></script>
-    <!-- <script type="text/javascript" src="test/data.js"></script> -->
     <script type="text/javascript" src="js/views/home-view.js"></script>
+    <script type="text/javascript" src="lib/leaflet/leaflet.js"></script>
     <script type="text/javascript" src="js/views/infos-view.js"></script>
     <script type="text/javascript" src="js/views/tracks-view.js"></script>
+    <script type="text/javascript" src="js/views/import-view.js"></script>
     <script type="text/javascript" src="js/views/track-view.js"></script>
     <script type="text/javascript" src="js/views/status.js"></script>
     <script type="text/javascript" src="js/models/chrono.js"></script>
     <script type="text/javascript" src="js/models/config.js"></script>
     <script type="text/javascript" src="js/models/share.js"></script>
     <script type="text/javascript" src="js/models/gpx.js"></script>
+    <script type="text/javascript" src="js/models/dynamicmap.js"></script>
+    <script type="text/javascript" src="js/models/fx_device_storage.js"></script>
     <script type="text/javascript" src="js/models/db.js"></script>
     <script type="text/javascript" src="js/models/tracks.js"></script>
-    <script type="text/javascript" src="js/models/export_tracks.js"></script>
     <script type="text/javascript" src="js/events.js"></script>
     <script type="text/javascript" src="js/controller.js"></script>
     <script type="text/javascript" src="js/app.js"></script>

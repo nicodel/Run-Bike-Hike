@@ -1,15 +1,20 @@
-"use strict;"
-// define(function(){
+/* jshint browser: true, strict: true, devel: true */
+/* exported Tracks */
+
 var Tracks = function() {
+  "use strict";
 
   var current_track = {};
+  var segment = 0;
   var start_date;
   var distance = 0;
   var olat = null;
   var olon = null;
+  var nb_point = 0;
 
   function open() {
     current_track = {};
+    segment = 0;
     // Get start date
     var d = new Date();
     current_track.date = d.toISOString();
@@ -25,19 +30,19 @@ var Tracks = function() {
     var sec = d.getSeconds();
     if (month < 10) {
       month = "0" + month.toString();
-    };
+    }
     if (day < 10) {
       day = "0" + day.toString();
-    };
+    }
     if (hour < 10) {
-      hour = "0" + day.toString();
-    };
+      hour = "0" + hour.toString();
+    }
     if (min < 10) {
-      min = "0" + day.toString();
-    };
+      min = "0" + min.toString();
+    }
     if (sec < 10) {
-      sec = "0" + day.toString();
-    };
+      sec = "0" + sec.toString();
+    }
 
     current_track.name = "TR-"+year+month+day+"-"+hour+min+sec;
     // Initiate the rest
@@ -51,19 +56,28 @@ var Tracks = function() {
     return current_track;
   }
 
+  function newSegment() {
+    segment += 1;
+    console.log('segment', segment);
+  }
+
   function addNode(inNode, inDistance, inDuration) {
-    // console.log("inNode", inNode);
-    current_track.data.push(inNode);
+    // check if current segment exist within data
+    if (!current_track.data[segment]) {
+      current_track.data[segment] = [];
+    }
+    current_track.data[segment].push(inNode);
     current_track.distance = inDistance;
     current_track.duration = inDuration;
-    nb_point =+ 1;
+    nb_point += 1;
+    console.log('current_track', current_track);
   }
 
   function getDistance(lat, lon) {
-    if (olat != null) {
+    if (olat !== null) {
       distance += __distanceFromPrev(olat, olon, lat, lon);
-      console.log("distance: ", distance);
-    };
+      // console.log("distance: ", distance);
+    }
     olat = lat;
     olon = lon;
     return distance;
@@ -110,15 +124,21 @@ var Tracks = function() {
     return current_track;
   }
 
+  function resumed() {
+   olat = null;
+   olon = null;
+  }
 
   return {
-    open: open,
-    addNode: addNode,
-    getDuration: getDuration,
-    getDistance: getDistance,
-    reset: reset,
-    close: close,
-    importFromFile: importFromFile
+    open:           open,
+    newSegment:     newSegment,
+    addNode:        addNode,
+    getDuration:    getDuration,
+    getDistance:    getDistance,
+    reset:          reset,
+    close:          close,
+    importFromFile: importFromFile,
+    resumed:        resumed
   };
 }();
 // });

@@ -1,60 +1,49 @@
+/* jshint browser: true, strict: true, devel: true */
+/* exported Share */
+/* global MozActivity */
+
 var Share = function() {
-  function toLocal(inFile, inName, successCallback, errorCallback) {
-    console.log("saving to local :-(");
-    var sdcard = navigator.getDeviceStorage("sdcard");
-    // var blob = new Blob (["this is a new file."], {"type":"plain/text"});
-    var blob = new Blob ([inFile], {"type":"plain/text"});
+  "use strict";
 
-    var req = sdcard.addNamed(blob, "/sdcard/rbh/" + inName);
-
-    req.onsuccess = function() {
-      successCallback("success on saving file ", this.result);
-    };
-
-    req.onerror = function() {
-      if (this.error.name === "NoModificationAllowedError") {
-        console.warn('Unable to write the file: ', 'File already exists');
-        errorCallback('Unable to write the file: ' + 'File already exists');
-      } else if (this.error.name === "SecurityError") {
-        console.warn('Unable to write the file: ', 'Permission Denied');
-        errorCallback('Unable to write the file: ' + 'Permission Denied');
-      } else {
-        console.warn('Unable to write the file: ', this.error.name);
-        errorCallback('Unable to write the file: ' + this.error.name);
-      };
-    };
-  }
-
-  function toEmail(inTrack, inFile) {
-    var blob = new Blob([inFile], {type: "text/plain"});
-    var name = inTrack.name + ".gpx";
-    var subject = "Track: " + name;
-    
+  function toApps(inTrack, inFile, successCallback, errorCallback) {
+    console.log("social apps share");
+    var name = inTrack.name;
+    // var body = "I have completed a track! o/";
+    var url = "mailto:?subject=Track: " + name;
+    // url += "&body=" + body;
+    // var blob = new Blob([inFile], {type: "application/gpx+xml"});
     var activity = new MozActivity({
-      name: "new",
+      name: "share",
       data: {
-        type: "mail",
-        url: "mailto:?subject=" + subject,
-        filenames: [name, inTrack.name + ".jpg"],
-        blobs: [blob, inTrack.map]
-     }
+        type:"image/*",
+        url: url,
+        // number: 1,
+        filenames: [/*name, */name + ".jpg"],
+        blobs: [/*blob, */inTrack.map]
+      }
     });
 
     activity.onsuccess = function() {
-      console.log("email send with success:", this.result);
-    }
+      // console.log("share success", this);
+      successCallback();
+    };
     activity.onerror = function() {
-      console.log("email not send:", this.error);
-    }
+      console.log("share error", this.error);
+      if (this.error.name === 'NO_PROVIDER') {
+        console.log("share-activity-noprovider");
+        errorCallback("share-activity-noprovider");
+      } else {
+        console.log("share-activity-error", this.error.name);
+        errorCallback("share-activity-error", this.error.name);
+
+      }
+    };
   }
-
-  function toTwitter() {}
-
 
 
   return {
-    toLocal: toLocal,
-    toEmail: toEmail,
-    toTwitter: toTwitter
-  }
+    // toLocal: toLocal,
+/*    toEmail: toEmail,*/
+    toApps: toApps
+  };
 }();

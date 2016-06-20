@@ -80,7 +80,6 @@ x-layout > [data-type="settings"] ul li {
 x-layout > [data-type="settings"] ul li a {
   font-size: 1.5rem;
   line-height: 5rem;
-  vertical-align: middle;
 }
 x-layout > [data-type="settings"] ul li > label.pack-switch > span {
   padding-right: 9rem;
@@ -140,7 +139,7 @@ x-layout > [data-type="settings"] ul li .button {
 }
 x-layout > [data-type="settings"] ul li .button.icon-dialog:before {
   background-color: transparent;
-  background-image: url('../img/button-dialog.png');
+  background-image: url('img/button-dialog.png');
   background-repeat: no-repeat;
   background-position: 100% 0%;
   background-size: auto auto;
@@ -235,10 +234,10 @@ x-layout > [data-type="home"] ul li {
 /*  text-align: center;*/
 }
 x-layout > [data-type="home"] ul li:first-child,
-x-layout > [data-type="home"] ul li#button {
+x-layout > [data-type="home"] ul li.button {
   width: 100%;
 }
-x-layout > [data-type="home"] ul li#button {
+x-layout > [data-type="home"] ul li.button {
   text-align: center;
   padding-top: 1rem;
   padding-bottom: 0.5rem;
@@ -247,8 +246,7 @@ x-layout > [data-type="home"] ul li#button {
 x-layout > [data-type="home"] ul li.bottom {
   height: calc(50% - 7rem);
 }
-x-layout > [data-type="home"] ul li:last-child,
-x-layout > [data-type="list"] ul li:first-child {
+x-layout > [data-type="home"] ul li:last-child {
   position: fixed;
   /*z-index: 10;*/
   width: 100%;

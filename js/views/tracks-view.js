@@ -1,8 +1,11 @@
-"use strict;"
+/* jshint browser: true, strict: true, devel: true */
+/* exported TracksView */
+/* global _, Config */
+
 var TracksView = function() {
+  "use strict";
 
   function display(inTracks, displayTrackCallback) {
-    // __remove_childs("tracks-list");
     var list = document.getElementById("tracks-list");
     console.log("list.childNodes",list.childNodes);
 /*    for (i = 0; i = list.childNodes.length - 1; i++) {
@@ -28,7 +31,7 @@ var TracksView = function() {
         //console.log("buildList i ", i);
       }
     }
-    document.getElementById("list-spinner").className = "behind hidden";
+    document.getElementById("list-spinner").className = "hidden behind";
 
     /*
      * TESTING !!!
@@ -53,15 +56,12 @@ var TracksView = function() {
   }
 
   function reset() {
+    console.log("Tracks list marked as dirty.");
+    document.getElementById("tracks-list").dataset.state = "dirty";
     if (document.getElementById("tracks-list").hasChildNodes()) {
-      __remove_childs("tracks-list");
-      var li = document.createElement("li");
-      li.className = "ontop";
-      li.id = "list-spinner"
-      var div = '<div class="align-center top40"><progress id="spinner"></progress></div>';
-      li.innerHTML = div;
-      document.getElementById("tracks-list").appendChild(li);
-    };
+      document.getElementById("tracks-list").innerHTML = "";
+      document.getElementById("list-spinner").className = "";
+    }
   }
 
   function __showEmpty() {
@@ -78,33 +78,28 @@ var TracksView = function() {
     var lia = document.createElement("a");
     var a = Config.userDistance(inTrack.distance);
     var div = '<p class="track-title">';
-    if (inTrack.icon == null) {
+    if (inTrack.icon === null || inTrack.icon === undefined) {
        inTrack.icon = "default";
     }
     div = div + '<img class="track-icon" src="img/activities/' + inTrack.icon + '.svg" />';
     div = div + '<span class="track-name">' + inTrack.name + '</span>';
     div = div + '</p><p class="track-description">';
-    div = div + '<span class="track-date">' + Config.userDate(inTrack.date) + '</span>';
+    if (inTrack.date === 0) {
+      div = div + '<span class="track-date">--/--/--</span>';
+    } else {
+      div = div + '<span class="track-date">' + Config.userDate(inTrack.date) + '</span>';
+    }
     div = div + '<span class="track-length">' + a.v + " " + a.u + '</span>';
     div = div + '<span class="track-duration">' + (isNaN(inTrack.duration) ? '--' : (inTrack.duration / 60000).toFixed()) + ' min</span>';
     div = div + '</p>';
     lia.innerHTML = div;
     li.appendChild(lia);
     document.getElementById("tracks-list").appendChild(li);
-    lia.addEventListener("click", function(e){
+    lia.addEventListener("click", function(){
       // console.log("click: track " + inTrack + "will be displayed");
       document.getElementById("views").showCard(4);
       displayTrackCallback(inTrack);
     });
-  }
-
-  function __remove_childs(parent) {
-    var d = document.getElementById(parent).childNodes;
-    console.log("d",d);
-    for (i = 0; i = d.length - 1; i++) {
-      console.log("remove element " + i + " " + d[i]);
-      document.getElementById(parent).removeChild(d[i]);
-    }
   }
 
   return {
